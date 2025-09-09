@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marco Rios – Data/Backend (Python + SQL)</title>
-  <meta name="description" content="Portafolio de Marco Rios – Data/Backend Engineer. Python, SQL Server, ETL, automatización y MLOps básico." />
+  <meta name="description" content="Portafolio de Marco Rios – Ing. Electrónico, Python, SQL Server, ETL, automatización y MLOps básico." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -23,10 +23,10 @@
       <a href="#home" class="font-semibold tracking-wide">Marco Rios</a>
       <div class="hidden md:flex items-center gap-6 text-sm">
         <a href="#projects" class="hover:text-white/90">Proyectos</a>
-        <a href="/help/" class="hover:text-white/90">Ayuda</a>
         <a href="#skills" class="hover:text-white/90">Tecnologías</a>
-        <a href="#about" class="hover:text-white/90">Acerca</a>
         <a href="#contact" class="hover:text-white/90">Contacto</a>
+        <a href="/about/" class="hover:text-white/90">Acerca de mí</a>
+        <a href="/help/" class="hover:text-white/90">Ayuda</a>
       </div>
       <a href="#contact" class="rounded-xl bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Disponibilidad: Remoto (UTC-5)</a>
     </nav>
@@ -37,6 +37,8 @@
     <div class="grid md:grid-cols-5 gap-8 items-center">
       <div class="md:col-span-3 space-y-5">
         <span class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">Data/Backend · Python + SQL · ETL</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">Ingeniero electrónico</span>
+
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
           Construyo <span class="text-emerald-400">pipelines confiables</span> con Python→SQL Server, trazabilidad y reportes.
         </h1>
@@ -77,16 +79,17 @@
           <span class="badge border-white/15">SQL Server</span>
           <span class="badge border-white/15">Prefect</span>
         </div>
-        <h3 class="text-lg font-semibold">Case Study: Pipeline de captura masiva (datos sintéticos)</h3>
-        <p class="mt-2 text-sm text-slate-300">Extracción de códigos de barras/OMR/ICR → validaciones y deduplicación → carga a SQL Server → observabilidad (logs estructurados, checksums MD5, métricas, colas de reintento). Incluye app de operaciones en PySide6 para reprocesos.</p>
+        <h3 class="text-lg font-semibold">Peru DataOps ETL & Reconciliation (synthetic)</h3>
+        <p class="mt-2 text-sm text-slate-300">Ingesta de archivos operativos/contables (CSV) → validaciones de esquema y control de totales → deduplicación → carga a SQL (SQL Server/Postgres) → reporte automático y observabilidad (logs estructurados, métricas, reintentos). 100% datos sintéticos.</p>
         <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
-          <li>−40% tiempo de procesamiento ● −60% correcciones manuales</li>
-          <li>Arquitectura, core Python, diseño de DB y despliegue en Windows Server</li>
+          <li>Reduce tiempos de conciliación con reglas explicables y trazabilidad</li>
+          <li>Orquestación con Prefect/Airflow y documentación clara</li>
         </ul>
         <div class="mt-4 flex gap-3">
-          <a href="https://github.com/marcorios99" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo (redactado)</a>
+          <a href="https://github.com/marcorios99" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
           <a href="/projects/peru-dataops-etl/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Demo</a>
-        </div></article>
+        </div>
+      </article>
 
       <!-- Project 1.5 (Embebidos) -->
       <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
@@ -111,14 +114,14 @@
           <span class="badge border-white/15">SQL Server/Postgres</span>
           <span class="badge border-white/15">Great Expectations/Pandera</span>
         </div>
-        <h3 class="text-lg font-semibold">Conciliación operativa/contable automatizada</h3>
-        <p class="mt-2 text-sm text-slate-300">Framework para conciliar archivos (CSV/XLSX/DB) con control de totales, reglas explicables y reportes automáticos para gerencia. Jobs programados, alertas y documentación clara.</p>
+        <h3 class="text-lg font-semibold">PySpark Lakehouse – tarjetas de crédito (sintético)</h3>
+        <p class="mt-2 text-sm text-slate-300">Generación de transacciones sintéticas de tarjeta, capas Bronze→Silver→Gold en Parquet/Delta, particionadas por fecha. Features por cliente/mes y consultas de ejemplo.</p>
         <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
-          <li>−30–40% tiempo de conciliación ● Auditoría y trazabilidad mejoradas</li>
+          <li>PySpark + Delta/Parquet, particionado y joins</li>
         </ul>
         <div class="mt-4 flex gap-3">
           <a href="https://github.com/marcorios99" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
-          <a href="/projects/peru-dataops-etl/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Demo</a>
+          <a href="/projects/pyspark-lakehouse/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Demo</a>
         </div>
       </article>
 
@@ -127,11 +130,13 @@
         <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
           <span class="badge border-white/15">FastAPI</span>
           <span class="badge border-white/15">MLflow</span>
+          <span class="badge border-white/15">TensorFlow</span>
+          <span class="badge border-white/15">PyTorch</span>
           <span class="badge border-white/15">Docker</span>
           <span class="badge border-white/15">CI/CD (GitHub Actions)</span>
         </div>
         <h3 class="text-lg font-semibold">MLOps mini‑stack: entrenamiento, tracking y despliegue</h3>
-        <p class="mt-2 text-sm text-slate-300">Entrenamiento (scikit‑learn), tracking con MLflow, empaquetado como API **FastAPI** y despliegue Docker. Pipeline CI que ejecuta tests, lint y build de imagen.</p>
+        <p class="mt-2 text-sm text-slate-300">Entrenamiento (scikit‑learn / TensorFlow / PyTorch), tracking con MLflow, empaquetado como API <strong>FastAPI</strong> y despliegue Docker. Pipeline CI que ejecuta tests, lint y build de imagen.</p>
         <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
           <li>Plantilla lista para clonar y adaptar a cualquier modelo</li>
         </ul>
@@ -148,10 +153,11 @@
           <span class="badge border-white/15">Delta/Parquet</span>
           <span class="badge border-white/15">Airflow/Prefect</span>
         </div>
-        <h3 class="text-lg font-semibold">ETL en PySpark (parquet/delta) + orquestación</h3>
-        <p class="mt-2 text-sm text-slate-300">ETL en PySpark sobre dataset público, particionado por fechas, escritura a Parquet/Delta y orquestación con Prefect/Airflow. Ideal para roles con Spark.</p>
+        <h3 class="text-lg font-semibold">Job‑Skills Miner Perú (ETL + análisis)</h3>
+        <p class="mt-2 text-sm text-slate-300">Carga de descripciones de empleos (CSV exportado/manual), extracción de habilidades (regex/NLP simple) y reportes interactivos de frecuencia/tendencias. Pensado para roles data/backend en Perú.</p>
         <div class="mt-4 flex gap-3">
           <a href="https://github.com/marcorios99" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
+          <a href="/projects/job-skills-miner/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Demo</a>
         </div>
       </article>
     </div>
@@ -175,7 +181,11 @@
       </div>
       <div class="rounded-2xl border border-white/10 p-4">
         <h3 class="font-semibold mb-2">MLOps</h3>
-        <p>scikit‑learn, MLflow, Docker, GitHub Actions</p>
+        <p>MLflow, FastAPI, Docker, GitHub Actions, DVC (básico)</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">Modelado / Deep Learning</h3>
+        <p>scikit‑learn, TensorFlow, PyTorch</p>
       </div>
       <div class="rounded-2xl border border-white/10 p-4">
         <h3 class="font-semibold mb-2">Observabilidad</h3>
@@ -189,30 +199,16 @@
   </section>
 
   <!-- ABOUT -->
-  <section id="about" class="mx-auto container-xx px-4 py-12">
-    <div class="grid md:grid-cols-3 gap-6 items-start">
-      <div class="md:col-span-2">
-        <h2 class="text-2xl font-semibold mb-3">Acerca de mí</h2>
-        <p class="text-slate-300">Ingeniero de datos/backend (Python + SQL). Experiencia construyendo pipelines de datos con trazabilidad para proyectos de alto impacto en Perú (educación, sector público). Me enfoco en soluciones simples, medibles y bien documentadas.</p>
-      </div>
-      <div class="glass rounded-2xl p-4 text-sm">
-        <h3 class="font-semibold mb-2">Listo para</h3>
-        <ul class="space-y-1 text-slate-300 list-disc pl-4">
-          <li>Rol Data/Backend – remoto/híbrido</li>
-          <li>Americas TZ (UTC‑5)</li>
-          <li>Inglés B2/C1</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <!-- ABOUT – avatar -->
+<!-- ABOUT – avatar -->
 
   <!-- CONTACT -->
   <section id="contact" class="mx-auto container-xx px-4 py-16">
     <div class="rounded-3xl border border-white/10 bg-white/5 p-8 text-center">
       <h2 class="text-2xl font-semibold">¿Conversamos?</h2>
-      <p class="mt-2 text-slate-300">Envíame un mensaje para una demo de 10 minutos del pipeline y resultados.</p>
+      <p class="mt-2 text-slate-300">Envíame un mensaje.</p>
       <div class="mt-4 flex flex-wrap justify-center gap-3">
-        <a href="mailto:marcoriosch1999@gmail.com" class="rounded-xl bg-emerald-500 px-4 py-2 font-medium text-slate-900 hover:bg-emerald-400">marcoriosch1999@gmail.com</a>
+        <a href="mailto:marcoandrer99@hotmail.com" class="rounded-xl bg-emerald-500 px-4 py-2 font-medium text-slate-900 hover:bg-emerald-400">marcoriosch1999@gmail.com</a>
         <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10">LinkedIn</a>
         <a href="https://github.com/marcorios99/marcorios99.github.io" target="_blank" class="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10">Código de este sitio</a>
       </div>
@@ -220,7 +216,7 @@
   </section>
 
   <footer class="py-10 text-center text-xs text-slate-400">
-    © <span id="yr"></span> Marco Rios · Hecho con HTML + Tailwind · Desplegable en GitHub Pages
+    © <span id="yr"></span> Marco Rios · Desplegable en GitHub Pages
   </footer>
 
   <script>
