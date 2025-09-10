@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="Marco Rios — Data/Backend (Python + SQL)" />
+  <meta property="og:description" content="Ingeniero electrónico. ETL Python→SQL, Prefect/Airflow, MLflow + FastAPI. Portfolio y demos." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <title>Marco Rios – Data/Backend (Python + SQL)</title>
   <meta name="description" content="Portafolio de Marco Rios – Ing. Electrónico, Python, SQL Server, ETL, automatización y MLOps básico." />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -70,26 +76,27 @@
     </div>
 
     <div class="grid md:grid-cols-2 gap-6">
-      <!-- Project 1 -->
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
-          <span class="badge border-white/15">Python</span>
-          <span class="badge border-white/15">OpenCV</span>
-          <span class="badge border-white/15">Tesseract/Doctr</span>
-          <span class="badge border-white/15">SQL Server</span>
-          <span class="badge border-white/15">Prefect</span>
-        </div>
-        <h3 class="text-lg font-semibold">Peru DataOps ETL & Reconciliation (synthetic)</h3>
-        <p class="mt-2 text-sm text-slate-300">Ingesta de archivos operativos/contables (CSV) → validaciones de esquema y control de totales → deduplicación → carga a SQL (SQL Server/Postgres) → reporte automático y observabilidad (logs estructurados, métricas, reintentos). 100% datos sintéticos.</p>
-        <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
-          <li>Reduce tiempos de conciliación con reglas explicables y trazabilidad</li>
-          <li>Orquestación con Prefect/Airflow y documentación clara</li>
-        </ul>
-        <div class="mt-4 flex gap-3">
-          <a href="https://github.com/marcorios99" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
-          <a href="/projects/peru-dataops-etl/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Demo</a>
-        </div>
-      </article>
+    <!-- Project 1 - ETL (CON DEMO) -->
+    <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+      <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
+        <span class="badge border-white/15">Python</span>
+        <span class="badge border-white/15">OpenCV</span>
+        <span class="badge border-white/15">Tesseract/Doctr</span>
+        <span class="badge border-white/15">SQL Server</span>
+        <span class="badge border-white/15">Prefect</span>
+      </div>
+      <h3 class="text-lg font-semibold">ETL de conciliación operativa (demo sintética)</h3>
+      <p class="mt-2 text-sm text-slate-300">Ingesta de archivos operativos/contables (CSV) → validaciones de esquema y control de totales → deduplicación → carga a SQL (SQL Server/Postgres) → reporte automático y observabilidad (logs estructurados, métricas, reintentos). 100% datos sintéticos.</p>
+      <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
+        <li>Reduce tiempos de conciliación con reglas explicables y trazabilidad</li>
+        <li>Orquestación con Prefect/Airflow y documentación clara</li>
+      </ul>
+      <div class="mt-4 flex gap-3">
+        <a href="https://github.com/marcorios99/prj-peru-dataops-etl" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
+        <a href="/projects/peru-dataops-etl/" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Guía</a>
+        <a href="/projects/peru-dataops-etl/demo/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Demo</a>
+      </div>
+    </article>
 
       <!-- Project 1.5 (Embebidos) -->
       <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
@@ -102,7 +109,7 @@
         <h3 class="text-lg font-semibold">Proyectos embebidos (C/ESP32)</h3>
         <p class="mt-2 text-sm text-slate-300">Colección de proyectos personales en C: lectura de sensores, interrupciones, timers, PWM y comunicación serial (UART/I2C/SPI). Incluye guía de compilación y diagramas.</p>
         <div class="mt-4 flex gap-3">
-          <a href="https://github.com/marcorios99?tab=repositories&q=esp32" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repos</a>
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repos</a>
         </div>
       </article>
 
@@ -114,14 +121,14 @@
           <span class="badge border-white/15">SQL Server/Postgres</span>
           <span class="badge border-white/15">Great Expectations/Pandera</span>
         </div>
-        <h3 class="text-lg font-semibold">PySpark Lakehouse – tarjetas de crédito (sintético)</h3>
+        <h3 class="text-lg font-semibold">Lakehouse de tarjetas de crédito (PySpark, demo sintética)</h3>
         <p class="mt-2 text-sm text-slate-300">Generación de transacciones sintéticas de tarjeta, capas Bronze→Silver→Gold en Parquet/Delta, particionadas por fecha. Features por cliente/mes y consultas de ejemplo.</p>
         <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
           <li>PySpark + Delta/Parquet, particionado y joins</li>
         </ul>
         <div class="mt-4 flex gap-3">
           <a href="https://github.com/marcorios99" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
-          <a href="/projects/pyspark-lakehouse/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Demo</a>
+          <a href="/projects/pyspark-lakehouse/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Guía</a>
         </div>
       </article>
 
@@ -142,7 +149,7 @@
         </ul>
         <div class="mt-4 flex gap-3">
           <a href="https://github.com/marcorios99" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
-          <a href="#" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Guía</a>
+          <a href="/projects/mlops-ministack/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Guía</a>
         </div>
       </article>
 
@@ -153,11 +160,11 @@
           <span class="badge border-white/15">Delta/Parquet</span>
           <span class="badge border-white/15">Airflow/Prefect</span>
         </div>
-        <h3 class="text-lg font-semibold">Job‑Skills Miner Perú (ETL + análisis)</h3>
-        <p class="mt-2 text-sm text-slate-300">Carga de descripciones de empleos (CSV exportado/manual), extracción de habilidades (regex/NLP simple) y reportes interactivos de frecuencia/tendencias. Pensado para roles data/backend en Perú.</p>
+        <h3 class="text-lg font-semibold">Explorador de skills laborales (ETL + análisis)</h3>
+        <p class="mt-2 text-sm text-slate-300">  Lee un CSV de ofertas/skills y grafica las habilidades más demandadas; útil para comparar roles, seniority y periodos.</p>
         <div class="mt-4 flex gap-3">
           <a href="https://github.com/marcorios99" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
-          <a href="/projects/job-skills-miner/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Demo</a>
+          <a href="/projects/job-skills-miner/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Guía</a>
         </div>
       </article>
     </div>
