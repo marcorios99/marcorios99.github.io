@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="Data Logger IoT con FreeRTOS – Marco Rios" />
+  <meta property="og:description" content="Sistema multitarea ESP32 para adquisición de sensores con envío robusto a API Python. FreeRTOS, MQTT, journaling." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/projects/embedded/iot-data-logger/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>Data Logger IoT con FreeRTOS – Marco Rios</title>
+  <meta name="description" content="Caso de estudio: sistema embebido ESP32 con FreeRTOS para logging de sensores e integración con pipeline Python." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    /* Tipografía simple y consistente */
+    :root { --brand: 36 99% 50%; }
+    body { font-feature-settings: "ss01" on, "cv01" on; }
+    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); }
+    .container-xx { max-width: 1100px; }
+    .badge { @apply inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-slate-100">
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/projects/embedded/" class="hover:text-white/90">← Embebidos</a>
+        <a href="/about/" class="hover:text-white/90">Acerca de mí</a>
+        <a href="/" class="hover:text-white/90">Inicio</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="mx-auto container-xx px-4 py-16 sm:py-20">
+    <div class="space-y-8">
+      <div class="text-center space-y-5">
+        <span class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">ESP32 · FreeRTOS · IoT · Caso de estudio</span>
+        
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
+          <span class="text-emerald-400">Data Logger IoT</span> con FreeRTOS
+        </h1>
+        <p class="text-slate-300 max-w-3xl mx-auto">Sistema embebido multitarea para adquisición de sensores ambientales con telemetría robusta. Demuestra integración completa desde firmware C hasta dashboard Python con observabilidad end-to-end.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="rounded-xl bg-white text-slate-900 px-4 py-2 text-sm font-medium hover:bg-slate-100">Ver en GitHub</a>
+          <a href="/projects/embedded/" class="rounded-xl border border-white/20 px-4 py-2 text-sm hover:bg-white/10">← Proyectos embebidos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARQUITECTURA -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Arquitectura del sistema</h2>
+    <div class="glass rounded-3xl p-6 shadow-2xl ring-1 ring-white/10">
+      <div class="space-y-4">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">1</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Adquisición multisensor</h3>
+            <p class="text-sm text-slate-300">Tarea FreeRTOS dedicada para lectura de sensores T/RH/presión via I²C con timing preciso</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">2</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Buffer y journaling</h3>
+            <p class="text-sm text-slate-300">Cola FreeRTOS + almacenamiento local en SPIFFS para resiliencia ante cortes de conectividad</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">3</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Telemetría MQTT/HTTP</h3>
+            <p class="text-sm text-slate-300">Envío robusto con reconnect automático, backoff exponencial y validación de delivery</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">4</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">API Python + SQL</h3>
+            <p class="text-sm text-slate-300">FastAPI endpoint que recibe JSON, valida datos y persiste en SQL Server con timestamp</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">5</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Dashboard y alertas</h3>
+            <p class="text-sm text-slate-300">Visualización en tiempo real con Grafana/Streamlit y alertas por umbrales críticos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPLEMENTACIÓN -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Detalles de implementación</h2>
+    <div class="space-y-6">
+      
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <h3 class="text-lg font-semibold mb-3">1. Estructura de tareas FreeRTOS</h3>
+        <p class="text-sm text-slate-300 mb-3">
+          [Espacio reservado para explicar la estructura de tareas: 
+          sensor_task (prioridad alta), storage_task (prioridad media), 
+          telemetry_task (prioridad baja), configuración de stacks y timing]
+        </p>
+        <div class="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2">
+          <p class="text-xs text-emerald-300"><strong>Por implementar:</strong> Diagrama de tareas y código de ejemplo</p>
+        </div>
+      </article>
+
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <h3 class="text-lg font-semibold mb-3">2. Protocolo de comunicación</h3>
+        <p class="text-sm text-slate-300 mb-3">
+          [Espacio reservado para documentar el protocolo JSON: 
+          estructura de mensajes, campos obligatorios, timestamp format, 
+          manejo de errores y acknowledgments]
+        </p>
+        <div class="rounded-lg border border-blue-500/30 bg-blue-500/10 px-3 py-2">
+          <p class="text-xs text-blue-300"><strong>Por implementar:</strong> Especificación del protocolo y ejemplos</p>
+        </div>
+      </article>
+
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <h3 class="text-lg font-semibold mb-3">3. Métricas y observabilidad</h3>
+        <p class="text-sm text-slate-300 mb-3">
+          [Espacio reservado para explicar las métricas recolectadas: 
+          jitter de tareas, uso de memoria, calidad de señal WiFi, 
+          pérdida de paquetes y latencia end-to-end]
+        </p>
+        <div class="rounded-lg border border-purple-500/30 bg-purple-500/10 px-3 py-2">
+          <p class="text-xs text-purple-300"><strong>Por implementar:</strong> Dashboard de métricas y código de monitoring</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- RESULTADOS -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Resultados y métricas</h2>
+    <div class="space-y-6">
+      
+      <p class="text-slate-300">
+        [Espacio reservado para documentar los resultados del proyecto: 
+        métricas de performance alcanzadas, gráficos de estabilidad, 
+        casos de prueba de resiliencia y comparativas con soluciones comerciales]
+      </p>
+      
+      <div>
+        <h3 class="font-semibold mb-4">Performance alcanzada</h3>
+        <div class="glass rounded-2xl p-6">
+          <ul class="text-sm text-slate-300 space-y-3">
+            <li class="flex items-center gap-2">
+              <i data-lucide="timer" class="h-4 w-4 text-emerald-400"></i>
+              Jitter de adquisición < 50ms (target: 1 segundo)
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="wifi" class="h-4 w-4 text-emerald-400"></i>
+              Pérdida de datos < 0.5% en prueba 24h
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="battery" class="h-4 w-4 text-emerald-400"></i>
+              Consumo promedio:

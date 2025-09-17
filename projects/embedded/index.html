@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="Proyectos Embebidos (C/MCUs) – Marco Rios" />
+  <meta property="og:description" content="Casos de estudio de firmware en C integrado con pipelines de datos Python. ESP32, STM32, FreeRTOS, I²C, UART, Modbus." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/projects/embedded/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>Proyectos Embebidos (C/MCUs) – Marco Rios</title>
+  <meta name="description" content="Colección de proyectos embebidos que demuestran integración entre firmware C y pipelines de datos Python." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    /* Tipografía simple y consistente */
+    :root { --brand: 36 99% 50%; }
+    body { font-feature-settings: "ss01" on, "cv01" on; }
+    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); }
+    .container-xx { max-width: 1100px; }
+    .badge { @apply inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-slate-100">
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/about/" class="hover:text-white/90">Acerca de mí</a>
+        <a href="/help/" class="hover:text-white/90">Ayuda</a>
+        <a href="/" class="hover:text-white/90">Inicio</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="mx-auto container-xx px-4 py-16 sm:py-20">
+    <div class="space-y-8">
+      <div class="text-center space-y-5">
+        <span class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">C/MCUs · FreeRTOS · IoT · Integración</span>
+        
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
+          Proyectos <span class="text-emerald-400">Embebidos</span> con integración de datos
+        </h1>
+        <p class="text-slate-300 max-w-3xl mx-auto">Casos de estudio que demuestran la integración entre firmware en C (ESP32/STM32) y pipelines de datos Python. Aprovecho mi formación como Ing. Electrónico para crear soluciones end-to-end desde el sensor hasta el dashboard.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="rounded-xl bg-white text-slate-900 px-4 py-2 text-sm font-medium hover:bg-slate-100">Ver repositorios</a>
+          <a href="/" class="rounded-xl border border-white/20 px-4 py-2 text-sm hover:bg-white/10">← Volver al inicio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Enfoque y metodología</h2>
+    <div class="glass rounded-3xl p-6 shadow-2xl ring-1 ring-white/10">
+      <div class="space-y-4">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">1</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Firmware robusto en C</h3>
+            <p class="text-sm text-slate-300">Desarrollo bare-metal y RTOS con manejo de errores, timeouts y recuperación automática</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">2</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Comunicaciones industriales</h3>
+            <p class="text-sm text-slate-300">Protocolos UART, I²C, SPI, Modbus RTU con validación CRC y manejo de timeouts</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">3</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Integración IoT</h3>
+            <p class="text-sm text-slate-300">Conectividad WiFi/LoRa con APIs REST Python para ingesta en bases de datos SQL</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">4</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Observabilidad end-to-end</h3>
+            <p class="text-sm text-slate-300">Logs estructurados desde MCU hasta dashboard, métricas de performance y alertas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Casos de estudio</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      
+      <!-- Project 1 -->
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
+          <span class="badge border-white/15">ESP32</span>
+          <span class="badge border-white/15">C (ESP-IDF)</span>
+          <span class="badge border-white/15">FreeRTOS</span>
+          <span class="badge border-white/15">I²C/SPI</span>
+          <span class="badge border-white/15">MQTT/LoRa</span>
+        </div>
+        <h3 class="text-lg font-semibold">Data Logger IoT con FreeRTOS</h3>
+        <p class="mt-2 text-sm text-slate-300">Sistema multitarea para adquisición de sensores ambientales con envío robusto a API Python. Incluye manejo de colas, watchdog y journaling local.</p>
+        <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
+          <li>Tareas FreeRTOS: lectura, almacenamiento, telemetría</li>
+          <li>Resiliencia: reconexión automática, backoff exponencial</li>
+          <li>Métricas: < 0.5% pérdida de datos en 24h</li>
+        </ul>
+        <div class="mt-4 flex gap-3">
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
+          <a href="/projects/embedded/iot-data-logger/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Caso de estudio</a>
+        </div>
+      </article>
+
+      <!-- Project 2 -->
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
+          <span class="badge border-white/15">STM32/ESP32</span>
+          <span class="badge border-white/15">C bare-metal</span>
+          <span class="badge border-white/15">I²C</span>
+          <span class="badge border-white/15">DMA</span>
+          <span class="badge border-white/15">TDD básico</span>
+        </div>
+        <h3 class="text-lg font-semibold">Driver I²C + OLED (Bare-Metal)</h3>
+        <p class="mt-2 text-sm text-slate-300">HAL mínima para display OLED SSD1306 con API limpia y medición de performance. Incluye pruebas con mocks y optimización de timing.</p>
+        <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
+          <li>API: init(), draw_pixel(), draw_text(), flush()</li>
+          <li>Benchmark: tiempo de flush < 16ms @ 400kHz</li>
+          <li>Documentación: timing diagrams y pull-ups</li>
+        </ul>
+        <div class="mt-4 flex gap-3">
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
+          <a href="/projects/embedded/i2c-oled-driver/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Caso de estudio</a>
+        </div>
+      </article>
+
+      <!-- Project 3 -->
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
+          <span class="badge border-white/15">STM32/ESP32</span>
+          <span class="badge border-white/15">C</span>
+          <span class="badge border-white/15">UART/RS-485</span>
+          <span class="badge border-white/15">CRC-16</span>
+          <span class="badge border-white/15">Timeouts</span>
+        </div>
+        <h3 class="text-lg font-semibold">Demo Modbus RTU (RS-485)</h3>
+        <p class="mt-2 text-sm text-slate-300">Maestro Modbus que lee registros de variador de frecuencia. Datos enviados a script Python para visualización y persistencia en SQL.</p>
+        <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
+          <li>FSM: IDLE → TX → RX → PARSE → ERROR</li>
+          <li>Robustez: timeouts, reintentos, validación CRC</li>
+          <li>Integración: ETL Python + dashboard KPIs</li>
+        </ul>
+        <div class="mt-4 flex gap-3">
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
+          <a href="/projects/embedded/modbus-rtu-demo/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Caso de estudio</a>
+        </div>
+      </article>
+
+      <!-- Roadmap -->
+      <article class="rounded-2xl border border-orange-500/30 bg-orange-500/10 p-6 shadow">
+        <div class="mb-2 flex items-center gap-2">
+          <i data-lucide="road" class="h-4 w-4 text-orange-400"></i>
+          <span class="text-sm font-medium text-orange-300">En desarrollo</span>
+        </div>
+        <h3 class="text-lg font-semibold">Roadmap de proyectos</h3>
+        <p class="mt-2 text-sm text-slate-300">Documentando casos adicionales con aplicaciones industriales reales.</p>
+        <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
+          <li><strong>Bootloader custom:</strong> OTA via WiFi con verificación</li>
+          <li><strong>Driver CAN:</strong> Gateway CAN-Ethernet para tableros</li>
+          <li><strong>Protocolo UART custom:</strong> Telecomandos + telemetría</li>
+        </ul>
+        <div class="mt-4">
+          <span class="rounded-lg border border-orange-500/30 px-3 py-1.5 text-sm text-orange-300">Q1 2025</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Stack tecnológico embebido</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm text-slate-300">
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">Microcontroladores</h3>
+        <p>ESP32, STM32, Arduino, PIC (básico)</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">Programación</h3>
+        <p>C (bare-metal), C++ (básico), ESP-IDF, STM32CubeIDE</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">RTOS</h3>
+        <p>FreeRTOS, tareas, colas, semáforos, timers</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">Comunicaciones</h3>
+        <p>UART, I²C, SPI, CAN, RS-485, Modbus RTU</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">IoT/Conectividad</h3>
+        <p>WiFi, MQTT, LoRa, HTTP clients, JSON</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">Integración</h3>
+        <p>Python APIs, SQL ingestion, dashboard KPIs</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="mx-auto container-xx px-4 py-16">
+    <div class="rounded-3xl border border-white/10 bg-white/5 p-8 text-center">
+      <h2 class="text-2xl font-semibold">¿Preguntas sobre proyectos embebidos?</h2>
+      <p class="mt-2 text-slate-300">Envíame un mensaje.</p>
+      <div class="mt-4 flex flex-wrap justify-center gap-3">
+        <a href="mailto:marcoandrer99@hotmail.com" class="rounded-xl bg-emerald-500 px-4 py-2 font-medium text-slate-900 hover:bg-emerald-400">marcoandrer99@hotmail.com</a>
+        <a href="/" class="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10">← Volver al portfolio</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10 text-center text-xs text-slate-400">
+    © <span id="yr"></span> Marco Rios · Desplegable en GitHub Pages
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -13,6 +13,7 @@
   <meta name="description" content="Portafolio de Marco Rios – Ing. Electrónico, Python, SQL Server, ETL, automatización y MLOps básico." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<!-- Cambiar solo estos estilos en el <head> -->
   <style>
     /* Tipografía simple y consistente */
     :root { --brand: 36 99% 50%; }
@@ -20,6 +21,31 @@
     .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); }
     .container-xx { max-width: 1100px; }
     .badge { @apply inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs; }
+    
+    /* Toggle más visible */
+    .portfolio-toggle{
+    display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;
+    padding:.5rem 1rem;border-radius:9999px;
+    border:1px solid rgba(255,255,255,.2);
+    color:#cbd5e1;background:transparent;transition:all .2s ease;
+  }
+  .portfolio-toggle:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+  .portfolio-toggle .ico{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:1.75rem;height:1.75rem;border-radius:9999px;
+    background:rgba(255,255,255,.08);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.15);
+  }
+  .portfolio-toggle.active{
+    background:rgba(16,185,129,.20); /* emerald-500/20 */
+    border-color:rgba(16,185,129,.60);
+    color:#a7f3d0; /* emerald-200 */
+    box-shadow:0 0 0 1px rgba(16,185,129,.25) inset;
+  }
+  .portfolio-toggle.active .ico{
+    background:rgba(16,185,129,.25);
+    box-shadow: inset 0 0 0 1px rgba(16,185,129,.35);
+  }
   </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-slate-100">
@@ -42,13 +68,29 @@
   <section id="home" class="mx-auto container-xx px-4 py-16 sm:py-20">
     <div class="grid md:grid-cols-5 gap-8 items-center">
       <div class="md:col-span-3 space-y-5">
-        <span class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">Data/Backend · Python + SQL · ETL</span>
+        
+    <!-- Toggle -->
+    <div class="flex items-center gap-3 mb-3">
+      <button class="portfolio-toggle active" onclick="switchMode('data')" id="toggle-data">
+        <span class="font-medium">Data/Backend</span>
+        <span class="ico"><i data-lucide="database" class="h-5 w-5"></i></span>
+      </button>
+
+      <button class="portfolio-toggle" onclick="switchMode('embedded')" id="toggle-embedded">
+        <span class="font-medium">Hardware</span>
+        <span class="ico"><i data-lucide="cpu" class="h-5 w-5"></i></span>
+      </button>
+    </div>
+
+
+        <span class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300" id="primary-badge">Data/Backend · Python + SQL · ETL</span>
         <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">Ingeniero electrónico</span>
 
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight" id="hero-title">
           Construyo <span class="text-emerald-400">pipelines confiables</span> con Python→SQL Server, trazabilidad y reportes.
         </h1>
-        <p class="text-slate-300 max-w-2xl">Automatizo ingestas, validaciones y conciliaciones operativas/contables. Experiencia en proyectos de alto volumen (sector público) y herramientas de orquestación y MLOps básico.</p>
+        <p class="text-slate-300 max-w-2xl" id="hero-description">Automatizo ingestas, validaciones y conciliaciones operativas/contables. Experiencia en proyectos de alto volumen (sector público) y herramientas de orquestación y MLOps básico.</p>
+        
         <div class="flex flex-wrap gap-3">
           <a href="/projects/" class="rounded-xl bg-white text-slate-900 px-4 py-2 text-sm font-medium hover:bg-slate-100">Ver proyectos</a>
           <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="rounded-xl border border-white/20 px-4 py-2 text-sm hover:bg-white/10">LinkedIn</a>
@@ -58,7 +100,7 @@
       <div class="md:col-span-2">
         <div class="glass rounded-3xl p-6 shadow-2xl ring-1 ring-white/10">
           <h3 class="mb-3 text-lg font-semibold">Highlights</h3>
-          <ul class="space-y-3 text-sm text-slate-300">
+          <ul class="space-y-3 text-sm text-slate-300" id="highlights-list">
             <li class="flex items-start gap-2"><i data-lucide="gauge" class="mt-0.5 h-5 w-5 text-emerald-400"></i><span>Reduje ~40% el tiempo de procesamiento masivo estandarizando ETL y agregando observabilidad (logs, checksums, métricas, reintentos).</span></li>
             <li class="flex items-start gap-2"><i data-lucide="server" class="mt-0.5 h-5 w-5 text-emerald-400"></i><span>ETL Python → SQL Server con validaciones, control de totales y deduplicación idempotente.</span></li>
             <li class="flex items-start gap-2"><i data-lucide="pipeline" class="mt-0.5 h-5 w-5 text-emerald-400"></i><span>Orquestación con Prefect/Airflow (jobs batch, alertas, CRON) y despliegue en Windows Server/Linux.</span></li>
@@ -75,41 +117,27 @@
       <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="text-sm text-emerald-300 hover:text-emerald-200">Ver todos →</a>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-6">
-    <!-- Project 1 - ETL (CON DEMO) -->
-    <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
-      <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
-        <span class="badge border-white/15">Python</span>
-        <span class="badge border-white/15">OpenCV</span>
-        <span class="badge border-white/15">Tesseract/Doctr</span>
-        <span class="badge border-white/15">SQL Server</span>
-        <span class="badge border-white/15">Prefect</span>
-      </div>
-      <h3 class="text-lg font-semibold">ETL de conciliación operativa (demo sintética)</h3>
-      <p class="mt-2 text-sm text-slate-300">Ingesta de archivos operativos/contables (CSV) → validaciones de esquema y control de totales → deduplicación → carga a SQL (SQL Server/Postgres) → reporte automático y observabilidad (logs estructurados, métricas, reintentos). 100% datos sintéticos.</p>
-      <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
-        <li>Reduce tiempos de conciliación con reglas explicables y trazabilidad</li>
-        <li>Orquestación con Prefect/Airflow y documentación clara</li>
-      </ul>
-      <div class="mt-4 flex gap-3">
-        <a href="https://github.com/marcorios99/prj-peru-dataops-etl" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
-        <a href="/projects/peru-dataops-etl/" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Guía</a>
-        <a href="/projects/peru-dataops-etl/demo/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Demo</a>
-      </div>
-    </article>
-
-      <!-- Project 1.5 (Embebidos) -->
+    <!-- Data/Backend Projects -->
+    <div class="grid md:grid-cols-2 gap-6" id="data-projects">
+      <!-- Project 1 - ETL (CON DEMO) -->
       <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
         <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
-          <span class="badge border-white/15">C</span>
-          <span class="badge border-white/15">ESP32</span>
-          <span class="badge border-white/15">FreeRTOS</span>
-          <span class="badge border-white/15">UART/I2C/SPI</span>
+          <span class="badge border-white/15">Python</span>
+          <span class="badge border-white/15">OpenCV</span>
+          <span class="badge border-white/15">Tesseract/Doctr</span>
+          <span class="badge border-white/15">SQL Server</span>
+          <span class="badge border-white/15">Prefect</span>
         </div>
-        <h3 class="text-lg font-semibold">Proyectos embebidos (C/ESP32)</h3>
-        <p class="mt-2 text-sm text-slate-300">Colección de proyectos personales en C: lectura de sensores, interrupciones, timers, PWM y comunicación serial (UART/I2C/SPI). Incluye guía de compilación y diagramas.</p>
+        <h3 class="text-lg font-semibold">ETL de conciliación operativa (demo sintética)</h3>
+        <p class="mt-2 text-sm text-slate-300">Ingesta de archivos operativos/contables (CSV) → validaciones de esquema y control de totales → deduplicación → carga a SQL (SQL Server/Postgres) → reporte automático y observabilidad (logs estructurados, métricas, reintentos). 100% datos sintéticos.</p>
+        <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
+          <li>Reduce tiempos de conciliación con reglas explicables y trazabilidad</li>
+          <li>Orquestación con Prefect/Airflow y documentación clara</li>
+        </ul>
         <div class="mt-4 flex gap-3">
-          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repos</a>
+          <a href="https://github.com/marcorios99/prj-peru-dataops-etl" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
+          <a href="/projects/peru-dataops-etl/" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Guía</a>
+          <a href="/projects/peru-dataops-etl/demo/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Demo</a>
         </div>
       </article>
 
@@ -161,10 +189,95 @@
           <span class="badge border-white/15">Airflow/Prefect</span>
         </div>
         <h3 class="text-lg font-semibold">Explorador de skills laborales (ETL + análisis)</h3>
-        <p class="mt-2 text-sm text-slate-300">  Lee un CSV de ofertas/skills y grafica las habilidades más demandadas; útil para comparar roles, seniority y periodos.</p>
+        <p class="mt-2 text-sm text-slate-300">Lee un CSV de ofertas/skills y grafica las habilidades más demandadas; útil para comparar roles, seniority y periodos.</p>
         <div class="mt-4 flex gap-3">
           <a href="https://github.com/marcorios99" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
           <a href="/projects/job-skills-miner/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Guía</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- Embedded Projects (hidden by default) -->
+    <div class="grid md:grid-cols-2 gap-6 hidden" id="embedded-projects">
+      <!-- Embedded Project 1 -->
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
+          <span class="badge border-white/15">ESP32</span>
+          <span class="badge border-white/15">C (ESP-IDF)</span>
+          <span class="badge border-white/15">FreeRTOS</span>
+          <span class="badge border-white/15">I²C/SPI</span>
+          <span class="badge border-white/15">MQTT/LoRa</span>
+        </div>
+        <h3 class="text-lg font-semibold">Data Logger IoT con FreeRTOS</h3>
+        <p class="mt-2 text-sm text-slate-300">Adquisición multitarea (sensores T/RH/press), colas y watchdog; envío a API Python para ingesta en SQL Server y dashboard.</p>
+        <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
+          <li>Tareas separadas: lectura, almacenamiento, telemetría</li>
+          <li>Resiliencia: reconexión, backoff, journaling en SPIFFS</li>
+          <li>Métricas: jitter de tareas, pérdida < 0.5% en 24h</li>
+        </ul>
+        <div class="mt-4 flex gap-3">
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
+          <a href="/projects/embedded/iot-data-logger/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Caso de estudio</a>
+        </div>
+      </article>
+
+      <!-- Embedded Project 2 -->
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
+          <span class="badge border-white/15">STM32/ESP32</span>
+          <span class="badge border-white/15">C bare‑metal</span>
+          <span class="badge border-white/15">I²C</span>
+          <span class="badge border-white/15">DMA</span>
+          <span class="badge border-white/15">TDD básico</span>
+        </div>
+        <h3 class="text-lg font-semibold">Driver I²C + OLED (Bare‑Metal)</h3>
+        <p class="mt-2 text-sm text-slate-300">Implementar HAL mínima para OLED SSD1306 con API limpia (init, draw, flush), pruebas con mocks y medición de latencia de frame.</p>
+        <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
+          <li>API: <code>ssd1306_init()</code>, <code>draw_px()</code>, <code>draw_text()</code></li>
+          <li>Bench: tiempo de flush y consumo mA</li>
+          <li>Docs: diagrama de timing y pull‑ups</li>
+        </ul>
+        <div class="mt-4 flex gap-3">
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
+          <a href="/projects/embedded/i2c-oled-driver/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Caso de estudio</a>
+        </div>
+      </article>
+
+      <!-- Embedded Project 3 -->
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
+          <span class="badge border-white/15">STM32/ESP32</span>
+          <span class="badge border-white/15">C</span>
+          <span class="badge border-white/15">UART/RS‑485</span>
+          <span class="badge border-white/15">CRC‑16</span>
+          <span class="badge border-white/15">Timeouts</span>
+        </div>
+        <h3 class="text-lg font-semibold">Demo Modbus RTU (RS‑485)</h3>
+        <p class="mt-2 text-sm text-slate-300">Maestro lee holding registers de variador; gráfico en Python (matplotlib) y persistencia en SQL.</p>
+        <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
+          <li>Estado: IDLE → TX → RX → PARSE → ERROR</li>
+          <li>Robustez: timeouts, reintentos, validación CRC</li>
+          <li>Integración: script ETL y tablero KPI</li>
+        </ul>
+        <div class="mt-4 flex gap-3">
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
+          <a href="/projects/embedded/modbus-rtu-demo/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Caso de estudio</a>
+        </div>
+      </article>
+
+      <!-- Project 1.5 (Embebidos en mode híbrido) -->
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
+          <span class="badge border-white/15">C</span>
+          <span class="badge border-white/15">ESP32</span>
+          <span class="badge border-white/15">FreeRTOS</span>
+          <span class="badge border-white/15">UART/I2C/SPI</span>
+        </div>
+        <h3 class="text-lg font-semibold">Más proyectos embebidos</h3>
+        <p class="mt-2 text-sm text-slate-300">Colección de proyectos personales en C: lectura de sensores, interrupciones, timers, PWM y comunicación serial (UART/I2C/SPI). Incluye guía de compilación y diagramas.</p>
+        <div class="mt-4 flex gap-3">
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repos</a>
+          <a href="/projects/embedded/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Ver todos</a>
         </div>
       </article>
     </div>
@@ -198,16 +311,12 @@
         <h3 class="font-semibold mb-2">Observabilidad</h3>
         <p>logging estructurado, checksums, métricas, alertas</p>
       </div>
-      <div class="rounded-2xl border border-white/10 p-4">
+      <div class="rounded-2xl border border-white/10 p-4" id="skills-extra">
         <h3 class="font-semibold mb-2">Frontend ops</h3>
         <p>PySide6 (tooling de operaciones)</p>
       </div>
     </div>
   </section>
-
-  <!-- ABOUT -->
-  <!-- ABOUT – avatar -->
-<!-- ABOUT – avatar -->
 
   <!-- CONTACT -->
   <section id="contact" class="mx-auto container-xx px-4 py-16">
@@ -227,8 +336,82 @@
   </footer>
 
   <script>
-    lucide.createIcons();
-    document.getElementById('yr').textContent = new Date().getFullYear();
+    function switchMode(mode) {
+      const dataToggle = document.getElementById('toggle-data');
+      const embeddedToggle = document.getElementById('toggle-embedded');
+      const dataProjects = document.getElementById('data-projects');
+      const embeddedProjects = document.getElementById('embedded-projects');
+      const primaryBadge = document.getElementById('primary-badge');
+      const heroTitle = document.getElementById('hero-title');
+      const heroDescription = document.getElementById('hero-description');
+      const highlightsList = document.getElementById('highlights-list');
+      const skillsExtra = document.getElementById('skills-extra');
+  
+      if (mode === 'embedded') {
+        // Activar modo embedded
+        dataToggle.classList.remove('active');
+        embeddedToggle.classList.add('active');
+        dataProjects.classList.add('hidden');
+        embeddedProjects.classList.remove('hidden');
+        
+        // Cambiar contenido del hero
+        primaryBadge.textContent = 'Hardware · C/MCUs · IoT';
+        primaryBadge.className = 'inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs text-blue-300';
+        
+        heroTitle.innerHTML = 'Integro <span class="text-emerald-400">firmware y datos</span> desde MCUs hasta dashboards Python.';
+        heroDescription.textContent = 'Desarrollo en C/ESP32 con FreeRTOS, protocolos industriales (Modbus, I²C, SPI) y telemetría IoT. Integración completa con pipelines Python para observabilidad end-to-end.';
+        
+        // Cambiar highlights
+        highlightsList.innerHTML = `
+          <li class="flex items-start gap-2"><i data-lucide="cpu" class="mt-0.5 h-5 w-5 text-emerald-400"></i><span>Firmware robusto en C con FreeRTOS, manejo de sensores y comunicaciones industriales (Modbus RTU, I²C, SPI).</span></li>
+          <li class="flex items-start gap-2"><i data-lucide="wifi" class="mt-0.5 h-5 w-5 text-emerald-400"></i><span>Telemetría IoT con MQTT/LoRa, reconexión automática y journaling local para resiliencia.</span></li>
+          <li class="flex items-start gap-2"><i data-lucide="activity" class="mt-0.5 h-5 w-5 text-emerald-400"></i><span>Integración completa: datos de MCU → API Python → SQL Server → dashboard con < 0.5% pérdida.</span></li>
+        `;
+        
+        // Cambiar skills
+        skillsExtra.innerHTML = `
+          <h3 class="font-semibold mb-2">Embebidos</h3>
+          <p>C/ESP32, FreeRTOS, I²C/SPI/UART, Modbus RTU</p>
+        `;
+      } else {
+        // Activar modo data
+        embeddedToggle.classList.remove('active');
+        dataToggle.classList.add('active');
+        embeddedProjects.classList.add('hidden');
+        dataProjects.classList.remove('hidden');
+        
+        // Restaurar contenido original del hero
+        primaryBadge.textContent = 'Data/Backend · Python + SQL · ETL';
+        primaryBadge.className = 'inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300';
+        
+        heroTitle.innerHTML = 'Construyo <span class="text-emerald-400">pipelines confiables</span> con Python→SQL Server, trazabilidad y reportes.';
+        heroDescription.textContent = 'Automatizo ingestas, validaciones y conciliaciones operativas/contables. Experiencia en proyectos de alto volumen (sector público) y herramientas de orquestación y MLOps básico.';
+        
+        // Restaurar highlights originales
+        highlightsList.innerHTML = `
+          <li class="flex items-start gap-2"><i data-lucide="gauge" class="mt-0.5 h-5 w-5 text-emerald-400"></i><span>Reduje ~40% el tiempo de procesamiento masivo estandarizando ETL y agregando observabilidad (logs, checksums, métricas, reintentos).</span></li>
+          <li class="flex items-start gap-2"><i data-lucide="server" class="mt-0.5 h-5 w-5 text-emerald-400"></i><span>ETL Python → SQL Server con validaciones, control de totales y deduplicación idempotente.</span></li>
+          <li class="flex items-start gap-2"><i data-lucide="pipeline" class="mt-0.5 h-5 w-5 text-emerald-400"></i><span>Orquestación con Prefect/Airflow (jobs batch, alertas, CRON) y despliegue en Windows Server/Linux.</span></li>
+        `;
+        
+        // Restaurar skills
+        skillsExtra.innerHTML = `
+          <h3 class="font-semibold mb-2">Frontend ops</h3>
+          <p>PySide6 (tooling de operaciones)</p>
+        `;
+      }
+      
+      // Recrear iconos de Lucide después de cambiar el HTML
+      setTimeout(() => {
+        lucide.createIcons();
+      }, 10);
+    }
+  
+    // Cargar iconos al inicio
+    document.addEventListener('DOMContentLoaded', function() {
+      lucide.createIcons();
+      document.getElementById('yr').textContent = new Date().getFullYear();
+    });
   </script>
 </body>
 </html>
