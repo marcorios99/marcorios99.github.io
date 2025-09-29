@@ -1,0 +1,22 @@
+<!doctype html><html lang="es"><head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>SQL Window – Marco Rios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    </head><body class="bg-slate-950 text-slate-100">
+    <main class="max-w-3xl mx-auto px-4 py-10 space-y-4">
+      <a href="/help/" class="opacity-80">← Volver</a>
+      <h1 class="text-2xl font-semibold">SQL Window</h1>
+      <pre class="bg-black/40 p-4 rounded-xl overflow-x-auto"><code>-- Top N por categoría
+    SELECT *
+    FROM (
+      SELECT c.*, ROW_NUMBER() OVER (PARTITION BY categoria ORDER BY monto DESC) rn
+      FROM compras c
+    ) t
+    WHERE rn &lt;= 3;</code></pre>
+      <pre class="bg-black/40 p-4 rounded-xl overflow-x-auto"><code>-- LAG / LEAD
+    SELECT id, fecha, monto,
+           LAG(monto)  OVER (PARTITION BY id ORDER BY fecha) AS prev_monto,
+           LEAD(monto) OVER (PARTITION BY id ORDER BY fecha) AS next_monto
+    FROM pagos;</code></pre>
+    </main></body></html>
+    

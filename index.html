@@ -17,27 +17,25 @@
   <!-- Color barra navegador -->
   <meta name="theme-color" content="#0b0b0b">
 
-  <!-- Init tema sin flash -->
-<!-- INIT tema sin flash (reemplaza tu bloque actual) -->
-    <script>
-    (function () {
-      const ls = localStorage.getItem('theme');     // 'dark' | 'light' | null
-      const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme = ls || (sysDark ? 'dark' : 'light');
-      const html = document.documentElement;
-    
-      // Asegura SIEMPRE una de las dos clases:
-      html.classList.toggle('dark', theme === 'dark');
-      html.classList.toggle('light', theme !== 'dark');
-    
-      html.dataset.theme = theme;
-    
-      // Barra del navegador
-      const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0b0b' : '#ffffff');
-    })();
-    </script>
-    
+  <!-- INIT tema sin flash -->
+  <script>
+  (function () {
+    const ls = localStorage.getItem('theme');     // 'dark' | 'light' | null
+    const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = ls || (sysDark ? 'dark' : 'light');
+    const html = document.documentElement;
+
+    // Asegura SIEMPRE una de las dos clases:
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+
+    html.dataset.theme = theme;
+
+    // Barra del navegador
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0b0b' : '#ffffff');
+  })();
+  </script>
 
   <!-- Tailwind (dark por clase) -->
   <script>tailwind = { config: { darkMode: 'class' } };</script>
@@ -63,24 +61,22 @@
 
     /* Badge neutral visible en light/dark */
     .badge-neutral{
-    border-color: var(--bd-soft, #cbd5e1);
-    background: rgba(2,6,23,.03);
-    color: var(--txt-strong, #0f172a);
+      border-color: var(--bd-soft, #cbd5e1);
+      background: rgba(2,6,23,.03);
+      color: var(--txt-strong, #0f172a);
     }
-
-
     html.dark .badge-neutral{
-    border-color: rgba(255,255,255,.18);
-    background: rgba(255,255,255,.06);
-    color: #e5e7eb;
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color: #e5e7eb;
     }
 
-
-    /* Toggle Data/Hardware */
+    /* Toggle Data/Hardware (como enlaces) */
     .portfolio-toggle{
       display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;
       padding:.5rem 1rem;border-radius:9999px;transition:all .2s ease;
       border:1px solid rgba(2,6,23,.15); color:#334155; background:transparent;
+      text-decoration:none;
     }
     .portfolio-toggle:hover{ color:#0f172a; border-color:rgba(2,6,23,.3) }
     .portfolio-toggle .ico{
@@ -95,11 +91,11 @@
     .portfolio-toggle.active .ico{
       background:rgba(16,185,129,.20); box-shadow: inset 0 0 0 1px rgba(16,185,129,.35);
     }
-    .dark .portfolio-toggle{ border-color:rgba(255,255,255,.2); color:#cbd5e1; }
-    .dark .portfolio-toggle:hover{ color:#fff;border-color:rgba(255,255,255,.4) }
-    .dark .portfolio-toggle .ico{ background:rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
-    .dark .portfolio-toggle.active{ background:rgba(16,185,129,.20); border-color:rgba(16,185,129,.60); color:#a7f3d0; }
-    .dark .portfolio-toggle.active .ico{ background:rgba(16,185,129,.25); box-shadow: inset 0 0 0 1px rgba(16,185,129,.35); }
+    html.dark .portfolio-toggle{ border-color:rgba(255,255,255,.2); color:#cbd5e1; }
+    html.dark .portfolio-toggle:hover{ color:#fff;border-color:rgba(255,255,255,.4) }
+    html.dark .portfolio-toggle .ico{ background:rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+    html.dark .portfolio-toggle.active{ background:rgba(16,185,129,.20); border-color:rgba(16,185,129,.60); color:#a7f3d0; }
+    html.dark .portfolio-toggle.active .ico{ background:rgba(16,185,129,.25); box-shadow: inset 0 0 0 1px rgba(16,185,129,.35); }
 
     /* ===== Light skin (mejor contraste) ===== */
     html.light{
@@ -149,14 +145,12 @@
       border:1px solid rgba(0,0,0,.05);
       font-size:.875rem; font-weight:600;
     }
-        /* Variante compacta para reducir ancho del botón */
     .btn-accent--sm{
-    padding:.35rem .6rem;      /* menos padding */
-    font-size:.8125rem;        /* texto un poco más chico */
-    border-radius:.65rem;      /* opcional, ligeramente menor */
-    white-space:nowrap;        /* evita que salte a 2 líneas */
+      padding:.35rem .6rem;
+      font-size:.8125rem;
+      border-radius:.65rem;
+      white-space:nowrap;
     }
-
     .btn-accent:hover{ filter:brightness(1.06); }
 
     .btn-outline{
@@ -170,67 +164,58 @@
     html.dark .btn-outline{ border-color:rgba(255,255,255,.15); color:#e5e7eb; }
     html.dark .btn-outline:hover{ background:rgba(255,255,255,.08); }
 
-
     /* ===== Theme toggle (cambia color según tema) ===== */
     :root{
-    /* Light */
-    --toggle-bg: rgba(255,255,255,.75);
-    --toggle-bg-hover:#ffffff;
-    --toggle-fg:#334155;              /* slate-700 */
-    --toggle-br: rgba(2,6,23,.18);    /* slate-950 ~18% */
-    --toggle-dot-bg: rgba(2,6,23,.06);
+      /* Light */
+      --toggle-bg: rgba(255,255,255,.75);
+      --toggle-bg-hover:#ffffff;
+      --toggle-fg:#334155;              /* slate-700 */
+      --toggle-br: rgba(2,6,23,.18);    /* slate-950 ~18% */
+      --toggle-dot-bg: rgba(2,6,23,.06);
     }
     html.dark{
-    /* Dark */
-    --toggle-bg: rgba(2,6,23,.70);    /* slate-950/70 */
-    --toggle-bg-hover: rgba(2,6,23,.90);
-    --toggle-fg:#e5e7eb;              /* zinc-200 */
-    --toggle-br: rgba(255,255,255,.22);
-    --toggle-dot-bg: rgba(255,255,255,.12);
+      /* Dark */
+      --toggle-bg: rgba(2,6,23,.70);    /* slate-950/70 */
+      --toggle-bg-hover: rgba(2,6,23,.90);
+      --toggle-fg:#e5e7eb;              /* zinc-200 */
+      --toggle-br: rgba(255,255,255,.22);
+      --toggle-dot-bg: rgba(255,255,255,.12);
     }
 
     /* Botón */
     .theme-btn{
-    inline-size: 2.25rem; block-size: 2.25rem; /* 36px */
-    display:inline-flex; align-items:center; justify-content:center;
-    border-radius:9999px; border:1px solid var(--toggle-br);
-    background:var(--toggle-bg); color:var(--toggle-fg);
-    transition:background .2s ease, color .2s ease, border-color .2s ease;
+      inline-size: 2.25rem; block-size: 2.25rem; /* 36px */
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius:9999px; border:1px solid var(--toggle-br);
+      background:var(--toggle-bg); color:var(--toggle-fg);
+      transition:background .2s ease, color .2s ease, border-color .2s ease;
     }
     .theme-btn:hover{ background:var(--toggle-bg-hover); }
     .theme-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
 
     /* Pastilla interior del icono */
     .theme-btn .dot{
-    inline-size: 1.75rem; block-size: 1.75rem;
-    display:inline-flex; align-items:center; justify-content:center;
-    border-radius:9999px; background:var(--toggle-dot-bg);
+      inline-size: 1.75rem; block-size: 1.75rem;
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius:9999px; background:var(--toggle-dot-bg);
     }
 
     /* Icono hereda color del botón */
     .theme-btn i{ color: inherit; }
 
     /* Nav: colores seguros en light/dark + hover */
-    /* Nav: colores seguros en light/dark + hover (un poco más oscuro en light) */
     .navlink{
-    color:#334155;                 /* slate-700 */
-    transition: color .15s ease;
+      color:#334155;                 /* slate-700 */
+      transition: color .15s ease;
     }
     .navlink:hover,
     .navlink:focus-visible{
-    color:#000000;                 /* más oscuro que #0f172a (≈ slate-950 suave) */
+      color:#000000;                 /* más oscuro */
     }
-
     html.dark .navlink{ color:#cbd5e1; }
     html.dark .navlink:hover,
-    html.dark .navlink:focus-visible{
-    color:#ffffff;
-    }
-
-</style>
-
-
-
+    html.dark .navlink:focus-visible{ color:#ffffff; }
+  </style>
 </head>
 
 <body class="min-h-screen bg-white text-slate-900
@@ -242,7 +227,7 @@
                  bg-white/70 border-slate-200/70
                  dark:bg-slate-950/70 dark:border-white/10">
     <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
-      <a href="#home" class="font-semibold tracking-wide">Marco Rios</a>
+      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
 
       <div class="hidden md:flex items-center gap-6 text-sm">
         <a href="#projects" class="navlink">Proyectos</a>
@@ -251,16 +236,13 @@
         <a href="/about/" class="navlink">Acerca de mí</a>
         <a href="/help/" class="navlink">Ayuda</a>
       </div>
-      
 
       <div class="flex items-center gap-2">
         <!-- Botón Light/Dark -->
         <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
-            <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
-          </button>
-          
-
-        <!-- CTA disponibilidad (relleno con acento) -->
+          <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
+        </button>
+        <!-- CTA disponibilidad -->
         <a href="#contact" class="btn-accent btn-accent--sm">Zona Horaria: (UTC-5)</a>
       </div>
     </nav>
@@ -271,16 +253,16 @@
     <div class="grid md:grid-cols-5 gap-8 items-center">
       <div class="md:col-span-3 space-y-5">
 
-        <!-- Toggle -->
+        <!-- Toggle convertido a enlaces -->
         <div class="flex items-center gap-3 mb-3">
-          <button class="portfolio-toggle active" onclick="switchMode('data')" id="toggle-data">
+          <a class="portfolio-toggle active" href="/#data" id="toggle-data-link">
             <span class="font-medium">Data/Backend</span>
             <span class="ico"><i data-lucide="database" class="h-5 w-5"></i></span>
-          </button>
-          <button class="portfolio-toggle" onclick="switchMode('embedded')" id="toggle-embedded">
+          </a>
+          <a class="portfolio-toggle" href="/projects/embedded/" id="toggle-embedded-link">
             <span class="font-medium">Hardware</span>
             <span class="ico"><i data-lucide="cpu" class="h-5 w-5"></i></span>
-          </button>
+          </a>
         </div>
 
         <span class="inline-flex items-center gap-2 rounded-full border
@@ -410,99 +392,6 @@
         </div>
       </article>
     </div>
-
-    <!-- Embedded Projects (hidden by default) -->
-    <div class="grid md:grid-cols-2 gap-6 hidden" id="embedded-projects">
-      <!-- Embedded Project 1 -->
-      <article class="rounded-2xl border p-6 shadow
-                     bg-white border-slate-200 text-slate-700
-                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">ESP32</span>
-          <span class="badge">C (ESP-IDF)</span>
-          <span class="badge">FreeRTOS</span>
-          <span class="badge">I²C/SPI</span>
-          <span class="badge">MQTT/LoRa</span>
-        </div>
-        <h3 class="text-lg font-semibold">Data Logger IoT con FreeRTOS</h3>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Adquisición multitarea (sensores T/RH/press), colas y watchdog; envío a API Python para ingesta en SQL Server y dashboard.</p>
-        <ul class="mt-3 list-disc pl-5 text-sm text-slate-700 dark:text-slate-300">
-          <li>Tareas separadas: lectura, almacenamiento, telemetría</li>
-          <li>Resiliencia: reconexión, backoff, journaling en SPIFFS</li>
-          <li>Métricas: jitter de tareas, pérdida &lt; 0.5% en 24h</li>
-        </ul>
-        <div class="mt-4 flex gap-3">
-          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="btn-outline">Repo</a>
-          <a href="/projects/embedded/iot-data-logger/" class="btn-accent">Caso de estudio</a>
-        </div>
-      </article>
-
-      <!-- Embedded Project 2 -->
-      <article class="rounded-2xl border p-6 shadow
-                     bg-white border-slate-200 text-slate-700
-                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">STM32/ESP32</span>
-          <span class="badge">C bare-metal</span>
-          <span class="badge">I²C</span>
-          <span class="badge">DMA</span>
-          <span class="badge">TDD básico</span>
-        </div>
-        <h3 class="text-lg font-semibold">Driver I²C + OLED (Bare-Metal)</h3>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Implementar HAL mínima para OLED SSD1306 con API limpia (init, draw, flush), pruebas con mocks y medición de latencia de frame.</p>
-        <ul class="mt-3 list-disc pl-5 text-sm text-slate-700 dark:text-slate-300">
-          <li>API: <code>ssd1306_init()</code>, <code>draw_px()</code>, <code>draw_text()</code></li>
-          <li>Bench: tiempo de flush y consumo mA</li>
-          <li>Docs: diagrama de timing y pull-ups</li>
-        </ul>
-        <div class="mt-4 flex gap-3">
-          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="btn-outline">Repo</a>
-          <a href="/projects/embedded/i2c-oled-driver/" class="btn-accent">Caso de estudio</a>
-        </div>
-      </article>
-
-      <!-- Embedded Project 3 -->
-      <article class="rounded-2xl border p-6 shadow
-                     bg-white border-slate-200 text-slate-700
-                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">STM32/ESP32</span>
-          <span class="badge">C</span>
-          <span class="badge">UART/RS-485</span>
-          <span class="badge">CRC-16</span>
-          <span class="badge">Timeouts</span>
-        </div>
-        <h3 class="text-lg font-semibold">Demo Modbus RTU (RS-485)</h3>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Maestro lee holding registers de variador; gráfico en Python (matplotlib) y persistencia en SQL.</p>
-        <ul class="mt-3 list-disc pl-5 text-sm text-slate-700 dark:text-slate-300">
-          <li>Estado: IDLE → TX → RX → PARSE → ERROR</li>
-          <li>Robustez: timeouts, reintentos, validación CRC</li>
-          <li>Integración: script ETL y tablero KPI</li>
-        </ul>
-        <div class="mt-4 flex gap-3">
-          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="btn-outline">Repo</a>
-          <a href="/projects/embedded/modbus-rtu-demo/" class="btn-accent">Caso de estudio</a>
-        </div>
-      </article>
-
-      <!-- Más proyectos -->
-      <article class="rounded-2xl border p-6 shadow
-                     bg-white border-slate-200 text-slate-700
-                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">C</span>
-          <span class="badge">ESP32</span>
-          <span class="badge">FreeRTOS</span>
-          <span class="badge">UART/I2C/SPI</span>
-        </div>
-        <h3 class="text-lg font-semibold">Más proyectos embebidos</h3>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Colección de proyectos personales en C: lectura de sensores, interrupciones, timers, PWM y comunicación serial (UART/I2C/SPI). Incluye guía de compilación y diagramas.</p>
-        <div class="mt-4 flex gap-3">
-          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="btn-outline">Repos</a>
-          <a href="/projects/embedded/" class="btn-accent">Ver todos</a>
-        </div>
-      </article>
-    </div>
   </section>
 
   <!-- SKILLS -->
@@ -559,66 +448,10 @@
 
   <!-- Scripts -->
   <script>
-    function switchMode(mode) {
-      const dataToggle = document.getElementById('toggle-data');
-      const embeddedToggle = document.getElementById('toggle-embedded');
-      const dataProjects = document.getElementById('data-projects');
-      const embeddedProjects = document.getElementById('embedded-projects');
-      const primaryBadge = document.getElementById('primary-badge');
-      const heroTitle = document.getElementById('hero-title');
-      const heroDescription = document.getElementById('hero-description');
-      const highlightsList = document.getElementById('highlights-list');
-      const skillsExtra = document.getElementById('skills-extra');
-
-      if (mode === 'embedded') {
-        dataToggle.classList.remove('active');
-        embeddedToggle.classList.add('active');
-        dataProjects.classList.add('hidden');
-        embeddedProjects.classList.remove('hidden');
-
-        primaryBadge.textContent = 'Hardware · C/MCUs · IoT';
-        primaryBadge.className = 'inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs border-blue-600/30 bg-blue-500/10 text-blue-700 dark:text-blue-300';
-
-        heroTitle.innerHTML = 'Integro <span class="text-emerald-600 dark:text-emerald-400">firmware y datos</span> desde MCUs hasta dashboards Python.';
-        heroDescription.textContent = 'Desarrollo en C/ESP32 con FreeRTOS, protocolos industriales (Modbus, I²C, SPI) y telemetría IoT. Integración completa con pipelines Python para observabilidad end-to-end.';
-
-        highlightsList.innerHTML = `
-          <li class="flex items-start gap-2"><i data-lucide="cpu" class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"></i><span>Firmware robusto en C con FreeRTOS, manejo de sensores y comunicaciones industriales (Modbus RTU, I²C, SPI).</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="wifi" class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"></i><span>Telemetría IoT con MQTT/LoRa, reconexión automática y journaling local para resiliencia.</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="activity" class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"></i><span>Integración completa: datos de MCU → API Python → SQL Server → dashboard con &lt; 0.5% pérdida.</span></li>
-        `;
-
-        skillsExtra.innerHTML = `
-          <h3 class="font-semibold mb-2">Embebidos</h3>
-          <p>C/ESP32, FreeRTOS, I²C/SPI/UART, Modbus RTU</p>
-        `;
-      } else {
-        embeddedToggle.classList.remove('active');
-        dataToggle.classList.add('active');
-        embeddedProjects.classList.add('hidden');
-        dataProjects.classList.remove('hidden');
-
-        primaryBadge.textContent = 'Data/Backend · Python + SQL · ETL';
-        primaryBadge.className = 'inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs border-emerald-600/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300';
-
-        heroTitle.innerHTML = 'Construyo <span class="text-emerald-600 dark:text-emerald-400">pipelines confiables</span> con Python→SQL Server, trazabilidad y reportes.';
-        heroDescription.textContent = 'Automatizo ingestas, validaciones y conciliaciones operativas/contables. Experiencia en proyectos de alto volumen (sector público) y herramientas de orquestación y MLOps básico.';
-
-        highlightsList.innerHTML = `
-          <li class="flex items-start gap-2"><i data-lucide="gauge" class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"></i><span>Reduje ~40% el tiempo de procesamiento masivo estandarizando ETL y agregando observabilidad (logs, checksums, métricas, reintentos).</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="server" class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"></i><span>ETL Python → SQL Server con validaciones, control de totales y deduplicación idempotente.</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="pipeline" class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"></i><span>Orquestación con Prefect/Airflow (jobs batch, alertas, CRON) y despliegue en Windows Server/Linux.</span></li>
-        `;
-
-        skillsExtra.innerHTML = `
-          <h3 class="font-semibold mb-2">Frontend ops</h3>
-          <p>PySide6 (tooling de operaciones)</p>
-        `;
-      }
-
-      setTimeout(() => { if (window.lucide) lucide.createIcons(); }, 10);
+    // Compatibilidad con enlaces antiguos como /#hardware
+    if (location.hash === '#hardware') {
+      location.replace('/projects/embedded/');
     }
-
     document.addEventListener('DOMContentLoaded', function() {
       if (window.lucide) lucide.createIcons();
       document.getElementById('yr').textContent = new Date().getFullYear();
@@ -627,69 +460,67 @@
 
   <!-- Tema: botón sol/luna -->
   <script>
-    (function () {
-      const btn  = document.getElementById('themeBtn');
-      const meta = document.querySelector('meta[name="theme-color"]');
-      const html = document.documentElement;
-    
-      // contenedor estable = el padre de #themeIcon
-      const iconWrap = (function () {
-        const el = document.getElementById('themeIcon');
-        return el ? el.parentElement : null;
-      })();
-    
-      function renderIcon(dark) {
-        if (!iconWrap || !window.lucide) return;
-        // recrea el <i data-lucide="..."> y vuelve a renderizar
-        iconWrap.innerHTML = `<i id="themeIcon" data-lucide="${dark ? 'moon' : 'sun'}" class="h-5 w-5"></i>`;
-        lucide.createIcons();
-      }
-    
-      function setTheme(theme) {
-        const dark = theme === 'dark';
-    
-        // Clases + dataset
-        html.classList.toggle('dark', dark);
-        html.classList.toggle('light', !dark);
-        html.dataset.theme = theme;
-    
-        // Persistencia + barra del navegador
-        localStorage.setItem('theme', theme);
-        if (meta) meta.setAttribute('content', dark ? '#0b0b0b' : '#ffffff');
-    
-        // Icono y accesibilidad
-        renderIcon(dark);
-        if (btn) {
-          btn.setAttribute('aria-pressed', String(dark));
-          const tt = dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
-          btn.title = tt;
-          btn.setAttribute('aria-label', tt);
-        }
-      }
-    
-      function initTheme() {
-        const ls = localStorage.getItem('theme'); // 'dark' | 'light' | null
-        const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setTheme(ls || (sysDark ? 'dark' : 'light'));
-      }
-    
-      // Inicializa
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initTheme);
-      } else {
-        initTheme();
-      }
-    
-      // Toggle
-      if (btn) {
-        btn.addEventListener('click', () => {
-          const next = (html.dataset.theme === 'dark') ? 'light' : 'dark';
-          setTheme(next);
-        });
-      }
+  (function () {
+    const btn  = document.getElementById('themeBtn');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const html = document.documentElement;
+
+    // contenedor estable = el padre de #themeIcon
+    const iconWrap = (function () {
+      const el = document.getElementById('themeIcon');
+      return el ? el.parentElement : null;
     })();
-    </script>
-    
-    
+
+    function renderIcon(dark) {
+      if (!iconWrap || !window.lucide) return;
+      // recrea el <i data-lucide="..."> y vuelve a renderizar
+      iconWrap.innerHTML = `<i id="themeIcon" data-lucide="${dark ? 'moon' : 'sun'}" class="h-5 w-5"></i>`;
+      lucide.createIcons();
+    }
+
+    function setTheme(theme) {
+      const dark = theme === 'dark';
+
+      // Clases + dataset
+      html.classList.toggle('dark', dark);
+      html.classList.toggle('light', !dark);
+      html.dataset.theme = theme;
+
+      // Persistencia + barra del navegador
+      localStorage.setItem('theme', theme);
+      if (meta) meta.setAttribute('content', dark ? '#0b0b0b' : '#ffffff');
+
+      // Icono y accesibilidad
+      renderIcon(dark);
+      if (btn) {
+        btn.setAttribute('aria-pressed', String(dark));
+        const tt = dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+        btn.title = tt;
+        btn.setAttribute('aria-label', tt);
+      }
+    }
+
+    function initTheme() {
+      const ls = localStorage.getItem('theme'); // 'dark' | 'light' | null
+      const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(ls || (sysDark ? 'dark' : 'light'));
+    }
+
+    // Inicializa
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTheme);
+    } else {
+      initTheme();
+    }
+
+    // Toggle
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const next = (html.dataset.theme === 'dark') ? 'light' : 'dark';
+        setTheme(next);
+      });
+    }
+  })();
+  </script>
 </body>
 </html>

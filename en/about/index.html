@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sobre mí – Marco Rios</title>
+  <meta name="description" content="Marco Rios – Ingeniero electrónico orientado a data/backend (Python + SQL). Proyectos, CV y contacto." />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-slate-100">
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+    <nav class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="text-sm opacity-80 hover:opacity-100">← Inicio</a>
+      <span class="text-sm opacity-80">Sobre mí</span>
+    </nav>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-12 space-y-10">
+    <!-- Avatar + nombre -->
+    <section class="text-center">
+      <img src="/assets/img/marco.jpg" alt="Marco Rios"
+           class="mx-auto h-40 w-40 md:h-52 md:w-52 lg:h-60 lg:w-60 rounded-full object-cover
+                  ring-2 ring-white/20 ring-offset-2 ring-offset-slate-950
+                  shadow-xl shadow-emerald-500/10" />
+      <h1 class="mt-4 text-3xl font-semibold">Marco Rios</h1>
+      <p class="mt-1 text-sm text-slate-300">Ingeniero electrónico - Data/Backend (Python + SQL)</p>
+
+      <div class="mt-5 flex flex-wrap justify-center gap-3">
+        <a href="/assets/cv/CV_Marco Rios.pdf" target="_blank"
+           class="rounded-xl bg-emerald-500 px-4 py-2 text-slate-900 font-medium hover:bg-emerald-400">
+          Descargar CV (PDF)
+        </a>
+        <a href="mailto:marcoandrer99@hotmail.com"
+           class="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10">Email</a>
+        <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank"
+           class="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10">LinkedIn</a>
+        <a href="https://github.com/marcorios99" target="_blank"
+           class="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10">GitHub</a>
+      </div>
+    </section>
+
+    <!-- Resumen -->
+    <section class="grid md:grid-cols-5 gap-6 items-start">
+      <div class="md:col-span-3 space-y-3">
+        <h2 class="text-xl font-semibold">Resumen</h2>
+        <p class="text-slate-300">
+          Ingeniero electrónico orientado a datos/backend (Python + SQL).
+          Experiencia construyendo pipelines de datos con trazabilidad para proyectos de alto impacto en Perú.
+          Me enfoco en soluciones simples, medibles y bien documentadas.
+        </p>
+        <ul class="list-disc pl-5 text-sm text-slate-300">
+          <li>ETL con validaciones, control de totales y deduplicación idempotente.</li>
+          <li>Orquestación con Prefect/Airflow, logs estructurados, métricas y alertas.</li>
+          <li>MLOps básico: MLflow, FastAPI, Docker y CI/CD (GitHub Actions).</li>
+        </ul>
+      </div>
+      <aside class="md:col-span-2 glass rounded-3xl p-5 ring-1 ring-white/10">
+        <h3 class="font-semibold mb-2">Stack y foco</h3>
+        <div class="flex flex-wrap gap-2 text-xs text-slate-200">
+          <span class="rounded-full border px-3 py-1">Python</span>
+          <span class="rounded-full border px-3 py-1">SQL Server / Postgres</span>
+          <span class="rounded-full border px-3 py-1">Prefect / Airflow</span>
+          <span class="rounded-full border px-3 py-1">MLflow / FastAPI / Docker</span>
+          <span class="rounded-full border px-3 py-1">C / ESP32 (embebidos)</span>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Links rápidos -->
+    <section>
+      <h2 class="text-xl font-semibold mb-3">Enlaces</h2>
+      <ul class="list-disc pl-6 text-sm text-emerald-300">
+        <li><a class="hover:text-emerald-200" href="/projects/">Proyectos destacados</a></li>
+        <li><a class="hover:text-emerald-200" href="/help/">Notas de ayuda</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="py-10 text-center text-xs text-slate-400">
+    © <script>document.write(new Date().getFullYear())</script> Marco Rios
+  </footer>
+</body>
+</html>
