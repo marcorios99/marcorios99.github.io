@@ -1,0 +1,169 @@
+:root { --brand: 36 99% 50%; }
+body { font-feature-settings: "ss01" on, "cv01" on; }
+.glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); }
+.container-xx { max-width: 1100px; }
+
+/* Chips/badges */
+.badge{
+  display:inline-flex; align-items:center; gap:.25rem;
+  border:1px solid rgba(148,163,184,.4);
+  border-radius:9999px; padding:.25rem .75rem;
+  font-size:.75rem; line-height:1rem;
+}
+
+/* Badge neutral visible en light/dark */
+.badge-neutral{
+  border-color: var(--bd-soft, #cbd5e1);
+  background: rgba(2,6,23,.03);
+  color: var(--txt-strong, #0f172a);
+}
+html.dark .badge-neutral{
+  border-color: rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color: #e5e7eb;
+}
+
+/* Toggle Data/Hardware (como enlaces) */
+.portfolio-toggle{
+  display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;
+  padding:.5rem 1rem;border-radius:9999px;transition:all .2s ease;
+  border:1px solid rgba(2,6,23,.15); color:#334155; background:transparent;
+  text-decoration:none;
+}
+.portfolio-toggle:hover{ color:#0f172a; border-color:rgba(2,6,23,.3) }
+.portfolio-toggle .ico{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:1.75rem;height:1.75rem;border-radius:9999px;
+  background:rgba(2,6,23,.05); box-shadow: inset 0 0 0 1px rgba(2,6,23,.08);
+}
+.portfolio-toggle.active{
+  background:rgba(16,185,129,.15); border-color:rgba(16,185,129,.50);
+  color:#065f46; box-shadow:0 0 0 1px rgba(16,185,129,.25) inset;
+}
+.portfolio-toggle.active .ico{
+  background:rgba(16,185,129,.20); box-shadow: inset 0 0 0 1px rgba(16,185,129,.35);
+}
+html.dark .portfolio-toggle{ border-color:rgba(255,255,255,.2); color:#cbd5e1; }
+html.dark .portfolio-toggle:hover{ color:#fff;border-color:rgba(255,255,255,.4) }
+html.dark .portfolio-toggle .ico{ background:rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+html.dark .portfolio-toggle.active{ background:rgba(16,185,129,.20); border-color:rgba(16,185,129,.60); color:#a7f3d0; }
+html.dark .portfolio-toggle.active .ico{ background:rgba(16,185,129,.25); box-shadow: inset 0 0 0 1px rgba(16,185,129,.35); }
+
+/* ===== Light skin (mejor contraste) ===== */
+html.light{
+  --txt-strong:#0f172a;  /* slate-900 */
+  --txt-body:#334155;    /* slate-700 */
+  --txt-muted:#475569;   /* slate-600 */
+  --bd:#e2e8f0;          /* slate-200 */
+  --bd-soft:#cbd5e1;     /* slate-300 */
+}
+html.light body{
+  background-image: linear-gradient(to bottom, #ffffff, #f8fafc, #eef2f7) !important;
+  color:var(--txt-body);
+}
+html.light header{ background-color:rgba(255,255,255,.7) !important; border-color:rgba(148,163,184,.7) !important; }
+html.light h1, html.light h2, html.light h3{ color:var(--txt-strong) !important; }
+html.light p, html.light li{ color:var(--txt-body); }
+html.light #hero-description{ color:var(--txt-muted) !important; }
+html.light #primary-badge{ color:#065f46 !important; }
+html.light #projects article,
+html.light #skills .rounded-2xl,
+html.light #contact > div{ background:#fff !important; border-color:var(--bd) !important; color:var(--txt-body) !important; }
+html.light #projects article h3,
+html.light #skills .rounded-2xl h3{ color:var(--txt-strong) !important; }
+html.light .glass{ background:rgba(0,0,0,.03) !important; }
+html.light .glass h3{ color:var(--txt-strong) !important; }
+html.light .glass ul, html.light .glass li{ color:var(--txt-muted) !important; }
+html.light .badge{ border-color:var(--bd-soft) !important; color:var(--txt-muted) !important; }
+html.light .container-xx a[href^="/projects/"],
+html.light .container-xx a[href^="https://github.com"],
+html.light .container-xx a[href^="https://www.linkedin"]{ color:var(--txt-strong); }
+/* Light: texto oscuro sobre verde */
+html.light .btn-accent,
+html.light .btn-accent:visited{ color:#0f172a !important; }
+
+/* Dark: texto blanco sobre verde */
+html.dark .btn-accent,
+html.dark .btn-accent:visited{ color:#0f172a !important; }
+
+/* ===== Acento unificado + botones ===== */
+:root{ --accent:#77e2bb;}       /* emerald-600 (LIGHT) */
+html.dark{ --accent: #1caf81; }   /* emerald-400 (DARK) */
+
+.btn-accent{
+  display:inline-flex; align-items:center; gap:.4rem;
+  padding:.45rem .75rem; border-radius:.75rem; text-decoration:none;
+  background:var(--accent); color:#fff;
+  border:1px solid rgba(0,0,0,.05);
+  font-size:.875rem; font-weight:600;
+}
+.btn-accent--sm{
+  padding:.35rem .6rem;
+  font-size:.8125rem;
+  border-radius:.65rem;
+  white-space:nowrap;
+}
+.btn-accent:hover{ filter:brightness(1.06); }
+
+.btn-outline{
+  display:inline-flex; align-items:center; gap:.35rem;
+  padding:.45rem .75rem; border-radius:.75rem; text-decoration:none;
+  border:1px solid var(--bd-soft, rgba(148,163,184,.50));
+  color:var(--txt-strong, #0f172a); background:transparent;
+  font-size:.875rem;
+}
+.btn-outline:hover{ background:rgba(2,6,23,.03); }
+html.dark .btn-outline{ border-color:rgba(255,255,255,.15); color:#e5e7eb; }
+html.dark .btn-outline:hover{ background:rgba(255,255,255,.08); }
+
+/* ===== Theme toggle (cambia color según tema) ===== */
+:root{
+  /* Light */
+  --toggle-bg: rgba(255,255,255,.75);
+  --toggle-bg-hover:#ffffff;
+  --toggle-fg:#334155;              /* slate-700 */
+  --toggle-br: rgba(2,6,23,.18);    /* slate-950 ~18% */
+  --toggle-dot-bg: rgba(2,6,23,.06);
+}
+html.dark{
+  /* Dark */
+  --toggle-bg: rgba(2,6,23,.70);    /* slate-950/70 */
+  --toggle-bg-hover: rgba(2,6,23,.90);
+  --toggle-fg:#e5e7eb;              /* zinc-200 */
+  --toggle-br: rgba(255,255,255,.22);
+  --toggle-dot-bg: rgba(255,255,255,.12);
+}
+
+/* Botón */
+.theme-btn{
+  inline-size: 2.25rem; block-size: 2.25rem; /* 36px */
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:9999px; border:1px solid var(--toggle-br);
+  background:var(--toggle-bg); color:var(--toggle-fg);
+  transition:background .2s ease, color .2s ease, border-color .2s ease;
+}
+.theme-btn:hover{ background:var(--toggle-bg-hover); }
+.theme-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+/* Pastilla interior del icono */
+.theme-btn .dot{
+  inline-size: 1.75rem; block-size: 1.75rem;
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:9999px; background:var(--toggle-dot-bg);
+}
+
+/* Icono hereda color del botón */
+.theme-btn i{ color: inherit; }
+
+/* Nav: colores seguros en light/dark + hover */
+.navlink{
+  color:#334155;                 /* slate-700 */
+  transition: color .15s ease;
+}
+.navlink:hover,
+.navlink:focus-visible{
+  color:#000000;                 /* más oscuro */
+}
+html.dark .navlink{ color:#cbd5e1; }
+html.dark .navlink:hover,
+html.dark .navlink:focus-visible{ color:#ffffff; }

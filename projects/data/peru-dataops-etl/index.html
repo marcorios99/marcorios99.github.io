@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="ETL de conciliación operativa (demo sintética) – Marco Rios" />
   <meta property="og:description" content="Ingesta de archivos operativos/contables (CSV) → validaciones de esquema y control de totales → deduplicación → carga a SQL → reporte automático y observabilidad." />
   <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover.png" />
@@ -11,43 +13,74 @@
 
   <title>ETL de conciliación operativa (demo sintética) – Marco Rios</title>
   <meta name="description" content="Pipeline ETL robusto para conciliación de archivos operativos/contables con observabilidad y trazabilidad." />
+
+  <!-- Color barra navegador (site.js lo actualiza según tema) -->
+  <meta name="theme-color" content="#0b0b0b">
+
+  <!-- Tailwind (dark por clase) -->
+  <script>tailwind = { config: { darkMode: 'class' } };</script>
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  <style>
-    /* Tipografía simple y consistente */
-    :root { --brand: 36 99% 50%; }
-    body { font-feature-settings: "ss01" on, "cv01" on; }
-    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); }
-    .container-xx { max-width: 1100px; }
-    .badge { @apply inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs; }
-  </style>
+
+  <!-- Estilos y JS compartidos -->
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script defer src="/assets/js/site.js"></script>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-slate-100">
-  <!-- NAV -->
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+
+<body class="min-h-screen bg-white text-slate-900
+             dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800
+             dark:text-slate-100">
+
+  <!-- NAV (idéntico estilo que el index) -->
+  <header class="sticky top-0 z-50 border-b backdrop-blur
+                 bg-white/70 border-slate-200/70
+                 dark:bg-slate-950/70 dark:border-white/10">
     <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
       <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
+
       <div class="hidden md:flex items-center gap-6 text-sm">
-        <a href="/about/" class="hover:text-white/90">Acerca de mí</a>
-        <a href="/help/" class="hover:text-white/90">Ayuda</a>
-        <a href="/" class="hover:text-white/90">Inicio</a>
+        <a href="/about/" class="navlink">Acerca de mí</a>
+        <a href="/help/" class="navlink">Ayuda</a>
+        <a href="/" class="navlink">Inicio</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Botón idioma (ajusta la URL si tienes versión en inglés de este proyecto) -->
+        <a href="/en/" class="btn-outline" aria-label="Ver sitio en inglés">
+          <i data-lucide="languages" class="h-4 w-4"></i>
+          ES
+        </a>
+
+        <!-- Botón Light/Dark (site.js hace el toggle y el icono) -->
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
+          <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
+        </button>
       </div>
     </nav>
   </header>
- 
+
   <!-- HERO -->
   <section class="mx-auto container-xx px-4 py-16 sm:py-20">
     <div class="space-y-8">
       <div class="text-center space-y-5">
-        <span class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">ETL · Python + SQL · Demo sintética</span>
-        
+        <span class="inline-flex items-center gap-2 rounded-full border
+                      border-emerald-600/30 bg-emerald-500/10 px-3 py-1 text-xs
+                      text-emerald-700 dark:text-emerald-300">
+          ETL · Python + SQL · Demo sintética
+        </span>
+
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
-          <span class="text-emerald-400">ETL</span> con observabilidad y trazabilidad
+          <span class="text-emerald-600 dark:text-emerald-400">ETL</span> con observabilidad y trazabilidad
         </h1>
-        <p class="text-slate-300 max-w-3xl mx-auto">Ingesta de archivos operativos/contables (CSV) → validaciones de esquema y control de totales → deduplicación → carga a SQL → reporte automático y observabilidad. Reduce ~40% el tiempo de procesamiento.</p>
+        <p class="text-slate-700 dark:text-slate-300 max-w-3xl mx-auto">
+          Ingesta de archivos operativos/contables (CSV) → validaciones de esquema y control de totales → deduplicación → carga a SQL → reporte automático y observabilidad.
+          Reduce ~40% el tiempo de procesamiento.
+        </p>
         <div class="flex flex-wrap justify-center gap-3">
-          <a href="https://github.com/marcorios99/prj-peru-dataops-etl" target="_blank" class="rounded-xl bg-white text-slate-900 px-4 py-2 text-sm font-medium hover:bg-slate-100">Ver en GitHub</a>
-          <a href="/" class="rounded-xl border border-white/20 px-4 py-2 text-sm hover:bg-white/10">← Volver al inicio</a>
+          <a href="https://github.com/marcorios99/prj-peru-dataops-etl" target="_blank" class="btn-accent">Ver en GitHub</a>
+          <a href="/" class="btn-outline">← Volver al inicio</a>
         </div>
       </div>
     </div>
@@ -56,41 +89,41 @@
   <!-- ARQUITECTURA -->
   <section class="mx-auto container-xx px-4 py-12">
     <h2 class="text-2xl font-semibold mb-6">Arquitectura del sistema</h2>
-    <div class="glass rounded-3xl p-6 shadow-2xl ring-1 ring-white/10">
+    <div class="glass rounded-3xl p-6 shadow-2xl ring-1 ring-slate-200 dark:ring-white/10">
       <div class="space-y-4">
         <div class="flex items-start gap-3">
           <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">1</div>
           <div>
-            <h3 class="font-semibold text-slate-100">Ingesta automática</h3>
-            <p class="text-sm text-slate-300">Monitoreo de carpetas para detectar nuevos archivos CSV operativos/contables</p>
+            <h3 class="font-semibold">Ingesta automática</h3>
+            <p class="text-sm text-slate-700 dark:text-slate-300">Monitoreo de carpetas para detectar nuevos archivos CSV operativos/contables.</p>
           </div>
         </div>
         <div class="flex items-start gap-3">
           <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">2</div>
           <div>
-            <h3 class="font-semibold text-slate-100">Validación y control</h3>
-            <p class="text-sm text-slate-300">Esquemas con Pandera/Great Expectations, control de totales y checksums</p>
+            <h3 class="font-semibold">Validación y control</h3>
+            <p class="text-sm text-slate-700 dark:text-slate-300">Esquemas con Pandera/Great Expectations, control de totales y checksums.</p>
           </div>
         </div>
         <div class="flex items-start gap-3">
           <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">3</div>
           <div>
-            <h3 class="font-semibold text-slate-100">Deduplicación idempotente</h3>
-            <p class="text-sm text-slate-300">Proceso basado en claves de negocio y hash de contenido</p>
+            <h3 class="font-semibold">Deduplicación idempotente</h3>
+            <p class="text-sm text-slate-700 dark:text-slate-300">Proceso basado en claves de negocio y hash de contenido.</p>
           </div>
         </div>
         <div class="flex items-start gap-3">
           <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">4</div>
           <div>
-            <h3 class="font-semibold text-slate-100">Carga transaccional</h3>
-            <p class="text-sm text-slate-300">UPSERT incremental a SQL Server/PostgreSQL con rollback automático</p>
+            <h3 class="font-semibold">Carga transaccional</h3>
+            <p class="text-sm text-slate-700 dark:text-slate-300">UPSERT incremental a SQL Server/PostgreSQL con rollback automático.</p>
           </div>
         </div>
         <div class="flex items-start gap-3">
           <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">5</div>
           <div>
-            <h3 class="font-semibold text-slate-100">Observabilidad completa</h3>
-            <p class="text-sm text-slate-300">Logs estructurados, métricas, alertas y orquestación con Prefect/Airflow</p>
+            <h3 class="font-semibold">Observabilidad completa</h3>
+            <p class="text-sm text-slate-700 dark:text-slate-300">Logs estructurados, métricas, alertas y orquestación con Prefect/Airflow.</p>
           </div>
         </div>
       </div>
@@ -101,37 +134,39 @@
   <section class="mx-auto container-xx px-4 py-12">
     <h2 class="text-2xl font-semibold mb-6">Procedimientos y metodología</h2>
     <div class="space-y-6">
-      
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+      <article class="rounded-2xl border p-6 shadow
+                     bg-white border-slate-200 text-slate-700
+                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
         <h3 class="text-lg font-semibold mb-3">1. Proceso de validación de datos</h3>
-        <p class="text-sm text-slate-300 mb-3">
-          [Espacio reservado para explicar el proceso detallado de validación: tipos de controles implementados, 
-          reglas de negocio específicas, manejo de excepciones y logging de errores]
+        <p class="text-sm mb-3">
+          [Espacio reservado para explicar el proceso detallado de validación: tipos de controles, reglas de negocio, manejo de excepciones y logging de errores]
         </p>
         <div class="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2">
-          <p class="text-xs text-emerald-300"><strong>Por implementar:</strong> Documentación detallada del proceso de validación con ejemplos reales</p>
+          <p class="text-xs text-emerald-700 dark:text-emerald-300"><strong>Por implementar:</strong> Documentación detallada del proceso de validación con ejemplos reales.</p>
         </div>
       </article>
 
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+      <article class="rounded-2xl border p-6 shadow
+                     bg-white border-slate-200 text-slate-700
+                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
         <h3 class="text-lg font-semibold mb-3">2. Algoritmo de deduplicación</h3>
-        <p class="text-sm text-slate-300 mb-3">
-          [Espacio reservado para explicar la lógica de deduplicación: identificación de registros duplicados, 
-          criterios de precedencia, manejo de registros parcialmente duplicados]
+        <p class="text-sm mb-3">
+          [Espacio reservado para explicar la lógica de deduplicación: criterios de precedencia, manejo de registros parcialmente duplicados]
         </p>
         <div class="rounded-lg border border-blue-500/30 bg-blue-500/10 px-3 py-2">
-          <p class="text-xs text-blue-300"><strong>Por implementar:</strong> Diagrama de flujo y ejemplos del algoritmo de deduplicación</p>
+          <p class="text-xs text-blue-700 dark:text-blue-300"><strong>Por implementar:</strong> Diagrama de flujo y ejemplos del algoritmo de deduplicación.</p>
         </div>
       </article>
 
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+      <article class="rounded-2xl border p-6 shadow
+                     bg-white border-slate-200 text-slate-700
+                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
         <h3 class="text-lg font-semibold mb-3">3. Estrategia de conciliación</h3>
-        <p class="text-sm text-slate-300 mb-3">
-          [Espacio reservado para explicar el proceso de conciliación: matching de registros entre fuentes, 
-          identificación de diferencias, generación de reportes de discrepancias]
+        <p class="text-sm mb-3">
+          [Espacio reservado para explicar el matching de registros entre fuentes, identificación de diferencias y reportes de discrepancias]
         </p>
         <div class="rounded-lg border border-purple-500/30 bg-purple-500/10 px-3 py-2">
-          <p class="text-xs text-purple-300"><strong>Por implementar:</strong> Casos de uso y ejemplos de conciliación contable</p>
+          <p class="text-xs text-purple-700 dark:text-purple-300"><strong>Por implementar:</strong> Casos de uso y ejemplos de conciliación contable.</p>
         </div>
       </article>
     </div>
@@ -140,38 +175,39 @@
   <!-- DATASET -->
   <section class="mx-auto container-xx px-4 py-12">
     <h2 class="text-2xl font-semibold mb-6">Dataset y estructura de datos</h2>
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
-      <p class="text-sm text-slate-300 mb-4">
-        [Espacio reservado para documentar la estructura de los archivos CSV de entrada, 
-        esquemas de datos, ejemplos de registros sintéticos y casos de prueba específicos]
+    <div class="rounded-2xl border p-6 shadow
+                bg-white border-slate-200 text-slate-700
+                dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+      <p class="text-sm mb-4">
+        [Espacio reservado para documentar la estructura de los CSV de entrada, esquemas de datos, ejemplos de registros sintéticos y casos de prueba]
       </p>
       <div class="glass rounded-2xl p-4">
         <h4 class="font-semibold mb-3">Estructura prevista:</h4>
-        <ul class="text-sm text-slate-300 space-y-1">
-          <li>• <code class="text-emerald-400">/data/input/</code> - Archivos CSV operativos</li>
-          <li>• <code class="text-emerald-400">/data/processed/</code> - Archivos procesados</li>
-          <li>• <code class="text-emerald-400">/schemas/</code> - Definiciones de esquemas</li>
-          <li>• <code class="text-emerald-400">/config/</code> - Configuraciones por ambiente</li>
+        <ul class="text-sm space-y-1">
+          <li>• <code class="text-emerald-600 dark:text-emerald-400">/data/input/</code> - Archivos CSV operativos</li>
+          <li>• <code class="text-emerald-600 dark:text-emerald-400">/data/processed/</code> - Archivos procesados</li>
+          <li>• <code class="text-emerald-600 dark:text-emerald-400">/schemas/</code> - Definiciones de esquemas</li>
+          <li>• <code class="text-emerald-600 dark:text-emerald-400">/config/</code> - Configuraciones por ambiente</li>
         </ul>
       </div>
     </div>
   </section>
-<!-- INSTALACIÓN -->
-<section class="mx-auto container-xx px-4 py-12">
-  <h2 class="text-2xl font-semibold mb-6">Instalación y configuración</h2>
-  <div class="space-y-6">
-    
-    <div>
-      <h3 class="font-semibold mb-3">Requisitos del sistema</h3>
-      <div class="glass rounded-lg p-4">
-        <pre class="text-sm text-slate-300"><code>[Por definir: versiones de Python, dependencias del sistema, requisitos de BD]</code></pre>
+
+  <!-- INSTALACIÓN -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Instalación y configuración</h2>
+    <div class="space-y-6">
+      <div>
+        <h3 class="font-semibold mb-3">Requisitos del sistema</h3>
+        <div class="glass rounded-lg p-4">
+          <pre class="text-sm"><code>[Por definir: versiones de Python, dependencias del sistema, requisitos de BD]</code></pre>
+        </div>
       </div>
-    </div>
-    
-    <div>
-      <h3 class="font-semibold mb-3">Pasos de instalación</h3>
-      <div class="glass rounded-lg p-4">
-        <pre class="text-sm text-slate-300 overflow-x-auto"><code># 1. Clonar repositorio
+
+      <div>
+        <h3 class="font-semibold mb-3">Pasos de instalación</h3>
+        <div class="glass rounded-lg p-4">
+<pre class="text-sm overflow-x-auto"><code># 1. Clonar repositorio
 git clone https://github.com/marcorios99/prj-peru-dataops-etl
 cd prj-peru-dataops-etl
 
@@ -188,120 +224,68 @@ pip install -r requirements.txt
 
 # 5. Ejecutar pipeline
 [Por implementar: comandos específicos]</code></pre>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- RESULTADOS -->
-<section class="mx-auto container-xx px-4 py-12">
-  <h2 class="text-2xl font-semibold mb-6">Resultados y métricas</h2>
-  <div class="space-y-6">
-    
-    <p class="text-slate-300">
-      [Espacio reservado para documentar los resultados obtenidos: métricas de rendimiento, 
-      ejemplos de reportes generados, capturas de pantalla del dashboard de monitoreo]
-    </p>
-    
-    <div>
-      <h3 class="font-semibold mb-4">Outputs esperados</h3>
-      <div class="glass rounded-2xl p-6">
-        <ul class="text-sm text-slate-300 space-y-3">
-          <li class="flex items-center gap-2">
-            <i data-lucide="database" class="h-4 w-4 text-emerald-400"></i>
-            Tablas SQL normalizadas
-          </li>
-          <li class="flex items-center gap-2">
-            <i data-lucide="file-text" class="h-4 w-4 text-emerald-400"></i>
-            Reportes de conciliación (Excel/PDF)
-          </li>
-          <li class="flex items-center gap-2">
-            <i data-lucide="activity" class="h-4 w-4 text-emerald-400"></i>
-            Logs de auditoria estructurados
-          </li>
-          <li class="flex items-center gap-2">
-            <i data-lucide="bar-chart" class="h-4 w-4 text-emerald-400"></i>
-            Dashboards de monitoreo
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div>
-      <h3 class="font-semibold mb-4">Métricas clave</h3>
-      <div class="glass rounded-2xl p-6">
-        <ul class="text-sm text-slate-300 space-y-3">
-          <li class="flex items-center gap-2">
-            <i data-lucide="clock" class="h-4 w-4 text-emerald-400"></i>
-            Tiempo de procesamiento por archivo
-          </li>
-          <li class="flex items-center gap-2">
-            <i data-lucide="check-circle" class="h-4 w-4 text-emerald-400"></i>
-            Tasa de registros válidos/inválidos
-          </li>
-          <li class="flex items-center gap-2">
-            <i data-lucide="copy" class="h-4 w-4 text-emerald-400"></i>
-            Porcentaje de duplicados detectados
-          </li>
-          <li class="flex items-center gap-2">
-            <i data-lucide="shield" class="h-4 w-4 text-emerald-400"></i>
-            Disponibilidad del sistema
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- STACK -->
+  <!-- RESULTADOS -->
   <section class="mx-auto container-xx px-4 py-12">
-    <h2 class="text-2xl font-semibold mb-6">Stack tecnológico</h2>
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm text-slate-300">
-      <div class="rounded-2xl border border-white/10 p-4">
-        <h3 class="font-semibold mb-2">Core</h3>
-        <p>Python, Pandas, SQLAlchemy</p>
+    <h2 class="text-2xl font-semibold mb-6">Resultados y métricas</h2>
+    <div class="space-y-6">
+      <p class="text-slate-700 dark:text-slate-300">
+        [Espacio reservado para documentar resultados: métricas de rendimiento, reportes generados, capturas del dashboard]
+      </p>
+
+      <div>
+        <h3 class="font-semibold mb-4">Outputs esperados</h3>
+        <div class="glass rounded-2xl p-6">
+          <ul class="text-sm space-y-3">
+            <li class="flex items-center gap-2"><i data-lucide="database" class="h-4 w-4 text-emerald-600 dark:text-emerald-400"></i>Tablas SQL normalizadas</li>
+            <li class="flex items-center gap-2"><i data-lucide="file-text" class="h-4 w-4 text-emerald-600 dark:text-emerald-400"></i>Reportes de conciliación (Excel/PDF)</li>
+            <li class="flex items-center gap-2"><i data-lucide="activity" class="h-4 w-4 text-emerald-600 dark:text-emerald-400"></i>Logs de auditoría estructurados</li>
+            <li class="flex items-center gap-2"><i data-lucide="bar-chart" class="h-4 w-4 text-emerald-600 dark:text-emerald-400"></i>Dashboards de monitoreo</li>
+          </ul>
+        </div>
       </div>
-      <div class="rounded-2xl border border-white/10 p-4">
-        <h3 class="font-semibold mb-2">Base de datos</h3>
-        <p>SQL Server, PostgreSQL</p>
-      </div>
-      <div class="rounded-2xl border border-white/10 p-4">
-        <h3 class="font-semibold mb-2">Validación</h3>
-        <p>Pandera, Great Expectations</p>
-      </div>
-      <div class="rounded-2xl border border-white/10 p-4">
-        <h3 class="font-semibold mb-2">Orquestación</h3>
-        <p>Prefect, Airflow</p>
-      </div>
-      <div class="rounded-2xl border border-white/10 p-4">
-        <h3 class="font-semibold mb-2">OCR (opcional)</h3>
-        <p>OpenCV, Tesseract, Doctr</p>
-      </div>
-      <div class="rounded-2xl border border-white/10 p-4">
-        <h3 class="font-semibold mb-2">Testing</h3>
-        <p>pytest, ruff, Docker</p>
+
+      <div>
+        <h3 class="font-semibold mb-4">Métricas clave</h3>
+        <div class="glass rounded-2xl p-6">
+          <ul class="text-sm space-y-3">
+            <li class="flex items-center gap-2"><i data-lucide="clock" class="h-4 w-4 text-emerald-600 dark:text-emerald-400"></i>Tiempo de procesamiento por archivo</li>
+            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="h-4 w-4 text-emerald-600 dark:text-emerald-400"></i>Tasa de registros válidos/inválidos</li>
+            <li class="flex items-center gap-2"><i data-lucide="copy" class="h-4 w-4 text-emerald-600 dark:text-emerald-400"></i>Porcentaje de duplicados detectados</li>
+            <li class="flex items-center gap-2"><i data-lucide="shield" class="h-4 w-4 text-emerald-600 dark:text-emerald-400"></i>Disponibilidad del sistema</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- CONTACTO -->
   <section class="mx-auto container-xx px-4 py-16">
-    <div class="rounded-3xl border border-white/10 bg-white/5 p-8 text-center">
+    <div class="rounded-3xl border p-8 text-center
+                bg-white border-slate-200 text-slate-700
+                dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
       <h2 class="text-2xl font-semibold">¿Preguntas sobre este proyecto?</h2>
-      <p class="mt-2 text-slate-300">Envíame un mensaje.</p>
+      <p class="mt-2">Envíame un mensaje.</p>
       <div class="mt-4 flex flex-wrap justify-center gap-3">
-        <a href="mailto:marcoandrer99@hotmail.com" class="rounded-xl bg-emerald-500 px-4 py-2 font-medium text-slate-900 hover:bg-emerald-400">marcoandrer99@hotmail.com</a>
-        <a href="/" class="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10">← Volver al portfolio</a>
+        <a href="mailto:marcoandrer99@hotmail.com" class="btn-accent">marcoandrer99@hotmail.com</a>
+        <a href="/" class="btn-outline">← Volver al portfolio</a>
       </div>
     </div>
   </section>
 
-  <footer class="py-10 text-center text-xs text-slate-400">
+  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
     © <span id="yr"></span> Marco Rios · Desplegable en GitHub Pages
   </footer>
 
+  <!-- Scripts de página -->
   <script>
-    lucide.createIcons();
+    // Iconos para todo el documento (además del que renderiza site.js en el toggle)
+    if (window.lucide) lucide.createIcons();
+    // Año del footer
     document.getElementById('yr').textContent = new Date().getFullYear();
   </script>
 </body>
