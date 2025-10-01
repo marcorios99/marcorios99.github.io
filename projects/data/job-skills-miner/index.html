@@ -11,26 +11,46 @@
 
   <title>Explorador de skills laborales (ETL + análisis) – Marco Rios</title>
   <meta name="description" content="Pipeline ETL para analizar demanda de habilidades laborales con PySpark y visualizaciones interactivas." />
+  <!-- Color barra navegador (site.js lo actualiza según tema) -->
+  <meta name="theme-color" content="#0b0b0b">
+
+  <!-- Tailwind (dark por clase) -->
+  <script>tailwind = { config: { darkMode: 'class' } };</script>
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  <style>
-    /* Tipografía simple y consistente */
-    :root { --brand: 36 99% 50%; }
-    body { font-feature-settings: "ss01" on, "cv01" on; }
-    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); }
-    .container-xx { max-width: 1100px; }
-    .badge { @apply inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs; }
-  </style>
+
+  <!-- Estilos y JS compartidos -->
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script defer src="/assets/js/site.js"></script>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-slate-100">
-  <!-- NAV -->
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+  
+  <!-- NAV (idéntico estilo que el index) -->
+  <header class="sticky top-0 z-50 border-b backdrop-blur
+                 bg-white/70 border-slate-200/70
+                 dark:bg-slate-950/70 dark:border-white/10">
     <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
       <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
+
       <div class="hidden md:flex items-center gap-6 text-sm">
-        <a href="/about/" class="hover:text-white/90">Acerca de mí</a>
-        <a href="/help/" class="hover:text-white/90">Ayuda</a>
-        <a href="/" class="hover:text-white/90">Inicio</a>
+        <a href="/about/" class="navlink">Acerca de mí</a>
+        <a href="/help/" class="navlink">Ayuda</a>
+        <a href="/" class="navlink">Inicio</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Botón idioma (ajusta la URL si tienes versión en inglés de este proyecto) -->
+        <a href="/en/" class="btn-outline" aria-label="Ver sitio en inglés">
+          <i data-lucide="languages" class="h-4 w-4"></i>
+          ES
+        </a>
+
+        <!-- Botón Light/Dark (site.js hace el toggle y el icono) -->
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
+          <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
+        </button>
       </div>
     </nav>
   </header>
@@ -170,7 +190,7 @@
       <div>
         <h3 class="font-semibold mb-3">Requisitos del sistema</h3>
         <div class="glass rounded-lg p-4">
-          <pre class="text-sm text-slate-300"><code>[Por definir: versión de Spark,
+          <pre class="text-sm overflow-x-auto"><code>[Por definir: versión de Spark,
 configuración de memoria,
 dependencias de visualización,
 requisitos de Airflow/Prefect]</code></pre>
@@ -180,7 +200,7 @@ requisitos de Airflow/Prefect]</code></pre>
       <div>
         <h3 class="font-semibold mb-3">Setup del pipeline</h3>
         <div class="glass rounded-lg p-4">
-          <pre class="text-sm text-slate-300 overflow-x-auto"><code># 1. Clonar repositorio
+          <pre class="text-sm overflow-x-auto"><code># 1. Clonar repositorio
 git clone https://github.com/marcorios99/job-skills-miner
 cd job-skills-miner
 
