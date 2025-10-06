@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo – ETL de conciliación (synthetic)</title>
+  <meta name="description" content="Ejecución real del pipeline ETL: logs, métricas y reporte." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-slate-100">
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+    <nav class="mx-auto max-w-5xl px-4 flex items-center justify-between py-3">
+      <a href="/projects/peru-dataops-etl/" class="text-sm hover:opacity-80">← Volver</a>
+      <span class="text-sm opacity-80">Demo</span>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-4 py-10 space-y-8">
+    <section>
+      <h1 class="text-2xl font-semibold mb-2">Ejecución real del pipeline</h1>
+      <p class="text-slate-300 text-sm">Salida directa de consola (última corrida exitosa).</p>
+      <details class="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4" open>
+        <summary class="cursor-pointer text-sm text-emerald-300 flex items-center gap-2">
+          <i data-lucide="terminal" class="h-4 w-4"></i> Ver logs
+        </summary>
+<pre class="mt-3 text-xs text-slate-200 overflow-x-auto"><code>======================================================================
+ETL PIPELINE EXECUTION
+======================================================================
+Input file: data/input/operaciones_demo_2025.csv
+Database: sqlserver
+======================================================================
+2025-10-05T17:18:29.351669Z [info     ] pipeline_started               [__main__] input_file=data/input/operaciones_demo_2025.csv pipeline_id=etl_20251005_121829
+2025-10-05T17:18:29.352669Z [info     ] extraction_started             [__main__] file=data/input/operaciones_demo_2025.csv
+2025-10-05T17:18:29.383177Z [info     ] extraction_completed           [__main__] rows=10500
+2025-10-05T17:18:29.383177Z [info     ] validation_started             [__main__] input_rows=10500
+2025-10-05T17:18:31.986742Z [info     ] validation_completed           [__main__] invalid_rows=1178 success_rate=0.8878095238095238 valid_rows=9322
+2025-10-05T17:18:31.986742Z [info     ] deduplication_started          [__main__] input_rows=9322
+2025-10-05T17:18:31.989706Z [info     ] deduplication_completed        [__main__] duplicates_found=0 duplicates_removed=0 final_rows=9322
+2025-10-05T17:18:32.028083Z [info     ] loading_started                [__main__] database=sqlserver rows=9322
+Connected to SQL Server
+Database: ETL_Conciliacion
+Table 'dbo.operaciones' created/verified
+2025-10-05T17:18:32.458621Z [info     ] loading_completed              [__main__] rows_failed=0 rows_inserted=9322 rows_updated=0
+Database connection closed
+2025-10-05T17:18:32.458621Z [info     ] pipeline_completed             [__main__] pipeline_id=etl_20251005_121829 processing_time=3.106952 status=success
+2025-10-05T17:18:32.473669Z [info     ] metrics_saved                  [__main__] filepath=data\output\metrics\metrics_etl_20251005_121829.json
+
+======================================================================
+PIPELINE COMPLETED SUCCESSFULLY
+======================================================================
+pipeline_id: etl_20251005_121829
+status: success
+total_input: 10500
+total_loaded: 9322
+success_rate: 88.78%
+duplicates_removed: 0
+validation_errors: 100
+processing_time: 3.11s
+======================================================================</code></pre>
+      </details>
+    </section>
+
+    <section class="grid md:grid-cols-2 gap-6">
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+        <h2 class="font-semibold mb-2">Métricas</h2>
+        <ul class="text-sm text-slate-300 space-y-1">
+          <li>⏱️ Tiempo: <strong>3.11 s</strong></li>
+          <li>📥 Entrada: <strong>10,500</strong></li>
+          <li>✅ Cargados: <strong>9,322</strong></li>
+          <li>🎯 Validación: <strong>88.78%</strong></li>
+          <li>🧹 Duplicados removidos: <strong>0</strong></li>
+        </ul>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+        <h2 class="font-semibold mb-2">Artefactos</h2>
+        <ul class="text-sm text-slate-300 space-y-2">
+          <li class="flex items-center gap-2"><i data-lucide="file-json" class="h-4 w-4 text-emerald-400"></i>Métricas JSON (por corrida)</li>
+          <li class="flex items-center gap-2"><i data-lucide="file-spreadsheet" class="h-4 w-4 text-emerald-400"></i>Reporte Excel (3 hojas)</li>
+          <li class="flex items-center gap-2"><i data-lucide="file-text" class="h-4 w-4 text-emerald-400"></i>Logs JSON estructurados</li>
+        </ul>
+        <!-- Opcional: linkea artefactos estáticos si los subes a /assets/demo/etl/... -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-10 text-center text-xs text-slate-400">
+    © <span id="yr"></span> Marco Rios · GitHub Pages
+  </footer>
+  <script>lucide.createIcons(); document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

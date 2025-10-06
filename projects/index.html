@@ -97,32 +97,32 @@
     </div>
 
     <div class="grid md:grid-cols-2 gap-6">
-      <!-- Project: ETL conciliación -->
-      <article class="rounded-2xl border p-6 shadow
-                     bg-white border-slate-200 text-slate-700
-                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">Python</span>
-          <span class="badge">Pandas</span>
-          <span class="badge">SQL Server</span>
-          <span class="badge">Prefect</span>
-        </div>
-        <h3 class="text-lg font-semibold">ETL de conciliación operativa (demo sintética)</h3>
-        <p class="mt-2 text-sm">Ingesta CSV → validaciones (schema/totales) → deduplicación → carga SQL → reporte y observabilidad. Redujo ~40% tiempos.</p>
-        <ul class="mt-3 list-disc pl-5 text-sm">
-          <li>Reglas explicables con trazabilidad completa.</li>
-          <li>
-            Orquestación con Prefect/Airflow
-            <i data-lucide="workflow" class="inline h-4 w-4 text-emerald-600 dark:text-emerald-400 align-text-bottom"></i>
-            (jobs, alertas, CRON).
-          </li>
-        </ul>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <a href="https://github.com/marcorios99/prj-peru-dataops-etl" target="_blank" class="btn-outline">Repo</a>
-          <a href="/projects/peru-dataops-etl/" class="btn-accent">Guía</a>
-          <a href="/projects/peru-dataops-etl/demo/" class="btn-outline">Demo</a>
-        </div>
-      </article>
+  <!-- Project 1 - ETL (CON DEMO) -->
+  <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
+      <span class="badge border-white/15">Python</span>
+      <span class="badge border-white/15">Pandas</span>
+      <span class="badge border-white/15">SQLAlchemy</span>
+      <span class="badge border-white/15">SQL Server</span>
+      <span class="badge border-white/15">SQLite</span>
+    </div>
+    <h3 class="text-lg font-semibold">ETL de conciliación operativa (demo sintética)</h3>
+    <p class="mt-2 text-sm text-slate-300">
+      Ingesta de CSV → validación con Pandera → deduplicación (hash/idempotente) → UPSERT a SQL Server/SQLite →
+      reporte Excel y observabilidad (logs JSON + métricas). <strong>10.5K registros en ~3.1s</strong>, 
+      <strong>88.78%</strong> tasa de validación.
+    </p>
+    <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
+      <li>Reglas explicables, checksums y trazabilidad de punta a punta</li>
+      <li>Listo para re-ejecución sin duplicados (UPSERT MERGE)</li>
+    </ul>
+    <div class="mt-4 flex gap-3">
+      <a href="https://github.com/marcorios99/prj-peru-dataops-etl" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
+      <a href="/projects/peru-dataops-etl/" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Guía</a>
+      <a href="/projects/peru-dataops-etl/demo/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Demo</a>
+    </div>
+  </article>
+
 
       <!-- Project: Lakehouse tarjetas -->
       <article class="rounded-2xl border p-6 shadow
