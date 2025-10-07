@@ -167,3 +167,26 @@ html.dark{
 html.dark .navlink{ color:#cbd5e1; }
 html.dark .navlink:hover,
 html.dark .navlink:focus-visible{ color:#ffffff; }
+
+/* Fix tabla en modo light */
+html.light table {
+  color: #334155 !important;
+}
+
+html.light table thead {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+html.light table tbody tr {
+  border-color: #e2e8f0 !important;
+}
+
+html.light table tbody tr:hover {
+  background: #f8fafc !important;
+}
+
+html.light .overflow-x-auto.border {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}

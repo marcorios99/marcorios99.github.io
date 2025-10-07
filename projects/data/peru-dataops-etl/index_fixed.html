@@ -4,6 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- INIT tema sin flash -->
+  <script>
+  (function () {
+    try {
+      var ls = localStorage.getItem('theme');
+      var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = ls || (sysDark ? 'dark' : 'light');
+      var htmlEl = document.documentElement;
+      htmlEl.classList.toggle('dark', theme === 'dark');
+      htmlEl.classList.toggle('light', theme !== 'dark');
+      htmlEl.dataset.theme = theme;
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('name', 'theme-color');
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute('content', theme === 'dark' ? '#0b0b0b' : '#ffffff');
+    } catch (e) {}
+  })();
+  </script>
+
+
   <!-- Open Graph / Twitter -->
   <meta property="og:title" content="ETL de conciliación operativa (demo sintética) – Marco Rios" />
   <meta property="og:description" content="Ingesta de archivos operativos/contables (CSV) → validaciones de esquema y control de totales → deduplicación → carga a SQL → reporte automático y observabilidad." />
@@ -17,169 +40,16 @@
   <!-- Color barra navegador (site.js lo actualiza según tema) -->
   <meta name="theme-color" content="#0b0b0b">
 
-  <!-- 1. Script de inicialización (PRIMERO) -->
-  <script>
-  (function () {
-    const ls = localStorage.getItem('theme');
-    const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = ls || (sysDark ? 'dark' : 'light');
-    const html = document.documentElement;
-    html.classList.toggle('dark', theme === 'dark');
-    html.classList.toggle('light', theme !== 'dark');
-    html.dataset.theme = theme;
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0b0b' : '#ffffff');
-  })();
-  </script>
-
-  <!-- 2. Tailwind config y CDN (SEGUNDO) -->
+  <!-- Tailwind (dark por clase) -->
   <script>tailwind = { config: { darkMode: 'class' } };</script>
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- 3. Lucide icons -->
+  <!-- Lucide icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
-  <!-- 4. TU CSS PERSONALIZADO (DESPUÉS DE TAILWIND) -->
-  <style>
-    :root { --brand: 36 99% 50%; }
-    body { font-feature-settings: "ss01" on, "cv01" on; }
-    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); }
-    .container-xx { max-width: 1100px; }
-
-    /* Badges */
-    .badge{
-      display:inline-flex; align-items:center; gap:.25rem;
-      border:1px solid rgba(148,163,184,.4);
-      border-radius:9999px; padding:.25rem .75rem;
-      font-size:.75rem; line-height:1rem;
-    }
-
-    .badge-neutral{
-      border-color: var(--bd-soft, #cbd5e1);
-      background: rgba(2,6,23,.03);
-      color: var(--txt-strong, #0f172a);
-    }
-    html.dark .badge-neutral{
-      border-color: rgba(255,255,255,.18);
-      background: rgba(255,255,255,.06);
-      color: #e5e7eb;
-    }
-
-    /* ===== Light skin con !important ===== */
-    html.light{
-      --txt-strong:#0f172a !important;
-      --txt-body:#334155 !important;
-      --txt-muted:#475569 !important;
-      --bd:#e2e8f0 !important;
-      --bd-soft:#cbd5e1 !important;
-    }
-    
-    html.light body{
-      background-image: linear-gradient(to bottom, #ffffff, #f8fafc, #eef2f7) !important;
-      color:var(--txt-body) !important;
-    }
-    
-    html.light header{ 
-      background-color:rgba(255,255,255,.7) !important; 
-      border-color:rgba(148,163,184,.7) !important; 
-    }
-    
-    html.light h1, 
-    html.light h2, 
-    html.light h3{ 
-      color:var(--txt-strong) !important; 
-    }
-    
-    html.light p, 
-    html.light li{ 
-      color:var(--txt-body) !important; 
-    }
-    
-    /* FIX CRÍTICO para tarjetas */
-    html.light .rounded-2xl.border.shadow {
-      background: #ffffff !important;
-      border-color: #e2e8f0 !important;
-      color: #334155 !important;
-    }
-    
-    html.dark .rounded-2xl.border.shadow {
-      background: rgba(255,255,255,0.05) !important;
-      border-color: rgba(255,255,255,0.1) !important;
-      color: #cbd5e1 !important;
-    }
-    
-    html.light .glass{ 
-      background:rgba(0,0,0,.03) !important; 
-    }
-    
-    html.light .badge{ 
-      border-color:var(--bd-soft) !important; 
-      color:var(--txt-muted) !important; 
-    }
-
-    /* Acento */
-    :root{ --accent:#77e2bb;}
-    html.dark{ --accent: #1caf81; }
-    
-    .btn-accent{
-      display:inline-flex; align-items:center; gap:.4rem;
-      padding:.45rem .75rem; border-radius:.75rem; text-decoration:none;
-      background:var(--accent); color:#0f172a;
-      border:1px solid rgba(0,0,0,.05);
-      font-size:.875rem; font-weight:600;
-    }
-    .btn-accent:hover{ filter:brightness(1.06); }
-
-    .btn-outline{
-      display:inline-flex; align-items:center; gap:.35rem;
-      padding:.45rem .75rem; border-radius:.75rem; text-decoration:none;
-      border:1px solid var(--bd-soft, rgba(148,163,184,.50));
-      color:var(--txt-strong, #0f172a); background:transparent;
-      font-size:.875rem;
-    }
-    .btn-outline:hover{ background:rgba(2,6,23,.03); }
-    html.dark .btn-outline{ border-color:rgba(255,255,255,.15); color:#e5e7eb; }
-    html.dark .btn-outline:hover{ background:rgba(255,255,255,.08); }
-
-    /* Theme toggle */
-    :root{
-      --toggle-bg: rgba(255,255,255,.75);
-      --toggle-bg-hover:#ffffff;
-      --toggle-fg:#334155;
-      --toggle-br: rgba(2,6,23,.18);
-      --toggle-dot-bg: rgba(2,6,23,.06);
-    }
-    html.dark{
-      --toggle-bg: rgba(2,6,23,.70);
-      --toggle-bg-hover: rgba(2,6,23,.90);
-      --toggle-fg:#e5e7eb;
-      --toggle-br: rgba(255,255,255,.22);
-      --toggle-dot-bg: rgba(255,255,255,.12);
-    }
-
-    .theme-btn{
-      inline-size: 2.25rem; block-size: 2.25rem;
-      display:inline-flex; align-items:center; justify-content:center;
-      border-radius:9999px; border:1px solid var(--toggle-br);
-      background:var(--toggle-bg); color:var(--toggle-fg);
-      transition:background .2s ease, color .2s ease, border-color .2s ease;
-    }
-    .theme-btn:hover{ background:var(--toggle-bg-hover); }
-
-    /* Nav */
-    .navlink{
-      color:#334155;
-      transition: color .15s ease;
-    }
-    .navlink:hover{ color:#000000; }
-    html.dark .navlink{ color:#cbd5e1; }
-    html.dark .navlink:hover{ color:#ffffff; }
-  </style>
-
-  <!-- Links externos al final -->
+  <!-- Estilos y JS compartidos -->
   <link rel="stylesheet" href="/assets/css/styles.css">
   <script defer src="/assets/js/site.js"></script>
-</head>
 </head>
 
 <body class="min-h-screen bg-white text-slate-900
@@ -227,7 +97,7 @@
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
           <span class="text-emerald-600 dark:text-emerald-400">ETL</span> con observabilidad y trazabilidad
         </h1>
-        <p class="text-slate-700 dark:text-slate-300 max-w-3xl mx-auto">
+        <p class="text-slate-700 dark:text-slate-700 dark:text-slate-300 max-w-3xl mx-auto">
           Ingesta de archivos operativos/contables (CSV) → validaciones de esquema y control de totales → deduplicación → carga a SQL → reporte automático y observabilidad.
           Reduce el tiempo de procesamiento.
         </p>
@@ -276,7 +146,7 @@
   <section class="mx-auto container-xx px-4 py-12">
     <div class="rounded-3xl border p-6 shadow
                 bg-white border-slate-200 text-slate-700
-                dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+                dark:bg-white/5 dark:border-white/10 dark:text-slate-700 dark:text-slate-300">
       <div class="flex flex-wrap items-center gap-2 mb-3">
         <span class="inline-flex items-center gap-2 rounded-full border border-emerald-600/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-700 dark:text-emerald-300">
           ¿Por qué este proyecto?
@@ -335,7 +205,7 @@
 <!-- RESUMEN -->
 <section class="mx-auto container-xx px-4 py-12">
   <h2 class="text-2xl font-semibold mb-6">Resumen ejecutivo</h2>
-  <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow text-sm text-slate-300">
+  <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow text-sm text-slate-700 dark:text-slate-300">
     <p class="mb-4">
       <strong>Pipeline ETL de Conciliación Operativa</strong> es un sistema completo en Python que automatiza 
       la ingesta, validación, deduplicación y carga de datos operativos/contables a SQL Server/SQLite, 
@@ -357,7 +227,7 @@
 <!-- ARQUITECTURA -->
 <section class="mx-auto container-xx px-4 py-12">
   <h2 class="text-2xl font-semibold mb-6">Arquitectura</h2>
-  <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+  <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
     <pre class="text-sm overflow-x-auto"><code>[CSV Input] 
     ↓
 [Extracción] - Lee CSV con pandas
@@ -378,7 +248,7 @@
 <!-- ESTRUCTURA DEL PROYECTO -->
 <section class="mx-auto container-xx px-4 py-12">
   <h2 class="text-2xl font-semibold mb-6">Estructura del proyecto</h2>
-  <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+  <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
     <pre class="text-sm overflow-x-auto"><code>prj-peru-dataops-etl/
 ├── data/
 │   ├── input/              # CSVs de entrada
@@ -417,28 +287,28 @@
 <!-- MÓDULOS PRINCIPALES -->
 <section class="mx-auto container-xx px-4 py-12">
   <h2 class="text-2xl font-semibold mb-6">Módulos principales</h2>
-  <div class="grid md:grid-cols-2 gap-6 text-sm text-slate-300">
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+  <div class="grid md:grid-cols-2 gap-6 text-sm text-slate-700 dark:text-slate-300">
+    <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
       <h3 class="font-semibold mb-2">1. Generador Datos Sintéticos</h3>
       <p>Genera 10K+ transacciones bancarias con Faker. Inyecta duplicados (5%) y errores (2%) intencionalmente para testing.</p>
     </div>
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
       <h3 class="font-semibold mb-2">2. Validación con Pandera</h3>
       <p>Schemas con 100+ reglas de negocio. Control de totales, checksums. Reportes detallados de errores. Tasa: ~88%.</p>
     </div>
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
       <h3 class="font-semibold mb-2">3. Deduplicación</h3>
       <p>Hash-based y key-based. Idempotente. Priorización con ordenamiento temporal. SHA-256 de campos clave.</p>
     </div>
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
       <h3 class="font-semibold mb-2">4. Carga SQL</h3>
       <p>SQL Server (Windows Auth) y SQLite. UPSERT con MERGE. Tablas temporales. Truncamiento automático de texto.</p>
     </div>
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
       <h3 class="font-semibold mb-2">5. Logging y Métricas</h3>
       <p>Logs JSON estructurados con Structlog. Métricas por ejecución en JSON. Agregación histórica de estadísticas.</p>
     </div>
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
       <h3 class="font-semibold mb-2">6. Reportes Excel</h3>
       <p>3 hojas: Resumen Ejecutivo, Datos, Métricas. Formato profesional. Gráficos (pie chart distribución).</p>
     </div>
@@ -448,7 +318,7 @@
 <!-- COMANDOS -->
 <section class="mx-auto container-xx px-4 py-12">
   <h2 class="text-2xl font-semibold mb-6">Comandos de ejecución</h2>
-  <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+  <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
     <pre class="text-sm overflow-x-auto"><code># Generar datos sintéticos
 python data/synthetic/generator.py
 
@@ -478,7 +348,7 @@ python tests/test_logging_metrics.py</code></pre>
 <!-- RESULTADOS REALES -->
 <section class="mx-auto container-xx px-4 py-12">
   <h2 class="text-2xl font-semibold mb-6">Resultados de ejecución real</h2>
-  <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow text-sm text-slate-300">
+  <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow text-sm text-slate-700 dark:text-slate-300">
     <p class="mb-4"><strong>Última ejecución exitosa:</strong></p>
     <ul class="list-disc pl-5 space-y-1">
       <li><strong>Pipeline ID:</strong> etl_20251005_121829</li>
@@ -499,7 +369,7 @@ python tests/test_logging_metrics.py</code></pre>
   <div class="grid md:grid-cols-2 gap-6">
     <!-- Donut: Validación exitosa -->
     <div class="rounded-2xl border border-slate-200/70 bg-slate-50 p-6 shadow
-                text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+                text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-700 dark:text-slate-300">
       <h3 class="font-semibold mb-2">Validación exitosa</h3>
       <div class="flex items-center gap-6">
         <div class="relative w-28 h-28" style="--p:88.78;">
@@ -521,7 +391,7 @@ python tests/test_logging_metrics.py</code></pre>
             <span class="text-lg font-semibold text-slate-700 dark:text-slate-100">88.78%</span>
           </div>
         </div>
-        <ul class="text-sm space-y-1 text-slate-700 dark:text-slate-300">
+        <ul class="text-sm space-y-1 text-slate-700 dark:text-slate-700 dark:text-slate-300">
           <li>Válidos: <strong>9,322</strong></li>
           <li>Inválidos: <strong>1,178</strong></li>
           <li>Total: <strong>10,500</strong></li>
@@ -534,7 +404,7 @@ python tests/test_logging_metrics.py</code></pre>
 
     <!-- Donut: Cargados vs Inválidos -->
     <div class="rounded-2xl border border-slate-200/70 bg-slate-50 p-6 shadow
-                text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+                text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-700 dark:text-slate-300">
       <h3 class="font-semibold mb-2">Distribución de registros</h3>
       <div class="flex items-center gap-6">
         <div class="relative w-28 h-28" style="--p:88.78;">
@@ -556,7 +426,7 @@ python tests/test_logging_metrics.py</code></pre>
             <span class="text-lg font-semibold text-slate-700 dark:text-slate-100">9.3k</span>
           </div>
         </div>
-        <ul class="text-sm space-y-1 text-slate-700 dark:text-slate-300">
+        <ul class="text-sm space-y-1 text-slate-700 dark:text-slate-700 dark:text-slate-300">
           <li><span class="inline-block w-2 h-2 rounded-full mr-2" style="background:rgb(59 130 246)"></span>Cargados: <strong>9,322</strong></li>
           <li><span class="inline-block w-2 h-2 rounded-full mr-2" style="background:rgb(244 63 94)"></span>No cargados: <strong>1,178</strong></li>
         </ul>
@@ -575,7 +445,7 @@ python tests/test_logging_metrics.py</code></pre>
   <h2 class="text-2xl font-semibold mb-6">Datos cargados (preview)</h2>
   <div class="rounded-2xl overflow-x-auto border border-white/10">
     <table class="min-w-full text-sm">
-      <thead class="bg-white/5 text-slate-300">
+      <thead class="bg-white/5 text-slate-700 dark:text-slate-300">
         <tr>
           <th class="px-3 py-2 text-left">id</th>
           <th class="px-3 py-2 text-left">fecha_operacion</th>
@@ -640,7 +510,7 @@ python tests/test_logging_metrics.py</code></pre>
 <section class="mx-auto container-xx px-4 py-12">
   <h2 class="text-2xl font-semibold mb-6">Configuración requerida</h2>
   <div class="grid md:grid-cols-2 gap-6">
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <div class="glass rounded-2xl p-6">
       <h3 class="font-semibold mb-3">Variables de entorno (.env)</h3>
       <pre class="text-sm overflow-x-auto"><code>DB_TYPE=sqlserver
 DB_HOST=PC-MARCO\SQLEXPRESS
@@ -650,9 +520,9 @@ DB_TRUSTED_CONNECTION=true
 DB_DRIVER=ODBC Driver 17 for SQL Server
 DB_SCHEMA=dbo</code></pre>
     </div>
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <div class="glass rounded-2xl p-6">
       <h3 class="font-semibold mb-3">SQL Server Setup</h3>
-      <ul class="list-disc pl-5 text-sm text-slate-300 space-y-1">
+      <ul class="list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-1">
         <li>Instancia: PC-MARCO\SQLEXPRESS</li>
         <li>Base de datos: ETL_Conciliacion</li>
         <li>Autenticación: Windows (Trusted Connection)</li>
@@ -665,20 +535,20 @@ DB_SCHEMA=dbo</code></pre>
 <!-- OUTPUTS -->
 <section class="mx-auto container-xx px-4 py-12">
   <h2 class="text-2xl font-semibold mb-6">Archivos de salida</h2>
-  <div class="grid md:grid-cols-2 gap-6 text-sm text-slate-300">
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+  <div class="grid md:grid-cols-2 gap-6 text-sm text-slate-700 dark:text-slate-300">
+    <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
       <h3 class="font-semibold mb-2">Logs</h3>
       <p>Logs JSON estructurados por día en <code>logs/etl_pipeline_YYYYMMDD.log</code></p>
     </div>
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
       <h3 class="font-semibold mb-2">Métricas</h3>
       <p>Una por ejecución en <code>data/output/metrics/metrics_etl_*.json</code>. Contiene tiempos, contadores, errores.</p>
     </div>
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
       <h3 class="font-semibold mb-2">Reportes Excel</h3>
       <p>3 hojas con resumen ejecutivo, datos y gráficos en <code>data/output/reports/*.xlsx</code></p>
     </div>
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
       <h3 class="font-semibold mb-2">Procesados</h3>
       <p>Datos limpios por ejecución en <code>data/processed/deduped_*.csv</code></p>
     </div>
@@ -690,8 +560,8 @@ DB_SCHEMA=dbo</code></pre>
 <main class="mx-auto container-xx px-4 py-12">
 <section>
   <h1 class="text-2xl font-semibold mb-2">Ejecución real del pipeline</h1>
-  <p class="text-slate-300 text-sm">Salida directa de consola (última exitosa).</p>
-  <details class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow" open>
+  <p class="text-slate-700 dark:text-slate-300 text-sm">Salida directa de consola (última exitosa).</p>
+  <details class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow" open>
     <summary class="cursor-pointer text-sm text-emerald-300 flex items-center gap-2">
       <i data-lucide="terminal" class="h-4 w-4"></i> Ver logs
     </summary>
@@ -737,13 +607,13 @@ processing_time: 3.11s
 <section class="mx-auto container-xx px-4 py-12">
   <h2 class="text-2xl font-semibold mb-6">Artefactos del pipeline</h2>
   <div class="grid md:grid-cols-3 gap-4">
-    <figure class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <figure class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
       <img src="/assets/img/data/etl/resumen-ejecutivo.png" alt="Reporte Excel - Resumen Ejecutivo" class="">
-      <figcaption class="p-3 text-xs text-slate-300">Reporte Excel: Resumen Ejecutivo</figcaption>
+      <figcaption class="p-3 text-xs text-slate-700 dark:text-slate-300">Reporte Excel: Resumen Ejecutivo</figcaption>
     </figure>
-    <figure class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+    <figure class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow">
       <img src="/assets/img/data/etl/metricas.png" alt="Reporte Excel - Métricas" class="w-full h-40 object-cover">
-      <figcaption class="p-3 text-xs text-slate-300">Reporte Excel: Métricas</figcaption>
+      <figcaption class="p-3 text-xs text-slate-700 dark:text-slate-300">Reporte Excel: Métricas</figcaption>
     </figure>
 
   </div>
@@ -753,7 +623,7 @@ processing_time: 3.11s
 <!-- HIGHLIGHTS -->
 <section class="mx-auto container-xx px-4 py-12">
   <h2 class="text-2xl font-semibold mb-6">Highlights técnicos</h2>
-  <ul class="list-disc pl-5 text-slate-300 text-sm space-y-2">
+  <ul class="list-disc pl-5 text-slate-700 dark:text-slate-300 text-sm space-y-2">
     <li><strong>Validación Robusta:</strong> Pandera con 100+ reglas de negocio específicas del dominio</li>
     <li><strong>Deduplicación Inteligente:</strong> Hash SHA-256 de campos clave para detección exacta</li>
     <li><strong>UPSERT Idempotente:</strong> Puede reejecutarse sin duplicar datos mediante MERGE SQL</li>
@@ -766,7 +636,7 @@ processing_time: 3.11s
 <!-- TESTS -->
 <section class="mx-auto container-xx px-4 py-12">
   <h2 class="text-2xl font-semibold mb-6">Tests</h2>
-  <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow text-sm text-slate-300">
+  <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow text-sm text-slate-700 dark:text-slate-300">
     <p class="mb-4">Todos los tests ejecutados exitosamente:</p>
     <ul class="list-disc pl-5 space-y-2">
       <li><strong>test_validation.py</strong> ✓ - Validación de 10,500 registros con 88% tasa de éxito</li>
@@ -780,8 +650,8 @@ processing_time: 3.11s
 <!-- PORTFOLIO COPY + PRÓXIMOS PASOS -->
 <section class="mx-auto container-xx px-4 py-12">
   <div class="grid md:grid-cols-2 gap-6">
-    <div class="rounded-2xl border p-6 shadow text-sm bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-      <p class="text-lg font-semibold mb-3">Métricas:</p>
+    <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow text-sm text-slate-700 dark:text-slate-300">
+      <p class="font-semibold mb-2">Métricas:</p>
       <ul class="list-disc pl-5 space-y-1">
         <li>3.11 segundos para 10,500 registros</li>
         <li>88.78% tasa de validación exitosa</li>
@@ -790,7 +660,7 @@ processing_time: 3.11s
         <li>100% observabilidad (logs + métricas)</li>
       </ul>
     </div>
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow text-sm text-slate-300">
+    <div class="rounded-2xl border bg-white border-slate-200 dark:bg-white/5 dark:border-white/10 p-6 shadow text-sm text-slate-700 dark:text-slate-300">
       <h3 class="text-lg font-semibold mb-3">Próximos pasos sugeridos</h3>
       <ul class="list-disc pl-5 space-y-1">
         <li>Orquestación con Prefect (scheduling automático)</li>
@@ -802,11 +672,13 @@ processing_time: 3.11s
     </div>
   </div>
 </section>
-  
 
   <!-- CONTACTO -->
   <section class="mx-auto container-xx px-4 py-16">
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow text-center">
+    <div class="rounded-2xl  mx-auto rounded-3xl border p-8 shadow
+    text-center
+    border-slate-200/70 bg-slate-50 text-slate-700
+    dark:border-white/10 dark:bg-white/5 dark:text-slate-700 dark:text-slate-300">
       <h2 class="text-2xl font-semibold">¿Preguntas sobre este proyecto?</h2>
       <p class="mt-2">Envíame un mensaje.</p>
       <div class="mt-4 flex flex-wrap justify-center gap-3">
