@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Liz ♥ Mi Valentín</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rose: #e8647c;
+            --deep-rose: #b5364f;
+            --blush: #ffd6e0;
+            --cream: #fffaf5;
+            --gold: #c9a84c;
+            --gold-light: #e8d48b;
+            --charcoal: #3a2d32;
+            --envelope-front: #e8b4b8;
+            --envelope-back: #d4949a;
+            --envelope-flap: #c88088;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            overflow-x: hidden;
+            background: #fef0f0;
+            padding-bottom: 10vh;
+        }
+
+        /* ===== FONDO ===== */
+        .bg-layer {
+            position: fixed; inset: 0; z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255,182,193,0.5) 0%, transparent 60%),
+                radial-gradient(ellipse 70% 50% at 80% 70%, rgba(255,200,200,0.4) 0%, transparent 55%),
+                radial-gradient(ellipse 90% 80% at 50% 50%, rgba(255,240,243,0.6) 0%, transparent 70%),
+                linear-gradient(160deg, #fff5f5 0%, #ffe8ec 30%, #ffd6dd 60%, #ffccd5 100%);
+            animation: bg-breathe 8s ease-in-out infinite alternate;
+        }
+        @keyframes bg-breathe {
+            0% { filter: hue-rotate(0deg) brightness(1); }
+            100% { filter: hue-rotate(5deg) brightness(1.02); }
+        }
+
+        /* ===== PARTÍCULAS ===== */
+        .particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+        .particle {
+            position: absolute; width: 4px; height: 4px;
+            background: radial-gradient(circle, rgba(255,180,200,0.8), transparent);
+            border-radius: 50%; animation: drift linear infinite;
+        }
+        @keyframes drift {
+            0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+            15% { opacity: 1; transform: translateY(80vh) translateX(10px) scale(1); }
+            85% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) translateX(-20px) scale(0.3); opacity: 0; }
+        }
+
+        /* ===== PÉTALOS ===== */
+        .petals { position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+        .petal { position: absolute; font-size: 18px; opacity: 0; filter: blur(0.5px); animation: petal-fall linear infinite; }
+        @keyframes petal-fall {
+            0% { transform: translateY(-5vh) translateX(0) rotate(0deg) scale(0.8); opacity: 0; }
+            8% { opacity: 0.25; }
+            50% { transform: translateY(50vh) translateX(40px) rotate(180deg) scale(1); opacity: 0.2; }
+            92% { opacity: 0.15; }
+            100% { transform: translateY(105vh) translateX(-20px) rotate(360deg) scale(0.6); opacity: 0; }
+        }
+
+        /* ===== ESCENA ===== */
+        .scene {
+            position: relative; z-index: 10;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 20px;
+        }
+
+        /* ===== LAYOUT: carta arriba, sobre abajo ===== */
+        .card-area {
+            position: relative;
+            width: min(88vw, 520px);
+        }
+
+        /* ===== CARTA ===== */
+        .letter {
+            position: relative;
+            width: 92%;
+            margin: 0 auto;
+            background: var(--cream);
+            border-radius: 10px;
+            border: 1px solid rgba(232,180,184,0.3);
+            box-shadow: 0 15px 50px rgba(180,80,100,0.12), 0 4px 12px rgba(0,0,0,0.05);
+            overflow: hidden;
+            /* Empieza oculta y colapsada */
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition:
+                max-height 0.9s cubic-bezier(0.22,1,0.36,1),
+                opacity 0.6s ease 0.2s,
+                transform 0.9s cubic-bezier(0.22,1,0.36,1);
+            z-index: 20;
+        }
+
+        .card-area.open .letter {
+            max-height: 700px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .letter-ornament-top {
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--blush), var(--rose), var(--blush), transparent);
+        }
+
+        .letter-scroll {
+            padding: 32px 28px 24px;
+            max-height: 55vh;
+            overflow-y: auto;
+        }
+        .letter-scroll::-webkit-scrollbar { width: 4px; }
+        .letter-scroll::-webkit-scrollbar-thumb { background: var(--blush); border-radius: 4px; }
+
+        /* Espacio entre carta y sobre */
+        .letter-envelope-gap {
+            height: 0;
+            transition: height 0.7s cubic-bezier(0.22,1,0.36,1);
+        }
+        .card-area.open .letter-envelope-gap {
+            height: 18px;
+        }
+
+        /* ===== SOBRE ===== */
+        .envelope {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1.5 / 1;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        .envelope:hover { transform: scale(1.01) translateY(-2px); }
+        .envelope:active { transform: scale(0.995); }
+
+        .envelope-shadow {
+            position: absolute; bottom: -12px; left: 8%; width: 84%; height: 28px;
+            background: rgba(180,80,100,0.22); border-radius: 50%; filter: blur(16px);
+            transition: all 0.6s ease;
+        }
+        .card-area.open .envelope-shadow { opacity: 0.5; }
+
+        .envelope-back-face {
+            position: absolute; inset: 0;
+            background: linear-gradient(175deg, var(--envelope-front) 0%, var(--envelope-back) 100%);
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); z-index: 1;
+        }
+        .envelope-back-face::before {
+            content: ''; position: absolute; inset: 8px;
+            border: 2px dashed rgba(255,255,255,0.15); border-radius: 8px;
+        }
+
+        .envelope-inner {
+            position: absolute; top: 0; left: 0; width: 100%; height: 55%;
+            clip-path: polygon(0 0, 100% 0, 50% 90%);
+            background: linear-gradient(180deg, #daa0a8 0%, #c88a92 100%);
+            z-index: 2;
+        }
+
+        /* SOLAPA */
+        .envelope-flap {
+            position: absolute; top: 0; left: 0; width: 100%; height: 52%;
+            background: linear-gradient(180deg, var(--envelope-flap) 10%, var(--deep-rose) 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transition: transform 1s cubic-bezier(0.4,0,0.2,1);
+            z-index: 10;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.08));
+        }
+        .envelope-flap::after {
+            content: ''; position: absolute; top: 28%; left: 50%; transform: translateX(-50%);
+            width: 55%; height: 1px; background: rgba(255,255,255,0.12);
+        }
+        .card-area.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        /* FRENTE */
+        .envelope-front {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 55%;
+            background: linear-gradient(0deg, var(--envelope-front) 60%, #d9a2a8 100%);
+            z-index: 5; border-radius: 0 0 12px 12px;
+        }
+        .envelope-front::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px;
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* SELLO */
+        .wax-seal {
+            position: absolute; bottom: 15%; right: 8%; width: 54px; height: 54px;
+            background: radial-gradient(circle at 35% 35%, var(--gold-light) 0%, var(--gold) 50%, #a08030 100%);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 3px 10px rgba(201,168,76,0.35), inset 0 1px 2px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.1);
+            z-index: 6; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease;
+        }
+        .wax-seal:hover { transform: rotate(15deg) scale(1.1); }
+        .card-area.open .wax-seal { opacity: 0.4; }
+
+        /* ===== FOTO ===== */
+        .photo-frame {
+            width: 105px; height: 105px; margin: 0 auto 22px; border-radius: 50%;
+            overflow: hidden; border: 3px solid var(--blush);
+            box-shadow: 0 0 0 5px rgba(255,214,224,0.3), 0 6px 20px rgba(232,100,124,0.12);
+            background: linear-gradient(135deg, var(--blush) 0%, #ffe0e6 100%);
+            display: flex; align-items: center; justify-content: center;
+            animation: photo-glow 3s ease-in-out infinite alternate;
+        }
+        @keyframes photo-glow {
+            0% { box-shadow: 0 0 0 5px rgba(255,214,224,0.3), 0 6px 20px rgba(232,100,124,0.12); }
+            100% { box-shadow: 0 0 0 7px rgba(255,214,224,0.4), 0 8px 28px rgba(232,100,124,0.2); }
+        }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-placeholder {
+            font-size: 40px; color: var(--rose);
+            animation: pulse-heart 2s ease-in-out infinite;
+            display: flex; align-items: center; justify-content: center;
+        }
+        @keyframes pulse-heart { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+
+        /* ===== TEXTO CARTA ===== */
+        .letter-header {
+            text-align: center; margin-bottom: 22px; padding-bottom: 18px; position: relative;
+        }
+        .letter-header::after {
+            content: ''; position: absolute; bottom: 0; left: 15%; width: 70%; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--blush), var(--rose), var(--blush), transparent);
+        }
+        .letter-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(34px,7vw,50px); color: var(--deep-rose);
+            font-weight: 400; letter-spacing: 1px; margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(181,54,79,0.1);
+        }
+        .letter-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(13px,2.5vw,16px); color: var(--rose);
+            font-style: italic; font-weight: 300; letter-spacing: 3px; text-transform: uppercase;
+        }
+        .letter-content {
+            font-size: clamp(15px,2.5vw,17px); line-height: 1.85;
+            color: var(--charcoal); text-align: center; font-weight: 400;
+        }
+        .letter-content p { margin-bottom: 14px; }
+        .letter-content .emphasis {
+            font-family: 'Playfair Display', serif; font-weight: 600;
+            font-size: 1.05em; color: var(--deep-rose);
+        }
+        .heart-divider {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            margin: 20px 0; color: var(--rose);
+        }
+        .heart-divider .hd-heart { font-size: 16px; animation: pulse-heart 2.5s ease-in-out infinite; }
+        .heart-divider .hd-line { width: 45px; height: 1px; background: linear-gradient(90deg, transparent, var(--rose), transparent); }
+
+        .signature {
+            margin-top: 26px; text-align: right;
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(22px,4vw,28px); color: var(--deep-rose); padding-right: 8px;
+        }
+        .signature .sig-heart { display: inline-block; animation: pulse-heart 2s ease-in-out infinite; margin-left: 4px; }
+
+        /* ===== INSTRUCCIÓN ===== */
+        .open-hint {
+            margin-top: 24px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(14px,2.5vw,17px); color: var(--deep-rose);
+            font-style: italic; letter-spacing: 2px;
+            animation: hint-float 2.5s ease-in-out infinite;
+            opacity: 1; transition: opacity 0.5s ease, transform 0.5s ease; text-align: center;
+        }
+        .open-hint.hidden { opacity: 0; transform: translateY(10px); pointer-events: none; }
+        .open-hint .hint-sparkle { display: inline-block; animation: twinkle 1.5s ease-in-out infinite alternate; }
+        @keyframes hint-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+        @keyframes twinkle { 0%{opacity:0.4;transform:scale(0.9)} 100%{opacity:1;transform:scale(1.1)} }
+
+        /* ===== CONFETTI ===== */
+        .confetti-heart { position: fixed; pointer-events: none; z-index: 1000; will-change: transform, opacity; }
+        @keyframes confetti-burst {
+            0% { transform: translate(var(--tx-start),var(--ty-start)) rotate(0deg) scale(1); opacity: 1; }
+            70% { opacity: 0.8; }
+            100% { transform: translate(var(--tx-end),var(--ty-end)) rotate(var(--rot)) scale(0.2); opacity: 0; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 500px) {
+            .letter-scroll { padding: 24px 20px 20px; }
+            .photo-frame { width: 85px; height: 85px; margin-bottom: 16px; }
+            .wax-seal { width: 44px; height: 44px; font-size: 18px; bottom: 14%; right: 6%; }
+            body { padding-bottom: 5vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-layer"></div>
+    <div class="particles" id="particles"></div>
+    <div class="petals" id="petals"></div>
+
+    <div class="scene">
+        <div class="card-area" id="cardArea">
+
+            <!-- CARTA (arriba del sobre, se expande al abrir) -->
+            <div class="letter">
+                <div class="letter-ornament-top"></div>
+                <div class="letter-scroll">
+                    <div class="photo-frame">
+                        <img src="URL_DE_TU_FOTO" alt="Liz" id="photoImg"
+                             onerror="this.style.display='none'; document.querySelector('.photo-placeholder').style.display='flex';">
+                        <div class="photo-placeholder" style="display:none;">♥</div>
+                    </div>
+                    <div class="letter-header">
+                        <h1 class="letter-title">Para Liz</h1>
+                        <p class="letter-subtitle">Mi amor en este San Valentín</p>
+                    </div>
+                    <div class="letter-content">
+                        <p>En cada latido de mi corazón,<br>hay un susurro de tu nombre.</p>
+                        <div class="heart-divider">
+                            <span class="hd-line"></span>
+                            <span class="hd-heart">♥</span>
+                            <span class="hd-line"></span>
+                        </div>
+                        <p>Eres la razón por la que mis días brillan más, la melodía que hace que mi vida tenga sentido.</p>
+                        <p>Gracias por ser mi compañera, mi cómplice, mi todo. Te extraño mucho siempre.</p>
+                        <p class="emphasis">Te amo hoy, mañana y siempre. Siempre estaré a tu lado</p>
+                        <div class="signature">
+                            Con todo mi amor, de Marquito <span class="sig-heart">♥</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Espacio animado entre carta y sobre -->
+            <div class="letter-envelope-gap"></div>
+
+            <!-- SOBRE -->
+            <div class="envelope" id="envelope">
+                <div class="envelope-shadow"></div>
+                <div class="envelope-back-face"></div>
+                <div class="envelope-inner"></div>
+                <div class="envelope-flap"></div>
+                <div class="envelope-front"></div>
+                <div class="wax-seal">♥</div>
+            </div>
+        </div>
+
+        <div class="open-hint" id="openHint">
+            <span class="hint-sparkle">✦</span>
+            &nbsp; Toca para abrir &nbsp;
+            <span class="hint-sparkle">✦</span>
+        </div>
+    </div>
+
+    <script>
+        // Partículas
+        (function() {
+            const c = document.getElementById('particles');
+            for (let i = 0; i < 25; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const s = Math.random() * 4 + 2;
+                p.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*12+10}s;animation-delay:${Math.random()*10}s;`;
+                c.appendChild(p);
+            }
+        })();
+
+        // Pétalos
+        (function() {
+            const c = document.getElementById('petals');
+            const sym = ['🌸','✿','❀','♥'];
+            for (let i = 0; i < 10; i++) {
+                const p = document.createElement('div');
+                p.className = 'petal';
+                p.textContent = sym[Math.floor(Math.random()*sym.length)];
+                p.style.cssText = `left:${Math.random()*100}%;font-size:${Math.random()*10+14}px;animation-duration:${Math.random()*10+14}s;animation-delay:${Math.random()*12}s;`;
+                c.appendChild(p);
+            }
+        })();
+
+        // Interacción
+        const cardArea = document.getElementById('cardArea');
+        const envelope = document.getElementById('envelope');
+        const hint = document.getElementById('openHint');
+        const photoImg = document.getElementById('photoImg');
+        let isOpen = false;
+
+        if (!photoImg.src || photoImg.src.includes('URL_DE_TU_FOTO') || photoImg.src === window.location.href) {
+            photoImg.style.display = 'none';
+            document.querySelector('.photo-placeholder').style.display = 'flex';
+        }
+
+        envelope.addEventListener('click', function(e) {
+            isOpen = !isOpen;
+            cardArea.classList.toggle('open', isOpen);
+            hint.classList.toggle('hidden', isOpen);
+            if (isOpen) burstConfetti();
+        });
+
+        function burstConfetti() {
+            const hearts = ['♥','♡','❤','💗','💖','✦'];
+            const colors = ['#e8647c','#b5364f','#ffd6e0','#c9a84c','#ff8fa3','#ffb3c1'];
+            const rect = envelope.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top;
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const el = document.createElement('div');
+                    el.className = 'confetti-heart';
+                    el.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+                    el.style.left = cx+'px'; el.style.top = cy+'px';
+                    el.style.fontSize = (Math.random()*16+12)+'px';
+                    el.style.color = colors[Math.floor(Math.random()*colors.length)];
+                    const angle = Math.random()*Math.PI*2;
+                    const dist = Math.random()*200+80;
+                    el.style.setProperty('--tx-start','0px');
+                    el.style.setProperty('--ty-start','0px');
+                    el.style.setProperty('--tx-end', Math.cos(angle)*dist+'px');
+                    el.style.setProperty('--ty-end', (Math.sin(angle)*dist-60)+'px');
+                    el.style.setProperty('--rot', (Math.random()*720-360)+'deg');
+                    el.style.animation = `confetti-burst ${Math.random()+1.5}s cubic-bezier(.15,.9,.35,1) forwards`;
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), 2600);
+                }, i * 40);
+            }
+        }
+
+        // Sparkle cursor
+        let lastSparkle = 0;
+        document.addEventListener('mousemove', function(e) {
+            const now = Date.now();
+            if (now - lastSparkle > 120 && Math.random() > 0.88) {
+                lastSparkle = now;
+                const s = document.createElement('div');
+                s.textContent = '✦';
+                Object.assign(s.style, {
+                    position:'fixed', left:e.clientX+'px', top:e.clientY+'px',
+                    pointerEvents:'none', fontSize:(Math.random()*6+8)+'px',
+                    color:'rgba(232,100,124,0.5)', zIndex:'9999',
+                    transition:'all 0.8s ease-out', opacity:'1'
+                });
+                document.body.appendChild(s);
+                requestAnimationFrame(() => { s.style.opacity='0'; s.style.transform='translateY(-18px) scale(0.3)'; });
+                setTimeout(() => s.remove(), 850);
+            }
+        });
+    </script>
+</body>
+</html>
