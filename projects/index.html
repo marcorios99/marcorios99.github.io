@@ -4,56 +4,51 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Proyectos – Marco Rios" />
-  <meta property="og:description" content="Listado de proyectos Data/Backend (Python + SQL) y Hardware/Embebidos (C, ESP32, FreeRTOS)." />
+  <meta property="og:title" content="Proyectos - Marco Rios" />
+  <meta property="og:description" content="Case studies de procesamiento documental: busqueda con IA, captura OCR/ICR/OMR, backend FastAPI, SQL Server y Android." />
   <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover.png" />
   <meta property="og:url" content="https://marcorios99.github.io/projects/" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <title>Proyectos – Marco Rios</title>
-  <meta name="description" content="Todos mis proyectos: Data/Backend y Hardware/Embebidos, con descripciones y enlaces a repos/guías." />
-
-  <!-- Color barra navegador (site.js lo actualiza según tema) -->
+  <title>Proyectos - Marco Rios</title>
+  <meta name="description" content="Proyectos y case studies de Marco Rios sobre procesamiento documental, backend, busqueda con IA, OCR/ICR/OMR y Android." />
   <meta name="theme-color" content="#0b0b0b">
 
-  <!-- Tailwind (dark por clase) -->
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0b0b' : '#ffffff');
+  })();
+  </script>
+
   <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Lucide icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-
-  <!-- Estilos y JS compartidos -->
-  <link rel="stylesheet" href="/assets/css/styles.css">
   <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
-<body class="min-h-screen bg-white text-slate-900
-             dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800
-             dark:text-slate-100">
-
-  <!-- NAV -->
-  <header class="sticky top-0 z-50 border-b backdrop-blur
-                 bg-white/70 border-slate-200/70
-                 dark:bg-slate-950/70 dark:border-white/10">
+<body class="min-h-screen bg-white text-slate-900 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100">
+  <header class="sticky top-0 z-50 border-b backdrop-blur bg-white/70 border-slate-200/70 dark:bg-slate-950/70 dark:border-white/10">
     <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
       <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
 
       <div class="hidden md:flex items-center gap-6 text-sm">
-        <a href="/#projects" class="navlink">Inicio</a>
-        <a href="/about/" class="navlink">Acerca de mí</a>
+        <a href="/" class="navlink">Inicio</a>
+        <a href="/about/" class="navlink">Acerca de mi</a>
         <a href="/help/" class="navlink">Ayuda</a>
       </div>
 
       <div class="flex items-center gap-2">
-        <!-- Botón idioma -->
         <a href="/en/projects/" class="btn-outline" aria-label="View projects in English">
           <i data-lucide="languages" class="h-4 w-4"></i>
           ES
         </a>
-
-        <!-- Botón Light/Dark -->
         <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
           <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
         </button>
@@ -61,230 +56,103 @@
     </nav>
   </header>
 
-  <!-- HERO / TABS -->
-  <section class="mx-auto container-xx px-4 py-14 sm:py-16">
-    <div class="grid md:grid-cols-5 gap-8 items-center">
-        <div class="md:col-span-3 md:col-start-2 space-y-6 text-center"> 
-        <div class="flex items-center gap-3">
-
-        </div>
-
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
-          Mis Proyectos</span>
-        </h1>
-        <p class="max-w-2xl text-slate-700 dark:text-slate-300">
-          Colección de trabajos Data/Backend (Python + SQL, ETL, orquestación, MLOps básico) y Hardware/Embebidos
-          (C, ESP32, FreeRTOS). Cada tarjeta incluye breve descripción, tecnologías y enlaces a repos/guías.
+  <main>
+    <section class="mx-auto container-xx px-4 py-14 sm:py-16">
+      <div class="max-w-3xl space-y-5">
+        <span class="inline-flex items-center gap-2 rounded-full border border-emerald-600/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-700 dark:text-emerald-300">Portfolio en construccion ordenada</span>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">Proyectos de procesamiento documental</h1>
+        <p class="text-slate-700 dark:text-slate-300">
+          Estoy reorganizando el portfolio alrededor de proyectos que muestran mejor mi perfil actual: backend, datos, OCR/ICR/OMR, busqueda con IA y clientes Android. Los case studies usan datos sinteticos para explicar arquitectura, decisiones tecnicas y resultados sin exponer informacion sensible.
         </p>
-
-        <div class="flex flex-wrap justify-center gap-3">
-          <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="btn-outline">
+        <div class="flex flex-wrap gap-3">
+          <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="btn-outline" rel="noreferrer">
             <i data-lucide="github" class="h-4 w-4"></i> Ver GitHub
           </a>
-    
+          <a href="/#contact" class="btn-accent">Contactar</a>
         </div>
       </div>
+    </section>
 
+    <section class="mx-auto container-xx px-4 py-10">
+      <div class="mb-6">
+        <h2 class="text-2xl font-semibold">Case studies principales</h2>
+        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Estos son los proyectos que guiaran la estructura nueva del sitio.</p>
+      </div>
 
-    </div>
-  </section>
+      <div class="grid md:grid-cols-2 gap-6">
+        <article class="rounded-2xl border p-6 shadow bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+          <div class="mb-2 flex flex-wrap gap-2 text-xs">
+            <span class="badge">Python</span>
+            <span class="badge">FastAPI</span>
+            <span class="badge">SQL Server</span>
+            <span class="badge">LLM local</span>
+            <span class="badge">JWT</span>
+          </div>
+          <h3 class="text-lg font-semibold">AI Document Search Platform</h3>
+          <p class="mt-2 text-sm">Plataforma para buscar documentos con lenguaje natural. El backend convierte la consulta en JSON validado, ejecuta una busqueda segura sobre metadata/contenido OCR y devuelve resultados listos para web o Android.</p>
+          <ul class="mt-3 list-disc pl-5 text-sm">
+            <li>Arquitectura: cliente, API, autenticacion, SQL Server y motor de intencion.</li>
+            <li>Demo sintetica pensada para explicar el flujo sin datos privados.</li>
+          </ul>
+          <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">Estado: case study publicado; demo sintetica en construccion.</p>
+        </article>
 
-  <!-- DATA/BACKEND -->
-  <section id="data" class="mx-auto container-xx px-4 py-10">
-    <div class="mb-6 flex items-end justify-between">
-      <h2 class="text-2xl font-semibold">Data/Backend</h2>
-      <a href="#hardware" class="btn-outline">Ir a Hardware ↓</a>
-    </div>
+        <article class="rounded-2xl border p-6 shadow bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+          <div class="mb-2 flex flex-wrap gap-2 text-xs">
+            <span class="badge">Python</span>
+            <span class="badge">OpenCV</span>
+            <span class="badge">OCR</span>
+            <span class="badge">ICR</span>
+            <span class="badge">OMR</span>
+          </div>
+          <h3 class="text-lg font-semibold">Smart Form Capture ICR/OMR</h3>
+          <p class="mt-2 text-sm">Flujo para extraer informacion desde formularios escaneados: limpieza de imagen, deteccion de marcas, lectura de texto/campos manuscritos, validaciones y persistencia estructurada.</p>
+          <ul class="mt-3 list-disc pl-5 text-sm">
+            <li>Enfoque en datos confiables desde imagenes imperfectas.</li>
+            <li>Salida JSON/SQL para integrarse con APIs o tableros.</li>
+          </ul>
+          <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">Estado: case study publicado; demo sintetica en construccion.</p>
+        </article>
 
-    <div class="grid md:grid-cols-2 gap-6">
-  <!-- Project 1 - ETL (CON DEMO) -->
-  <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
-    <div class="mb-2 flex flex-wrap gap-2 text-xs text-slate-300">
-      <span class="badge border-white/15">Python</span>
-      <span class="badge border-white/15">Pandas</span>
-      <span class="badge border-white/15">SQLAlchemy</span>
-      <span class="badge border-white/15">SQL Server</span>
-      <span class="badge border-white/15">SQLite</span>
-    </div>
-    <h3 class="text-lg font-semibold">ETL de conciliación operativa (demo sintética)</h3>
-    <p class="mt-2 text-sm text-slate-300">
-      Ingesta de CSV → validación con Pandera → deduplicación (hash/idempotente) → UPSERT a SQL Server/SQLite →
-      reporte Excel y observabilidad (logs JSON + métricas). <strong>10.5K registros en ~3.1s</strong>, 
-      <strong>88.78%</strong> tasa de validación.
-    </p>
-    <ul class="mt-3 list-disc pl-5 text-sm text-slate-300">
-      <li>Reglas explicables, checksums y trazabilidad de punta a punta</li>
-      <li>Listo para re-ejecución sin duplicados (UPSERT MERGE)</li>
-    </ul>
-    <div class="mt-4 flex gap-3">
-      <a href="https://github.com/marcorios99/prj-peru-dataops-etl" target="_blank" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Repo</a>
-      <a href="/projects/peru-dataops-etl/" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm hover:bg-white/10">Guía</a>
-      <a href="/projects/peru-dataops-etl/demo/" class="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-slate-900 hover:bg-emerald-400">Demo</a>
-    </div>
-  </article>
+        <article class="rounded-2xl border p-6 shadow bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+          <div class="mb-2 flex flex-wrap gap-2 text-xs">
+            <span class="badge">Python</span>
+            <span class="badge">FastAPI</span>
+            <span class="badge">SQL Server</span>
+            <span class="badge">JWT</span>
+            <span class="badge">PDFs</span>
+          </div>
+          <h3 class="text-lg font-semibold">Document Processing API</h3>
+          <p class="mt-2 text-sm">API backend para recibir documentos, registrar metadata, controlar estados, validar resultados de extraccion, almacenar evidencia y exponer busquedas seguras.</p>
+          <ul class="mt-3 list-disc pl-5 text-sm">
+            <li>Foco en endpoints claros, permisos, trazabilidad y estados del documento.</li>
+            <li>Puede consumir resultados de OCR/ICR/OMR sin que ese sea el centro del proyecto.</li>
+          </ul>
+          <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">Estado: case study publicado; demo sintetica en construccion.</p>
+        </article>
 
-
-      <!-- Project: Lakehouse tarjetas -->
-      <article class="rounded-2xl border p-6 shadow
-                     bg-white border-slate-200 text-slate-700
-                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">PySpark</span>
-          <span class="badge">Delta/Parquet</span>
-          <span class="badge">Great Expectations/Pandera</span>
-        </div>
-        <h3 class="text-lg font-semibold">Lakehouse de tarjetas (demo sintética)</h3>
-        <p class="mt-2 text-sm">Transacciones sintéticas, capas Bronze→Silver→Gold, partición por fecha y features por cliente/mes.</p>
-        <ul class="mt-3 list-disc pl-5 text-sm">
-          <li>PySpark + Delta/Parquet, joins y particionado eficiente.</li>
-        </ul>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <a href="https://github.com/marcorios99" target="_blank" class="btn-outline">Repo</a>
-          <a href="/projects/pyspark-lakehouse/" class="btn-accent">Guía</a>
-        </div>
-      </article>
-
-      <!-- Project: MLOps mini-stack -->
-      <article class="rounded-2xl border p-6 shadow
-                     bg-white border-slate-200 text-slate-700
-                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">FastAPI</span>
-          <span class="badge">MLflow</span>
-          <span class="badge">TensorFlow</span>
-          <span class="badge">PyTorch</span>
-          <span class="badge">Docker</span>
-          <span class="badge">CI/CD</span>
-        </div>
-        <h3 class="text-lg font-semibold">MLOps mini-stack (entrenamiento → API)</h3>
-        <p class="mt-2 text-sm">Entrenamiento (sklearn/TensorFlow/PyTorch), tracking con MLflow, empaquetado en FastAPI, despliegue Docker y CI.</p>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <a href="https://github.com/marcorios99" target="_blank" class="btn-outline">Repo</a>
-          <a href="/projects/mlops-ministack/" class="btn-accent">Guía</a>
-        </div>
-      </article>
-
-      <!-- Project: Job skills miner -->
-      <article class="rounded-2xl border p-6 shadow
-                     bg-white border-slate-200 text-slate-700
-                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">PySpark</span>
-          <span class="badge">Delta/Parquet</span>
-          <span class="badge">Airflow/Prefect</span>
-        </div>
-        <h3 class="text-lg font-semibold">Explorador de skills laborales</h3>
-        <p class="mt-2 text-sm">Lee CSV de ofertas/skills y grafica habilidades más demandadas por rol, seniority y periodo.</p>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <a href="https://github.com/marcorios99" target="_blank" class="btn-outline">Repo</a>
-          <a href="/projects/job-skills-miner/" class="btn-accent">Guía</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- HARDWARE / EMBEDDED -->
-  <section id="hardware" class="mx-auto container-xx px-4 py-14">
-    <div class="mb-6 flex items-end justify-between">
-      <h2 class="text-2xl font-semibold">Hardware / Embebidos</h2>
-      <a href="#data" class="btn-outline">Ir a Data/Backend ↑</a>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-6">
-      <!-- Data Logger IoT -->
-      <article class="rounded-2xl border p-6 shadow
-                     bg-white border-slate-200 text-slate-700
-                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">ESP32</span>
-          <span class="badge">C / FreeRTOS</span>
-          <span class="badge">I²C/SPI</span>
-          <span class="badge">MQTT/LoRa</span>
-          <span class="badge">API Python</span>
-        </div>
-        <h3 class="text-lg font-semibold">Data Logger IoT con FreeRTOS</h3>
-        <p class="mt-2 text-sm">Adquisición multitarea, colas y watchdog; telemetría a API Python → ingesta SQL y dashboard.</p>
-        <ul class="mt-3 list-disc pl-5 text-sm">
-          <li>Tareas separadas: lectura, almacenamiento y telemetría.</li>
-          <li>Resiliencia: reconexión, backoff y journaling en SPIFFS.</li>
-        </ul>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="btn-outline">Repo</a>
-          <a href="/projects/embedded/iot-data-logger/" class="btn-accent">Caso de estudio</a>
-        </div>
-      </article>
-
-      <!-- Driver I2C + OLED -->
-      <article class="rounded-2xl border p-6 shadow
-                     bg-white border-slate-200 text-slate-700
-                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">STM32/ESP32</span>
-          <span class="badge">C (bare-metal)</span>
-          <span class="badge">I²C</span>
-          <span class="badge">DMA</span>
-          <span class="badge">TDD básico</span>
-        </div>
-        <h3 class="text-lg font-semibold">Driver I²C + OLED (SSD1306)</h3>
-        <p class="mt-2 text-sm">HAL mínima con API limpia (init/draw/flush), pruebas con mocks y medición de latencia.</p>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="btn-outline">Repo</a>
-          <a href="/projects/embedded/i2c-oled-driver/" class="btn-accent">Caso de estudio</a>
-        </div>
-      </article>
-
-      <!-- Modbus RTU -->
-      <article class="rounded-2xl border p-6 shadow
-                     bg-white border-slate-200 text-slate-700
-                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">STM32/ESP32</span>
-          <span class="badge">C</span>
-          <span class="badge">UART/RS-485</span>
-          <span class="badge">CRC-16</span>
-          <span class="badge">Timeouts</span>
-        </div>
-        <h3 class="text-lg font-semibold">Demo Modbus RTU (RS-485)</h3>
-        <p class="mt-2 text-sm">Maestro lee holding registers de variador; gráfico en Python y persistencia en SQL.</p>
-        <ul class="mt-3 list-disc pl-5 text-sm">
-          <li>Estado: IDLE → TX → RX → PARSE → ERROR.</li>
-          <li>Robustez: timeouts, reintentos y validación CRC.</li>
-        </ul>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="btn-outline">Repo</a>
-          <a href="/projects/embedded/modbus-rtu-demo/" class="btn-accent">Caso de estudio</a>
-        </div>
-      </article>
-
-      <!-- Más embebidos -->
-      <article class="rounded-2xl border p-6 shadow
-                     bg-white border-slate-200 text-slate-700
-                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">C</span>
-          <span class="badge">ESP32</span>
-          <span class="badge">UART/I2C/SPI</span>
-          <span class="badge">PWM/Timers</span>
-        </div>
-        <h3 class="text-lg font-semibold">Más proyectos embebidos</h3>
-        <p class="mt-2 text-sm">Colección: lectura de sensores, interrupciones, timers, PWM y comunicación serial.</p>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="btn-outline">Repos</a>
-          <a href="/projects/embedded/" class="btn-accent">Ver todos</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
+        <article class="rounded-2xl border p-6 shadow bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+          <div class="mb-2 flex flex-wrap gap-2 text-xs">
+            <span class="badge">Kotlin</span>
+            <span class="badge">Android</span>
+            <span class="badge">Jetpack Compose</span>
+            <span class="badge">Retrofit</span>
+            <span class="badge">PDF viewer</span>
+          </div>
+          <h3 class="text-lg font-semibold">Android Document Search Client</h3>
+          <p class="mt-2 text-sm">Cliente movil para consultar documentos procesados: login, JWT, PIN/biometria, busqueda en lenguaje natural, resultados agrupados y visor de imagenes/PDFs.</p>
+          <ul class="mt-3 list-disc pl-5 text-sm">
+            <li>Experiencia pensada para usuarios que revisan documentos en campo u oficina.</li>
+            <li>Consume la misma API documental que la version web.</li>
+          </ul>
+          <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">Estado: case study publicado; demo sintetica en construccion.</p>
+        </article>
+      </div>
+    </section>
+  </main>
 
   <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
-    © <span id="yr"></span> Marco Rios · Desplegable en GitHub Pages
+    &copy; <span id="yr"></span> Marco Rios &middot; Desplegable en GitHub Pages
   </footer>
-
-  <script>
-    // Iconos y año (site.js ya maneja el toggle de tema y el meta theme-color)
-    if (window.lucide) lucide.createIcons();
-    document.getElementById('yr').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>

@@ -3,234 +3,112 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sobre mí – Marco Rios</title>
-  <meta name="description" content="Marco Rios – Ingeniero electrónico orientado a data/backend (Python + SQL). Proyectos, CV y contacto." />
-
-  <!-- INIT tema sin flash (idéntico al index principal) -->
+  <title>Acerca de mi - Marco Rios</title>
+  <meta name="description" content="Marco Rios: Data/Backend Developer para sistemas de procesamiento documental con Python, FastAPI, SQL Server, OCR/ICR/OMR, Android y LLM local." />
   <meta name="theme-color" content="#0b0b0b">
+
   <script>
   (function () {
-    const ls = localStorage.getItem('theme');     // 'dark' | 'light' | null
-    const theme = ls || 'dark';
+    const theme = localStorage.getItem('theme') || 'dark';
     const html = document.documentElement;
-
-    // Asegura SIEMPRE una de las dos clases:
     html.classList.toggle('dark', theme === 'dark');
     html.classList.toggle('light', theme !== 'dark');
     html.dataset.theme = theme;
-
-    // Barra del navegador
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0b0b' : '#ffffff');
   })();
   </script>
 
-  <!-- Tailwind (dark por clase) -->
   <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Lucide icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-
-  <!-- Estilos (copiados del index principal) -->
-  <style>
-    :root { --brand: 36 99% 50%; }
-    body { font-feature-settings: "ss01" on, "cv01" on; }
-    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); }
-    .container-xx { max-width: 1100px; }
-
-    /* Chips/badges */
-    .badge{
-      display:inline-flex; align-items:center; gap:.25rem;
-      border:1px solid rgba(148,163,184,.4);
-      border-radius:9999px; padding:.25rem .75rem;
-      font-size:.75rem; line-height:1rem;
-    }
-
-    /* Badge neutral visible en light/dark */
-    .badge-neutral{
-      border-color: var(--bd-soft, #cbd5e1);
-      background: rgba(2,6,23,.03);
-      color: var(--txt-strong, #0f172a);
-    }
-    html.dark .badge-neutral{
-      border-color: rgba(255,255,255,.18);
-      background: rgba(255,255,255,.06);
-      color: #e5e7eb;
-    }
-
-    /* ===== Light skin (mejor contraste) ===== */
-    html.light{
-      --txt-strong:#0f172a;  /* slate-900 */
-      --txt-body:#334155;    /* slate-700 */
-      --txt-muted:#475569;   /* slate-600 */
-      --bd:#e2e8f0;          /* slate-200 */
-      --bd-soft:#cbd5e1;     /* slate-300 */
-    }
-    html.light body{
-      background-image: linear-gradient(to bottom, #ffffff, #f8fafc, #eef2f7) !important;
-      color:var(--txt-body);
-    }
-    html.light header{ background-color:rgba(255,255,255,.7) !important; border-color:rgba(148,163,184,.7) !important; }
-    html.light h1, html.light h2, html.light h3{ color:var(--txt-strong) !important; }
-    html.light p, html.light li{ color:var(--txt-body); }
-    html.light #hero-description{ color:var(--txt-muted) !important; }
-    html.light #primary-badge{ color:#065f46 !important; }
-    html.light .glass{ background:rgba(0,0,0,.03) !important; }
-    html.light .badge{ border-color:var(--bd-soft) !important; color:var(--txt-muted) !important; }
-
-    /* ===== Acento unificado + botones ===== */
-    :root{ --accent:#77e2bb;}       /* emerald-600 (LIGHT) */
-    html.dark{ --accent: #1caf81; } /* emerald-400 (DARK) */
-
-    .btn-accent{
-      display:inline-flex; align-items:center; gap:.4rem;
-      padding:.45rem .75rem; border-radius:.75rem; text-decoration:none;
-      background:var(--accent); color:#0f172a; /* mismo tratamiento que en index */
-      border:1px solid rgba(0,0,0,.05);
-      font-size:.875rem; font-weight:600;
-    }
-    .btn-accent--sm{
-      padding:.35rem .6rem;
-      font-size:.8125rem;
-      border-radius:.65rem;
-      white-space:nowrap;
-    }
-    .btn-accent:hover{ filter:brightness(1.06); }
-
-    .btn-outline{
-      display:inline-flex; align-items:center; gap:.35rem;
-      padding:.45rem .75rem; border-radius:.75rem; text-decoration:none;
-      border:1px solid var(--bd-soft, rgba(148,163,184,.50));
-      color:var(--txt-strong, #0f172a); background:transparent;
-      font-size:.875rem;
-    }
-    .btn-outline:hover{ background:rgba(2,6,23,.03); }
-    html.dark .btn-outline{ border-color:rgba(255,255,255,.15); color:#e5e7eb; }
-    html.dark .btn-outline:hover{ background:rgba(255,255,255,.08); }
-
-    /* ===== Theme toggle (cambia color según tema) ===== */
-    :root{
-      /* Light */
-      --toggle-bg: rgba(255,255,255,.75);
-      --toggle-bg-hover:#ffffff;
-      --toggle-fg:#334155;              /* slate-700 */
-      --toggle-br: rgba(2,6,23,.18);    /* slate-950 ~18% */
-      --toggle-dot-bg: rgba(2,6,23,.06);
-    }
-    html.dark{
-      /* Dark */
-      --toggle-bg: rgba(2,6,23,.70);    /* slate-950/70 */
-      --toggle-bg-hover: rgba(2,6,23,.90);
-      --toggle-fg:#e5e7eb;              /* zinc-200 */
-      --toggle-br: rgba(255,255,255,.22);
-      --toggle-dot-bg: rgba(255,255,255,.12);
-    }
-
-    /* Botón tema */
-    .theme-btn{
-      inline-size: 2.25rem; block-size: 2.25rem; /* 36px */
-      display:inline-flex; align-items:center; justify-content:center;
-      border-radius:9999px; border:1px solid var(--toggle-br);
-      background:var(--toggle-bg); color:var(--toggle-fg);
-      transition:background .2s ease, color .2s ease, border-color .2s ease;
-    }
-    .theme-btn:hover{ background:var(--toggle-bg-hover); }
-    .theme-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
-    .theme-btn .dot{
-      inline-size: 1.75rem; block-size: 1.75rem;
-      display:inline-flex; align-items:center; justify-content:center;
-      border-radius:9999px; background:var(--toggle-dot-bg);
-    }
-    .theme-btn i{ color: inherit; }
-
-    /* Nav */
-    .navlink{
-      color:#334155; transition: color .15s ease;
-    }
-    .navlink:hover, .navlink:focus-visible{ color:#000000; }
-    html.dark .navlink{ color:#cbd5e1; }
-    html.dark .navlink:hover, html.dark .navlink:focus-visible{ color:#ffffff; }
-  </style>
+  <script defer src="/assets/js/site.js"></script>
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
-<body class="min-h-screen bg-white text-slate-900
-             dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800
-             dark:text-slate-100">
-
-  <!-- NAV -->
-  <header class="sticky top-0 z-40 border-b backdrop-blur
-                 bg-white/70 border-slate-200/70
-                 dark:bg-slate-950/70 dark:border-white/10">
+<body class="min-h-screen bg-white text-slate-900 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100">
+  <header class="sticky top-0 z-40 border-b backdrop-blur bg-white/70 border-slate-200/70 dark:bg-slate-950/70 dark:border-white/10">
     <nav class="mx-auto container-xx px-4 py-3 flex items-center justify-between">
       <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
 
-
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/" class="navlink">Inicio</a>
+        <a href="/projects/" class="navlink">Proyectos</a>
+        <a href="/help/" class="navlink">Ayuda</a>
+      </div>
 
       <div class="flex items-center gap-2">
-        <!-- Botón idioma (ES/EN) -->
         <a href="/en/about/" class="btn-outline" title="Switch to English">
           <i data-lucide="languages" class="h-4 w-4"></i> ES
         </a>
-        <!-- Botón Light/Dark (idéntico al index) -->
         <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
           <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
         </button>
-        <!-- CTA -->
         <a href="/#contact" class="btn-accent btn-accent--sm">Zona Horaria: (UTC-5)</a>
       </div>
     </nav>
   </header>
 
   <main class="mx-auto container-xx px-4 py-12 space-y-10">
-    <!-- Avatar + nombre -->
     <section class="text-center">
       <img src="/assets/img/marco.jpg" alt="Marco Rios"
-           class="mx-auto h-40 w-40 md:h-52 md:w-52 lg:h-60 lg:w-60 rounded-full object-cover
-                  ring-2 ring-white/20 ring-offset-2 ring-offset-slate-950
-                  shadow-xl shadow-emerald-500/10" />
+           class="mx-auto h-40 w-40 md:h-52 md:w-52 lg:h-60 lg:w-60 rounded-full object-cover ring-2 ring-white/20 ring-offset-2 ring-offset-slate-950 shadow-xl shadow-emerald-500/10" />
       <h1 class="mt-4 text-3xl font-semibold">Marco Rios</h1>
-      <p class="mt-1 text-sm text-slate-700 dark:text-slate-300">Ingeniero electrónico — Data/Backend (Python + SQL)</p>
+      <p class="mt-1 text-sm text-slate-700 dark:text-slate-300">Ingeniero electronico - Data/Backend para procesamiento documental</p>
 
       <div class="mt-5 flex flex-wrap justify-center gap-3">
-        <a href="/assets/cv/CV_Marco Rios.pdf" target="_blank" class="btn-accent">
-          Descargar CV (PDF)
-        </a>
+        <a href="/assets/cv/CV_Marco Rios.pdf" target="_blank" class="btn-accent">Descargar CV (PDF)</a>
         <a href="mailto:marcoandrer99@hotmail.com" class="btn-outline">Email</a>
-        <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-outline">LinkedIn</a>
-        <a href="https://github.com/marcorios99" target="_blank" class="btn-outline">GitHub</a>
+        <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-outline" rel="noreferrer">LinkedIn</a>
+        <a href="https://github.com/marcorios99" target="_blank" class="btn-outline" rel="noreferrer">GitHub</a>
       </div>
     </section>
 
-    <!-- Resumen -->
     <section class="grid md:grid-cols-5 gap-6 items-start">
       <div class="md:col-span-3 space-y-3">
         <h2 class="text-xl font-semibold">Resumen</h2>
         <p class="text-slate-700 dark:text-slate-300">
-          Ingeniero electrónico orientado a datos/backend (Python + SQL).
-          Experiencia construyendo pipelines de datos con trazabilidad para proyectos de alto impacto en Perú.
-          Me enfoco en soluciones simples, medibles y bien documentadas.
+          Soy ingeniero electronico orientado a backend y datos, con foco en sistemas de procesamiento documental. Me interesa construir soluciones que conviertan imagenes, formularios y PDFs en informacion consultable, validada y lista para operar desde APIs, web o Android.
         </p>
         <ul class="list-disc pl-5 text-sm text-slate-700 dark:text-slate-300">
-          <li>ETL con validaciones, control de totales y deduplicación idempotente.</li>
-          <li>Orquestación con Prefect/Airflow, logs estructurados, métricas y alertas.</li>
-          <li>MLOps básico: MLflow, FastAPI, Docker y CI/CD (GitHub Actions).</li>
+          <li>Backend con Python, FastAPI, SQL Server y autenticacion JWT.</li>
+          <li>Captura documental con OCR/ICR/OMR, OpenCV, validaciones y salida estructurada.</li>
+          <li>Busqueda documental con LLM local, JSON de intencion y consultas seguras sobre datos procesados.</li>
+          <li>Clientes Android con Kotlin para busqueda, sesiones, visor de documentos e interaccion movil.</li>
         </ul>
       </div>
+
       <aside class="md:col-span-2 glass rounded-3xl p-5 ring-1 ring-slate-200 dark:ring-white/10">
         <h3 class="font-semibold mb-2">Stack y foco</h3>
         <div class="flex flex-wrap gap-2 text-xs">
           <span class="badge">Python</span>
-          <span class="badge">SQL Server / Postgres</span>
-          <span class="badge">Prefect / Airflow</span>
-          <span class="badge">MLflow / FastAPI / Docker</span>
-          <span class="badge">C / ESP32 (embebidos)</span>
+          <span class="badge">FastAPI</span>
+          <span class="badge">SQL Server</span>
+          <span class="badge">OCR/ICR/OMR</span>
+          <span class="badge">OpenCV</span>
+          <span class="badge">Android/Kotlin</span>
+          <span class="badge">LLM local</span>
+          <span class="badge">JWT</span>
+          <span class="badge">PDF processing</span>
         </div>
       </aside>
     </section>
 
-    <!-- Links rápidos -->
+    <section class="grid md:grid-cols-3 gap-4 text-sm">
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+        <h2 class="font-semibold text-base mb-2">Lo que busco destacar</h2>
+        <p>Sistemas pequenos pero completos: captura, backend, datos, busqueda y una experiencia que una persona pueda usar sin pelearse con el flujo.</p>
+      </article>
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+        <h2 class="font-semibold text-base mb-2">Como trabajo</h2>
+        <p>Prefiero APIs claras, validaciones explicitas, datos trazables y demos sinteticas que muestren el problema sin exponer informacion sensible.</p>
+      </article>
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+        <h2 class="font-semibold text-base mb-2">Siguiente paso</h2>
+        <p>Ordenar los case studies principales y luego preparar la version en ingles con el mismo mensaje, sin duplicar estructura innecesaria.</p>
+      </article>
+    </section>
+
     <section>
       <h2 class="text-xl font-semibold mb-3">Enlaces</h2>
       <ul class="list-disc pl-6 text-sm">
@@ -241,66 +119,7 @@
   </main>
 
   <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
-    © <span id="yr"></span> Marco Rios
+    &copy; <span id="yr"></span> Marco Rios
   </footer>
-
-  <!-- Scripts -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (window.lucide) lucide.createIcons();
-      document.getElementById('yr').textContent = new Date().getFullYear();
-    });
-  </script>
-
-  <!-- Tema: botón sol/luna (idéntico al index) -->
-  <script>
-  (function () {
-    const btn  = document.getElementById('themeBtn');
-    const meta = document.querySelector('meta[name="theme-color"]');
-    const html = document.documentElement;
-
-    function renderIcon(dark) {
-      const iconWrap = btn?.querySelector('#themeIcon')?.parentElement || btn;
-      if (!iconWrap || !window.lucide) return;
-      iconWrap.innerHTML = `<i id="themeIcon" data-lucide="${dark ? 'moon' : 'sun'}" class="h-5 w-5"></i>`;
-      lucide.createIcons();
-    }
-
-    function setTheme(theme) {
-      const dark = theme === 'dark';
-      html.classList.toggle('dark', dark);
-      html.classList.toggle('light', !dark);
-      html.dataset.theme = theme;
-      localStorage.setItem('theme', theme);
-      if (meta) meta.setAttribute('content', dark ? '#0b0b0b' : '#ffffff');
-      renderIcon(dark);
-      if (btn) {
-        btn.setAttribute('aria-pressed', String(dark));
-        const tt = dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
-        btn.title = tt;
-        btn.setAttribute('aria-label', tt);
-      }
-    }
-
-    function initTheme() {
-      const ls = localStorage.getItem('theme'); // 'dark' | 'light' | null
-      setTheme(ls || 'dark');
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => { initTheme(); if (window.lucide) lucide.createIcons(); });
-    } else {
-      initTheme();
-      if (window.lucide) lucide.createIcons();
-    }
-
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const next = (html.dataset.theme === 'dark') ? 'light' : 'dark';
-        setTheme(next);
-      });
-    }
-  })();
-  </script>
 </body>
 </html>
