@@ -21,8 +21,7 @@
   <script>
   (function () {
     const ls = localStorage.getItem('theme');     // 'dark' | 'light' | null
-    const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = ls || (sysDark ? 'dark' : 'light');
+    const theme = ls || 'dark';
     const html = document.documentElement;
 
     // Asegura SIEMPRE una de las dos clases:
@@ -38,7 +37,7 @@
   </script>
 
   <!-- Tailwind (dark por clase) -->
-  <script>tailwind = { config: { darkMode: 'class' } };</script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Lucide icons -->
@@ -216,6 +215,7 @@
     html.dark .navlink:hover,
     html.dark .navlink:focus-visible{ color:#ffffff; }
   </style>
+  <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
 <body class="min-h-screen bg-white text-slate-900
@@ -494,8 +494,7 @@
 
     function initTheme() {
       const ls = localStorage.getItem('theme'); // 'dark' | 'light' | null
-      const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(ls || (sysDark ? 'dark' : 'light'));
+      setTheme(ls || 'dark');
     }
 
     // Inicializa

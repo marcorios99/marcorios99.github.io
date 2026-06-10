@@ -21,8 +21,7 @@
   <script>
   (function () {
     const ls = localStorage.getItem('theme');
-    const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = ls || (sysDark ? 'dark' : 'light');
+    const theme = ls || 'dark';
     const html = document.documentElement;
     html.classList.toggle('dark', theme === 'dark');
     html.classList.toggle('light', theme !== 'dark');
@@ -33,7 +32,7 @@
   </script>
 
   <!-- 2. Tailwind config y CDN (SEGUNDO) -->
-  <script>tailwind = { config: { darkMode: 'class' } };</script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- 3. Lucide icons -->
@@ -179,7 +178,6 @@
   <!-- Links externos al final -->
   <link rel="stylesheet" href="/assets/css/styles.css">
   <script defer src="/assets/js/site.js"></script>
-</head>
 </head>
 
 <body class="min-h-screen bg-white text-slate-900

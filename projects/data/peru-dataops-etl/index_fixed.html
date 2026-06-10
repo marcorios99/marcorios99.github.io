@@ -9,8 +9,7 @@
   (function () {
     try {
       var ls = localStorage.getItem('theme');
-      var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var theme = ls || (sysDark ? 'dark' : 'light');
+      var theme = ls || 'dark';
       var htmlEl = document.documentElement;
       htmlEl.classList.toggle('dark', theme === 'dark');
       htmlEl.classList.toggle('light', theme !== 'dark');
@@ -41,7 +40,7 @@
   <meta name="theme-color" content="#0b0b0b">
 
   <!-- Tailwind (dark por clase) -->
-  <script>tailwind = { config: { darkMode: 'class' } };</script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Lucide icons -->

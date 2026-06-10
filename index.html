@@ -21,8 +21,7 @@
   <script>
   (function () {
     const ls = localStorage.getItem('theme');     // 'dark' | 'light' | null
-    const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = ls || (sysDark ? 'dark' : 'light');
+    const theme = ls || 'dark';
     const html = document.documentElement;
 
     // Asegura SIEMPRE una de las dos clases:
@@ -38,11 +37,12 @@
   </script>
 
   <!-- Tailwind (dark por clase) -->
-  <script>tailwind = { config: { darkMode: 'class' } };</script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Lucide icons -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
 
   <!-- Estilos -->
   <style>
@@ -216,6 +216,7 @@
     html.dark .navlink:hover,
     html.dark .navlink:focus-visible{ color:#ffffff; }
   </style>
+  <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
 <body class="min-h-screen bg-white text-slate-900
@@ -285,7 +286,7 @@
         <div class="flex flex-wrap gap-3">
           <a href="/projects/index.html" class="btn-outline">Ver proyectos</a>
           <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-outline">
-            <i data-lucide="LinkedIn" class="h-4 w-4"></i> LinkedIn</a>
+            <i data-lucide="linkedin" class="h-4 w-4"></i> LinkedIn</a>
           <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="btn-outline">
             <i data-lucide="github" class="h-4 w-4"></i> GitHub</a>
         </div>
@@ -466,69 +467,5 @@
     });
   </script>
 
-  <!-- Tema: botón sol/luna -->
-  <script>
-  (function () {
-    const btn  = document.getElementById('themeBtn');
-    const meta = document.querySelector('meta[name="theme-color"]');
-    const html = document.documentElement;
-
-    // contenedor estable = el padre de #themeIcon
-    const iconWrap = (function () {
-      const el = document.getElementById('themeIcon');
-      return el ? el.parentElement : null;
-    })();
-
-    function renderIcon(dark) {
-      if (!iconWrap || !window.lucide) return;
-      // recrea el <i data-lucide="..."> y vuelve a renderizar
-      iconWrap.innerHTML = `<i id="themeIcon" data-lucide="${dark ? 'moon' : 'sun'}" class="h-5 w-5"></i>`;
-      lucide.createIcons();
-    }
-
-    function setTheme(theme) {
-      const dark = theme === 'dark';
-
-      // Clases + dataset
-      html.classList.toggle('dark', dark);
-      html.classList.toggle('light', !dark);
-      html.dataset.theme = theme;
-
-      // Persistencia + barra del navegador
-      localStorage.setItem('theme', theme);
-      if (meta) meta.setAttribute('content', dark ? '#0b0b0b' : '#ffffff');
-
-      // Icono y accesibilidad
-      renderIcon(dark);
-      if (btn) {
-        btn.setAttribute('aria-pressed', String(dark));
-        const tt = dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
-        btn.title = tt;
-        btn.setAttribute('aria-label', tt);
-      }
-    }
-
-    function initTheme() {
-      const ls = localStorage.getItem('theme'); // 'dark' | 'light' | null
-      const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(ls || (sysDark ? 'dark' : 'light'));
-    }
-
-    // Inicializa
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initTheme);
-    } else {
-      initTheme();
-    }
-
-    // Toggle
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const next = (html.dataset.theme === 'dark') ? 'light' : 'dark';
-        setTheme(next);
-      });
-    }
-  })();
-  </script>
 </body>
 </html>
