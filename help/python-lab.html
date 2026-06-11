@@ -17,6 +17,7 @@
   <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/pyodide/v314.0.0/full/pyodide.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
   <script defer src="/assets/js/site.js"></script>
@@ -88,13 +89,13 @@
     <section class="max-w-3xl">
       <a href="/help/" class="text-sm text-emerald-700 dark:text-emerald-300 hover:underline">&larr; Volver a notas</a>
       <h1 class="mt-4 text-3xl font-semibold">Mini code lab</h1>
-      <p class="mt-3 text-slate-700 dark:text-slate-300">Primera version de laboratorio seguro: analiza estructura, detecta detalles comunes y simula salidas de <code>print(...)</code> simples. No ejecuta Python real todavia.</p>
+      <p class="mt-3 text-slate-700 dark:text-slate-300">Laboratorio para analizar fragmentos y ejecutar Python b&aacute;sico directamente en el navegador con Pyodide. Ideal para recordar sintaxis, probar funciones peque&ntilde;as y revisar salidas de <code>print(...)</code>.</p>
     </section>
 
     <section class="grid lg:grid-cols-2 gap-4">
       <div class="rounded-2xl border p-4 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
         <div class="mb-3 flex flex-wrap gap-2">
-          <button id="analyzeBtn" class="btn-accent" type="button">Analizar codigo</button>
+          <button id="runBtn" class="btn-accent" type="button">Ejecutar Python</button>
           <button id="sampleBtn" class="btn-outline" type="button">Cargar ejemplo</button>
           <button id="clearBtn" class="btn-outline" type="button">Limpiar</button>
         </div>
@@ -109,7 +110,7 @@ print(f"Hola {name}")</textarea>
 
       <div class="rounded-2xl border p-4 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
         <h2 class="mb-3 font-semibold">Resultado</h2>
-        <pre id="output" class="mt-[23px] min-h-[420px] whitespace-pre-wrap rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-900 dark:border-white/10 dark:bg-slate-950 dark:text-slate-100">Presiona "Analizar codigo" para revisar el fragmento.</pre>
+        <pre id="output" class="mt-[23px] min-h-[420px] whitespace-pre-wrap rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-900 dark:border-white/10 dark:bg-slate-950 dark:text-slate-100">Presiona "Ejecutar Python" para correr el fragmento.</pre>
       </div>
     </section>
   </main>
@@ -124,9 +125,10 @@ print(f"Hola {name}")</textarea>
   (function () {
     const input = document.getElementById('codeInput');
     const output = document.getElementById('output');
-    const analyzeBtn = document.getElementById('analyzeBtn');
+    const runBtn = document.getElementById('runBtn');
     const sampleBtn = document.getElementById('sampleBtn');
     const clearBtn = document.getElementById('clearBtn');
+    let pyodideReadyPromise = null;
     const editor = window.CodeMirror
       ? CodeMirror.fromTextArea(input, {
           mode: 'python',
@@ -163,77 +165,70 @@ print(f"Hola {name}")</textarea>
       });
     }
 
-    function countChar(text, ch) {
-      return [...text].filter((item) => item === ch).length;
+    function setOutput(text) {
+      output.textContent = text;
     }
 
-    function analyze() {
-      const code = getCode();
-      const lines = code.split(/\r?\n/);
-      const messages = [];
-      const simulated = [];
+    async function getPyodide() {
+      if (!pyodideReadyPromise) {
+        setOutput('Cargando Python en el navegador...\nLa primera carga puede tardar unos segundos.');
+        pyodideReadyPromise = loadPyodide();
+      }
+      return pyodideReadyPromise;
+    }
 
+    async function runPython() {
+      const code = getCode();
       if (!code.trim()) {
-        output.textContent = 'No hay codigo para analizar.';
+        setOutput('No hay codigo para ejecutar.');
         return;
       }
 
-      const pairs = [
-        ['(', ')'],
-        ['[', ']'],
-        ['{', '}']
-      ];
+      runBtn.disabled = true;
+      runBtn.textContent = 'Ejecutando...';
 
-      for (const [open, close] of pairs) {
-        const left = countChar(code, open);
-        const right = countChar(code, close);
-        if (left !== right) messages.push(`Revisar balance de ${open}${close}: ${left} abre / ${right} cierra.`);
+      try {
+        const pyodide = await getPyodide();
+        pyodide.globals.set('__user_code', code);
+        const result = await pyodide.runPythonAsync(`
+import contextlib
+import io
+import traceback
+
+__stdout = io.StringIO()
+__stderr = io.StringIO()
+
+try:
+    with contextlib.redirect_stdout(__stdout), contextlib.redirect_stderr(__stderr):
+        exec(__user_code, {"__name__": "__main__"})
+    __result = __stdout.getvalue()
+    __err = __stderr.getvalue()
+    if __err:
+        __result += ("\\n[stderr]\\n" + __err)
+    if not __result.strip():
+        __result = "Ejecucion terminada sin salida."
+except Exception:
+    __result = __stdout.getvalue() + traceback.format_exc()
+
+__result
+`);
+        setOutput(result);
+      } catch (error) {
+        setOutput(String(error));
+      } finally {
+        runBtn.disabled = false;
+        runBtn.textContent = 'Ejecutar Python';
       }
-
-      lines.forEach((line, index) => {
-        const n = index + 1;
-        if (/^\t+/.test(line)) messages.push(`Linea ${n}: usa espacios en vez de tabs para indentar.`);
-        if (/\b(eval|exec|os\.system|subprocess)\b/.test(line)) messages.push(`Linea ${n}: llamada sensible detectada; revisala con cuidado.`);
-        if (/^\s*(if|for|while|def|class|try|except|else|elif|with)\b/.test(line) && !line.trim().endsWith(':')) {
-          messages.push(`Linea ${n}: parece faltar ":" al final.`);
-        }
-
-        const printMatch = line.match(/^\s*print\((.*)\)\s*$/);
-        if (printMatch) {
-          const value = printMatch[1].trim();
-          if (/^["'].*["']$/.test(value)) {
-            simulated.push(value.slice(1, -1));
-          } else {
-            simulated.push(`[print detectado] ${value}`);
-          }
-        }
-      });
-
-      const summary = [];
-      summary.push('Analisis rapido');
-      summary.push('---------------');
-      summary.push(`Lineas: ${lines.length}`);
-      summary.push(`Caracteres: ${code.length}`);
-      summary.push('');
-      summary.push('Observaciones:');
-      summary.push(messages.length ? messages.map((m) => `- ${m}`).join('\n') : '- No se detectaron problemas basicos.');
-      summary.push('');
-      summary.push('Salida simulada de prints simples:');
-      summary.push(simulated.length ? simulated.join('\n') : '- No hay prints simples para simular.');
-      summary.push('');
-      summary.push('Nota: este laboratorio no ejecuta Python real; solo analiza y simula casos simples.');
-
-      output.textContent = summary.join('\n');
     }
 
-    analyzeBtn.addEventListener('click', analyze);
+    runBtn.addEventListener('click', runPython);
     sampleBtn.addEventListener('click', () => {
       setCode('total = 0\nitems = [10, 20, 30]\n\nfor value in items:\n    total += value\n\nprint("Proceso terminado")\nprint(total)');
-      analyze();
+      setOutput('Ejemplo cargado. Presiona "Ejecutar Python" para correr el fragmento.');
     });
     clearBtn.addEventListener('click', () => {
       setCode('');
-      output.textContent = 'Presiona "Analizar codigo" para revisar el fragmento.';
+      setOutput('Presiona "Ejecutar Python" para correr el fragmento.');
     });
   })();
   </script>

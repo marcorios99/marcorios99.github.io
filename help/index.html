@@ -96,15 +96,77 @@
     </section>
 
     <section>
-      <h2 class="mb-4 text-2xl font-semibold">Proximas notas</h2>
+      <div class="mb-4">
+        <h2 class="text-2xl font-semibold">Notas de repaso</h2>
+        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          Fundamentos para tener a mano antes de entrevistas, dise&ntilde;o de proyectos o revisiones tecnicas. Aqui no va tanto codigo, sino conceptos que conviene saber explicar.
+        </p>
+      </div>
+
       <div class="grid md:grid-cols-2 gap-4">
         <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-          <h3 class="font-semibold">OCR/OpenCV</h3>
-          <p class="mt-2 text-sm">Preprocesamiento, umbralizacion, deteccion de contornos y validacion de resultados.</p>
+          <h3 class="font-semibold">Backend &amp; APIs</h3>
+          <ul class="mt-3 list-disc pl-5 text-sm space-y-1">
+            <li>REST, recursos, metodos HTTP e idempotencia.</li>
+            <li>Codigos HTTP clave: 200, 201, 400, 401, 403, 404, 409, 422, 500.</li>
+            <li>Autenticacion vs autorizacion; JWT, claims, expiracion y scopes.</li>
+            <li>Validacion de entrada, errores claros y contratos de respuesta.</li>
+          </ul>
+          <div class="mt-4">
+            <a class="btn-outline" href="/help/notes/backend-apis/">Ver resumen y fuentes</a>
+          </div>
         </article>
+
         <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-          <h3 class="font-semibold">FastAPI</h3>
-          <p class="mt-2 text-sm">Estructura de endpoints, modelos, JWT, validaciones y despliegue practico.</p>
+          <h3 class="font-semibold">Bases de datos</h3>
+          <ul class="mt-3 list-disc pl-5 text-sm space-y-1">
+            <li>Indices: cuando ayudan, costo de escritura y riesgo de sobre-indexar.</li>
+            <li>Transacciones, commits, rollbacks y consistencia de cambios.</li>
+            <li>Joins, cardinalidad, duplicados y claves de negocio.</li>
+            <li>Auditoria: created_at, updated_at, usuario, estado y logs operativos.</li>
+          </ul>
+          <div class="mt-4">
+            <a class="btn-outline" href="/help/notes/databases/">Ver resumen y fuentes</a>
+          </div>
+        </article>
+
+        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+          <h3 class="font-semibold">Python</h3>
+          <ul class="mt-3 list-disc pl-5 text-sm space-y-1">
+            <li>Excepciones: capturar errores especificos y no ocultar fallos.</li>
+            <li>Context managers para manejar recursos con <code>with</code>.</li>
+            <li>Iteradores, generadores y comprensiones.</li>
+            <li>Mutabilidad: listas/dicts vs tuplas/strings; copias y referencias.</li>
+          </ul>
+          <div class="mt-4">
+            <a class="btn-outline" href="/help/notes/python/">Ver resumen y fuentes</a>
+          </div>
+        </article>
+
+        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+          <h3 class="font-semibold">OCR, imagenes y documentos</h3>
+          <ul class="mt-3 list-disc pl-5 text-sm space-y-1">
+            <li>OCR vs ICR vs OMR: texto impreso, escritura/campos y marcas.</li>
+            <li>Preprocesamiento: escala de grises, binarizacion, ruido y contraste.</li>
+            <li>Contornos, ROIs y validacion de confianza.</li>
+            <li>PDF a imagen, texto por pagina y metadata documental.</li>
+          </ul>
+          <div class="mt-4">
+            <a class="btn-outline" href="/help/notes/document-processing/">Ver resumen y fuentes</a>
+          </div>
+        </article>
+
+        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300 md:col-span-2">
+          <h3 class="font-semibold">IA aplicada a datos</h3>
+          <ul class="mt-3 list-disc pl-5 text-sm space-y-1">
+            <li>El LLM debe interpretar intenciones, no ejecutar SQL directamente.</li>
+            <li>JSON estructurado: metricas, filtros, fechas, orden y formato de salida.</li>
+            <li>Validar contra un catalogo permitido antes de consultar la base de datos.</li>
+            <li>Separar respuesta explicativa, tabla y grafico para que la salida sea usable.</li>
+          </ul>
+          <div class="mt-4">
+            <a class="btn-outline" href="/help/notes/ai-data/">Ver resumen y fuentes</a>
+          </div>
         </article>
       </div>
     </section>
@@ -113,5 +175,6 @@
   <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
     &copy; <span id="yr"></span> Marco Rios
   </footer>
+
 </body>
 </html>
