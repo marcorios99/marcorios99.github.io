@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Caballo en los prados</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #87c8ff;
+    }
+
+    #hud {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 10;
+      width: min(420px, calc(100vw - 28px));
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.86);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 14px 35px rgba(0,0,0,.18);
+      color: #24313a;
+      user-select: none;
+    }
+
+    #hud h1 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.15;
+    }
+
+    #hud p {
+      margin: 5px 0;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    button {
+      margin-top: 8px;
+      margin-right: 6px;
+      padding: 8px 12px;
+      border: 0;
+      border-radius: 10px;
+      color: white;
+      background: #31545d;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    button:hover { filter: brightness(1.1); }
+
+    #status {
+      margin-top: 10px;
+      padding-top: 9px;
+      border-top: 1px solid rgba(0,0,0,.12);
+      font-size: 14px;
+      font-weight: 700;
+      color: #176270;
+    }
+
+    #loading {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 10;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 8px 25px rgba(0,0,0,.16);
+      color: #22303a;
+      font-size: 13px;
+      font-weight: 700;
+    }
+  </style>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="hud">
+    <h1>Caballo cabalgando por prados</h1>
+    <p>El caballo corre automáticamente por una ruta circular.</p>
+    <p>Puedes mover la cámara con el mouse.</p>
+    <button id="musicBtn">▶ Iniciar música</button>
+    <button id="pauseBtn">⏸ Pausar música</button>
+    <button id="centerBtn">🎯 Centrar cámara</button>
+    <div id="status">Preparando escena...</div>
+  </div>
+
+  <div id="loading">Cargando caballo...</div>
+
+  <!-- Si quieres música, coloca spirit.mp3 junto al HTML -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="spirit.mp3" type="audio/mpeg">
+  </audio>
+
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+    import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x87c8ff);
+    scene.fog = new THREE.Fog(0x87c8ff, 35, 120);
+
+    const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 300);
+    camera.position.set(0, 5, 12);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    document.body.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(0, 2, 0);
+
+    const hemi = new THREE.HemisphereLight(0xffffff, 0x6b8e4e, 1.4);
+    scene.add(hemi);
+
+    const sun = new THREE.DirectionalLight(0xfff0cf, 2.4);
+    sun.position.set(25, 35, 18);
+    sun.castShadow = true;
+    sun.shadow.mapSize.set(2048, 2048);
+    sun.shadow.camera.left = -60;
+    sun.shadow.camera.right = 60;
+    sun.shadow.camera.top = 60;
+    sun.shadow.camera.bottom = -60;
+    sun.shadow.bias = -0.0001;
+    scene.add(sun);
+
+    function makeGrassTexture() {
+      const canvas = document.createElement("canvas");
+      canvas.width = 512;
+      canvas.height = 512;
+      const ctx = canvas.getContext("2d");
+
+      const grad = ctx.createLinearGradient(0, 0, 0, 512);
+      grad.addColorStop(0, "#78b84f");
+      grad.addColorStop(1, "#4f8d33");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 512);
+
+      for (let i = 0; i < 14000; i++) {
+        const x = Math.random() * 512;
+        const y = Math.random() * 512;
+        const s = 1 + Math.random() * 2;
+        const g = 90 + Math.random() * 90;
+        ctx.fillStyle = `rgba(${30 + Math.random()*30}, ${g}, ${20 + Math.random()*30}, ${0.18 + Math.random()*0.18})`;
+        ctx.fillRect(x, y, s, s);
+      }
+
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(40, 40);
+      return tex;
+    }
+
+    const ground = new THREE.Mesh(
+      new THREE.CircleGeometry(120, 128),
+      new THREE.MeshStandardMaterial({
+        map: makeGrassTexture(),
+        color: 0x76b852,
+        roughness: 1
+      })
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    function addHill(x, z, sx, sy, sz, color = 0x6da24b) {
+      const hill = new THREE.Mesh(
+        new THREE.SphereGeometry(1, 32, 24),
+        new THREE.MeshStandardMaterial({ color, roughness: 1 })
+      );
+      hill.position.set(x, sy * 0.6, z);
+      hill.scale.set(sx, sy, sz);
+      hill.receiveShadow = true;
+      hill.castShadow = false;
+      scene.add(hill);
+    }
+
+    addHill(-22, -30, 16, 6, 10, 0x699f49);
+    addHill(20, -35, 18, 7, 12, 0x73aa52);
+    addHill(0, -42, 24, 8, 15, 0x679747);
+    addHill(-40, -10, 12, 5, 9, 0x6ea64c);
+    addHill(38, -8, 14, 5, 10, 0x6da04a);
+
+    function addCloud(x, y, z, s = 1) {
+      const group = new THREE.Group();
+      const mat = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        roughness: 1,
+        transparent: true,
+        opacity: 0.92
+      });
+
+      for (let i = 0; i < 5; i++) {
+        const puff = new THREE.Mesh(new THREE.SphereGeometry(1.2, 16, 16), mat);
+        puff.position.set(i * 1.2 - 2.2, Math.random() * 0.6, Math.random() * 0.7);
+        puff.scale.set(
+          1 + Math.random() * 0.8,
+          0.8 + Math.random() * 0.5,
+          1 + Math.random() * 0.8
+        );
+        group.add(puff);
+      }
+
+      group.position.set(x, y, z);
+      group.scale.setScalar(s);
+      scene.add(group);
+      return group;
+    }
+
+    const clouds = [
+      addCloud(-18, 16, -25, 1.6),
+      addCloud(12, 18, -30, 1.9),
+      addCloud(30, 14, -18, 1.2),
+      addCloud(-35, 20, -40, 2.0)
+    ];
+
+    function addFlower(x, z, petalColor = 0xffffff) {
+      const group = new THREE.Group();
+
+      const stem = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.02, 0.03, 0.45, 6),
+        new THREE.MeshStandardMaterial({ color: 0x3f8f2b, roughness: 1 })
+      );
+      stem.position.y = 0.22;
+      group.add(stem);
+
+      const center = new THREE.Mesh(
+        new THREE.SphereGeometry(0.05, 10, 10),
+        new THREE.MeshStandardMaterial({ color: 0xffd54d, roughness: 1 })
+      );
+      center.position.y = 0.47;
+      group.add(center);
+
+      for (let i = 0; i < 6; i++) {
+        const petal = new THREE.Mesh(
+          new THREE.SphereGeometry(0.05, 10, 10),
+          new THREE.MeshStandardMaterial({ color: petalColor, roughness: 1 })
+        );
+        const a = (i / 6) * Math.PI * 2;
+        petal.position.set(Math.cos(a) * 0.09, 0.47, Math.sin(a) * 0.09);
+        petal.scale.set(1.2, 0.65, 1.2);
+        group.add(petal);
+      }
+
+      group.position.set(x, 0, z);
+      scene.add(group);
+    }
+
+    for (let i = 0; i < 180; i++) {
+      const x = (Math.random() - 0.5) * 70;
+      const z = (Math.random() - 0.5) * 70;
+      const colors = [0xffffff, 0xffc0cb, 0xffeb3b, 0xd1c4e9];
+      addFlower(x, z, colors[Math.floor(Math.random() * colors.length)]);
+    }
+
+    const horseHolder = new THREE.Group();
+    scene.add(horseHolder);
+
+    const horseShadow = new THREE.Mesh(
+      new THREE.CircleGeometry(1.5, 40),
+      new THREE.MeshBasicMaterial({
+        color: 0x000000,
+        transparent: true,
+        opacity: 0.18
+      })
+    );
+    horseShadow.rotation.x = -Math.PI / 2;
+    horseShadow.position.y = 0.02;
+    scene.add(horseShadow);
+
+    const loader = new GLTFLoader();
+    const loading = document.getElementById("loading");
+    const status = document.getElementById("status");
+
+    let horse = null;
+    let mixer = null;
+    let focusY = 2.0;
+
+    function normalizeModel(model, targetSize, yaw = Math.PI) {
+      model.position.set(0, 0, 0);
+      model.rotation.set(0, yaw, 0);
+      model.scale.setScalar(1);
+      model.updateMatrixWorld(true);
+
+      let box = new THREE.Box3().setFromObject(model);
+      const size = new THREE.Vector3();
+      box.getSize(size);
+
+      const maxAxis = Math.max(size.x, size.y, size.z);
+      if (maxAxis > 0) {
+        model.scale.setScalar(targetSize / maxAxis);
+      }
+
+      model.updateMatrixWorld(true);
+
+      box = new THREE.Box3().setFromObject(model);
+      const center = new THREE.Vector3();
+      box.getCenter(center);
+
+      model.position.x -= center.x;
+      model.position.z -= center.z;
+      model.position.y -= box.min.y;
+      model.updateMatrixWorld(true);
+
+      box = new THREE.Box3().setFromObject(model);
+      const finalCenter = new THREE.Vector3();
+      box.getCenter(finalCenter);
+      focusY = finalCenter.y || 2.0;
+    }
+
+    function centerCamera() {
+      controls.target.set(horseHolder.position.x, focusY + 0.4, horseHolder.position.z);
+      camera.position.set(
+        horseHolder.position.x + 0,
+        focusY + 3.4,
+        horseHolder.position.z + 10
+      );
+      controls.update();
+    }
+
+    const horseUrls = [
+      "https://threejs.org/examples/models/gltf/Horse.glb",
+      "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r165/examples/models/gltf/Horse.glb"
+    ];
+
+    function tryLoadHorse(i = 0) {
+      if (i >= horseUrls.length) {
+        loading.textContent = "No se pudo cargar el caballo";
+        status.textContent = "Error cargando modelo";
+        return;
+      }
+
+      loader.load(
+        horseUrls[i],
+        (gltf) => {
+          horse = gltf.scene;
+          normalizeModel(horse, 9.5, Math.PI);
+
+          horse.traverse((child) => {
+            if (child.isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+            }
+          });
+
+          horseHolder.add(horse);
+
+          if (gltf.animations?.length) {
+            mixer = new THREE.AnimationMixer(horse);
+            gltf.animations.forEach((clip) => {
+              const action = mixer.clipAction(clip);
+              action.play();
+            });
+          }
+
+          centerCamera();
+          loading.style.display = "none";
+          status.textContent = "Caballo cargado y cabalgando por el prado";
+        },
+        (xhr) => {
+          if (xhr.total > 0) {
+            const pct = Math.round((xhr.loaded / xhr.total) * 100);
+            loading.textContent = `Cargando caballo... ${pct}%`;
+          }
+        },
+        () => {
+          tryLoadHorse(i + 1);
+        }
+      );
+    }
+
+    const bgMusic = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
+    const pauseBtn = document.getElementById("pauseBtn");
+
+    musicBtn.addEventListener("click", async () => {
+      try {
+        bgMusic.volume = 0.45;
+        await bgMusic.play();
+        status.textContent = "Música iniciada";
+      } catch (e) {
+        status.textContent = "No se pudo reproducir la música. Verifica el archivo spirit.mp3";
+        console.error(e);
+      }
+    });
+
+    pauseBtn.addEventListener("click", () => {
+      bgMusic.pause();
+      status.textContent = "Música pausada";
+    });
+
+    document.getElementById("centerBtn").addEventListener("click", centerCamera);
+
+    const clock = new THREE.Clock();
+
+    function animate() {
+      const delta = clock.getDelta();
+      const t = clock.elapsedTime;
+
+      if (mixer) {
+        mixer.update(delta * 1.15);
+      }
+
+      // Ruta circular para que parezca que cabalga por los prados
+      const radius = 14;
+      const speed = 0.22;
+      const x = Math.cos(t * speed) * radius;
+      const z = Math.sin(t * speed) * radius * 0.75;
+
+      horseHolder.position.x = x;
+      horseHolder.position.z = z;
+      horseHolder.position.y = Math.abs(Math.sin(t * 6.5)) * 0.08;
+
+      // Orientación según el movimiento
+      const nextX = Math.cos((t + 0.01) * speed) * radius;
+      const nextZ = Math.sin((t + 0.01) * speed) * radius * 0.75;
+      horseHolder.rotation.y = Math.atan2(nextX - x, nextZ - z);
+
+      horseShadow.position.x = horseHolder.position.x;
+      horseShadow.position.z = horseHolder.position.z;
+      horseShadow.scale.setScalar(1 - Math.min(horseHolder.position.y * 0.2, 0.12));
+
+      // Cámara siguiendo suavemente
+      const desiredTarget = new THREE.Vector3(
+        horseHolder.position.x,
+        focusY + horseHolder.position.y + 0.4,
+        horseHolder.position.z
+      );
+      controls.target.lerp(desiredTarget, 0.06);
+
+      // Mover nubes un poco
+      clouds.forEach((c, idx) => {
+        c.position.x += Math.sin(t * 0.08 + idx) * 0.002;
+      });
+
+      controls.update();
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+
+    tryLoadHorse();
+    animate();
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
