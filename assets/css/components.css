@@ -217,3 +217,22 @@ tbody tr {
 tbody tr:hover {
   background: color-mix(in srgb, var(--surface-soft) 82%, transparent) !important;
 }
+
+.project-media-slot {
+  min-height: 190px;
+  border: 1px dashed var(--border-soft);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--surface-soft) 78%, transparent);
+}
+
+html.light .project-media-slot {
+  background: #f8fafc;
+}
+
+.project-card-main h3 {
+  min-height: 3.5rem;
+}
+
+.project-card-main .project-description {
+  min-height: 5.75rem;
+}
