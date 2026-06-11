@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Queries SQL - Notas tecnicas</title>
+  <meta name="theme-color" content="#0b0b0b">
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+  })();
+  </script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <style>
+    pre {
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0;
+    }
+    pre code.hljs {
+      background: transparent !important;
+      padding: 0 !important;
+    }
+    html.dark pre {
+      background: #020617 !important;
+      border-color: rgba(255, 255, 255, .1);
+    }
+    html.dark .hljs {
+      color: #e5e7eb;
+    }
+    html.dark .hljs-keyword,
+    html.dark .hljs-selector-tag,
+    html.dark .hljs-built_in {
+      color: #f87171;
+    }
+    html.dark .hljs-string,
+    html.dark .hljs-attr {
+      color: #93c5fd;
+    }
+    html.dark .hljs-number,
+    html.dark .hljs-literal {
+      color: #fbbf24;
+    }
+    html.dark .hljs-comment {
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-white text-slate-900 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100">
+  <header class="sticky top-0 z-50 border-b backdrop-blur bg-white/70 border-slate-200/70 dark:bg-slate-950/70 dark:border-white/10">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/help/" class="navlink">Notas tecnicas</a>
+        <a href="/projects/" class="navlink">Proyectos</a>
+      </div>
+      <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
+        <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="mx-auto container-xx px-4 py-12 space-y-8">
+    <section class="max-w-3xl">
+      <a href="/help/" class="text-sm text-emerald-700 dark:text-emerald-300 hover:underline">&larr; Volver a notas</a>
+      <h1 class="mt-4 text-3xl font-semibold">Queries SQL</h1>
+      <p class="mt-3 text-slate-700 dark:text-slate-300">Consultas reutilizables para recordar sintaxis de ventanas, agregaciones, validaciones, joins, duplicados y reportes operativos.</p>
+    </section>
+
+    <section class="grid gap-4">
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">ROW_NUMBER para elegir el registro mas reciente</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-sql">WITH ranked AS (
+    SELECT
+        document_id,
+        status,
+        updated_at,
+        ROW_NUMBER() OVER (
+            PARTITION BY document_id
+            ORDER BY updated_at DESC
+        ) AS rn
+    FROM documents
+)
+SELECT *
+FROM ranked
+WHERE rn = 1;</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">Detectar duplicados por clave de negocio</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-sql">SELECT
+    business_key,
+    COUNT(*) AS total_rows
+FROM staging_table
+GROUP BY business_key
+HAVING COUNT(*) > 1;</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">Validar campos requeridos</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-sql">SELECT *
+FROM staging_table
+WHERE document_id IS NULL
+   OR created_at IS NULL
+   OR status IS NULL;</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">Agregacion mensual</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-sql">SELECT
+    DATEFROMPARTS(YEAR(created_at), MONTH(created_at), 1) AS month_start,
+    COUNT(*) AS total_documents
+FROM documents
+GROUP BY DATEFROMPARTS(YEAR(created_at), MONTH(created_at), 1)
+ORDER BY month_start;</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">LEFT JOIN para encontrar faltantes</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-sql">SELECT s.*
+FROM source_table AS s
+LEFT JOIN target_table AS t
+    ON t.business_key = s.business_key
+WHERE t.business_key IS NULL;</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">SUM OVER para acumulado</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-sql">SELECT
+    created_at,
+    amount,
+    SUM(amount) OVER (
+        ORDER BY created_at
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS running_total
+FROM transactions;</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">CASE para clasificar estados</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-sql">SELECT
+    document_id,
+    status,
+    CASE
+        WHEN status IN ('APPROVED', 'VALIDATED') THEN 'ok'
+        WHEN status IN ('REJECTED', 'ERROR') THEN 'review'
+        ELSE 'pending'
+    END AS status_group
+FROM documents;</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">MERGE basico para upsert en SQL Server</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-sql">MERGE target_table AS target
+USING staging_table AS source
+    ON target.business_key = source.business_key
+WHEN MATCHED THEN
+    UPDATE SET
+        target.status = source.status,
+        target.updated_at = source.updated_at
+WHEN NOT MATCHED THEN
+    INSERT (business_key, status, updated_at)
+    VALUES (source.business_key, source.status, source.updated_at);</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">CTE recursivo para tablas jerarquicas</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-sql">WITH hierarchy AS (
+    SELECT
+        id,
+        parent_id,
+        name,
+        0 AS level,
+        CAST(name AS VARCHAR(MAX)) AS path
+    FROM categories
+    WHERE parent_id IS NULL
+
+    UNION ALL
+
+    SELECT
+        child.id,
+        child.parent_id,
+        child.name,
+        parent.level + 1 AS level,
+        CAST(parent.path + ' > ' + child.name AS VARCHAR(MAX)) AS path
+    FROM categories AS child
+    INNER JOIN hierarchy AS parent
+        ON child.parent_id = parent.id
+)
+SELECT
+    id,
+    parent_id,
+    name,
+    level,
+    path
+FROM hierarchy
+ORDER BY path
+OPTION (MAXRECURSION 100);</code></pre>
+      </article>
+    </section>
+  </main>
+
+  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
+    &copy; <span id="yr"></span> Marco Rios
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.hljs) hljs.highlightAll();
+    });
+  </script>
+</body>
+</html>

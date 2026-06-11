@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mini code lab - Notas tecnicas</title>
+  <meta name="theme-color" content="#0b0b0b">
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+  })();
+  </script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <style>
+    .CodeMirror {
+      min-height: 420px;
+      border: 1px solid #e2e8f0;
+      border-radius: .75rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: .875rem;
+    }
+    .CodeMirror-scroll {
+      min-height: 420px;
+    }
+    html.light .CodeMirror {
+      background: #f8fafc;
+      color: #0f172a;
+    }
+    html.light .CodeMirror-gutters {
+      background: #eef2f7;
+      border-right: 1px solid #e2e8f0;
+    }
+    html.light .CodeMirror-linenumber {
+      color: #64748b;
+    }
+    html.light .cm-keyword { color: #cf222e; }
+    html.light .cm-string { color: #0a3069; }
+    html.light .cm-number { color: #953800; }
+    html.light .cm-comment { color: #6e7781; }
+    html.light .cm-def,
+    html.light .cm-variable-2 { color: #8250df; }
+    html.light .cm-builtin { color: #0550ae; }
+    html.dark .CodeMirror {
+      background: #020617 !important;
+      color: #e5e7eb;
+      border-color: rgba(255, 255, 255, .1);
+    }
+    html.dark .CodeMirror-gutters {
+      background: #020617 !important;
+      border-right: 1px solid rgba(255, 255, 255, .1);
+    }
+    html.dark .CodeMirror-linenumber {
+      color: #64748b;
+    }
+    html.dark .CodeMirror-cursor {
+      border-left-color: #e5e7eb;
+    }
+    html.dark .CodeMirror-selected {
+      background: rgba(16, 185, 129, .22) !important;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-white text-slate-900 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100">
+  <header class="sticky top-0 z-50 border-b backdrop-blur bg-white/70 border-slate-200/70 dark:bg-slate-950/70 dark:border-white/10">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/help/" class="navlink">Notas tecnicas</a>
+        <a href="/projects/" class="navlink">Proyectos</a>
+      </div>
+      <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
+        <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="mx-auto container-xx px-4 py-12 space-y-6">
+    <section class="max-w-3xl">
+      <a href="/help/" class="text-sm text-emerald-700 dark:text-emerald-300 hover:underline">&larr; Volver a notas</a>
+      <h1 class="mt-4 text-3xl font-semibold">Mini code lab</h1>
+      <p class="mt-3 text-slate-700 dark:text-slate-300">Primera version de laboratorio seguro: analiza estructura, detecta detalles comunes y simula salidas de <code>print(...)</code> simples. No ejecuta Python real todavia.</p>
+    </section>
+
+    <section class="grid lg:grid-cols-2 gap-4">
+      <div class="rounded-2xl border p-4 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <div class="mb-3 flex flex-wrap gap-2">
+          <button id="analyzeBtn" class="btn-accent" type="button">Analizar codigo</button>
+          <button id="sampleBtn" class="btn-outline" type="button">Cargar ejemplo</button>
+          <button id="clearBtn" class="btn-outline" type="button">Limpiar</button>
+        </div>
+        <textarea id="codeInput" spellcheck="false">name = "Marco"
+items = ["SQL", "Python", "FastAPI"]
+
+for item in items:
+    print(item)
+
+print(f"Hola {name}")</textarea>
+      </div>
+
+      <div class="rounded-2xl border p-4 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="mb-3 font-semibold">Resultado</h2>
+        <pre id="output" class="mt-[23px] min-h-[420px] whitespace-pre-wrap rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-900 dark:border-white/10 dark:bg-slate-950 dark:text-slate-100">Presiona "Analizar codigo" para revisar el fragmento.</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
+    &copy; <span id="yr"></span> Marco Rios
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+  <script>
+  (function () {
+    const input = document.getElementById('codeInput');
+    const output = document.getElementById('output');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const sampleBtn = document.getElementById('sampleBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const editor = window.CodeMirror
+      ? CodeMirror.fromTextArea(input, {
+          mode: 'python',
+          theme: document.documentElement.classList.contains('dark') ? 'material-darker' : 'default',
+          lineNumbers: true,
+          indentUnit: 4,
+          tabSize: 4,
+          lineWrapping: true
+        })
+      : null;
+
+    function getCode() {
+      return editor ? editor.getValue() : input.value;
+    }
+
+    function setCode(value) {
+      if (editor) {
+        editor.setValue(value);
+      } else {
+        input.value = value;
+      }
+    }
+
+    function syncEditorTheme() {
+      if (!editor) return;
+      const dark = document.documentElement.classList.contains('dark');
+      editor.setOption('theme', dark ? 'material-darker' : 'default');
+    }
+
+    const themeBtn = document.getElementById('themeBtn');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', function () {
+        setTimeout(syncEditorTheme, 0);
+      });
+    }
+
+    function countChar(text, ch) {
+      return [...text].filter((item) => item === ch).length;
+    }
+
+    function analyze() {
+      const code = getCode();
+      const lines = code.split(/\r?\n/);
+      const messages = [];
+      const simulated = [];
+
+      if (!code.trim()) {
+        output.textContent = 'No hay codigo para analizar.';
+        return;
+      }
+
+      const pairs = [
+        ['(', ')'],
+        ['[', ']'],
+        ['{', '}']
+      ];
+
+      for (const [open, close] of pairs) {
+        const left = countChar(code, open);
+        const right = countChar(code, close);
+        if (left !== right) messages.push(`Revisar balance de ${open}${close}: ${left} abre / ${right} cierra.`);
+      }
+
+      lines.forEach((line, index) => {
+        const n = index + 1;
+        if (/^\t+/.test(line)) messages.push(`Linea ${n}: usa espacios en vez de tabs para indentar.`);
+        if (/\b(eval|exec|os\.system|subprocess)\b/.test(line)) messages.push(`Linea ${n}: llamada sensible detectada; revisala con cuidado.`);
+        if (/^\s*(if|for|while|def|class|try|except|else|elif|with)\b/.test(line) && !line.trim().endsWith(':')) {
+          messages.push(`Linea ${n}: parece faltar ":" al final.`);
+        }
+
+        const printMatch = line.match(/^\s*print\((.*)\)\s*$/);
+        if (printMatch) {
+          const value = printMatch[1].trim();
+          if (/^["'].*["']$/.test(value)) {
+            simulated.push(value.slice(1, -1));
+          } else {
+            simulated.push(`[print detectado] ${value}`);
+          }
+        }
+      });
+
+      const summary = [];
+      summary.push('Analisis rapido');
+      summary.push('---------------');
+      summary.push(`Lineas: ${lines.length}`);
+      summary.push(`Caracteres: ${code.length}`);
+      summary.push('');
+      summary.push('Observaciones:');
+      summary.push(messages.length ? messages.map((m) => `- ${m}`).join('\n') : '- No se detectaron problemas basicos.');
+      summary.push('');
+      summary.push('Salida simulada de prints simples:');
+      summary.push(simulated.length ? simulated.join('\n') : '- No hay prints simples para simular.');
+      summary.push('');
+      summary.push('Nota: este laboratorio no ejecuta Python real; solo analiza y simula casos simples.');
+
+      output.textContent = summary.join('\n');
+    }
+
+    analyzeBtn.addEventListener('click', analyze);
+    sampleBtn.addEventListener('click', () => {
+      setCode('total = 0\nitems = [10, 20, 30]\n\nfor value in items:\n    total += value\n\nprint("Proceso terminado")\nprint(total)');
+      analyze();
+    });
+    clearBtn.addEventListener('click', () => {
+      setCode('');
+      output.textContent = 'Presiona "Analizar codigo" para revisar el fragmento.';
+    });
+  })();
+  </script>
+</body>
+</html>

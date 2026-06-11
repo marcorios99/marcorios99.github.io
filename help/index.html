@@ -1,20 +1,117 @@
-<!doctype html><html lang="es"><head>
-    <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Ayuda – Notas rápidas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    </head><body class="bg-slate-950 text-slate-100">
-    <main class="max-w-5xl mx-auto px-4 py-10">
-      <h1 class="text-3xl font-semibold mb-6">Ayuda / Chuletas</h1>
-      <div class="grid md:grid-cols-2 gap-4">
-        <a class="rounded-xl border border-white/10 p-5 hover:bg-white/5" href="/help/sql-window.html">
-          <h2 class="font-semibold">SQL Window functions</h2><p class="text-sm opacity-80">ROW_NUMBER, LAG/LEAD, SUM OVER…</p>
-        </a>
-        <a class="rounded-xl border border-white/10 p-5 hover:bg-white/5" href="/help/prefect-quickstart.html">
-          <h2 class="font-semibold">Prefect quickstart</h2><p class="text-sm opacity-80">flow, deployment, agent, CRON</p>
-        </a>
-        <a class="rounded-xl border border-white/10 p-5 hover:bg-white/5" href="/help/pyspark-101.html">
-          <h2 class="font-semibold">PySpark 101</h2><p class="text-sm opacity-80">read/write, joins, window</p>
-        </a>
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Notas tecnicas - Marco Rios</title>
+  <meta name="description" content="Notas tecnicas, queries, scripts de Python y laboratorio de codigo para recordar sintaxis y patrones utiles.">
+  <meta name="theme-color" content="#0b0b0b">
+
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0b0b' : '#ffffff');
+  })();
+  </script>
+
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body class="min-h-screen bg-white text-slate-900 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100">
+  <header class="sticky top-0 z-50 border-b backdrop-blur bg-white/70 border-slate-200/70 dark:bg-slate-950/70 dark:border-white/10">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
+
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/" class="navlink">Inicio</a>
+        <a href="/projects/" class="navlink">Proyectos</a>
+        <a href="/about/" class="navlink">Acerca de mi</a>
       </div>
-    </main></body></html>
-    
+
+      <div class="flex items-center gap-2">
+        <a href="/en/" class="btn-outline" aria-label="Switch to English">
+          <i data-lucide="languages" class="h-4 w-4"></i> ES
+        </a>
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
+          <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="mx-auto container-xx px-4 py-12 space-y-12">
+    <section class="max-w-3xl space-y-4">
+      <span class="inline-flex items-center gap-2 rounded-full border border-emerald-600/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-700 dark:text-emerald-300">Notas tecnicas</span>
+      <h1 class="text-3xl sm:text-4xl font-semibold">Queries, scripts y laboratorio de codigo</h1>
+      <p class="text-slate-700 dark:text-slate-300">
+        Espacio para guardar patrones, scripts utiles y pequenos ejercicios interactivos. La idea es recordar sintaxis, revisar si un fragmento esta bien escrito y tener referencias rapidas sin mezclarlo con los proyectos principales.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="mb-4 text-2xl font-semibold">Categorias</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+          <div class="mb-2 flex items-center gap-2">
+            <i data-lucide="database" class="h-5 w-5 text-emerald-600 dark:text-emerald-400"></i>
+            <h3 class="font-semibold">Queries SQL</h3>
+          </div>
+          <p class="text-sm">Ventanas, agregaciones, validaciones, joins y consultas reutilizables.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <a href="/help/sql-queries.html" class="btn-outline">Ver queries</a>
+          </div>
+        </article>
+
+        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+          <div class="mb-2 flex items-center gap-2">
+            <i data-lucide="file-code-2" class="h-5 w-5 text-emerald-600 dark:text-emerald-400"></i>
+            <h3 class="font-semibold">Scripts Python</h3>
+          </div>
+          <p class="text-sm">Snippets para archivos, validaciones, APIs, OCR/OpenCV y automatizaciones internas.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <a href="/help/python-snippets.html" class="btn-outline">Ver snippets</a>
+          </div>
+        </article>
+
+        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+          <div class="mb-2 flex items-center gap-2">
+            <i data-lucide="terminal-square" class="h-5 w-5 text-emerald-600 dark:text-emerald-400"></i>
+            <h3 class="font-semibold">Mini code lab</h3>
+          </div>
+          <p class="text-sm">Editor para pegar codigo Python, revisar estructura y probar prints simples desde el navegador.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <a href="/help/python-lab.html" class="btn-accent">Abrir lab</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="mb-4 text-2xl font-semibold">Proximas notas</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+          <h3 class="font-semibold">OCR/OpenCV</h3>
+          <p class="mt-2 text-sm">Preprocesamiento, umbralizacion, deteccion de contornos y validacion de resultados.</p>
+        </article>
+        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+          <h3 class="font-semibold">FastAPI</h3>
+          <p class="mt-2 text-sm">Estructura de endpoints, modelos, JWT, validaciones y despliegue practico.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
+    &copy; <span id="yr"></span> Marco Rios
+  </footer>
+</body>
+</html>
