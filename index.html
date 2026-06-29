@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <meta property="og:title" content="Marco Rios - Backend/Data Developer" />
-  <meta property="og:description" content="Backend/Data Developer enfocado en IA aplicada a datos empresariales y automatizacion documental con Python, FastAPI, SQL Server, OCR/ICR/OMR, Android y LLM local." />
+  <meta property="og:description" content="Backend para automatizacion documental y datos internos: APIs, busqueda documental, OCR/OMR, SQL Server y herramientas internas con Python y FastAPI." />
   <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover.png" />
   <meta property="og:url" content="https://marcorios99.github.io/" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <title>Marco Rios - Backend/Data Developer</title>
-  <meta name="description" content="Portafolio de Marco Rios: IA aplicada a datos empresariales, automatizacion documental, Python, FastAPI, SQL Server, OCR/ICR/OMR, Android y LLM local." />
+  <title>Marco Rios - Automatizacion documental y datos internos</title>
+  <meta name="description" content="Portafolio de Marco Rios: backend para convertir documentos, formularios, imagenes y datos internos en sistemas consultables con Python, FastAPI, SQL Server, OCR/OMR y LLM local." />
   <meta name="theme-color" content="#0b0b0b">
 
   <script>
@@ -39,216 +39,165 @@
       <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
 
       <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#about" class="navlink">Enfoque</a>
         <a href="#projects" class="navlink">Proyectos</a>
-        <a href="#skills" class="navlink">Tecnolog&iacute;as</a>
+        <a href="#experience" class="navlink">Experiencia</a>
         <a href="#contact" class="navlink">Contacto</a>
-        <a href="/about/" class="navlink">Acerca de m&iacute;</a>
-        <a href="/help/" class="navlink">Notas</a>
+        <a href="/assets/cv/CV_Marco%20Rios.pdf" class="navlink">CV</a>
       </div>
 
-      <div class="flex items-center gap-2">
-        <a href="/en/index.html" class="btn-outline" aria-label="Switch to English">
-          <i data-lucide="languages" class="h-4 w-4"></i>
-          <span class="hidden sm:inline">ES</span>
-        </a>
-        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
-          <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
-        </button>
-        <a href="#contact" class="btn-accent btn-accent--sm">Zona Horaria: (UTC-5)</a>
-      </div>
+      <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
+        <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
+      </button>
     </nav>
   </header>
 
-  <section id="home" class="mx-auto container-xx px-4 pt-16 pb-10 sm:pt-20 sm:pb-12">
-    <div class="grid md:grid-cols-5 gap-8 items-center">
-      <div class="md:col-span-3 space-y-5">
-        <div class="flex flex-wrap gap-2">
-          <span class="inline-flex items-center gap-2 rounded-full border border-emerald-600/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-700 dark:text-emerald-300" id="primary-badge">IA aplicada a datos</span>
-          <span class="badge badge-neutral">Python &middot; FastAPI &middot; SQL Server</span>
-          <span class="badge badge-neutral">OCR/ICR/OMR &middot; Automatizaci&oacute;n documental</span>
+  <main class="mx-auto profile-layout container-xx px-4">
+    <aside class="profile-intro">
+      <div class="flex items-center gap-4">
+        <img src="/assets/img/marco.jpg" alt="Marco Rios" class="profile-avatar" width="192" height="192">
+        <div>
+          <p class="badge badge-neutral">Backend/Data Developer</p>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">Lima, Per&uacute; &middot; UTC-5</p>
         </div>
+      </div>
 
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight" id="hero-title">
-          Backend/Data Developer enfocado en <span class="text-emerald-600 dark:text-emerald-400">IA aplicada a datos empresariales y automatizaci&oacute;n documental</span>
-        </h1>
-        <p class="max-w-2xl text-slate-700 dark:text-slate-300" id="hero-description">
-          Construyo soluciones para capturar, extraer, consultar y buscar informaci&oacute;n en documentos y datos empresariales usando Python, FastAPI, SQL Server, OCR/ICR/OMR, OpenCV, modelos LLM locales y Android. Me enfoco en convertir im&aacute;genes, formularios, PDFs y registros internos en datos consultables mediante APIs seguras, validaciones, consultas SQL controladas y experiencias web/m&oacute;vil.
+      <div class="mt-8">
+        <h1 class="text-5xl font-semibold leading-none sm:text-6xl">Marco Rios</h1>
+        <p class="mt-4 text-xl font-medium text-slate-900 dark:text-slate-100">Backend/Data Developer</p>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Ingeniero electr&oacute;nico</p>
+        <p class="mt-5 max-w-md text-slate-700 dark:text-slate-300">
+          Construyo herramientas internas para convertir documentos, formularios y datos operativos en informaci&oacute;n consultable.
         </p>
-        <p class="max-w-2xl text-sm text-slate-600 dark:text-slate-400">
-          En este portfolio presento case studies sint&eacute;ticos basados en problemas reales, cuidando la confidencialidad de los datos y dominios originales.
+      </div>
+
+      <nav class="profile-nav" aria-label="Secciones principales">
+        <a href="#about"><span></span>Enfoque</a>
+        <a href="#projects"><span></span>Proyectos</a>
+        <a href="#experience"><span></span>Experiencia</a>
+        <a href="#skills"><span></span>Tecnolog&iacute;as</a>
+      </nav>
+
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <a href="/projects/index.html" class="btn-outline">Ver proyectos</a>
+        <a href="/assets/cv/CV_Marco%20Rios.pdf" class="btn-accent" download>Descargar CV</a>
+        <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="btn-icon" aria-label="GitHub" rel="noreferrer">
+          <i data-lucide="github" class="h-4 w-4"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-icon" aria-label="LinkedIn" rel="noreferrer">
+          <i data-lucide="linkedin" class="h-4 w-4"></i>
+        </a>
+      </div>
+    </aside>
+
+    <div class="profile-content">
+      <section id="about" class="content-section">
+        <p class="section-kicker">Enfoque</p>
+        <h2>Backend para automatizaci&oacute;n documental y datos internos.</h2>
+        <p>
+          Dise&ntilde;o APIs, buscadores y pipelines que convierten PDFs, formularios, im&aacute;genes y bases SQL en datos validados, trazables y f&aacute;ciles de consultar por equipos internos.
         </p>
-
-        <div class="flex flex-wrap gap-3">
-          <a href="/projects/index.html" class="btn-outline">Ver proyectos</a>
-          <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-outline" rel="noreferrer">
-            <i data-lucide="linkedin" class="h-4 w-4"></i> LinkedIn
-          </a>
-          <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="btn-outline" rel="noreferrer">
-            <i data-lucide="github" class="h-4 w-4"></i> GitHub
-          </a>
+        <div class="focus-list">
+          <span>B&uacute;squeda documental</span>
+          <span>OCR/OMR</span>
+          <span>APIs internas</span>
+          <span>SQL controlado</span>
+          <span>IA local</span>
         </div>
-      </div>
+      </section>
 
-      <div class="md:col-span-2">
-        <div class="glass rounded-3xl p-6 shadow-2xl ring-1 ring-slate-200 dark:ring-white/10">
-          <h2 class="mb-3 text-lg font-semibold">Lo que construyo</h2>
-          <ul class="space-y-3 text-sm text-slate-700 dark:text-slate-300" id="highlights-list">
-            <li class="flex items-start gap-2">
-              <i data-lucide="search-check" class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"></i>
-              <span><strong>Asistentes de datos con IA:</strong> lenguaje natural hacia JSON validado, consultas SQL seguras y respuestas como resumen, tabla o gr&aacute;fico.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i data-lucide="scan-text" class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"></i>
-              <span><strong>Captura autom&aacute;tica de informaci&oacute;n:</strong> procesamiento de formularios, OCR/ICR/OMR, validaci&oacute;n y exportaci&oacute;n estructurada.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i data-lucide="server-cog" class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"></i>
-              <span><strong>APIs internas y clientes web/m&oacute;vil:</strong> FastAPI, autenticaci&oacute;n, visualizaci&oacute;n de datos/documentos, Android y despliegue.</span>
-            </li>
-          </ul>
+      <section id="projects" class="content-section">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Proyectos</p>
+            <h2>Proyectos principales</h2>
+          </div>
+          <a href="/projects/index.html" class="text-link">Ver todos</a>
         </div>
-      </div>
+        <p class="section-copy">Casos de estudio p&uacute;blicos basados en problemas reales, usando datos sint&eacute;ticos o entornos controlados.</p>
+
+        <article class="project-row">
+          <div class="project-year">01</div>
+          <div>
+            <h3>Buscador documental con IA local</h3>
+            <p>B&uacute;squeda de documentos mediante lenguaje natural, combinando OCR, SQL Server, Full-Text Search, FastAPI y modelos locales.</p>
+            <p class="project-note">Pensado para reducir el tiempo de b&uacute;squeda en documentos escaneados o repositorios internos.</p>
+            <div class="tech-list">
+              <span>FastAPI</span>
+              <span>SQL Server</span>
+              <span>OCR</span>
+              <span>Full-Text Search</span>
+              <span>LLM local</span>
+            </div>
+            <div class="project-actions">
+              <a href="/projects/#business-data-assistant" class="project-cta">Ver caso de uso &rarr;</a>
+              <span>Caso sint&eacute;tico basado en problemas reales.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-row">
+          <div class="project-year">02</div>
+          <div>
+            <h3>Procesamiento OCR/OMR de formularios</h3>
+            <p>Pipeline para procesar formularios escaneados, detectar marcas, extraer campos y validar resultados antes de exportarlos.</p>
+            <p class="project-note">Pensado para automatizar tareas repetitivas de captura y validaci&oacute;n desde im&aacute;genes o PDFs.</p>
+            <div class="tech-list">
+              <span>Python</span>
+              <span>OpenCV</span>
+              <span>OCR/OMR</span>
+              <span>Validaci&oacute;n</span>
+              <span>Exportaci&oacute;n</span>
+            </div>
+            <div class="project-actions">
+              <a href="/projects/#automated-form-processing" class="project-cta">Ver caso de uso &rarr;</a>
+              <span>Caso sint&eacute;tico basado en problemas reales.</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="experience" class="content-section">
+        <p class="section-kicker">Experiencia</p>
+        <h2>Soluciones internas, documentadas y mantenibles.</h2>
+        <p>
+          Mi experiencia se centra en construir soluciones internas para procesamiento documental, captura de datos, validaciones, consultas SQL y herramientas usadas por equipos operativos. Como no puedo publicar sistemas ni datos reales de entornos laborales, mis proyectos open source funcionan como versiones sint&eacute;ticas y documentadas de esos patrones t&eacute;cnicos.
+        </p>
+        <ul class="plain-list">
+          <li>Soluciones simples, mantenibles y bien documentadas.</li>
+          <li>Integraci&oacute;n entre backend, bases SQL y procesamiento documental.</li>
+          <li>Enfoque en trazabilidad, validaci&oacute;n y utilidad para usuarios reales.</li>
+        </ul>
+        <a href="/assets/cv/CV_Marco%20Rios.pdf" class="text-link">Ver CV completo</a>
+      </section>
+
+      <section id="skills" class="content-section">
+        <p class="section-kicker">Tecnolog&iacute;as</p>
+        <h2>Stack principal</h2>
+        <div class="skills-grid">
+          <div><h3>Backend/API</h3><p>Python &middot; FastAPI &middot; REST &middot; Pydantic</p></div>
+          <div><h3>Datos</h3><p>SQL Server &middot; PostgreSQL &middot; SQLite &middot; Pandas</p></div>
+          <div><h3>Documentos</h3><p>OCR &middot; OMR &middot; OpenCV &middot; PDFs &middot; Im&aacute;genes</p></div>
+          <div><h3>IA aplicada</h3><p>LLM local &middot; JSON estructurado &middot; SQL controlado</p></div>
+          <div><h3>Entrega</h3><p>Git &middot; Docker b&aacute;sico &middot; IIS/Nginx &middot; Windows/Linux Server</p></div>
+          <div><h3>Mobile</h3><p>Android &middot; Kotlin &middot; Jetpack Compose &middot; Retrofit</p></div>
+        </div>
+      </section>
+
+      <section id="contact" class="content-section">
+        <p class="section-kicker">Contacto</p>
+        <h2>&iquest;Conversamos?</h2>
+        <p>Estoy abierto a oportunidades remotas o h&iacute;bridas donde pueda aportar en backend, datos y automatizaci&oacute;n documental.</p>
+        <div class="contact-links">
+          <a href="mailto:marcoandrer99@hotmail.com" class="text-link">Email</a>
+          <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="text-link" rel="noreferrer">LinkedIn</a>
+          <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="text-link" rel="noreferrer">GitHub</a>
+          <a href="/assets/cv/CV_Marco%20Rios.pdf" class="text-link" download>CV</a>
+        </div>
+        <p class="mt-6 text-xs text-slate-500 dark:text-slate-400">Lima, Per&uacute; &middot; UTC-5</p>
+      </section>
     </div>
-  </section>
-
-  <section id="projects" class="mx-auto container-xx px-4 pt-6 pb-12">
-    <div class="mb-6 flex items-end justify-between gap-4">
-      <h2 class="text-3xl font-semibold">Proyectos principales</h2>
-      <a href="/projects/index.html" class="btn-outline">Ver todos &rarr;</a>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-6">
-      <article class="project-card-main rounded-2xl border p-6 shadow-lg bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">FastAPI</span>
-          <span class="badge">SQL Server</span>
-          <span class="badge">LLM local</span>
-          <span class="badge">JSON estructurado</span>
-          <span class="badge">SQL seguro</span>
-        </div>
-        <h3 class="text-xl font-semibold">Asistente empresarial de datos con IA local</h3>
-        <p class="project-description mt-2 text-sm">Asistente empresarial para consultar ventas, productos, inventario y metas usando lenguaje natural. El sistema convierte preguntas del usuario en una intenci&oacute;n JSON validada, ejecuta consultas SQL seguras y devuelve respuestas como resumen, tabla o gr&aacute;fico.</p>
-        <div class="project-media-slot mt-4" aria-hidden="true"></div>
-        <div class="mt-4 flex flex-wrap items-center gap-3">
-          <a href="/projects/#business-data-assistant" class="btn-outline">Ver caso de uso</a>
-          <p class="text-xs text-slate-500 dark:text-slate-400">Caso de uso sint&eacute;tico basado en problemas reales.</p>
-        </div>
-      </article>
-
-      <article class="project-card-main rounded-2xl border p-6 shadow-lg bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">Python</span>
-          <span class="badge">OpenCV</span>
-          <span class="badge">OCR</span>
-          <span class="badge">ICR</span>
-          <span class="badge">OMR</span>
-          <span class="badge">JSON/SQL</span>
-        </div>
-        <h3 class="text-xl font-semibold">Procesamiento autom&aacute;tico de formularios OCR/ICR/OMR</h3>
-        <p class="project-description mt-2 text-sm">Sistema de captura autom&aacute;tica para procesar formularios escaneados, detectar marcas OMR, extraer campos mediante OCR/ICR, validar datos y exportar resultados estructurados para carga en base de datos o revisi&oacute;n posterior.</p>
-        <div class="project-media-slot mt-4" aria-hidden="true"></div>
-        <div class="mt-4 flex flex-wrap items-center gap-3">
-          <a href="/projects/#automated-form-processing" class="btn-outline">Ver caso de uso</a>
-          <p class="text-xs text-slate-500 dark:text-slate-400">Caso de uso sint&eacute;tico basado en problemas reales.</p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="mx-auto container-xx px-4 py-12">
-    <div class="mb-6">
-      <h2 class="text-2xl font-semibold">Otros proyectos y capacidades</h2>
-      <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Categorias secundarias de otros proyectos.</p>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-4">
-      <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">Android</span>
-          <span class="badge">Kotlin</span>
-          <span class="badge">Jetpack Compose</span>
-        </div>
-        <h3 class="font-semibold">Apps Android</h3>
-        <p class="mt-2 text-sm">Apps propias y case studies m&oacute;viles orientados a im&aacute;genes, permisos, MediaStore, EXIF, publicaci&oacute;n y experiencia de usuario en Android, compatibilidad visual y manejo de archivos.</p>
-        <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">UltraHDR Off &middot; Rivu Gallery</p>
-        <div class="mt-4">
-          <a href="/projects/#android-apps" class="btn-outline">Ver categor&iacute;a</a>
-        </div>
-      </article>
-
-      <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">FastAPI</span>
-          <span class="badge">JWT</span>
-          <span class="badge">IIS/Nginx</span>
-          <span class="badge">HTTPS</span>
-        </div>
-        <h3 class="font-semibold">Despliegue de APIs</h3>
-        <p class="mt-2 text-sm">Despliegue pr&aacute;ctico de aplicaciones FastAPI y servicios internos en Windows/Linux, reverse proxy, HTTPS y acceso desde clientes web o Android.</p>
-        <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">FastAPI deployment notes &middot; Reverse proxy setup</p>
-        <div class="mt-4">
-          <a href="/projects/#api-deployment" class="btn-outline">Ver categor&iacute;a</a>
-        </div>
-      </article>
-
-      <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <div class="mb-2 flex flex-wrap gap-2 text-xs">
-          <span class="badge">Python</span>
-          <span class="badge">SQL</span>
-          <span class="badge">Validaciones</span>
-          <span class="badge">Reportes</span>
-        </div>
-        <h3 class="font-semibold">Herramientas internas</h3>
-        <p class="mt-2 text-sm">Scripts y utilidades para procesar archivos, validar datos, generar reportes, organizar informaci&oacute;n y reducir tareas manuales repetitivas.</p>
-        <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">File processing &middot; SQL validation/reporting</p>
-        <div class="mt-4">
-          <a href="/projects/#internal-automation-tools" class="btn-outline">Ver categor&iacute;a</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section id="skills" class="mx-auto container-xx px-4 py-12">
-    <h2 class="text-2xl font-semibold mb-6">Tecnolog&iacute;as</h2>
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm">
-      <div class="rounded-2xl border p-4 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <h3 class="font-semibold mb-2">Backend/API</h3>
-        <p>Python, FastAPI, REST APIs, JWT</p>
-      </div>
-      <div class="rounded-2xl border p-4 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <h3 class="font-semibold mb-2">Bases de datos</h3>
-        <p>SQL Server, SQLite, PostgreSQL secundario</p>
-      </div>
-      <div class="rounded-2xl border p-4 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <h3 class="font-semibold mb-2">Procesamiento documental</h3>
-        <p>OCR/ICR/OMR, OpenCV, PDFs, im&aacute;genes</p>
-      </div>
-      <div class="rounded-2xl border p-4 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <h3 class="font-semibold mb-2">IA aplicada</h3>
-        <p>LLM local, JSON estructurado, SQL controlado, validaci&oacute;n</p>
-      </div>
-      <div class="rounded-2xl border p-4 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <h3 class="font-semibold mb-2">Android</h3>
-        <p>Kotlin, Jetpack Compose, Retrofit, sesiones</p>
-      </div>
-      <div class="rounded-2xl border p-4 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <h3 class="font-semibold mb-2">Entrega</h3>
-        <p>Git, Docker b&aacute;sico, IIS/Nginx b&aacute;sico, Windows/Linux Server</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="mx-auto container-xx px-4 py-16">
-    <div class="rounded-3xl border p-8 text-center bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-      <h2 class="text-2xl font-semibold">&iquest;Conversamos?</h2>
-      <p class="mt-2">Si tienes datos internos, un flujo documental o una API que necesita ordenarse, escr&iacute;beme.</p>
-      <div class="mt-4 flex flex-wrap justify-center gap-3">
-        <a href="mailto:marcoandrer99@hotmail.com" class="btn-accent">marcoandrer99@hotmail.com</a>
-        <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-outline" rel="noreferrer">LinkedIn</a>
-        <a href="https://github.com/marcorios99/marcorios99.github.io" target="_blank" class="btn-outline" rel="noreferrer">C&oacute;digo de este sitio</a>
-      </div>
-    </div>
-  </section>
+  </main>
 
   <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
     &copy; <span id="yr"></span> Marco Rios &middot; Desplegable en GitHub Pages
