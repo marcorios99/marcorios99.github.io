@@ -84,10 +84,10 @@ header {
 .section-kicker {
   color: color-mix(in srgb, var(--accent) 78%, var(--text)) !important;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: .72rem !important;
+  font-size: .8rem !important;
   font-weight: 750;
-  letter-spacing: .12em;
-  line-height: 1.2 !important;
+  letter-spacing: .1em;
+  line-height: 1.25 !important;
   text-transform: uppercase;
 }
 
@@ -280,12 +280,6 @@ header {
   background: color-mix(in srgb, var(--surface-soft) 70%, transparent);
   color: var(--text-muted);
   font-size: .7rem;
-}
-
-.tech-list span:hover,
-.focus-list span:hover {
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--border-soft));
-  color: color-mix(in srgb, var(--accent) 75%, var(--text));
 }
 
 .top-layout #projects > .section-heading .text-link {
