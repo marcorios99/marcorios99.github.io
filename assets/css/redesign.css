@@ -203,6 +203,25 @@ header {
   margin-top: 1.2rem;
 }
 
+.identity-panel .btn-accent {
+  border: 1px solid color-mix(in srgb, var(--accent) 62%, var(--border-soft));
+  background: color-mix(in srgb, var(--accent) 15%, transparent) !important;
+  color: color-mix(in srgb, var(--accent) 90%, var(--text)) !important;
+  box-shadow: none;
+}
+
+.identity-panel .btn-accent:hover {
+  border-color: color-mix(in srgb, var(--accent) 82%, var(--border-soft));
+  background: color-mix(in srgb, var(--accent) 22%, transparent) !important;
+  color: var(--text) !important;
+  filter: none;
+}
+
+.identity-panel .btn-accent:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .top-layout #projects {
   scroll-margin-top: 5.5rem;
 }
