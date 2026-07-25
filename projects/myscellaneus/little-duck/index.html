@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Animalito 3D Bailarín - Centrado</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #d8d0c1;
+    }
+
+    #hud {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 10;
+      width: min(430px, calc(100vw - 28px));
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.84);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 14px 35px rgba(0,0,0,.18);
+      color: #24313a;
+      user-select: none;
+    }
+
+    #hud h1 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.15;
+    }
+
+    #hud p {
+      margin: 5px 0;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .key {
+      display: inline-block;
+      min-width: 24px;
+      padding: 2px 7px;
+      margin: 2px;
+      border-radius: 7px;
+      background: #26323a;
+      color: #fff;
+      text-align: center;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    button {
+      margin-top: 8px;
+      margin-right: 6px;
+      padding: 7px 10px;
+      border: 0;
+      border-radius: 10px;
+      color: white;
+      background: #31545d;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    button:hover { filter: brightness(1.1); }
+
+    #status {
+      margin-top: 10px;
+      padding-top: 9px;
+      border-top: 1px solid rgba(0,0,0,.12);
+      font-size: 14px;
+      font-weight: 700;
+      color: #176270;
+    }
+
+    #log {
+      margin-top: 8px;
+      max-height: 95px;
+      overflow: auto;
+      padding: 8px;
+      border-radius: 10px;
+      background: rgba(0,0,0,.06);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 11px;
+      line-height: 1.35;
+      white-space: pre-wrap;
+    }
+
+    #loading {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 10;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 8px 25px rgba(0,0,0,.16);
+      color: #22303a;
+      font-size: 13px;
+      font-weight: 700;
+    }
+  </style>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="hud">
+    <h1>Animalito 3D Bailarín - Centrado</h1>
+    <p>Ahora empieza con un <b>zorrito</b>, no con el patito de goma.</p>
+    <p><span class="key">Espacio</span> bailar / pausar</p>
+    <p><span class="key">1</span><span class="key">2</span><span class="key">3</span> cambiar baile</p>
+    <p><span class="key">←</span><span class="key">→</span><span class="key">↑</span><span class="key">↓</span> mover</p>
+    <p><span class="key">A</span><span class="key">D</span> girar</p>
+    <p><span class="key">Q</span><span class="key">E</span> cambiar animal</p>
+    <p><span class="key">C</span> centrar cámara en el animalito</p>
+    <button id="prevBtn">Animal anterior</button>
+    <button id="nextBtn">Siguiente animal</button>
+    <button id="retryBtn">Reintentar</button>
+    <button id="centerBtn">Centrar cámara</button>
+    <div id="status">Preparando...</div>
+    <div id="log"></div>
+  </div>
+
+  <div id="loading">Cargando...</div>
+
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+    import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+    const animals = [
+      {
+        name: "Fox",
+        targetSize: 2.0,
+        yaw: Math.PI,
+        urls: [
+          "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Assets@main/Models/Fox/glTF-Binary/Fox.glb",
+          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/Fox/glTF-Binary/Fox.glb",
+          "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models@master/2.0/Fox/glTF-Binary/Fox.glb",
+          "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Fox/glTF-Binary/Fox.glb"
+        ]
+      },
+      {
+        name: "Parrot",
+        targetSize: 1.7,
+        yaw: Math.PI,
+        urls: [
+          "https://threejs.org/examples/models/gltf/Parrot.glb",
+          "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r165/examples/models/gltf/Parrot.glb"
+        ]
+      },
+      {
+        name: "Flamingo",
+        targetSize: 2.0,
+        yaw: Math.PI,
+        urls: [
+          "https://threejs.org/examples/models/gltf/Flamingo.glb",
+          "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r165/examples/models/gltf/Flamingo.glb"
+        ]
+      },
+      {
+        name: "Stork",
+        targetSize: 2.0,
+        yaw: Math.PI,
+        urls: [
+          "https://threejs.org/examples/models/gltf/Stork.glb",
+          "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r165/examples/models/gltf/Stork.glb"
+        ]
+      },
+      {
+        name: "Horse",
+        targetSize: 10.0,
+        yaw: Math.PI,
+        urls: [
+          "https://threejs.org/examples/models/gltf/Horse.glb",
+          "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r165/examples/models/gltf/Horse.glb"
+        ]
+      }
+    ];
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xd8d1c2);
+    scene.fog = new THREE.Fog(0xd8d1c2, 16, 50);
+
+    const camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(5.5, 3.2, 6.7);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    document.body.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(0, 1.1, 0);
+
+    scene.add(new THREE.HemisphereLight(0xf3f0e7, 0x6b735d, 1.2));
+
+    const sun = new THREE.DirectionalLight(0xfff3da, 2.35);
+    sun.position.set(9, 13, 7);
+    sun.castShadow = true;
+    sun.shadow.mapSize.set(2048, 2048);
+    sun.shadow.camera.left = -20;
+    sun.shadow.camera.right = 20;
+    sun.shadow.camera.top = 20;
+    sun.shadow.camera.bottom = -20;
+    sun.shadow.bias = -0.00012;
+    scene.add(sun);
+
+    const fill = new THREE.DirectionalLight(0xcfe3ef, 0.65);
+    fill.position.set(-8, 5, -6);
+    scene.add(fill);
+
+    function makeGroundTexture() {
+      const canvas = document.createElement("canvas");
+      canvas.width = 512;
+      canvas.height = 512;
+      const ctx = canvas.getContext("2d");
+
+      const g = ctx.createLinearGradient(0, 0, 512, 512);
+      g.addColorStop(0, "#8a8f71");
+      g.addColorStop(1, "#6e765d");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, 512, 512);
+
+      for (let i = 0; i < 10000; i++) {
+        const x = Math.random() * 512;
+        const y = Math.random() * 512;
+        const s = 1 + Math.random() * 3;
+        const a = 0.03 + Math.random() * 0.08;
+        ctx.fillStyle = `rgba(${50 + Math.random()*60}, ${70 + Math.random()*70}, ${45 + Math.random()*40}, ${a})`;
+        ctx.fillRect(x, y, s, s);
+      }
+
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(12, 12);
+      return tex;
+    }
+
+    const ground = new THREE.Mesh(
+      new THREE.CircleGeometry(28, 96),
+      new THREE.MeshStandardMaterial({
+        map: makeGroundTexture(),
+        color: 0x8c9277,
+        roughness: 1
+      })
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    const water = new THREE.Mesh(
+      new THREE.CircleGeometry(5.1, 80),
+      new THREE.MeshStandardMaterial({
+        color: 0x8aa6a6,
+        roughness: 0.22,
+        metalness: 0.05,
+        transparent: true,
+        opacity: 0.82
+      })
+    );
+    water.rotation.x = -Math.PI / 2;
+    water.position.set(0, 0.03, 0);
+    scene.add(water);
+
+    const rim = new THREE.Mesh(
+      new THREE.RingGeometry(5.05, 5.75, 90),
+      new THREE.MeshStandardMaterial({ color: 0x716554, roughness: 1 })
+    );
+    rim.rotation.x = -Math.PI / 2;
+    rim.position.y = 0.018;
+    scene.add(rim);
+
+    function addReed(x, z, h = 1.3) {
+      const group = new THREE.Group();
+      const mat = new THREE.MeshStandardMaterial({ color: 0x65724a, roughness: 1 });
+      const tipMat = new THREE.MeshStandardMaterial({ color: 0x5b4a34, roughness: 1 });
+
+      for (let i = 0; i < 4; i++) {
+        const height = h * (0.85 + Math.random() * 0.35);
+        const reed = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.025, height, 8), mat);
+        reed.position.set((Math.random() - 0.5) * 0.22, height / 2, (Math.random() - 0.5) * 0.22);
+        reed.rotation.z = (Math.random() - 0.5) * 0.2;
+        reed.castShadow = true;
+        group.add(reed);
+
+        const tip = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.035, 0.18, 8), tipMat);
+        tip.position.set(reed.position.x, height - 0.02, reed.position.z);
+        tip.rotation.z = reed.rotation.z;
+        tip.castShadow = true;
+        group.add(tip);
+      }
+
+      group.position.set(x, 0.02, z);
+      scene.add(group);
+    }
+
+    for (let i = 0; i < 22; i++) {
+      const a = (i / 22) * Math.PI * 2;
+      addReed(Math.cos(a) * 5.7 + (Math.random() - 0.5) * 0.5, Math.sin(a) * 5.7 + (Math.random() - 0.5) * 0.5, 0.9 + Math.random() * 0.8);
+    }
+
+    function addRock(x, z, s) {
+      const rock = new THREE.Mesh(
+        new THREE.DodecahedronGeometry(0.35, 0),
+        new THREE.MeshStandardMaterial({ color: 0x8c8477, roughness: 1 })
+      );
+      rock.position.set(x, 0.18 * s, z);
+      rock.scale.set(1.4 * s, 0.75 * s, s);
+      rock.rotation.set(Math.random(), Math.random(), Math.random());
+      rock.castShadow = true;
+      rock.receiveShadow = true;
+      scene.add(rock);
+    }
+
+    for (let i = 0; i < 18; i++) {
+      addRock((Math.random() - 0.5) * 18, (Math.random() - 0.5) * 18, 0.5 + Math.random() * 0.9);
+    }
+
+    const actor = new THREE.Group();
+    scene.add(actor);
+
+    const actorShadow = new THREE.Mesh(
+      new THREE.CircleGeometry(1.25, 48),
+      new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.14 })
+    );
+    actorShadow.rotation.x = -Math.PI / 2;
+    actorShadow.position.y = 0.012;
+    scene.add(actorShadow);
+
+    const loader = new GLTFLoader();
+    let currentIndex = 0;
+    let loadedModel = null;
+    let mixer = null;
+    let dancing = true;
+    let danceMode = 1;
+    const keys = {};
+
+    const status = document.getElementById("status");
+    const logBox = document.getElementById("log");
+    const loading = document.getElementById("loading");
+
+    function log(msg) {
+      const time = new Date().toLocaleTimeString();
+      logBox.textContent += `[${time}] ${msg}\n`;
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    function updateStatus(extra = "") {
+      const animal = animals[currentIndex]?.name ?? "Animal";
+      status.textContent = `${animal} | Baile: ${dancing ? "activado" : "pausado"} | Paso: ${danceMode}${extra}`;
+    }
+
+    function disposeObject(obj) {
+      obj.traverse((child) => {
+        if (child.geometry) child.geometry.dispose();
+        if (child.material) {
+          if (Array.isArray(child.material)) {
+            child.material.forEach((m) => m.dispose?.());
+          } else {
+            child.material.dispose?.();
+          }
+        }
+      });
+    }
+
+    let focusY = 1.1;
+
+    function normalizeModel(model, targetSize, yaw = Math.PI) {
+      // Algunos GLB tienen el pivote/origen lejos del centro visual.
+      // Esto centra por bounding box real, escala el modelo y lo deja apoyado en el suelo.
+      model.position.set(0, 0, 0);
+      model.rotation.set(0, yaw, 0);
+      model.scale.setScalar(1);
+      model.updateMatrixWorld(true);
+
+      let box = new THREE.Box3().setFromObject(model);
+      let size = new THREE.Vector3();
+      box.getSize(size);
+
+      const maxAxis = Math.max(size.x, size.y, size.z);
+      if (maxAxis > 0) {
+        model.scale.setScalar(targetSize / maxAxis);
+      }
+
+      model.updateMatrixWorld(true);
+
+      box = new THREE.Box3().setFromObject(model);
+      const center = new THREE.Vector3();
+      box.getCenter(center);
+
+      // Centrado horizontal real.
+      model.position.x -= center.x;
+      model.position.z -= center.z;
+
+      // Apoyar en el suelo.
+      model.position.y -= box.min.y;
+      model.updateMatrixWorld(true);
+
+      // Centro final para apuntar cámara.
+      box = new THREE.Box3().setFromObject(model);
+      const finalCenter = new THREE.Vector3();
+      box.getCenter(finalCenter);
+      focusY = finalCenter.y || 1.1;
+    }
+
+    function centerCameraOnActor(immediate = false) {
+      const target = new THREE.Vector3(actor.position.x, focusY + actor.position.y, actor.position.z);
+      const distance = 6.2;
+
+      if (immediate) {
+        controls.target.copy(target);
+        camera.position.set(actor.position.x, target.y + 1.35, actor.position.z + distance);
+        camera.lookAt(target);
+        controls.update();
+        return;
+      }
+
+      controls.target.lerp(target, 0.18);
+      camera.position.lerp(
+        new THREE.Vector3(actor.position.x, target.y + 1.35, actor.position.z + distance),
+        0.12
+      );
+    }
+
+    function clearModel() {
+      if (loadedModel) {
+        actor.remove(loadedModel);
+        disposeObject(loadedModel);
+        loadedModel = null;
+      }
+      mixer = null;
+    }
+
+    function loadAnimal(index) {
+      currentIndex = (index + animals.length) % animals.length;
+      const info = animals[currentIndex];
+
+      clearModel();
+      loading.style.display = "block";
+      loading.textContent = `Cargando ${info.name}...`;
+      updateStatus(" | cargando...");
+      logBox.textContent = "";
+      tryUrl(info, 0);
+    }
+
+    function tryUrl(info, urlIndex) {
+      if (urlIndex >= info.urls.length) {
+        loading.textContent = `No se pudo cargar ${info.name}`;
+        updateStatus(" | fallaron todas las URLs");
+        log("Fallaron todas las rutas. Prueba con servidor local: python -m http.server 8000");
+        return;
+      }
+
+      const url = info.urls[urlIndex];
+      log(`Probando URL ${urlIndex + 1}/${info.urls.length}: ${url}`);
+
+      loader.load(
+        url,
+        (gltf) => {
+          loadedModel = gltf.scene;
+          normalizeModel(loadedModel, info.targetSize, info.yaw ?? Math.PI);
+
+          loadedModel.traverse((child) => {
+            if (child.isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+            }
+          });
+
+          actor.add(loadedModel);
+          centerCameraOnActor(true);
+
+          if (gltf.animations && gltf.animations.length > 0) {
+            mixer = new THREE.AnimationMixer(loadedModel);
+            gltf.animations.forEach((clip) => {
+              const action = mixer.clipAction(clip);
+              action.play();
+            });
+            log(`Cargado OK. Animaciones detectadas: ${gltf.animations.length}`);
+            updateStatus(" | animado");
+          } else {
+            log("Cargado OK. Modelo sin animaciones internas.");
+            updateStatus(" | modelo estático");
+          }
+
+          loading.style.display = "none";
+        },
+        (xhr) => {
+          if (xhr.total > 0) {
+            const pct = Math.round((xhr.loaded / xhr.total) * 100);
+            loading.textContent = `Cargando ${info.name}: ${pct}%`;
+          }
+        },
+        () => {
+          log(`Falló URL ${urlIndex + 1}. Probando siguiente...`);
+          tryUrl(info, urlIndex + 1);
+        }
+      );
+    }
+
+    document.getElementById("prevBtn").addEventListener("click", () => loadAnimal(currentIndex - 1));
+    document.getElementById("nextBtn").addEventListener("click", () => loadAnimal(currentIndex + 1));
+    document.getElementById("retryBtn").addEventListener("click", () => loadAnimal(currentIndex));
+    document.getElementById("centerBtn").addEventListener("click", () => centerCameraOnActor(true));
+
+    window.addEventListener("keydown", (e) => {
+      const key = e.key.toLowerCase();
+      keys[key] = true;
+
+      if (e.code === "Space") {
+        dancing = !dancing;
+        updateStatus();
+      }
+
+      if (["1", "2", "3"].includes(e.key)) {
+        danceMode = Number(e.key);
+        dancing = true;
+        updateStatus();
+      }
+
+      if (key === "q") loadAnimal(currentIndex - 1);
+      if (key === "e") loadAnimal(currentIndex + 1);
+      if (key === "c") centerCameraOnActor(true);
+    });
+
+    window.addEventListener("keyup", (e) => {
+      keys[e.key.toLowerCase()] = false;
+    });
+
+    const clock = new THREE.Clock();
+
+    function moveActor(delta) {
+      const speed = 2.45;
+      const rotSpeed = 2.35;
+
+      if (keys["arrowup"]) actor.position.z -= speed * delta;
+      if (keys["arrowdown"]) actor.position.z += speed * delta;
+      if (keys["arrowleft"]) actor.position.x -= speed * delta;
+      if (keys["arrowright"]) actor.position.x += speed * delta;
+      if (keys["a"]) actor.rotation.y += rotSpeed * delta;
+      if (keys["d"]) actor.rotation.y -= rotSpeed * delta;
+
+      actor.position.x = THREE.MathUtils.clamp(actor.position.x, -10, 10);
+      actor.position.z = THREE.MathUtils.clamp(actor.position.z, -9, 9);
+
+      actorShadow.position.x = actor.position.x;
+      actorShadow.position.z = actor.position.z;
+    }
+
+    function dance(t) {
+      if (!dancing) {
+        actor.position.y *= 0.88;
+        actor.rotation.x *= 0.88;
+        actor.rotation.z *= 0.88;
+        actor.scale.lerp(new THREE.Vector3(1, 1, 1), 0.12);
+        if (mixer) mixer.timeScale = 1;
+        return;
+      }
+
+      if (danceMode === 1) {
+        actor.position.y = Math.abs(Math.sin(t * 4.6)) * 0.22;
+        actor.rotation.z = Math.sin(t * 5.0) * 0.09;
+        actor.rotation.x = Math.sin(t * 4.0) * 0.025;
+        actor.scale.setScalar(1 + Math.sin(t * 8) * 0.025);
+        if (mixer) mixer.timeScale = 1.15;
+      }
+
+      if (danceMode === 2) {
+        actor.position.y = 0.04 + Math.sin(t * 8) * 0.035;
+        actor.rotation.z = Math.sin(t * 6.2) * 0.19;
+        actor.rotation.y += Math.sin(t * 7.0) * 0.008;
+        actor.scale.set(
+          1 + Math.sin(t * 6) * 0.025,
+          1 - Math.sin(t * 6) * 0.015,
+          1 + Math.sin(t * 6) * 0.025
+        );
+        if (mixer) mixer.timeScale = 1.45;
+      }
+
+      if (danceMode === 3) {
+        actor.position.y = 0.03 + Math.abs(Math.sin(t * 7.2)) * 0.14;
+        actor.rotation.y += 0.035;
+        actor.rotation.z = Math.sin(t * 10.5) * 0.06;
+        actor.scale.set(
+          1 + Math.sin(t * 11) * 0.035,
+          1 - Math.sin(t * 11) * 0.025,
+          1 + Math.sin(t * 11) * 0.035
+        );
+        if (mixer) mixer.timeScale = 1.8;
+      }
+    }
+
+    function animate() {
+      const delta = clock.getDelta();
+      const t = clock.elapsedTime;
+
+      moveActor(delta);
+      if (mixer) mixer.update(delta);
+      dance(t);
+
+      water.rotation.z += delta * 0.02;
+
+      actorShadow.scale.setScalar(1 - Math.min(actor.position.y * 0.22, 0.18));
+      actorShadow.material.opacity = 0.14 - Math.min(actor.position.y * 0.035, 0.05);
+
+      controls.target.lerp(new THREE.Vector3(actor.position.x, focusY + actor.position.y, actor.position.z), 0.07);
+      controls.update();
+      renderer.render(scene, camera);
+
+      requestAnimationFrame(animate);
+    }
+
+    loadAnimal(0);
+    animate();
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>

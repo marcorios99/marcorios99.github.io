@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="Explorador de skills laborales (ETL + análisis) – Marco Rios" />
+  <meta property="og:description" content="Lee un CSV de ofertas/skills y grafica las habilidades más demandadas; útil para comparar roles, seniority y periodos." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/projects/job-skills-miner/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>Explorador de skills laborales (ETL + análisis) – Marco Rios</title>
+  <meta name="description" content="Pipeline ETL para analizar demanda de habilidades laborales con PySpark y visualizaciones interactivas." />
+  <!-- Color barra navegador (site.js lo actualiza según tema) -->
+  <meta name="theme-color" content="#0b0b0b">
+
+  <!-- Tailwind (dark por clase) -->
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide icons -->
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Estilos y JS compartidos -->
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script defer src="/assets/js/site.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-slate-100">
+  
+  <!-- NAV (idéntico estilo que el index) -->
+  <header class="sticky top-0 z-50 border-b backdrop-blur
+                 bg-white/70 border-slate-200/70
+                 dark:bg-slate-950/70 dark:border-white/10">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
+
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/about/" class="navlink">Acerca de mí</a>
+        <a href="/help/" class="navlink">Ayuda</a>
+        <a href="/" class="navlink">Inicio</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Botón idioma (ajusta la URL si tienes versión en inglés de este proyecto) -->
+        <a href="/en/" class="btn-outline" aria-label="Ver sitio en inglés">
+          <i data-lucide="languages" class="h-4 w-4"></i>
+          ES
+        </a>
+
+        <!-- Botón Light/Dark (site.js hace el toggle y el icono) -->
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
+          <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="mx-auto container-xx px-4 py-16 sm:py-20">
+    <div class="space-y-8">
+      <div class="text-center space-y-5">
+        <span class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">PySpark · ETL · Analytics · Jobs</span>
+        
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
+          <span class="text-emerald-400">Explorador</span> de skills laborales
+        </h1>
+        <p class="text-slate-300 max-w-3xl mx-auto">Lee un CSV de ofertas/skills y grafica las habilidades más demandadas; útil para comparar roles, seniority y periodos. Pipeline ETL con PySpark y visualizaciones interactivas para análisis del mercado laboral.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="https://github.com/marcorios99" target="_blank" class="rounded-xl bg-white text-slate-900 px-4 py-2 text-sm font-medium hover:bg-slate-100">Ver en GitHub</a>
+          <a href="/" class="rounded-xl border border-white/20 px-4 py-2 text-sm hover:bg-white/10">← Volver al inicio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARQUITECTURA -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Arquitectura del pipeline</h2>
+    <div class="glass rounded-3xl p-6 shadow-2xl ring-1 ring-white/10">
+      <div class="space-y-4">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">1</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Ingesta de datos</h3>
+            <p class="text-sm text-slate-300">Lectura de CSVs con ofertas laborales, skills y metadatos de scraping</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">2</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Procesamiento con PySpark</h3>
+            <p class="text-sm text-slate-300">Limpieza, normalización y extracción de skills con expresiones regulares y NLP básico</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">3</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Agregaciones y métricas</h3>
+            <p class="text-sm text-slate-300">Conteo por skill, agrupación por role/seniority/periodo y ranking de demanda</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">4</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Almacenamiento optimizado</h3>
+            <p class="text-sm text-slate-300">Guardado en Parquet/Delta con particionado por fecha y región</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">5</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Visualizaciones y reportes</h3>
+            <p class="text-sm text-slate-300">Dashboards interactivos con trending skills, comparativas por rol y análisis temporal</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCEDIMIENTOS -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Procedimientos y metodología</h2>
+    <div class="space-y-6">
+      
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <h3 class="text-lg font-semibold mb-3">1. Extracción y normalización de skills</h3>
+        <p class="text-sm text-slate-300 mb-3">
+          [Espacio reservado para explicar el proceso de extracción de skills: 
+          regex patterns, diccionario de tecnologías, manejo de sinónimos (JS/JavaScript), 
+          y limpieza de texto con PySpark NLP]
+        </p>
+        <div class="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2">
+          <p class="text-xs text-emerald-300"><strong>Por implementar:</strong> Patrones regex y diccionario completo de tecnologías</p>
+        </div>
+      </article>
+
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <h3 class="text-lg font-semibold mb-3">2. Análisis temporal y trending</h3>
+        <p class="text-sm text-slate-300 mb-3">
+          [Espacio reservado para documentar el análisis de tendencias: 
+          ventanas temporales, cálculo de growth rate, detección de skills emergentes, 
+          y comparación período a período]
+        </p>
+        <div class="rounded-lg border border-blue-500/30 bg-blue-500/10 px-3 py-2">
+          <p class="text-xs text-blue-300"><strong>Por implementar:</strong> Algoritmos de detección de tendencias y métricas de crecimiento</p>
+        </div>
+      </article>
+
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <h3 class="text-lg font-semibold mb-3">3. Segmentación por roles y seniority</h3>
+        <p class="text-sm text-slate-300 mb-3">
+          [Espacio reservado para explicar la segmentación: 
+          clasificación automática de roles (frontend, backend, data), 
+          detección de nivel de seniority, y análisis comparativo]
+        </p>
+        <div class="rounded-lg border border-purple-500/30 bg-purple-500/10 px-3 py-2">
+          <p class="text-xs text-purple-300"><strong>Por implementar:</strong> Clasificadores ML para categorización automática</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- DATASET -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Dataset y fuentes de datos</h2>
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+      <p class="text-sm text-slate-300 mb-4">
+        [Espacio reservado para documentar las fuentes de datos: 
+        estructura del CSV de ofertas, campos disponibles (título, descripción, skills, salario), 
+        y ejemplos de registros procesados]
+      </p>
+      <div class="glass rounded-2xl p-4">
+        <h4 class="font-semibold mb-3">Estructura de datos:</h4>
+        <ul class="text-sm text-slate-300 space-y-1">
+          <li>• <code class="text-emerald-400">/data/raw/</code> - CSVs crudos de ofertas laborales</li>
+          <li>• <code class="text-emerald-400">/data/processed/</code> - Datos limpios y normalizados</li>
+          <li>• <code class="text-emerald-400">/data/aggregated/</code> - Métricas y rankings por skill</li>
+          <li>• <code class="text-emerald-400">/reports/</code> - Dashboards y visualizaciones</li>
+          <li>• <code class="text-emerald-400">/config/</code> - Diccionarios de skills y configuración</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTALACIÓN -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Instalación y configuración</h2>
+    <div class="space-y-6">
+      
+      <div>
+        <h3 class="font-semibold mb-3">Requisitos del sistema</h3>
+        <div class="glass rounded-lg p-4">
+          <pre class="text-sm overflow-x-auto"><code>[Por definir: versión de Spark,
+configuración de memoria,
+dependencias de visualización,
+requisitos de Airflow/Prefect]</code></pre>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="font-semibold mb-3">Setup del pipeline</h3>
+        <div class="glass rounded-lg p-4">
+          <pre class="text-sm overflow-x-auto"><code># 1. Clonar repositorio
+git clone https://github.com/marcorios99/job-skills-miner
+cd job-skills-miner
+
+# 2. Crear entorno virtual
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate   # Windows
+
+# 3. Instalar dependencias
+pip install -r requirements.txt
+
+# 4. Configurar Spark
+[Por implementar: configuración de Spark session]
+
+# 5. Procesar datos de ejemplo
+spark-submit src/process_jobs_data.py
+
+# 6. Generar reportes
+python src/generate_dashboard.py
+
+# 7. Ejecutar con orquestador (opcional)
+prefect deployment run skills-pipeline/production</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTADOS -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Resultados y métricas</h2>
+    <div class="space-y-6">
+      
+      <p class="text-slate-300">
+        [Espacio reservado para documentar insights del análisis: 
+        skills más demandadas por región/rol, tendencias temporales, 
+        correlaciones entre tecnologías y análisis salarial]
+      </p>
+      
+      <div>
+        <h3 class="font-semibold mb-4">Outputs del análisis</h3>
+        <div class="glass rounded-2xl p-6">
+          <ul class="text-sm text-slate-300 space-y-3">
+            <li class="flex items-center gap-2">
+              <i data-lucide="bar-chart" class="h-4 w-4 text-emerald-400"></i>
+              Rankings de skills más demandadas
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="trending-up" class="h-4 w-4 text-emerald-400"></i>
+              Análisis de tendencias temporales
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="users" class="h-4 w-4 text-emerald-400"></i>
+              Segmentación por roles y seniority
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="map" class="h-4 w-4 text-emerald-400"></i>
+              Comparativas por región/ciudad
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="file-spreadsheet" class="h-4 w-4 text-emerald-400"></i>
+              Dashboards interactivos con Plotly
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-semibold mb-4">Métricas del pipeline</h3>
+        <div class="glass rounded-2xl p-6">
+          <ul class="text-sm text-slate-300 space-y-3">
+            <li class="flex items-center gap-2">
+              <i data-lucide="database" class="h-4 w-4 text-emerald-400"></i>
+              Volumen de ofertas procesadas
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="search" class="h-4 w-4 text-emerald-400"></i>
+              Precisión de extracción de skills
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="clock" class="h-4 w-4 text-emerald-400"></i>
+              Tiempo de procesamiento por batch
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="hard-drive" class="h-4 w-4 text-emerald-400"></i>
+              Eficiencia de compresión Parquet
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Stack tecnológico</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm text-slate-300">
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">Big Data</h3>
+        <p>PySpark, Apache Spark</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">Storage</h3>
+        <p>Delta Lake, Parquet</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">Orquestación</h3>
+        <p>Airflow, Prefect</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">Visualización</h3>
+        <p>Plotly, Streamlit, Jupyter</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">NLP básico</h3>
+        <p>spaCy, regex, text processing</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">Testing</h3>
+        <p>pytest, spark-testing-base</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="mx-auto container-xx px-4 py-16">
+    <div class="rounded-3xl border border-white/10 bg-white/5 p-8 text-center">
+      <h2 class="text-2xl font-semibold">¿Preguntas sobre este proyecto?</h2>
+      <p class="mt-2 text-slate-300">Envíame un mensaje.</p>
+      <div class="mt-4 flex flex-wrap justify-center gap-3">
+        <a href="mailto:marcoandrer99@hotmail.com" class="rounded-xl bg-emerald-500 px-4 py-2 font-medium text-slate-900 hover:bg-emerald-400">marcoandrer99@hotmail.com</a>
+        <a href="/" class="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10">← Volver al portfolio</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10 text-center text-xs text-slate-400">
+    © <span id="yr"></span> Marco Rios · Desplegable en GitHub Pages
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

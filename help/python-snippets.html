@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Scripts Python - Notas tecnicas</title>
+  <meta name="theme-color" content="#0b0b0b">
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+  })();
+  </script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <style>
+    pre {
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0;
+    }
+    pre code.hljs {
+      background: transparent !important;
+      padding: 0 !important;
+    }
+    html.dark pre {
+      background: #020617 !important;
+      border-color: rgba(255, 255, 255, .1);
+    }
+    html.dark .hljs {
+      color: #e5e7eb;
+    }
+    html.dark .hljs-keyword,
+    html.dark .hljs-selector-tag,
+    html.dark .hljs-built_in {
+      color: #f87171;
+    }
+    html.dark .hljs-string,
+    html.dark .hljs-attr {
+      color: #93c5fd;
+    }
+    html.dark .hljs-number,
+    html.dark .hljs-literal {
+      color: #fbbf24;
+    }
+    html.dark .hljs-comment {
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-white text-slate-900 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100">
+  <header class="sticky top-0 z-50 border-b backdrop-blur bg-white/70 border-slate-200/70 dark:bg-slate-950/70 dark:border-white/10">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/help/" class="navlink">Notas tecnicas</a>
+        <a href="/projects/" class="navlink">Proyectos</a>
+      </div>
+      <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
+        <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="mx-auto container-xx px-4 py-12 space-y-8">
+    <section class="max-w-3xl">
+      <a href="/help/" class="text-sm text-emerald-700 dark:text-emerald-300 hover:underline">&larr; Volver a notas</a>
+      <h1 class="mt-4 text-3xl font-semibold">Scripts Python</h1>
+      <p class="mt-3 text-slate-700 dark:text-slate-300">Snippets cortos para recordar patrones frecuentes. Esta pagina puede crecer por categoria: archivos, APIs, validaciones, OCR/OpenCV y reportes.</p>
+    </section>
+
+    <section class="grid gap-4">
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">Leer archivos de una carpeta</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-python">from pathlib import Path
+
+folder = Path("data/input")
+for path in folder.glob("*.csv"):
+    print(path.name)</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">Validar campos requeridos</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-python">required = ["document_id", "created_at", "status"]
+missing = [field for field in required if not row.get(field)]
+
+if missing:
+    raise ValueError(f"Missing fields: {missing}")</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">Respuesta JSON simple en FastAPI</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-python">from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">OpenCV: binarizar imagen</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-python">import cv2
+
+image = cv2.imread("document.png")
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+_, binary = cv2.threshold(
+    gray,
+    0,
+    255,
+    cv2.THRESH_BINARY + cv2.THRESH_OTSU
+)
+
+cv2.imwrite("document_binary.png", binary)</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">OpenCV: detectar contornos</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-python">import cv2
+
+image = cv2.imread("form.png")
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+blur = cv2.GaussianBlur(gray, (5, 5), 0)
+edges = cv2.Canny(blur, 50, 150)
+
+contours, _ = cv2.findContours(
+    edges,
+    cv2.RETR_EXTERNAL,
+    cv2.CHAIN_APPROX_SIMPLE
+)
+
+for contour in contours:
+    x, y, w, h = cv2.boundingRect(contour)
+    if w * h > 500:
+        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+cv2.imwrite("contours.png", image)</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">OpenCV: recortar ROI</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-python">import cv2
+
+image = cv2.imread("form.png")
+
+# Coordenadas: x, y, ancho, alto
+x, y, w, h = 120, 240, 300, 80
+roi = image[y:y + h, x:x + w]
+
+cv2.imwrite("roi.png", roi)</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">fitz: renderizar PDF a imagen</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-python">import fitz  # PyMuPDF
+
+doc = fitz.open("input.pdf")
+page = doc[0]
+
+zoom = 2
+matrix = fitz.Matrix(zoom, zoom)
+pixmap = page.get_pixmap(matrix=matrix)
+
+pixmap.save("page_001.png")
+doc.close()</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">fitz: extraer texto por pagina</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-python">import fitz  # PyMuPDF
+
+doc = fitz.open("input.pdf")
+
+for page_number, page in enumerate(doc, start=1):
+    text = page.get_text("text")
+    print(f"--- Page {page_number} ---")
+    print(text.strip())
+
+doc.close()</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">pathlib: recorrer archivos</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-python">from pathlib import Path
+
+root = Path("data")
+
+for path in root.rglob("*"):
+    if path.is_file():
+        print(path.name, path.suffix, path.stat().st_size)</code></pre>
+      </article>
+
+      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
+        <h2 class="font-semibold">hashlib: checksum de archivo</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-100"><code class="language-python">import hashlib
+from pathlib import Path
+
+def file_sha256(path: str | Path) -> str:
+    path = Path(path)
+    digest = hashlib.sha256()
+
+    with path.open("rb") as file:
+        for chunk in iter(lambda: file.read(1024 * 1024), b""):
+            digest.update(chunk)
+
+    return digest.hexdigest()
+
+print(file_sha256("document.pdf"))</code></pre>
+      </article>
+    </section>
+  </main>
+
+  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
+    &copy; <span id="yr"></span> Marco Rios
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.hljs) hljs.highlightAll();
+    });
+  </script>
+</body>
+</html>

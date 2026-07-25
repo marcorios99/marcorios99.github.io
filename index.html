@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta property="og:title" content="Marco Rios - Backend/Data Developer" />
+  <meta property="og:description" content="Backend para automatizacion documental y datos internos: APIs, busqueda documental, OCR/OMR, SQL Server y herramientas internas con Python y FastAPI." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>Marco Rios - Automatizacion documental y datos internos</title>
+  <meta name="description" content="Portafolio de Marco Rios: backend para convertir documentos, formularios, imagenes y datos internos en sistemas consultables con Python, FastAPI, SQL Server, OCR/OMR y LLM local." />
+  <meta name="theme-color" content="#0b0f14">
+
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
+  })();
+  </script>
+
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/redesign.css">
+</head>
+
+<body class="min-h-screen">
+  <header class="sticky top-0 z-50 border-b backdrop-blur">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+      <a href="/" class="site-wordmark">Marco Rios</a>
+
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#about" class="navlink">Enfoque</a>
+        <a href="#projects" class="navlink">Proyectos</a>
+        <a href="#experience" class="navlink">Experiencia</a>
+        <a href="#skills" class="navlink">Tecnolog&iacute;as</a>
+        <a href="#contact" class="navlink">Contacto</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="/en/" class="btn-outline" aria-label="View homepage in English">
+          <i data-lucide="languages" class="h-4 w-4"></i>
+          ES
+        </a>
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
+          <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="top-layout mx-auto container-xx px-4">
+      <section id="about" class="identity-panel" aria-labelledby="hero-title">
+        <div class="identity-profile">
+          <figure class="hero-portrait-frame">
+            <img src="/assets/img/marco-3.png" alt="Marco Rios" class="hero-portrait" width="360" height="450">
+          </figure>
+          <div class="identity-profile-meta">
+            <p class="identity-badge">Backend / Data Developer</p>
+            <p class="identity-location">Lima, Per&uacute; &middot; UTC-5</p>
+          </div>
+        </div>
+
+        <div class="identity-intro">
+          <h1 id="hero-title">Marco Rios</h1>
+          <p class="identity-profession">Ingeniero electr&oacute;nico</p>
+        </div>
+
+        <p class="section-kicker identity-kicker">Enfoque</p>
+        <h2>Backend para automatizaci&oacute;n documental y datos internos.</h2>
+        <p class="identity-value">Construyo sistemas que convierten documentos y datos dispersos en informaci&oacute;n consultable.</p>
+        <p class="hero-lead">Dise&ntilde;o herramientas internas para capturar, extraer, validar y consultar informaci&oacute;n usando Python, FastAPI, SQL, visi&oacute;n por computadora e IA local.</p>
+
+        <div class="focus-list">
+          <span>B&uacute;squeda documental</span><span>OCR/OMR</span><span>APIs internas</span><span>SQL controlado</span><span>IA local</span>
+        </div>
+
+        <div class="hero-actions">
+          <a href="/projects/index.html" class="btn-accent">Ver proyectos</a>
+          <a href="/assets/cv/CV_Marco%20Rios.pdf" class="btn-outline" target="_blank" rel="noreferrer">Ver CV</a>
+          <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="btn-icon" aria-label="GitHub" rel="noreferrer"><i data-lucide="github" class="h-4 w-4"></i></a>
+          <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-icon" aria-label="LinkedIn" rel="noreferrer"><i data-lucide="linkedin" class="h-4 w-4"></i></a>
+        </div>
+
+      </section>
+
+      <section id="projects" class="content-section">
+        <div class="section-heading">
+          <div><p class="section-kicker">Proyectos</p><h2>Proyectos principales</h2></div>
+          <a href="/projects/index.html" class="text-link">Ver todos</a>
+        </div>
+        <p class="section-copy">Casos de estudio p&uacute;blicos basados en problemas reales, usando datos sint&eacute;ticos o entornos controlados.</p>
+
+        <article class="project-row">
+          <div class="project-year">01</div>
+          <div>
+            <h3>Asistente empresarial de datos con IA local</h3>
+            <p>Asistente empresarial para consultar ventas, productos, inventario y metas usando lenguaje natural. El sistema convierte preguntas del usuario en una intenci&oacute;n JSON validada, ejecuta consultas SQL seguras y devuelve respuestas como resumen, tabla o gr&aacute;fico.</p>
+            <p class="project-note">Pensado para consultar datos internos con IA local sin que el LLM genere ni ejecute SQL directamente.</p>
+            <div class="tech-list"><span>FastAPI</span><span>SQL Server</span><span>JSON estructurado</span><span>SQL seguro</span><span>LLM local</span></div>
+            <div class="project-actions"><a href="/projects/#business-data-assistant" class="project-cta">Ver caso de uso &rarr;</a><span>Caso sint&eacute;tico basado en problemas reales.</span></div>
+          </div>
+        </article>
+
+        <article class="project-row">
+          <div class="project-year">02</div>
+          <div>
+            <h3>Procesamiento autom&aacute;tico de formularios OCR/ICR/OMR</h3>
+            <p>Sistema de captura autom&aacute;tica para procesar formularios escaneados, detectar marcas OMR, extraer campos mediante OCR/ICR, validar datos y exportar resultados estructurados para carga en base de datos o revisi&oacute;n posterior.</p>
+            <p class="project-note">Pensado para automatizar tareas repetitivas de captura, validaci&oacute;n y revisi&oacute;n desde im&aacute;genes o PDFs.</p>
+            <div class="tech-list"><span>Python</span><span>OpenCV</span><span>OCR/ICR/OMR</span><span>Validaci&oacute;n</span><span>Exportaci&oacute;n</span></div>
+            <div class="project-actions"><a href="/projects/#automated-form-processing" class="project-cta">Ver caso de uso &rarr;</a><span>Caso sint&eacute;tico basado en problemas reales.</span></div>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <section class="other-projects-section mx-auto container-xx px-4" aria-labelledby="other-projects-title">
+      <div class="other-projects-heading">
+        <p class="section-kicker">M&aacute;s proyectos</p>
+        <h2 id="other-projects-title">Otros proyectos</h2>
+      </div>
+
+      <div class="other-projects-grid">
+        <article class="other-project">
+          <div class="other-project-index">03</div>
+          <div class="other-project-body">
+            <h3>Plataforma de extracci&oacute;n y unificaci&oacute;n de datos p&uacute;blicos</h3>
+            <p>Pipeline para extraer, validar y unificar informaci&oacute;n de fuentes p&uacute;blicas en una base de datos consultable mediante servicios backend.</p>
+            <div class="other-project-tech"><span>Python</span><span>FastAPI</span><span>SQL</span><span>Web scraping</span></div>
+          </div>
+        </article>
+
+        <article class="other-project">
+          <div class="other-project-index">04</div>
+          <div class="other-project-body">
+            <h3>Rivu Gallery</h3>
+            <p>Galer&iacute;a Android enfocada en navegaci&oacute;n fluida y carga eficiente de bibliotecas multimedia grandes.</p>
+            <div class="other-project-tech"><span>Kotlin</span><span>Jetpack Compose</span><span>Paging 3</span><span>Coil</span></div>
+          </div>
+        </article>
+
+        <article class="other-project">
+          <div class="other-project-index">05</div>
+          <div class="other-project-body">
+            <h3>UltraHDR Off</h3>
+            <p>Aplicaci&oacute;n Android para detectar im&aacute;genes Ultra HDR y generar copias SDR manteniendo sus metadatos principales.</p>
+            <div class="other-project-tech"><span>Android</span><span>Kotlin</span><span>MediaStore</span><span>Ultra HDR</span></div>
+          </div>
+        </article>
+
+        <article class="other-project">
+          <div class="other-project-index">06</div>
+          <div class="other-project-body">
+            <h3>Rivu Notes</h3>
+            <p>Aplicaci&oacute;n local de notas con calendario, archivo, papelera y preferencias de interfaz persistentes.</p>
+            <div class="other-project-tech"><span>Kotlin</span><span>Jetpack Compose</span><span>Room</span><span>DataStore</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="mx-auto content-layout container-xx px-4">
+      <section id="experience" class="content-section">
+        <p class="section-kicker">Experiencia</p>
+        <h2>Soluciones internas, documentadas y mantenibles.</h2>
+        <p>Mi experiencia se centra en construir soluciones internas para procesamiento documental, captura de datos, validaciones, consultas SQL y herramientas usadas por equipos operativos. Como no puedo publicar sistemas ni datos reales de entornos laborales, mis proyectos open source funcionan como versiones sint&eacute;ticas y documentadas de esos patrones t&eacute;cnicos.</p>
+        <ul class="plain-list"><li>Soluciones simples, mantenibles y bien documentadas.</li><li>Integraci&oacute;n entre backend, bases SQL y procesamiento documental.</li><li>Enfoque en trazabilidad, validaci&oacute;n y utilidad para usuarios reales.</li></ul>
+        <a href="/assets/cv/CV_Marco%20Rios.pdf" class="text-link" target="_blank" rel="noreferrer">Ver CV completo</a>
+      </section>
+
+      <section id="skills" class="content-section">
+        <p class="section-kicker">Tecnolog&iacute;as</p>
+        <h2>Stack principal</h2>
+        <div class="skills-grid">
+          <div><h3>Backend/API</h3><p>Python &middot; FastAPI &middot; REST &middot; Pydantic</p></div>
+          <div><h3>Datos</h3><p>SQL Server &middot; PostgreSQL &middot; SQLite &middot; Pandas</p></div>
+          <div><h3>Documentos</h3><p>OCR &middot; OMR &middot; OpenCV &middot; PDFs &middot; Im&aacute;genes</p></div>
+          <div><h3>IA aplicada</h3><p>LLM local &middot; JSON estructurado &middot; SQL controlado</p></div>
+          <div><h3>Entrega</h3><p>Git &middot; Docker b&aacute;sico &middot; IIS/Nginx &middot; Windows/Linux Server</p></div>
+          <div><h3>Mobile</h3><p>Android &middot; Kotlin &middot; Jetpack Compose &middot; Retrofit</p></div>
+        </div>
+      </section>
+
+      <section id="contact" class="content-section">
+        <p class="section-kicker">Contacto</p>
+        <h2>&iquest;Conversamos?</h2>
+        <p>Estoy abierto a oportunidades remotas o h&iacute;bridas donde pueda aportar en backend, datos y automatizaci&oacute;n documental.</p>
+        <div class="contact-links">
+          <a href="mailto:marcoandrer99@hotmail.com" class="text-link">Email</a>
+          <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="text-link" rel="noreferrer">LinkedIn</a>
+          <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="text-link" rel="noreferrer">GitHub</a>
+          <a href="/assets/cv/CV_Marco%20Rios.pdf" class="text-link" download>CV</a>
+        </div>
+        <p class="mt-6 text-xs text-slate-500 dark:text-slate-400">Lima, Per&uacute; &middot; UTC-5</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">&copy; <span id="yr"></span> Marco Rios &middot; Desplegable en GitHub Pages</footer>
+</body>
+</html>

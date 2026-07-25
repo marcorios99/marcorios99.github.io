@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="MLOps mini‑stack: entrenamiento, tracking y despliegue – Marco Rios" />
+  <meta property="og:description" content="Entrenamiento (scikit‑learn / TensorFlow / PyTorch), tracking con MLflow, empaquetado como API FastAPI y despliegue Docker. Pipeline CI que ejecuta tests, lint y build de imagen." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/projects/mlops-ministack/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>MLOps mini‑stack: entrenamiento, tracking y despliegue – Marco Rios</title>
+  <meta name="description" content="Stack completo de MLOps con MLflow, FastAPI, Docker y CI/CD. Plantilla lista para clonar y adaptar a cualquier modelo." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    /* Tipografía simple y consistente */
+    :root { --brand: 36 99% 50%; }
+    body { font-feature-settings: "ss01" on, "cv01" on; }
+    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); }
+    .container-xx { max-width: 1100px; }
+    .badge { @apply inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs; }
+  </style>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-slate-100">
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/about/" class="hover:text-white/90">Acerca de mí</a>
+        <a href="/help/" class="hover:text-white/90">Ayuda</a>
+        <a href="/" class="hover:text-white/90">Inicio</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="mx-auto container-xx px-4 py-16 sm:py-20">
+    <div class="space-y-8">
+      <div class="text-center space-y-5">
+        <span class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">MLOps · FastAPI · MLflow · Docker</span>
+        
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
+          <span class="text-emerald-400">MLOps mini‑stack</span> completo
+        </h1>
+        <p class="text-slate-300 max-w-3xl mx-auto">Entrenamiento (scikit‑learn / TensorFlow / PyTorch), tracking con MLflow, empaquetado como API FastAPI y despliegue Docker. Pipeline CI que ejecuta tests, lint y build de imagen. Plantilla lista para clonar y adaptar.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="https://github.com/marcorios99" target="_blank" class="rounded-xl bg-white text-slate-900 px-4 py-2 text-sm font-medium hover:bg-slate-100">Ver en GitHub</a>
+          <a href="/" class="rounded-xl border border-white/20 px-4 py-2 text-sm hover:bg-white/10">← Volver al inicio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARQUITECTURA -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Arquitectura del MLOps stack</h2>
+    <div class="glass rounded-3xl p-6 shadow-2xl ring-1 ring-white/10">
+      <div class="space-y-4">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">1</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Entrenamiento de modelos</h3>
+            <p class="text-sm text-slate-300">Soporte para scikit-learn, TensorFlow y PyTorch con configuración unificada</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">2</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Tracking con MLflow</h3>
+            <p class="text-sm text-slate-300">Registro de experimentos, métricas, parámetros y artefactos con versionado automático</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">3</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">API REST con FastAPI</h3>
+            <p class="text-sm text-slate-300">Empaquetado automático como API con documentación Swagger y validación de esquemas</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">4</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">Contenedorización Docker</h3>
+            <p class="text-sm text-slate-300">Imagen Docker optimizada con dependencias mínimas y multi-stage builds</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-emerald-500 text-slate-900 rounded-full flex items-center justify-center text-sm font-semibold">5</div>
+          <div>
+            <h3 class="font-semibold text-slate-100">CI/CD automatizado</h3>
+            <p class="text-sm text-slate-300">Pipeline GitHub Actions para testing, linting, build y despliegue automático</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCEDIMIENTOS -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Procedimientos y metodología</h2>
+    <div class="space-y-6">
+      
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <h3 class="text-lg font-semibold mb-3">1. Configuración de experimentos</h3>
+        <p class="text-sm text-slate-300 mb-3">
+          [Espacio reservado para explicar la configuración de experimentos MLflow: 
+          structure de tracking URI, organización de runs, tags automáticos, 
+          y estrategias de versionado de modelos]
+        </p>
+        <div class="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2">
+          <p class="text-xs text-emerald-300"><strong>Por implementar:</strong> Guía completa de configuración MLflow y best practices</p>
+        </div>
+      </article>
+
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <h3 class="text-lg font-semibold mb-3">2. Patrón de entrenamiento unificado</h3>
+        <p class="text-sm text-slate-300 mb-3">
+          [Espacio reservado para documentar el patrón de entrenamiento que funciona 
+          para sklearn/TensorFlow/PyTorch: interface común, logging automático, 
+          y serialización consistente de modelos]
+        </p>
+        <div class="rounded-lg border border-blue-500/30 bg-blue-500/10 px-3 py-2">
+          <p class="text-xs text-blue-300"><strong>Por implementar:</strong> Ejemplos de código para cada framework ML</p>
+        </div>
+      </article>
+
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+        <h3 class="text-lg font-semibold mb-3">3. Estrategia de despliegue</h3>
+        <p class="text-sm text-slate-300 mb-3">
+          [Espacio reservado para explicar la estrategia de despliegue: 
+          promoción de modelos desde staging a production, rollback automático, 
+          y monitoreo de performance en tiempo real]
+        </p>
+        <div class="rounded-lg border border-purple-500/30 bg-purple-500/10 px-3 py-2">
+          <p class="text-xs text-purple-300"><strong>Por implementar:</strong> Configuración de ambientes y pipelines de despliegue</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- DATASET -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Datasets y modelos de ejemplo</h2>
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow">
+      <p class="text-sm text-slate-300 mb-4">
+        [Espacio reservado para documentar los datasets de ejemplo incluidos: 
+        clasificación (iris, wine), regresión (housing), y deep learning (MNIST/CIFAR). 
+        Cada ejemplo muestra el patrón completo MLOps]
+      </p>
+      <div class="glass rounded-2xl p-4">
+        <h4 class="font-semibold mb-3">Estructura del proyecto:</h4>
+        <ul class="text-sm text-slate-300 space-y-1">
+          <li>• <code class="text-emerald-400">/models/</code> - Definiciones de modelos por framework</li>
+          <li>• <code class="text-emerald-400">/training/</code> - Scripts de entrenamiento unificados</li>
+          <li>• <code class="text-emerald-400">/api/</code> - FastAPI app con endpoints de predicción</li>
+          <li>• <code class="text-emerald-400">/docker/</code> - Dockerfiles optimizados</li>
+          <li>• <code class="text-emerald-400">/.github/workflows/</code> - Pipelines CI/CD</li>
+          <li>• <code class="text-emerald-400">/examples/</code> - Notebooks con casos de uso</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTALACIÓN -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Instalación y configuración</h2>
+    <div class="space-y-6">
+      
+      <div>
+        <h3 class="font-semibold mb-3">Requisitos del sistema</h3>
+        <div class="glass rounded-lg p-4">
+          <pre class="text-sm text-slate-300"><code>[Por definir: versiones de Python,
+Docker, MLflow server setup,
+GitHub Actions secrets,
+y configuración de registries]</code></pre>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="font-semibold mb-3">Setup completo del stack</h3>
+        <div class="glass rounded-lg p-4">
+          <pre class="text-sm text-slate-300 overflow-x-auto"><code># 1. Clonar template
+git clone https://github.com/marcorios99/mlops-ministack
+cd mlops-ministack
+
+# 2. Crear entorno virtual
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate   # Windows
+
+# 3. Instalar dependencias
+pip install -r requirements.txt
+
+# 4. Configurar MLflow tracking
+export MLFLOW_TRACKING_URI=http://localhost:5000
+mlflow server --host 0.0.0.0 --port 5000
+
+# 5. Entrenar modelo de ejemplo
+python training/train_sklearn_example.py
+
+# 6. Levantar API
+uvicorn api.main:app --reload
+
+# 7. Build Docker image
+docker build -t mlops-model:latest .
+
+# 8. Run container
+docker run -p 8000:8000 mlops-model:latest</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTADOS -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Resultados y métricas</h2>
+    <div class="space-y-6">
+      
+      <p class="text-slate-300">
+        [Espacio reservado para documentar métricas del pipeline MLOps: 
+        tiempo de build, tamaño de imágenes Docker, latencia de API, 
+        y comparativas de performance entre frameworks]
+      </p>
+      
+      <div>
+        <h3 class="font-semibold mb-4">Outputs del stack</h3>
+        <div class="glass rounded-2xl p-6">
+          <ul class="text-sm text-slate-300 space-y-3">
+            <li class="flex items-center gap-2">
+              <i data-lucide="brain" class="h-4 w-4 text-emerald-400"></i>
+              Modelos entrenados y versionados en MLflow
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="server" class="h-4 w-4 text-emerald-400"></i>
+              API REST lista para producción
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="package" class="h-4 w-4 text-emerald-400"></i>
+              Imagen Docker optimizada (&lt;500MB)
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="file-text" class="h-4 w-4 text-emerald-400"></i>
+              Documentación Swagger automática
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="github" class="h-4 w-4 text-emerald-400"></i>
+              Pipeline CI/CD configurado
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-semibold mb-4">Métricas de performance</h3>
+        <div class="glass rounded-2xl p-6">
+          <ul class="text-sm text-slate-300 space-y-3">
+            <li class="flex items-center gap-2">
+              <i data-lucide="timer" class="h-4 w-4 text-emerald-400"></i>
+              Latencia de predicción &lt;100ms
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="cpu" class="h-4 w-4 text-emerald-400"></i>
+              Uso de CPU y memoria optimizado
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="upload" class="h-4 w-4 text-emerald-400"></i>
+              Tiempo de build Docker &lt;5min
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="check-circle" class="h-4 w-4 text-emerald-400"></i>
+              Coverage de tests &gt;90%
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Stack tecnológico</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm text-slate-300">
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">ML Frameworks</h3>
+        <p>scikit-learn, TensorFlow, PyTorch</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">MLOps</h3>
+        <p>MLflow, DVC (básico)</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">API</h3>
+        <p>FastAPI, Pydantic, Uvicorn</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">Containerización</h3>
+        <p>Docker, Docker Compose</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">CI/CD</h3>
+        <p>GitHub Actions, pytest</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 p-4">
+        <h3 class="font-semibold mb-2">Monitoring</h3>
+        <p>Prometheus, logging estructurado</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="mx-auto container-xx px-4 py-16">
+    <div class="rounded-3xl border border-white/10 bg-white/5 p-8 text-center">
+      <h2 class="text-2xl font-semibold">¿Preguntas sobre este proyecto?</h2>
+      <p class="mt-2 text-slate-300">Envíame un mensaje.</p>
+      <div class="mt-4 flex flex-wrap justify-center gap-3">
+        <a href="mailto:marcoandrer99@hotmail.com" class="rounded-xl bg-emerald-500 px-4 py-2 font-medium text-slate-900 hover:bg-emerald-400">marcoandrer99@hotmail.com</a>
+        <a href="/" class="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10">← Volver al portfolio</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10 text-center text-xs text-slate-400">
+    © <span id="yr"></span> Marco Rios · Desplegable en GitHub Pages
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

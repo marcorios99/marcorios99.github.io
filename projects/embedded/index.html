@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Marco Rios — Hardware/Embedded (C + MCUs + IoT)" />
+  <meta property="og:description" content="Ingeniero electrónico. C/ESP32 + FreeRTOS, protocolos industriales e IoT. Casos de estudio y demos." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/projects/embedded/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>Marco Rios – Hardware/Embedded (C + MCUs + IoT)</title>
+  <meta name="description" content="Proyectos de sistemas embebidos de Marco Rios – C/ESP32, FreeRTOS, Modbus RTU, IoT y telemetría end-to-end a Python/SQL." />
+
+  <!-- Color barra navegador -->
+  <meta name="theme-color" content="#0b0b0b">
+
+  <!-- INIT tema sin flash (idéntico al index) -->
+  <script>
+  (function () {
+    const ls = localStorage.getItem('theme');     // 'dark' | 'light' | null
+    const theme = ls || 'dark';
+    const html = document.documentElement;
+
+    // Asegura SIEMPRE una de las dos clases:
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+
+    html.dataset.theme = theme;
+
+    // Barra del navegador
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0b0b' : '#ffffff');
+  })();
+  </script>
+
+  <!-- Tailwind (dark por clase) -->
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide icons -->
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Estilos (idénticos al index) -->
+  <style>
+    :root { --brand: 36 99% 50%; }
+    body { font-feature-settings: "ss01" on, "cv01" on; }
+    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); }
+    .container-xx { max-width: 1100px; }
+
+    /* Chips/badges */
+    .badge{
+      display:inline-flex; align-items:center; gap:.25rem;
+      border:1px solid rgba(148,163,184,.4);
+      border-radius:9999px; padding:.25rem .75rem;
+      font-size:.75rem; line-height:1rem;
+    }
+
+    /* Badge neutral visible en light/dark */
+    .badge-neutral{
+      border-color: var(--bd-soft, #cbd5e1);
+      background: rgba(2,6,23,.03);
+      color: var(--txt-strong, #0f172a);
+    }
+    html.dark .badge-neutral{
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color: #e5e7eb;
+    }
+
+    /* Toggle Data/Hardware (como enlaces) */
+    .portfolio-toggle{
+      display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;
+      padding:.5rem 1rem;border-radius:9999px;transition:all .2s ease;
+      border:1px solid rgba(2,6,23,.15); color:#334155; background:transparent;
+      text-decoration:none;
+    }
+    .portfolio-toggle:hover{ color:#0f172a; border-color:rgba(2,6,23,.3) }
+    .portfolio-toggle .ico{
+      display:inline-flex;align-items:center;justify-content:center;
+      width:1.75rem;height:1.75rem;border-radius:9999px;
+      background:rgba(2,6,23,.05); box-shadow: inset 0 0 0 1px rgba(2,6,23,.08);
+    }
+    .portfolio-toggle.active{
+      background:rgba(16,185,129,.15); border-color:rgba(16,185,129,.50);
+      color:#065f46; box-shadow:0 0 0 1px rgba(16,185,129,.25) inset;
+    }
+    .portfolio-toggle.active .ico{
+      background:rgba(16,185,129,.20); box-shadow: inset 0 0 0 1px rgba(16,185,129,.35);
+    }
+    html.dark .portfolio-toggle{ border-color:rgba(255,255,255,.2); color:#cbd5e1; }
+    html.dark .portfolio-toggle:hover{ color:#fff;border-color:rgba(255,255,255,.4) }
+    html.dark .portfolio-toggle .ico{ background:rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+    html.dark .portfolio-toggle.active{ background:rgba(16,185,129,.20); border-color:rgba(16,185,129,.60); color:#a7f3d0; }
+    html.dark .portfolio-toggle.active .ico{ background:rgba(16,185,129,.25); box-shadow: inset 0 0 0 1px rgba(16,185,129,.35); }
+
+    /* ===== Light skin (mejor contraste) ===== */
+    html.light{
+      --txt-strong:#0f172a;  /* slate-900 */
+      --txt-body:#334155;    /* slate-700 */
+      --txt-muted:#475569;   /* slate-600 */
+      --bd:#e2e8f0;          /* slate-200 */
+      --bd-soft:#cbd5e1;     /* slate-300 */
+    }
+    html.light body{
+      background-image: linear-gradient(to bottom, #ffffff, #f8fafc, #eef2f7) !important;
+      color:var(--txt-body);
+    }
+    html.light header{ background-color:rgba(255,255,255,.7) !important; border-color:rgba(148,163,184,.7) !important; }
+    html.light h1, html.light h2, html.light h3{ color:var(--txt-strong) !important; }
+    html.light p, html.light li{ color:var(--txt-body); }
+    html.light #hero-description{ color:var(--txt-muted) !important; }
+    html.light #primary-badge{ color:#065f46 !important; }
+    html.light #projects article,
+    html.light #skills .rounded-2xl,
+    html.light #contact > div{ background:#fff !important; border-color:var(--bd) !important; color:var(--txt-body) !important; }
+    html.light #projects article h3,
+    html.light #skills .rounded-2xl h3{ color:var(--txt-strong) !important; }
+    html.light .glass{ background:rgba(0,0,0,.03) !important; }
+    html.light .glass h3{ color:var(--txt-strong) !important; }
+    html.light .glass ul, html.light .glass li{ color:var(--txt-muted) !important; }
+    html.light .badge{ border-color:var(--bd-soft) !important; color:var(--txt-muted) !important; }
+    html.light .container-xx a[href^="/projects/"],
+    html.light .container-xx a[href^="https://github.com"],
+    html.light .container-xx a[href^="https://www.linkedin"]{ color:var(--txt-strong); }
+    /* Light: texto oscuro sobre verde */
+    html.light .btn-accent,
+    html.light .btn-accent:visited{ color:#0f172a !important; }
+
+    /* Dark: texto blanco sobre verde */
+    html.dark .btn-accent,
+    html.dark .btn-accent:visited{ color:#0f172a !important; }
+
+    /* ===== Acento unificado + botones ===== */
+    :root{ --accent:#77e2bb;}       /* emerald-600 (LIGHT) */
+    html.dark{ --accent: #1caf81; }   /* emerald-400 (DARK) */
+    
+    .btn-accent{
+      display:inline-flex; align-items:center; gap:.4rem;
+      padding:.45rem .75rem; border-radius:.75rem; text-decoration:none;
+      background:var(--accent); color:#fff;
+      border:1px solid rgba(0,0,0,.05);
+      font-size:.875rem; font-weight:600;
+    }
+    .btn-accent--sm{
+      padding:.35rem .6rem;
+      font-size:.8125rem;
+      border-radius:.65rem;
+      white-space:nowrap;
+    }
+    .btn-accent:hover{ filter:brightness(1.06); }
+
+    .btn-outline{
+      display:inline-flex; align-items:center; gap:.35rem;
+      padding:.45rem .75rem; border-radius:.75rem; text-decoration:none;
+      border:1px solid var(--bd-soft, rgba(148,163,184,.50));
+      color:var(--txt-strong, #0f172a); background:transparent;
+      font-size:.875rem;
+    }
+    .btn-outline:hover{ background:rgba(2,6,23,.03); }
+    html.dark .btn-outline{ border-color:rgba(255,255,255,.15); color:#e5e7eb; }
+    html.dark .btn-outline:hover{ background:rgba(255,255,255,.08); }
+
+    /* ===== Theme toggle (cambia color según tema) ===== */
+    :root{
+      /* Light */
+      --toggle-bg: rgba(255,255,255,.75);
+      --toggle-bg-hover:#ffffff;
+      --toggle-fg:#334155;              /* slate-700 */
+      --toggle-br: rgba(2,6,23,.18);    /* slate-950 ~18% */
+      --toggle-dot-bg: rgba(2,6,23,.06);
+    }
+    html.dark{
+      /* Dark */
+      --toggle-bg: rgba(2,6,23,.70);    /* slate-950/70 */
+      --toggle-bg-hover: rgba(2,6,23,.90);
+      --toggle-fg:#e5e7eb;              /* zinc-200 */
+      --toggle-br: rgba(255,255,255,.22);
+      --toggle-dot-bg: rgba(255,255,255,.12);
+    }
+
+    /* Botón */
+    .theme-btn{
+      inline-size: 2.25rem; block-size: 2.25rem; /* 36px */
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius:9999px; border:1px solid var(--toggle-br);
+      background:var(--toggle-bg); color:var(--toggle-fg);
+      transition:background .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .theme-btn:hover{ background:var(--toggle-bg-hover); }
+    .theme-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+    /* Pastilla interior del icono */
+    .theme-btn .dot{
+      inline-size: 1.75rem; block-size: 1.75rem;
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius:9999px; background:var(--toggle-dot-bg);
+    }
+
+    /* Icono hereda color del botón */
+    .theme-btn i{ color: inherit; }
+
+    /* Nav: colores seguros en light/dark + hover */
+    .navlink{
+      color:#334155;                 /* slate-700 */
+      transition: color .15s ease;
+    }
+    .navlink:hover,
+    .navlink:focus-visible{
+      color:#000000;                 /* más oscuro */
+    }
+    html.dark .navlink{ color:#cbd5e1; }
+    html.dark .navlink:hover,
+    html.dark .navlink:focus-visible{ color:#ffffff; }
+  </style>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body class="min-h-screen bg-white text-slate-900
+             dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800
+             dark:text-slate-100">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 border-b backdrop-blur
+                 bg-white/70 border-slate-200/70
+                 dark:bg-slate-950/70 dark:border-white/10">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
+
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/#projects" class="navlink">Proyectos</a>
+        <a href="/#skills" class="navlink">Tecnologías</a>
+        <a href="/#contact" class="navlink">Contacto</a>
+        <a href="/about/" class="navlink">Acerca de mí</a>
+        <a href="/help/" class="navlink">Ayuda</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Botón Light/Dark -->
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
+          <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
+        </button>
+        <!-- CTA disponibilidad -->
+        <a href="/#contact" class="btn-accent btn-accent--sm">Zona Horaria: (UTC-5)</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="mx-auto container-xx px-4 py-16 sm:py-20">
+    <div class="grid md:grid-cols-5 gap-8 items-center">
+      <div class="md:col-span-3 space-y-5">
+
+        <!-- Toggle convertido a enlaces (Hardware activo) -->
+        <div class="flex items-center gap-3 mb-3">
+          <a class="portfolio-toggle" href="/#data" id="toggle-data-link">
+            <span class="font-medium">Data/Backend</span>
+            <span class="ico"><i data-lucide="database" class="h-5 w-5"></i></span>
+          </a>
+          <a class="portfolio-toggle active" href="/projects/embedded/" id="toggle-embedded-link">
+            <span class="font-medium">Hardware</span>
+            <span class="ico"><i data-lucide="cpu" class="h-5 w-5"></i></span>
+          </a>
+        </div>
+
+        <span class="inline-flex items-center gap-2 rounded-full border
+                      border-blue-600/30 bg-blue-500/10 px-3 py-1 text-xs
+                      text-blue-700 dark:text-blue-300"
+              id="primary-badge">Hardware · C/MCUs · IoT</span>
+        <span class="badge badge-neutral">Ingeniero electrónico</span>
+
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight" id="hero-title">
+          Integro <span class="text-emerald-600 dark:text-emerald-400">firmware y datos</span> desde MCUs hasta dashboards.
+        </h1>
+        <p class="max-w-2xl text-slate-700 dark:text-slate-300" id="hero-description">
+          Desarrollo en C/ESP32 con FreeRTOS, protocolos industriales (Modbus, I²C, SPI) y telemetría IoT. Integración completa con pipelines Python para observabilidad end-to-end.
+        </p>
+
+        <div class="flex flex-wrap gap-3">
+          <a href="/projects/" class="btn-outline">Ver proyectos</a>
+          <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-outline">LinkedIn</a>
+          <a href="https://github.com/marcorios99" target="_blank" class="btn-outline">GitHub</a>
+        </div>
+      </div>
+
+      <div class="md:col-span-2">
+        <div class="glass rounded-3xl p-6 shadow-2xl ring-1 ring-slate-200 dark:ring-white/10">
+          <h3 class="mb-3 text-lg font-semibold">Highlights</h3>
+          <ul class="space-y-3 text-sm text-slate-700 dark:text-slate-300" id="highlights-list">
+            <li class="flex items-start gap-2"><i data-lucide="cpu" class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"></i><span>Firmware robusto en C con FreeRTOS, manejo de sensores y comunicaciones industriales (Modbus RTU, I²C, SPI).</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="wifi" class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"></i><span>Telemetría IoT con MQTT/LoRa, reconexión automática y journaling local para resiliencia.</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="activity" class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"></i><span>Integración completa: datos de MCU → API Python → SQL Server → dashboard con &lt; 0.5% pérdida.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS (idéntica estructura/clases que el index) -->
+  <section id="projects" class="mx-auto container-xx px-4 py-12">
+    <div class="mb-6 flex items-end justify-between">
+      <h2 class="text-2xl font-semibold">Proyectos de hardware</h2>
+      <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="btn-outline">Ver todos →</a>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Embedded Project 1 -->
+      <article class="rounded-2xl border p-6 shadow
+                     bg-white border-slate-200 text-slate-700
+                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+        <div class="mb-2 flex flex-wrap gap-2 text-xs">
+          <span class="badge">ESP32</span>
+          <span class="badge">C/FreeRTOS</span>
+          <span class="badge">I²C/SPI</span>
+          <span class="badge">MQTT/LoRa</span>
+          <span class="badge">API Python</span>
+        </div>
+        <h3 class="text-lg font-semibold">Data Logger IoT con FreeRTOS</h3>
+        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          Adquisición multitarea (sensores T/RH/press), colas y watchdog; envío a API Python para ingesta en SQL Server y dashboard.
+        </p>
+        <ul class="mt-3 list-disc pl-5 text-sm text-slate-700 dark:text-slate-300">
+          <li>Tareas separadas: lectura, almacenamiento, telemetría</li>
+          <li>Resiliencia: reconexión, backoff, journaling en SPIFFS</li>
+          <li>Métricas: jitter de tareas, pérdida &lt; 0.5% en 24h</li>
+        </ul>
+        <div class="mt-4 flex gap-3">
+          <a href="/projects/embedded/iot-data-logger/" class="btn-accent">Caso de estudio</a>
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="btn-outline">Repo</a>
+        </div>
+      </article>
+
+      <!-- Embedded Project 2 -->
+      <article class="rounded-2xl border p-6 shadow
+                     bg-white border-slate-200 text-slate-700
+                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+        <div class="mb-2 flex flex-wrap gap-2 text-xs">
+          <span class="badge">STM32/ESP32</span>
+          <span class="badge">C bare-metal</span>
+          <span class="badge">I²C</span>
+          <span class="badge">DMA</span>
+          <span class="badge">TDD básico</span>
+        </div>
+        <h3 class="text-lg font-semibold">Driver I²C + OLED (Bare-Metal)</h3>
+        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          HAL mínima para OLED SSD1306 con API limpia (init, draw, flush), pruebas con mocks y medición de latencia de frame.
+        </p>
+        <ul class="mt-3 list-disc pl-5 text-sm text-slate-700 dark:text-slate-300">
+          <li>API: <code>ssd1306_init()</code>, <code>draw_px()</code>, <code>draw_text()</code></li>
+          <li>Bench: tiempo de flush y consumo mA</li>
+          <li>Docs: diagrama de timing y pull-ups</li>
+        </ul>
+        <div class="mt-4 flex gap-3">
+          <a href="/projects/embedded/i2c-oled-driver/" class="btn-accent">Caso de estudio</a>
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="btn-outline">Repo</a>
+        </div>
+      </article>
+
+      <!-- Embedded Project 3 -->
+      <article class="rounded-2xl border p-6 shadow
+                     bg-white border-slate-200 text-slate-700
+                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+        <div class="mb-2 flex flex-wrap gap-2 text-xs">
+          <span class="badge">STM32/ESP32</span>
+          <span class="badge">C</span>
+          <span class="badge">UART/RS-485</span>
+          <span class="badge">CRC-16</span>
+          <span class="badge">Timeouts</span>
+        </div>
+        <h3 class="text-lg font-semibold">Demo Modbus RTU (RS-485)</h3>
+        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          Maestro lee holding registers de variador; gráfico en Python (matplotlib) y persistencia en SQL.
+        </p>
+        <ul class="mt-3 list-disc pl-5 text-sm text-slate-700 dark:text-slate-300">
+          <li>Estado: IDLE → TX → RX → PARSE → ERROR</li>
+          <li>Robustez: timeouts, reintentos, validación CRC</li>
+          <li>Integración: script ETL y tablero KPI</li>
+        </ul>
+        <div class="mt-4 flex gap-3">
+          <a href="/projects/embedded/modbus-rtu-demo/" class="btn-accent">Caso de estudio</a>
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="btn-outline">Repo</a>
+        </div>
+      </article>
+
+      <!-- Más proyectos -->
+      <article class="rounded-2xl border p-6 shadow
+                     bg-white border-slate-200 text-slate-700
+                     dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+        <div class="mb-2 flex flex-wrap gap-2 text-xs">
+          <span class="badge">C</span>
+          <span class="badge">ESP32</span>
+          <span class="badge">FreeRTOS</span>
+          <span class="badge">UART/I²C/SPI</span>
+        </div>
+        <h3 class="text-lg font-semibold">Más proyectos embebidos</h3>
+        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          Colección de proyectos en C: sensores, interrupciones, timers, PWM y comunicación serial. Incluye guía de compilación y diagramas.
+        </p>
+        <div class="mt-4 flex gap-3">
+          <a href="/projects/embedded/" class="btn-accent">Ver todos</a>
+          <a href="https://github.com/marcorios99/Proyectos" target="_blank" class="btn-outline">Repos</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- (Opcional) Tecnologías en embebidos -->
+  <section id="skills" class="mx-auto container-xx px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-6">Tecnologías</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+      <div class="rounded-2xl border p-4 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+        <h3 class="font-semibold mb-2">Embebidos</h3>
+        <p>C/ESP32, FreeRTOS, I²C/SPI/UART, Modbus RTU</p>
+      </div>
+      <div class="rounded-2xl border p-4 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+        <h3 class="font-semibold mb-2">Integración</h3>
+        <p>MQTT/LoRa, APIs Python, ETL a SQL</p>
+      </div>
+      <div class="rounded-2xl border p-4 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+        <h3 class="font-semibold mb-2">Observabilidad</h3>
+        <p>logs estructurados, métricas, alertas</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contact" class="mx-auto container-xx px-4 py-16">
+    <div class="rounded-3xl border p-8 text-center bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
+      <h2 class="text-2xl font-semibold">¿Conversamos?</h2>
+      <p class="mt-2">Envíame un mensaje.</p>
+      <div class="mt-4 flex flex-wrap justify-center gap-3">
+        <a href="mailto:marcoandrer99@hotmail.com" class="btn-accent">marcoandrer99@hotmail.com</a>
+        <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-outline">LinkedIn</a>
+        <a href="https://github.com/marcorios99/marcorios99.github.io" target="_blank" class="btn-outline">Código de este sitio</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
+    © <span id="yr"></span> Marco Rios · Desplegable en GitHub Pages
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.lucide) lucide.createIcons();
+      document.getElementById('yr').textContent = new Date().getFullYear();
+    });
+  </script>
+
+  <!-- Tema: botón sol/luna (idéntico al index) -->
+  <script>
+  (function () {
+    const btn  = document.getElementById('themeBtn');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const html = document.documentElement;
+
+    // contenedor estable = el padre de #themeIcon
+    const iconWrap = (function () {
+      const el = document.getElementById('themeIcon');
+      return el ? el.parentElement : null;
+    })();
+
+    function renderIcon(dark) {
+      if (!iconWrap || !window.lucide) return;
+      // recrea el <i data-lucide="..."> y vuelve a renderizar
+      iconWrap.innerHTML = `<i id="themeIcon" data-lucide="${dark ? 'moon' : 'sun'}" class="h-5 w-5"></i>`;
+      lucide.createIcons();
+    }
+
+    function setTheme(theme) {
+      const dark = theme === 'dark';
+
+      // Clases + dataset
+      html.classList.toggle('dark', dark);
+      html.classList.toggle('light', !dark);
+      html.dataset.theme = theme;
+
+      // Persistencia + barra del navegador
+      localStorage.setItem('theme', theme);
+      if (meta) meta.setAttribute('content', dark ? '#0b0b0b' : '#ffffff');
+
+      // Icono y accesibilidad
+      renderIcon(dark);
+      if (btn) {
+        btn.setAttribute('aria-pressed', String(dark));
+        const tt = dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+        btn.title = tt;
+        btn.setAttribute('aria-label', tt);
+      }
+    }
+
+    function initTheme() {
+      const ls = localStorage.getItem('theme'); // 'dark' | 'light' | null
+      setTheme(ls || 'dark');
+    }
+
+    // Inicializa
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTheme);
+    } else {
+      initTheme();
+    }
+
+    // Toggle
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const next = (html.dataset.theme === 'dark') ? 'light' : 'dark';
+        setTheme(next);
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
