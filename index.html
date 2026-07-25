@@ -12,7 +12,7 @@
 
   <title>Marco Rios - Automatizacion documental y datos internos</title>
   <meta name="description" content="Portafolio de Marco Rios: backend para convertir documentos, formularios, imagenes y datos internos en sistemas consultables con Python, FastAPI, SQL Server, OCR/OMR y LLM local." />
-  <meta name="theme-color" content="#0b0d12">
+  <meta name="theme-color" content="#0b0f14">
 
   <script>
   (function () {
@@ -22,7 +22,7 @@
     html.classList.toggle('light', theme !== 'dark');
     html.dataset.theme = theme;
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0d12' : '#f6f5f1');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
   })();
   </script>
 
@@ -60,11 +60,32 @@
   </header>
 
   <main>
-    <section class="hero-editorial mx-auto container-xx px-4" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="hero-eyebrow">Backend / Data Developer &middot; Lima, Per&uacute;</p>
-        <h1 id="hero-title">Construyo sistemas que convierten documentos y datos dispersos en informaci&oacute;n consultable.</h1>
+    <div class="top-layout mx-auto container-xx px-4">
+      <section id="about" class="identity-panel" aria-labelledby="hero-title">
+        <div class="identity-profile">
+          <figure class="hero-portrait-frame">
+            <img src="/assets/img/marco-3.png" alt="Marco Rios" class="hero-portrait" width="360" height="450">
+          </figure>
+          <div class="identity-profile-meta">
+            <p class="identity-badge">Backend / Data Developer</p>
+            <p class="identity-location">Lima, Per&uacute; &middot; UTC-5</p>
+            <p class="identity-location">Remoto / h&iacute;brido</p>
+          </div>
+        </div>
+
+        <div class="identity-intro">
+          <h1 id="hero-title">Marco Rios</h1>
+          <p class="identity-profession">Ingeniero electr&oacute;nico</p>
+        </div>
+
+        <p class="section-kicker identity-kicker">Enfoque</p>
+        <h2>Backend para automatizaci&oacute;n documental y datos internos.</h2>
+        <p class="identity-value">Construyo sistemas que convierten documentos y datos dispersos en informaci&oacute;n consultable.</p>
         <p class="hero-lead">Dise&ntilde;o herramientas internas para capturar, extraer, validar y consultar informaci&oacute;n usando Python, FastAPI, SQL, visi&oacute;n por computadora e IA local.</p>
+
+        <div class="focus-list">
+          <span>B&uacute;squeda documental</span><span>OCR/OMR</span><span>APIs internas</span><span>SQL controlado</span><span>IA local</span>
+        </div>
 
         <div class="hero-actions">
           <a href="/projects/index.html" class="btn-accent">Ver proyectos</a>
@@ -73,58 +94,6 @@
           <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-icon" aria-label="LinkedIn" rel="noreferrer"><i data-lucide="linkedin" class="h-4 w-4"></i></a>
         </div>
 
-        <div class="hero-identity">
-          <div class="hero-portrait-frame">
-            <img src="/assets/img/marco-3.png" alt="Marco Rios" class="hero-portrait" width="360" height="450">
-          </div>
-          <div>
-            <p class="hero-name">Marco Rios</p>
-            <p class="hero-role">Ingeniero electr&oacute;nico &middot; Backend/Data Developer</p>
-            <p class="hero-location">Disponible para oportunidades remotas o h&iacute;bridas &middot; UTC-5</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="system-map" aria-label="Flujo de trabajo: documentos y datos pasan por captura, validaci&oacute;n, API y almacenamiento hasta convertirse en informaci&oacute;n consultable">
-        <div class="system-map-header">
-          <span class="system-map-label">SYSTEM FLOW</span>
-          <span class="system-map-status"><span></span> structured</span>
-        </div>
-
-        <div class="flow-stage flow-stage-input">
-          <p>Entrada</p>
-          <div class="flow-tags"><span>PDF</span><span>Im&aacute;genes</span><span>Datos</span></div>
-        </div>
-        <div class="flow-connector"><span></span></div>
-        <div class="flow-stage">
-          <p>Captura y validaci&oacute;n</p>
-          <small>OCR / OMR / reglas expl&iacute;citas</small>
-        </div>
-        <div class="flow-connector"><span></span></div>
-        <div class="flow-stage flow-stage-core">
-          <p>Backend controlado</p>
-          <small>FastAPI / SQL / IA local</small>
-        </div>
-        <div class="flow-connector"><span></span></div>
-        <div class="flow-stage flow-stage-output">
-          <p>Informaci&oacute;n consultable</p>
-          <div class="flow-tags"><span>API</span><span>Tabla</span><span>Reporte</span></div>
-        </div>
-
-        <div class="system-map-footer">
-          <span>trazabilidad</span><span>validaci&oacute;n</span><span>mantenibilidad</span>
-        </div>
-      </div>
-    </section>
-
-    <div class="mx-auto content-layout container-xx px-4">
-      <section id="about" class="content-section">
-        <p class="section-kicker">Enfoque</p>
-        <h2>Backend para automatizaci&oacute;n documental y datos internos.</h2>
-        <p>Dise&ntilde;o soluciones backend para automatizaci&oacute;n documental y datos internos: APIs seguras, validaciones expl&iacute;citas, consultas SQL controladas, OCR/ICR/OMR y asistentes con LLM local para convertir documentos, formularios y registros empresariales en informaci&oacute;n estructurada, trazable y f&aacute;cil de consultar.</p>
-        <div class="focus-list">
-          <span>B&uacute;squeda documental</span><span>OCR/OMR</span><span>APIs internas</span><span>SQL controlado</span><span>IA local</span>
-        </div>
       </section>
 
       <section id="projects" class="content-section">
@@ -156,7 +125,9 @@
           </div>
         </article>
       </section>
+    </div>
 
+    <div class="mx-auto content-layout container-xx px-4">
       <section id="experience" class="content-section">
         <p class="section-kicker">Experiencia</p>
         <h2>Soluciones internas, documentadas y mantenibles.</h2>
