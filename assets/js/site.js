@@ -39,7 +39,7 @@
     html.classList.toggle('light', !dark);
     html.dataset.theme = theme;
     if (persist) localStorage.setItem('theme', theme);
-    if (meta) meta.setAttribute('content', dark ? '#0b0b0b' : '#ffffff');
+    if (meta) meta.setAttribute('content', dark ? '#0b0d12' : '#f6f5f1');
 
     renderThemeIcon(dark);
     if (btn) {
