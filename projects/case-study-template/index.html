@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta name="robots" content="noindex, nofollow" />
+  <!-- REPLACE BEFORE PUBLISHING: remove noindex and replace title, description, og:title, og:description, og:url and og:image (when a specific cover exists). -->
   <meta property="og:title" content="[Nombre del proyecto] - Marco Rios" />
-  <meta property="og:description" content="[Resumen corto del caso de uso: problema, enfoque y stack principal.]" />
+  <meta property="og:description" content="[Resumen corto del caso de estudio: problema, enfoque y stack principal.]" />
   <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover.png" />
   <meta property="og:url" content="https://marcorios99.github.io/projects/case-study-template/" />
   <meta name="twitter:card" content="summary_large_image" />
-
-  <title>[Nombre del proyecto] - Caso de uso</title>
-  <meta name="description" content="[Descripción SEO corta del caso de uso.]" />
-  <meta name="theme-color" content="#0b0b0b">
-
+  <title>[Nombre del proyecto] - Caso de estudio</title>
+  <meta name="description" content="[Descripcion SEO corta del caso de estudio.]" />
+  <meta name="theme-color" content="#0b0f14" />
   <script>
   (function () {
     const theme = localStorage.getItem('theme') || 'dark';
@@ -22,226 +21,305 @@
     html.classList.toggle('light', theme !== 'dark');
     html.dataset.theme = theme;
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0b0b' : '#ffffff');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
   })();
   </script>
-
   <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script defer src="/assets/js/site.js"></script>
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/pages/project-detail.css">
 </head>
-
-<body class="min-h-screen bg-white text-slate-900 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100">
-  <header class="sticky top-0 z-50 border-b backdrop-blur bg-white/70 border-slate-200/70 dark:bg-slate-950/70 dark:border-white/10">
+<body class="min-h-screen">
+  <header class="sticky top-0 z-50 border-b backdrop-blur">
     <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
-      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
-
+      <a href="/" class="site-wordmark">Marco Rios</a>
       <div class="hidden md:flex items-center gap-6 text-sm">
         <a href="/projects/" class="navlink">Proyectos</a>
-        <a href="/about/" class="navlink">Acerca de mí</a>
+        <a href="/about/" class="navlink">Acerca de m&iacute;</a>
         <a href="/help/" class="navlink">Notas</a>
         <a href="/" class="navlink">Inicio</a>
       </div>
-
       <div class="flex items-center gap-2">
-        <a href="/en/" class="btn-outline" aria-label="Switch to English">
-          <i data-lucide="languages" class="h-4 w-4"></i>
-          ES
-        </a>
-        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
-          <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
-        </button>
+        <!-- Add a language link here only when this case study has a real localized counterpart. -->
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"><span id="themeIcon" class="h-5 w-5 inline-flex"></span></button>
       </div>
     </nav>
   </header>
+  <main class="case-study-page">
+    <div class="case-study-back-wrap mx-auto container-xx px-4"><a href="/projects/" class="case-study-back text-link">&larr; Volver a proyectos</a></div>
 
-  <main>
-    <section class="mx-auto container-xx px-4 py-14 sm:py-16">
-      <div class="max-w-4xl space-y-6">
-        <div class="flex flex-wrap gap-2">
-          <span class="inline-flex items-center gap-2 rounded-full border border-emerald-600/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-700 dark:text-emerald-300">Caso de uso</span>
-          <span class="badge badge-neutral">Caso de uso sintético</span>
-          <span class="badge badge-neutral">Basado en problemas reales</span>
+    <!-- CORE MODULE: project hero. -->
+    <section class="case-study-hero mx-auto container-xx px-4" aria-labelledby="case-study-title">
+      <div class="case-study-hero-grid">
+        <div class="case-study-hero-copy">
+          <p class="section-kicker">Caso de estudio</p>
+          <h1 id="case-study-title">[Nombre del proyecto]</h1>
+          <p class="case-study-summary">[Resumen ejecutivo: explica en dos o tres l&iacute;neas qu&eacute; problema resuelve, para qui&eacute;n y qu&eacute; capacidad se construy&oacute;.]</p>
+          <!-- OPTIONAL MODULE: confidentiality note. REMOVE WHEN UNUSED. -->
+          <p class="case-study-note">[Este caso presenta una versi&oacute;n sint&eacute;tica basada en problemas reales, sin exponer datos ni dominios privados.]</p>
+          <dl class="case-study-meta">
+            <div class="case-study-meta-item">
+              <dt>Rol</dt>
+              <dd>[Arquitectura, backend, procesamiento, interfaz, etc.]</dd>
+            </div>
+            <div class="case-study-meta-item">
+              <dt>Alcance</dt>
+              <dd>[Prototipo, caso de estudio, aplicaci&oacute;n publicada o herramienta interna.]</dd>
+            </div>
+            <div class="case-study-meta-item">
+              <dt>Stack principal</dt>
+              <dd>[Python, FastAPI, SQL Server, OpenCV, Kotlin, etc.]</dd>
+            </div>
+          </dl>
+          <!-- OPTIONAL MODULE: uncomment only links with real destinations.
+          <div class="case-study-hero-links" aria-label="Enlaces t&eacute;cnicos">
+            <a href="https://..." class="text-link" target="_blank" rel="noreferrer">Repositorio</a>
+            <a href="https://..." class="text-link" target="_blank" rel="noreferrer">Demo</a>
+            <a href="https://..." class="text-link" target="_blank" rel="noreferrer">README t&eacute;cnico</a>
+          </div> -->
         </div>
-
-        <div class="space-y-4">
-          <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">[Nombre del proyecto]</h1>
-          <p class="max-w-3xl text-slate-700 dark:text-slate-300">
-            [Resumen ejecutivo: explica en 2-3 líneas qué problema resuelve, para quién y qué tipo de solución construiste.]
-          </p>
-          <p class="max-w-3xl text-sm text-slate-600 dark:text-slate-400">
-            Este caso de uso presenta una versión sintética basada en problemas reales, cuidando la confidencialidad de datos, clientes y dominios originales.
-          </p>
-        </div>
-
-        <div class="flex flex-wrap gap-3">
-          <a href="[URL_REPO_O_DEMO]" target="_blank" class="btn-outline" rel="noreferrer">
-            <i data-lucide="github" class="h-4 w-4"></i> Ver repo
-          </a>
-          <a href="/projects/" class="btn-outline">&larr; Volver a proyectos</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="mx-auto container-xx px-4 pb-6">
-      <div class="grid md:grid-cols-3 gap-4">
-        <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <p class="text-xs text-emerald-700 dark:text-emerald-300">Estado</p>
-          <p class="mt-1 text-2xl font-semibold">[Caso de uso]</p>
-          <p class="mt-1 text-xs text-slate-600 dark:text-slate-400">[Publicado / en construcción / código privado]</p>
-        </article>
-        <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <p class="text-xs text-emerald-700 dark:text-emerald-300">Dominio</p>
-          <p class="mt-1 text-2xl font-semibold">[Área]</p>
-          <p class="mt-1 text-xs text-slate-600 dark:text-slate-400">[Datos / documentos / Android / despliegue]</p>
-        </article>
-        <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <p class="text-xs text-emerald-700 dark:text-emerald-300">Stack</p>
-          <p class="mt-1 text-2xl font-semibold">[Core]</p>
-          <p class="mt-1 text-xs text-slate-600 dark:text-slate-400">[Python, FastAPI, SQL Server, etc.]</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="mx-auto container-xx px-4 py-10">
-      <div class="grid md:grid-cols-5 gap-6 items-start">
-        <article class="md:col-span-3 rounded-2xl border p-6 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <h2 class="text-2xl font-semibold">Problema</h2>
-          <p class="mt-3 text-sm text-slate-700 dark:text-slate-300">
-            [Describe el dolor operativo o técnico: tarea manual, datos dispersos, poca trazabilidad, búsqueda lenta, errores de captura, etc.]
-          </p>
-          <ul class="mt-4 list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-1">
-            <li>[Dolor 1]</li>
-            <li>[Dolor 2]</li>
-            <li>[Dolor 3]</li>
-          </ul>
-        </article>
-
-        <aside class="md:col-span-2 rounded-2xl border p-6 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <h2 class="text-xl font-semibold">Stack técnico</h2>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs">
-            <span class="badge">[Tecnología 1]</span>
-            <span class="badge">[Tecnología 2]</span>
-            <span class="badge">[Tecnología 3]</span>
-            <span class="badge">[Tecnología 4]</span>
+        <figure class="case-study-hero-media">
+          <div class="case-study-media-frame">
+            <div class="case-study-media-placeholder">
+              <strong>Evidencia principal del proyecto</strong>
+              <span>Captura, comparativa, arquitectura o microdemo.</span>
+            </div>
           </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="mx-auto container-xx px-4 py-10">
-      <article class="rounded-2xl border p-6 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-        <h2 class="text-2xl font-semibold">Solución propuesta</h2>
-        <p class="mt-3 text-sm text-slate-700 dark:text-slate-300">
-          [Explica la arquitectura o flujo de solución en lenguaje simple. Evita vender humo: qué entra, qué procesa, qué valida y qué entrega.]
-        </p>
-        <div class="mt-5 grid md:grid-cols-3 gap-4 text-sm">
-          <div class="rounded-2xl border p-4 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-            <h3 class="font-semibold">Entrada</h3>
-            <p class="mt-2 text-slate-700 dark:text-slate-300">[Archivos, formularios, consultas, imágenes, PDFs, datos internos.]</p>
-          </div>
-          <div class="rounded-2xl border p-4 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-            <h3 class="font-semibold">Procesamiento</h3>
-            <p class="mt-2 text-slate-700 dark:text-slate-300">[API, validaciones, OCR, LLM, reglas, SQL controlado.]</p>
-          </div>
-          <div class="rounded-2xl border p-4 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-            <h3 class="font-semibold">Salida</h3>
-            <p class="mt-2 text-slate-700 dark:text-slate-300">[JSON, tabla, reporte, respuesta, dashboard, app móvil.]</p>
-          </div>
-        </div>
-      </article>
-    </section>
-
-    <section class="mx-auto container-xx px-4 py-10">
-      <h2 class="mb-6 text-2xl font-semibold">Flujo técnico</h2>
-      <div class="rounded-2xl border p-6 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-        <pre class="overflow-x-auto text-sm"><code>[Entrada]
-  -> [Validación / normalización]
-  -> [Procesamiento principal]
-  -> [Persistencia / consulta]
-  -> [Respuesta / evidencia / reporte]</code></pre>
-      </div>
-    </section>
-
-    <section class="mx-auto container-xx px-4 py-10">
-      <div class="grid md:grid-cols-2 gap-6">
-        <article class="rounded-2xl border p-6 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <h2 class="text-2xl font-semibold">Decisiones técnicas</h2>
-          <ul class="mt-4 list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-2">
-            <li><strong>[Decisión 1]:</strong> [Por qué se eligió y qué trade-off tiene.]</li>
-            <li><strong>[Decisión 2]:</strong> [Por qué se eligió y qué trade-off tiene.]</li>
-            <li><strong>[Decisión 3]:</strong> [Por qué se eligió y qué trade-off tiene.]</li>
-          </ul>
-        </article>
-
-        <article class="rounded-2xl border p-6 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <h2 class="text-2xl font-semibold">Validaciones y seguridad</h2>
-          <ul class="mt-4 list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-2">
-            <li>[Validación de entrada]</li>
-            <li>[Control de permisos / JWT / roles, si aplica]</li>
-            <li>[Trazabilidad, logs, auditoría o checksums]</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="mx-auto container-xx px-4 py-10">
-      <h2 class="mb-6 text-2xl font-semibold">Evidencia visual</h2>
-      <div class="grid md:grid-cols-3 gap-4">
-        <figure class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <div class="aspect-video rounded-xl border border-dashed border-slate-300 bg-slate-50 dark:border-white/15 dark:bg-slate-950/40"></div>
-          <figcaption class="mt-3 text-xs text-slate-600 dark:text-slate-400">[Screenshot/GIF 1: entrada o pantalla principal]</figcaption>
-        </figure>
-        <figure class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <div class="aspect-video rounded-xl border border-dashed border-slate-300 bg-slate-50 dark:border-white/15 dark:bg-slate-950/40"></div>
-          <figcaption class="mt-3 text-xs text-slate-600 dark:text-slate-400">[Screenshot/GIF 2: procesamiento o resultado intermedio]</figcaption>
-        </figure>
-        <figure class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <div class="aspect-video rounded-xl border border-dashed border-slate-300 bg-slate-50 dark:border-white/15 dark:bg-slate-950/40"></div>
-          <figcaption class="mt-3 text-xs text-slate-600 dark:text-slate-400">[Screenshot/GIF 3: salida final]</figcaption>
+          <figcaption>[La evidencia principal se documentar&aacute; al publicar el proyecto.]</figcaption>
+          <!-- OPTIONAL MODULE: image implementation.
+          <picture><source srcset="..." type="image/webp"><img src="..." alt="..." width="..." height="..." loading="eager" decoding="async"></picture> -->
+          <!-- OPTIONAL MODULE: short video implementation. Prefer MP4/WebM over GIF. Autoplay is only appropriate for a short, muted, looping microdemo with a poster and no essential audio.
+          <video controls muted playsinline preload="metadata" poster="..."><source src="..." type="video/webm"><source src="..." type="video/mp4">Tu navegador no puede reproducir el video.</video> -->
         </figure>
       </div>
     </section>
 
-    <section class="mx-auto container-xx px-4 py-10">
-      <div class="grid md:grid-cols-2 gap-6">
-        <article class="rounded-2xl border p-6 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <h2 class="text-2xl font-semibold">Resultados y aprendizajes</h2>
-          <ul class="mt-4 list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-2">
-            <li>[Resultado medible 1]</li>
-            <li>[Resultado medible 2]</li>
-            <li>[Resultado medible 3]</li>
-          </ul>
+    <!-- CORE MODULE: narrative sequence. -->
+    <section class="case-study-section case-study-story-section mx-auto container-xx px-4" aria-labelledby="story-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Narrativa</p>
+        <h2 id="story-title">Del problema al resultado</h2>
+      </div>
+      <ol class="case-study-story">
+        <li class="case-study-story-step">
+          <span class="case-study-story-index" aria-hidden="true">01</span>
+          <div>
+            <h3>Problema</h3>
+            <p>[Dolor operativo o t&eacute;cnico que imped&iacute;a avanzar con claridad, velocidad o trazabilidad.]</p>
+          </div>
+        </li>
+        <li class="case-study-story-step">
+          <span class="case-study-story-index" aria-hidden="true">02</span>
+          <div>
+            <h3>Soluci&oacute;n</h3>
+            <p>[Sistema o capacidad construida para transformar el flujo anterior.]</p>
+          </div>
+        </li>
+        <li class="case-study-story-step">
+          <span class="case-study-story-index" aria-hidden="true">03</span>
+          <div>
+            <h3>Resultado</h3>
+            <p>[Capacidad verificada, flujo automatizado, salida estructurada o experiencia funcional.]</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- CORE MODULE: adaptable process flow. -->
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="flow-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Flujo</p>
+        <h2 id="flow-title">C&oacute;mo funciona</h2>
+        <p>[Describe el recorrido general sin sustituir la documentaci&oacute;n de implementaci&oacute;n.]</p>
+      </div>
+      <ol class="case-study-flow">
+        <li class="case-study-flow-step">
+          <span class="case-study-flow-index" aria-hidden="true">01</span>
+          <div class="case-study-flow-copy">
+            <h3>Entrada</h3>
+            <p>[Archivos, formularios, consultas, im&aacute;genes, documentos o datos internos.]</p>
+          </div>
+        </li>
+        <li class="case-study-flow-step">
+          <span class="case-study-flow-index" aria-hidden="true">02</span>
+          <div class="case-study-flow-copy">
+            <h3>Validaci&oacute;n y normalizaci&oacute;n</h3>
+            <p>[Revisi&oacute;n de formato, contexto, calidad y condiciones necesarias para continuar.]</p>
+          </div>
+        </li>
+        <li class="case-study-flow-step">
+          <span class="case-study-flow-index" aria-hidden="true">03</span>
+          <div class="case-study-flow-copy">
+            <h3>Procesamiento principal</h3>
+            <p>[Reglas, servicios, modelos, consultas o transformaciones controladas.]</p>
+          </div>
+        </li>
+        <li class="case-study-flow-step">
+          <span class="case-study-flow-index" aria-hidden="true">04</span>
+          <div class="case-study-flow-copy">
+            <h3>Salida o entrega</h3>
+            <p>[Respuesta, tabla, reporte, archivo, interfaz o evidencia disponible para revisar.]</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- CORE MODULE: technical reasoning. -->
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="decisions-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Criterio</p>
+        <h2 id="decisions-title">Decisiones t&eacute;cnicas</h2>
+      </div>
+      <div class="case-study-decisions">
+        <article class="case-study-decision">
+          <div class="case-study-decision-index" aria-hidden="true">01</div>
+          <div class="case-study-decision-body">
+            <h3>[Decisi&oacute;n t&eacute;cnica]</h3>
+            <dl>
+              <div>
+                <dt>Motivo</dt>
+                <dd>[Por qu&eacute; se eligi&oacute;.]</dd>
+              </div>
+              <div>
+                <dt>Trade-off</dt>
+                <dd>[Qu&eacute; costo, limitaci&oacute;n o compromiso introdujo.]</dd>
+              </div>
+            </dl>
+          </div>
         </article>
-        <article class="rounded-2xl border p-6 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-          <h2 class="text-2xl font-semibold">Limitaciones y mejoras futuras</h2>
-          <ul class="mt-4 list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-2">
-            <li>[Mejora 1]</li>
-            <li>[Mejora 2]</li>
-            <li>[Mejora 3]</li>
-          </ul>
+        <article class="case-study-decision">
+          <div class="case-study-decision-index" aria-hidden="true">02</div>
+          <div class="case-study-decision-body">
+            <h3>[Decisi&oacute;n t&eacute;cnica]</h3>
+            <dl>
+              <div>
+                <dt>Motivo</dt>
+                <dd>[Por qu&eacute; se eligi&oacute;.]</dd>
+              </div>
+              <div>
+                <dt>Trade-off</dt>
+                <dd>[Qu&eacute; costo, limitaci&oacute;n o compromiso introdujo.]</dd>
+              </div>
+            </dl>
+          </div>
+        </article>
+        <article class="case-study-decision">
+          <div class="case-study-decision-index" aria-hidden="true">03</div>
+          <div class="case-study-decision-body">
+            <h3>[Decisi&oacute;n t&eacute;cnica]</h3>
+            <dl>
+              <div>
+                <dt>Motivo</dt>
+                <dd>[Por qu&eacute; se eligi&oacute;.]</dd>
+              </div>
+              <div>
+                <dt>Trade-off</dt>
+                <dd>[Qu&eacute; costo, limitaci&oacute;n o compromiso introdujo.]</dd>
+              </div>
+            </dl>
+          </div>
         </article>
       </div>
     </section>
 
-    <section class="mx-auto container-xx px-4 py-16">
-      <div class="rounded-3xl border p-8 text-center bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-        <h2 class="text-2xl font-semibold">Sobre este caso de uso</h2>
-        <p class="mx-auto mt-2 max-w-2xl text-sm text-slate-700 dark:text-slate-300">
-          Esta página funciona como plantilla base. Duplica el directorio, reemplaza los placeholders y ajusta el contenido según el proyecto.
-        </p>
-        <div class="mt-5 flex flex-wrap justify-center gap-3">
-          <a href="/projects/" class="btn-outline">&larr; Volver a proyectos</a>
-          <a href="mailto:marcoandrer99@hotmail.com" class="btn-accent">Contactar</a>
+    <!-- CORE MODULE: evidence can grow, shrink or be removed when unused. -->
+    <section class="case-study-section case-study-evidence mx-auto container-xx px-4" aria-labelledby="evidence-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Comprobaci&oacute;n</p>
+        <h2 id="evidence-title">Evidencia y validaci&oacute;n</h2>
+      </div>
+      <div class="case-study-evidence-grid">
+        <figure class="case-study-evidence-item">
+          <div class="case-study-evidence-placeholder">Evidencia A</div>
+          <figcaption>[Captura, comparativa, video o resultado de prueba.]</figcaption>
+        </figure>
+        <figure class="case-study-evidence-item">
+          <div class="case-study-evidence-placeholder">Evidencia B</div>
+          <figcaption>[Escenario, dispositivo, caso procesado o salida verificable.]</figcaption>
+        </figure>
+      </div>
+      <ul class="case-study-validation-list">
+        <li>[Prueba, escenario o caso validado.]</li>
+        <li>[Resultado verificable.]</li>
+        <li>[Entorno, dispositivo o conjunto de datos usado.]</li>
+      </ul>
+    </section>
+
+    <!-- OPTIONAL MODULE: validation and security. REMOVE WHEN UNUSED.
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="security-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Controles</p>
+        <h2 id="security-title">Validaci&oacute;n y seguridad</h2>
+      </div>
+      <ul class="case-study-validation-list">
+        <li>[Validaci&oacute;n de entradas, permisos o autenticaci&oacute;n.]</li>
+        <li>[SQL seguro, trazabilidad, auditor&iacute;a o protecci&oacute;n de datos.]</li>
+        <li>[Manejo de baja confianza y controles de error.]</li>
+      </ul>
+    </section>
+    -->
+    <!-- OPTIONAL MODULE: performance. REMOVE WHEN UNUSED.
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="performance-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Rendimiento</p>
+        <h2 id="performance-title">Rendimiento observado</h2>
+      </div>
+      <ul class="case-study-validation-list">
+        <li>[Latencia, memoria, tama&ntilde;o de biblioteca o velocidad de procesamiento.]</li>
+        <li>[Comparativa antes/despu&eacute;s o comportamiento con paginaci&oacute;n.]</li>
+      </ul>
+    </section>
+    -->
+
+    <!-- CORE MODULE: current limits and future work. -->
+    <section class="case-study-section case-study-outlook mx-auto container-xx px-4" aria-labelledby="outlook-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Continuidad</p>
+        <h2 id="outlook-title">Limitaciones y pr&oacute;ximos pasos</h2>
+      </div>
+      <div class="case-study-outlook-grid">
+        <div>
+          <h3>Limitaciones actuales</h3>
+          <ul>
+            <li>[L&iacute;mite conocido.]</li>
+            <li>[Condici&oacute;n no cubierta.]</li>
+            <li>[Riesgo o dependencia.]</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Pr&oacute;ximos pasos</h3>
+          <ul>
+            <li>[Mejora prioritaria.]</li>
+            <li>[Validaci&oacute;n pendiente.]</li>
+            <li>[Evoluci&oacute;n futura.]</li>
+          </ul>
         </div>
       </div>
     </section>
+
+    <!-- CORE MODULE: technical links. -->
+    <section class="case-study-section case-study-resources mx-auto container-xx px-4" aria-labelledby="resources-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Recursos</p>
+        <h2 id="resources-title">Profundizaci&oacute;n t&eacute;cnica</h2>
+        <p>En los proyectos publicados, esta secci&oacute;n enlaza a la implementaci&oacute;n y su documentaci&oacute;n t&eacute;cnica.</p>
+      </div>
+      <!-- OPTIONAL MODULE: uncomment only links that exist.
+      <nav class="case-study-resource-links" aria-label="Recursos t&eacute;cnicos del proyecto">
+        <a href="https://..." class="text-link" target="_blank" rel="noreferrer">Repositorio</a>
+        <a href="https://..." class="text-link" target="_blank" rel="noreferrer">README</a>
+        <a href="https://..." class="text-link" target="_blank" rel="noreferrer">Arquitectura</a>
+        <a href="https://..." class="text-link" target="_blank" rel="noreferrer">Pruebas</a>
+        <a href="https://..." class="text-link" target="_blank" rel="noreferrer">Documentaci&oacute;n de API</a>
+        <a href="https://..." class="text-link" target="_blank" rel="noreferrer">Demo</a>
+      </nav>
+      -->
+    </section>
+    <!-- REMOVE WHEN UNUSED: developer instruction only. Duplicate this directory, replace placeholders and retain only modules supported by real content. -->
+    <div class="case-study-back-wrap case-study-back-wrap--footer mx-auto container-xx px-4"><a href="/projects/" class="case-study-back text-link">&larr; Volver a proyectos</a></div>
   </main>
-
-  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
-    &copy; <span id="yr"></span> Marco Rios &middot; Desplegable en GitHub Pages
-  </footer>
+  <footer class="case-study-footer">&copy; <span id="yr"></span> Marco Rios &middot; Desplegable en GitHub Pages</footer>
 </body>
 </html>
