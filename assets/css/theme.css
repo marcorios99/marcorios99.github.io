@@ -1,18 +1,19 @@
 :root,
 html.light {
-  --brand: 36 99% 50%;
-  --accent: #77e2bb;
+  --accent: #2f6fed;
+  --accent-strong: #1f58c7;
+  --accent-solid: #2f6fed;
   --bg: #f8fafc;
   --bg-strong: #ffffff;
   --surface: #ffffff;
-  --surface-soft: #f8fafc;
-  --surface-glass: rgba(255,255,255,.72);
+  --surface-soft: #f1f5f9;
+  --surface-glass: rgba(255,255,255,.84);
   --text: #0f172a;
   --text-body: #334155;
-  --text-muted: #475569;
-  --border: #e2e8f0;
-  --border-soft: #cbd5e1;
-  --shadow: 0 22px 55px rgba(15,23,42,.12);
+  --text-muted: #64748b;
+  --border: #d7e0e8;
+  --border-soft: #c4d0dc;
+  --shadow: 0 24px 65px rgba(15,23,42,.10);
   --toggle-bg: rgba(255,255,255,.75);
   --toggle-bg-hover: #ffffff;
   --toggle-fg: #334155;
@@ -21,18 +22,20 @@ html.light {
 }
 
 html.dark {
-  --accent: #1caf81;
-  --bg: #020617;
-  --bg-strong: #0f172a;
-  --surface: rgba(15,23,42,.76);
-  --surface-soft: rgba(30,41,59,.72);
-  --surface-glass: rgba(15,23,42,.62);
+  --accent: #74a9f5;
+  --accent-strong: #5591e4;
+  --accent-solid: #3474d4;
+  --bg: #0b0f14;
+  --bg-strong: #0b0f14;
+  --surface: #111820;
+  --surface-soft: #0f151c;
+  --surface-glass: rgba(11,15,20,.84);
   --text: #f8fafc;
-  --text-body: #e2e8f0;
-  --text-muted: #cbd5e1;
-  --border: rgba(255,255,255,.12);
-  --border-soft: rgba(255,255,255,.18);
-  --shadow: 0 26px 70px rgba(0,0,0,.32);
+  --text-body: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border: rgba(148,163,184,.16);
+  --border-soft: rgba(148,163,184,.26);
+  --shadow: 0 28px 80px rgba(0,0,0,.34);
   --toggle-bg: rgba(2,6,23,.70);
   --toggle-bg-hover: rgba(2,6,23,.90);
   --toggle-fg: #e5e7eb;
@@ -42,12 +45,21 @@ html.dark {
 
 body {
   font-feature-settings: "ss01" on, "cv01" on;
-  background: linear-gradient(to bottom, var(--bg-strong), var(--bg), var(--surface-soft)) !important;
   color: var(--text-body) !important;
 }
 
+html.light body {
+  background: linear-gradient(to bottom, var(--bg-strong), var(--bg)) !important;
+}
+
+html.dark body {
+  background:
+    radial-gradient(circle at 82% 10%, color-mix(in srgb, var(--accent) 4%, transparent), transparent 28rem),
+    linear-gradient(to bottom, var(--bg-strong), var(--bg)) !important;
+}
+
 header {
-  background-color: color-mix(in srgb, var(--bg-strong) 76%, transparent) !important;
+  background: color-mix(in srgb, var(--bg-strong) 84%, transparent) !important;
   border-color: var(--border) !important;
 }
 
