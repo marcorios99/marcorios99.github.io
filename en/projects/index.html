@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta property="og:title" content="Projects - Marco Rios" />
+  <meta property="og:description" content="Case studies on AI applied to business data, document automation, OCR/ICR/OMR, FastAPI backend development, SQL Server, and Android." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover-portfolio-2026.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/en/projects/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>Projects - Marco Rios</title>
+  <meta name="description" content="Marco Rios's projects and case studies on AI applied to business data, document automation, backend development, OCR/ICR/OMR, and Android." />
+  <meta name="theme-color" content="#0b0f14">
+
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
+  })();
+  </script>
+
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/pages/projects.css">
+</head>
+
+<body class="min-h-screen">
+  <header class="sticky top-0 z-50 border-b backdrop-blur">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+      <a href="/en/" class="site-wordmark">Marco Rios</a>
+
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/en/" class="navlink">Home</a>
+        <a href="/en/about/" class="navlink">About me</a>
+        <a href="/en/help/" class="navlink">Notes</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="/projects/" class="btn-outline" aria-label="View projects in Spanish">
+          <i data-lucide="languages" class="h-4 w-4"></i>
+          ES
+        </a>
+        <button id="themeBtn" class="theme-btn" aria-label="Change theme" aria-pressed="false" title="Change theme">
+          <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="projects-page">
+    <section class="projects-hero mx-auto container-xx px-4" aria-labelledby="projects-title">
+      <div class="projects-hero-copy">
+        <p class="section-kicker">Projects</p>
+        <h1 id="projects-title">Projects in applied AI and document automation</h1>
+        <p>
+          This section organizes my portfolio around two main pillars: querying business data with local AI and capturing information from forms and documents. The projects are presented as synthetic use cases based on real-world problems, without exposing private data or original domains.
+        </p>
+        <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="text-link" rel="noreferrer">View GitHub profile</a>
+      </div>
+    </section>
+
+    <section class="featured-projects mx-auto container-xx px-4" aria-labelledby="featured-projects-title">
+      <div class="featured-projects-header">
+        <h2 id="featured-projects-title">Main projects</h2>
+        <p>The two case studies that best represent my current profile.</p>
+      </div>
+
+      <div class="featured-projects-list">
+        <article id="business-data-assistant" class="featured-project">
+          <div class="featured-project-index" aria-hidden="true">01</div>
+          <div class="featured-project-body">
+            <div class="featured-project-stack">
+              <span class="badge">FastAPI</span>
+              <span class="badge">SQL Server</span>
+              <span class="badge">Local LLM</span>
+              <span class="badge">Structured JSON</span>
+              <span class="badge">Safe SQL</span>
+            </div>
+            <h3>Asistente empresarial de datos con IA local</h3>
+            <p>Enterprise assistant for querying sales, products, inventory, and targets using natural language. The system converts user questions into a validated JSON intent, runs safe SQL queries, and returns answers as a summary, table, or chart.</p>
+            <ul class="featured-project-points">
+              <li>The LLM does not generate or run SQL directly.</li>
+              <li>The backend validates the intent and builds controlled queries.</li>
+              <li>The response can be displayed as a summary, table, or visualization.</li>
+            </ul>
+            <p class="featured-project-status">Synthetic use case based on real-world problems.</p>
+          </div>
+        </article>
+
+        <article id="automated-form-processing" class="featured-project">
+          <div class="featured-project-index" aria-hidden="true">02</div>
+          <div class="featured-project-body">
+            <div class="featured-project-stack">
+              <span class="badge">Python</span>
+              <span class="badge">OpenCV</span>
+              <span class="badge">OCR</span>
+              <span class="badge">ICR</span>
+              <span class="badge">OMR</span>
+              <span class="badge">JSON/SQL</span>
+            </div>
+            <h3>Procesamiento autom&aacute;tico de formularios OCR/ICR/OMR</h3>
+            <p>Automated capture system for processing scanned forms, detecting OMR marks, extracting fields through OCR/ICR, validating data, and exporting structured results for database loading or later review.</p>
+            <ul class="featured-project-points">
+              <li>Image preprocessing and perspective correction.</li>
+              <li>Detection of areas, checkboxes, and OMR marks.</li>
+              <li>Validation, structured export, and low-confidence reporting.</li>
+            </ul>
+            <p class="featured-project-status">Synthetic use case based on real-world problems.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="projects-catalog mx-auto container-xx px-4" aria-labelledby="projects-catalog-title">
+      <div class="projects-catalog-header">
+        <h2 id="projects-catalog-title">Other projects and capabilities</h2>
+        <p>Secondary categories for organizing individual projects, technical notes, and complementary work.</p>
+      </div>
+
+      <section id="android-apps" class="project-category" aria-labelledby="android-apps-title">
+        <div class="project-category-header">
+          <div class="project-category-copy">
+            <h3 id="android-apps-title">Android apps</h3>
+            <p>Personal apps and mobile case studies. This category presents Android as a complement, not the main focus.</p>
+          </div>
+          <div class="project-category-tech">
+            <span class="badge">Android</span>
+            <span class="badge">Kotlin</span>
+            <span class="badge">Jetpack Compose</span>
+          </div>
+        </div>
+        <div class="project-category-grid">
+          <article class="catalog-project">
+            <h4>UltraHDR Off</h4>
+            <p>Android app related to Ultra HDR image processing and management, visual compatibility, permissions, metadata, and user experience.</p>
+            <p class="catalog-project-status">Use case &middot; Private code</p>
+          </article>
+          <article class="catalog-project">
+            <h4>Rivu Gallery</h4>
+            <p>Personal Android gallery focused on organization, image viewing, modern permissions, and a polished mobile experience.</p>
+            <p class="catalog-project-status">Personal app &middot; Use case/repository subject to availability</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="api-deployment" class="project-category" aria-labelledby="api-deployment-title">
+        <div class="project-category-header">
+          <div class="project-category-copy">
+            <h3 id="api-deployment-title">API deployment</h3>
+            <p>Notes and practical deployment cases for internal APIs and backend services.</p>
+          </div>
+          <div class="project-category-tech">
+            <span class="badge">FastAPI</span>
+            <span class="badge">IIS/Nginx</span>
+            <span class="badge">HTTPS</span>
+            <span class="badge">Windows/Linux</span>
+          </div>
+        </div>
+        <div class="project-category-grid">
+          <article class="catalog-project">
+            <h4>FastAPI Deployment Notes</h4>
+            <p>Guide/use case for publishing a FastAPI API on a server, managing environment variables, the service process, and basic configuration.</p>
+            <p class="catalog-project-status">Technical notes &middot; In progress</p>
+          </article>
+          <article class="catalog-project">
+            <h4>Reverse Proxy Setup</h4>
+            <p>Practical setup with IIS/Nginx, HTTPS, domains/subdomains, and access from web or Android clients.</p>
+            <p class="catalog-project-status">Technical notes &middot; In progress</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="internal-automation-tools" class="project-category" aria-labelledby="internal-automation-tools-title">
+        <div class="project-category-header">
+          <div class="project-category-copy">
+            <h3 id="internal-automation-tools-title">Internal tools</h3>
+            <p>Internal utilities to reduce repetitive manual work and improve data quality.</p>
+          </div>
+          <div class="project-category-tech">
+            <span class="badge">Python</span>
+            <span class="badge">SQL</span>
+            <span class="badge">Files</span>
+            <span class="badge">Reports</span>
+          </div>
+        </div>
+        <div class="project-category-grid">
+          <article class="catalog-project">
+            <h4>File Processing Toolkit</h4>
+            <p>Scripts for organizing, transforming, and validating input files before loading or analyzing them.</p>
+            <p class="catalog-project-status">Internal utility &middot; In progress</p>
+          </article>
+          <article class="catalog-project">
+            <h4>SQL Validation &amp; Reporting</h4>
+            <p>Queries, validations, and reports for detecting inconsistencies, summarizing results, and providing operational traceability.</p>
+            <p class="catalog-project-status">Internal utility &middot; In progress</p>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="projects-footer">
+    &copy; <span id="yr"></span> Marco Rios &middot; Deployed on GitHub Pages
+  </footer>
+</body>
+</html>
