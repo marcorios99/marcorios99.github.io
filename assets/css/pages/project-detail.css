@@ -73,6 +73,7 @@
 
 .case-study-evidence-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.25rem; margin-top: 2.25rem; }
 .case-study-evidence-placeholder { aspect-ratio: 16 / 10; padding: 1rem; color: var(--text-muted); font-size: .82rem; }
+.case-study-code-block { max-width: 48rem; margin-top: 2.25rem; overflow-x: auto; border: 1px solid var(--border); border-radius: .75rem; padding: 1.25rem; background: color-mix(in srgb, var(--surface-soft) 70%, transparent); color: var(--text-body); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: .8rem; line-height: 1.65; }
 .case-study-validation-list, .case-study-outlook ul { display: grid; gap: .65rem; margin-top: 1.75rem; }
 .case-study-validation-list { max-width: 48rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
 .case-study-validation-list li, .case-study-outlook li { position: relative; padding-left: 1rem; color: var(--text-body); font-size: .88rem; line-height: 1.6; }

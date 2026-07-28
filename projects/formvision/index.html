@@ -42,7 +42,7 @@
         <a href="/projects/" class="navlink">Proyectos</a>
       </div>
       <div class="flex items-center gap-2">
-        <a href="/en/projects/formvision/" class="btn-outline" aria-label="Ver este proyecto en inglés"><i data-lucide="languages" class="h-4 w-4"></i> ES</a>
+        <a href="/en/projects/formvision/" class="btn-outline" aria-label="Ver este proyecto en inglés"><i data-lucide="languages" class="h-4 w-4"></i> EN</a>
         <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"><span id="themeIcon" class="h-5 w-5 inline-flex"></span></button>
       </div>
     </nav>
@@ -57,20 +57,19 @@
           <p class="section-kicker">Caso de estudio · Open source</p>
           <h1 id="case-study-title">FormVision</h1>
           <p class="case-study-summary">Procesamiento estructurado de formularios con QR, OMR, OCR e ICR.</p>
-          <p class="case-study-note">Proyecto MIT completo para su alcance de portafolio: una demo pública, sintética y segura para la privacidad, no un benchmark productivo.</p>
+          <p class="case-study-note">Demo pública sintética y segura para la privacidad. El proyecto está completo para su alcance de portafolio, no es un benchmark productivo.</p>
           <div class="flex flex-wrap gap-2 mt-5" aria-label="Tecnologías y estado del proyecto">
-            <span class="badge">MIT</span><span class="badge">Python</span><span class="badge">OpenCV</span><span class="badge">docTR</span><span class="badge">Demo sintética</span>
+            <span class="badge">Python</span><span class="badge">OpenCV</span><span class="badge">docTR</span>
           </div>
           <dl class="case-study-meta">
-            <div class="case-study-meta-item"><dt>Rol</dt><dd>Arquitectura, pipeline, demo y documentación técnica.</dd></div>
-            <div class="case-study-meta-item"><dt>Alcance</dt><dd>Proyecto open source y case study reproducible.</dd></div>
-            <div class="case-study-meta-item"><dt>Salida</dt><dd>Resultados validados y exportables en JSON, CSV o SQLite.</dd></div>
+            <div class="case-study-meta-item"><dt>Rol</dt><dd>Arquitectura, pipeline, demo y documentación.</dd></div>
+            <div class="case-study-meta-item"><dt>Alcance</dt><dd>Case study open source, reproducible y completo.</dd></div>
+            <div class="case-study-meta-item"><dt>Salida</dt><dd>Resultados validados: JSON, CSV o SQLite.</dd></div>
           </dl>
           <nav class="case-study-hero-links" aria-label="Enlaces de FormVision">
             <a href="https://github.com/marcorios99/formvision" class="text-link" target="_blank" rel="noreferrer">Ver repositorio</a>
             <a href="https://github.com/marcorios99/formvision/blob/main/README.es.md" class="text-link" target="_blank" rel="noreferrer">Ejecutar la demo</a>
             <a href="https://github.com/marcorios99/formvision/tree/main/docs/es" class="text-link" target="_blank" rel="noreferrer">Ver documentación</a>
-            <a href="/projects/" class="text-link">Volver a proyectos</a>
           </nav>
         </div>
         <figure class="case-study-hero-media">
@@ -86,7 +85,7 @@
       <div class="case-study-section-header"><p class="section-kicker">Del problema a la salida</p><h2 id="story-title">Captura repetitiva, convertida en resultados verificables</h2></div>
       <ol class="case-study-story">
         <li class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">01</span><div><h3>Problema</h3><p>Los formularios estructurados escaneados requieren transcribir, revisar y validar datos repetitivos antes de poder utilizarlos.</p></div></li>
-        <li class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">02</span><div><h3>Solución</h3><p>Una plantilla de referencia y un layout explícito conservan la geometría conocida de cada campo durante el procesamiento.</p></div></li>
+        <li class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">02</span><div><h3>Solución</h3><p>Un layout explícito define la geometría conocida de cada campo; cuando el alineamiento está habilitado, una referencia la preserva durante el procesamiento.</p></div></li>
         <li class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">03</span><div><h3>Resultado</h3><p>El pipeline devuelve un <code>FormProcessingResult</code> validado que puede exportarse a JSON, CSV o SQLite.</p></div></li>
       </ol>
     </section>
@@ -105,7 +104,16 @@
       <div class="case-study-section-header"><p class="section-kicker">Plantilla y layout</p><h2 id="layout-title">Geometría explícita en lugar de detección universal</h2><p>La plantilla pública <code>synthetic_omr_v1</code> mide 1240 × 1754 y define 12 fields: 8 OMR, 1 ICR y 3 OCR. <code>layout.json</code> declara <code>page_size</code>, ROIs, validadores y opciones OMR.</p></div>
       <div class="case-study-evidence-grid">
         <figure class="case-study-evidence-item"><img src="/assets/img/projects/formvision/template.png" alt="Plantilla pública de FormVision con la geometría de referencia" width="1240" height="1754" loading="lazy" decoding="async" /><figcaption>La imagen de referencia conserva la relación geométrica con las ROIs configuradas.</figcaption></figure>
-        <div class="case-study-evidence-item"><div class="case-study-evidence-placeholder">El editor <code>layout_viewer.html</code> permite cargar una imagen y un layout existente, mover o redimensionar ROIs y guardar el JSON.</div><p class="case-study-note">No detecta fields automáticamente: la geometría forma parte del contrato de la plantilla.</p></div>
+        <div class="case-study-evidence-item"><pre class="case-study-code-block"><code>{
+  "template_id": "synthetic_omr_v1",
+  "page_size": { "width": 1240, "height": 1754 },
+  "fields": [{
+    "id": "question_01",
+    "type": "omr",
+    "roi": { "x": 157, "y": 560, "width": 268, "height": 54 },
+    "options": ["A", "B", "C", "D"]
+  }]
+}</code></pre><p class="case-study-note"><code>layout_viewer.html</code> mueve y redimensiona ROIs existentes y guarda el layout como JSON; no detecta fields automáticamente.</p></div>
       </div>
     </section>
 
@@ -121,7 +129,7 @@
 
     <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="architecture-title">
       <div class="case-study-section-header"><p class="section-kicker">Arquitectura</p><h2 id="architecture-title">Core reutilizable, preparación y evaluación separadas</h2><p><code>formvision/</code> no depende de <code>demo</code>, <code>synthetic</code>, <code>training</code> ni <code>tools</code>. Esa frontera mantiene el Core centrado en cargar, alinear, extraer, validar y exportar.</p></div>
-      <pre class="mt-8 max-w-xl overflow-x-auto rounded-xl border p-5 text-sm"><code>demo -----------+
+      <pre class="case-study-code-block"><code>demo -----------+
 synthetic ------+--&gt; formvision (reusable core)
 training -------+
 tools ----------+</code></pre>
@@ -129,9 +137,9 @@ tools ----------+</code></pre>
 
     <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="demo-title">
       <div class="case-study-section-header"><p class="section-kicker">Demo pública</p><h2 id="demo-title">Reproducibilidad sin datos privados</h2><p>La demo preparada usa diez scans sintéticos, ground truth por formulario y el artefacto ICR ya incluido. Formularios, identidades y respuestas son sintéticos o públicos.</p></div>
-      <pre class="mt-8 max-w-xl overflow-x-auto rounded-xl border p-5 text-sm"><code>python -m pip install -e ".[full]"
+      <pre class="case-study-code-block"><code>python -m pip install -e ".[full]"
 python demo.py</code></pre>
-      <ul class="case-study-validation-list"><li>MNIST no se descarga ni se entrena para ejecutar la demo preparada.</li><li>docTR puede descargar pesos pretrained al primer uso.</li><li>El lote escribe <code>data/outputs/demo/report.json</code>.</li></ul>
+      <ul class="case-study-validation-list"><li>La demo preparada no descarga MNIST ni ejecuta el trainer.</li><li>docTR puede descargar pesos pretrained al primer uso.</li><li>El lote escribe <code>data/outputs/demo/report.json</code>.</li></ul>
     </section>
 
     <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="evaluation-title">
@@ -143,14 +151,14 @@ python demo.py</code></pre>
       <div class="case-study-section-header"><p class="section-kicker">Criterio técnico</p><h2 id="decisions-title">Decisiones que hacen explícito el contrato</h2></div>
       <div class="case-study-decisions">
         <article class="case-study-decision"><div class="case-study-decision-index" aria-hidden="true">01</div><div class="case-study-decision-body"><h3>Assets sintéticos y reproducibles</h3><dl><div><dt>Motivo</dt><dd>Publicar una demo verificable sin exponer formularios, reglas o identidades privadas.</dd></div><div><dt>Trade-off</dt><dd>La variabilidad sintética no mide rendimiento en producción.</dd></div></dl></div></article>
-        <article class="case-study-decision"><div class="case-study-decision-index" aria-hidden="true">02</div><div class="case-study-decision-body"><h3>Referencia, ROIs y QR separados</h3><dl><div><dt>Motivo</dt><dd>Preservar geometría conocida y mantener claro qué consume cada etapa.</dd></div><div><dt>Trade-off</dt><dd>La plantilla y la referencia son requisitos, no inferencias automáticas.</dd></div></dl></div></article>
+        <article class="case-study-decision"><div class="case-study-decision-index" aria-hidden="true">02</div><div class="case-study-decision-body"><h3>Referencia, ROIs y QR separados</h3><dl><div><dt>Motivo</dt><dd>Preservar geometría conocida y mantener claro qué consume cada etapa.</dd></div><div><dt>Trade-off</dt><dd>El layout forma parte del contrato; cuando el alineamiento está habilitado, se requiere una imagen de referencia.</dd></div></dl></div></article>
         <article class="case-study-decision"><div class="case-study-decision-index" aria-hidden="true">03</div><div class="case-study-decision-body"><h3>Motores opcionales y evaluación fuera del Core</h3><dl><div><dt>Motivo</dt><dd>QR/OMR siguen ligeros; OCR/ICR y la evaluación tienen contratos explícitos.</dd></div><div><dt>Trade-off</dt><dd>docTR puede requerir instalación y descarga de pesos; el artefacto ICR se distribuye para evitar reconstruirlo.</dd></div></dl></div></article>
       </div>
     </section>
 
     <section class="case-study-section case-study-outlook mx-auto container-xx px-4" aria-labelledby="limits-title">
       <div class="case-study-section-header"><p class="section-kicker">Límites</p><h2 id="limits-title">Alcance intencionalmente acotado</h2></div>
-      <div class="case-study-outlook-grid"><div><h3>Limitaciones reales</h3><ul><li>Formularios estructurados y controlados; no hay detección universal ni automática de fields.</li><li>El alineamiento requiere una referencia cuando está habilitado.</li><li>ICR admite dígitos separados, no cursiva ni dígitos tocándose.</li><li>OCR es pretrained y OMR es simple y específico del layout.</li></ul></div><div><h3>Non-goals</h3><ul><li>No soporte de documentos arbitrarios ni de PDF.</li><li>No reporte HTML ni visualización de etapas intermedias.</li><li>No afirmaciones de precisión productiva.</li><li>No roadmap activo de producción: el proyecto está completo para su alcance de portafolio.</li></ul></div></div>
+      <div class="case-study-outlook-grid"><div><h3>Limitaciones reales</h3><ul><li>Formularios estructurados y controlados.</li><li>El layout forma parte del contrato; cuando el alineamiento está habilitado, se requiere una imagen de referencia.</li><li>ICR admite dígitos separados, no cursiva ni dígitos tocándose.</li><li>OCR es pretrained y OMR es simple y específico del layout.</li></ul></div><div><h3>Non-goals</h3><ul><li>Documentos arbitrarios, PDF y detección automática de fields.</li><li>Reporte HTML o visualización de etapas intermedias.</li><li>Afirmaciones de precisión productiva.</li><li>Un roadmap activo de producción: el proyecto está completo para su alcance de portafolio.</li></ul></div></div>
     </section>
 
     <section class="case-study-section case-study-resources mx-auto container-xx px-4" aria-labelledby="resources-title">
@@ -159,6 +167,6 @@ python demo.py</code></pre>
     </section>
     <div class="case-study-back-wrap case-study-back-wrap--footer mx-auto container-xx px-4"><a href="/projects/" class="case-study-back text-link">&larr; Volver a proyectos</a></div>
   </main>
-  <footer class="case-study-footer">&copy; <span id="yr"></span> Marco Rios &middot; Desplegable en GitHub Pages</footer>
+  <footer class="case-study-footer">&copy; <span id="yr"></span> Marco Rios &middot; Desplegado en GitHub Pages</footer>
 </body>
 </html>
