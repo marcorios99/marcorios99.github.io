@@ -48,7 +48,7 @@
       <div class="flex items-center gap-2">
         <a href="/projects/" class="btn-outline" aria-label="View projects in Spanish">
           <i data-lucide="languages" class="h-4 w-4"></i>
-          EN
+          ES
         </a>
         <button id="themeBtn" class="theme-btn" aria-label="Change theme" aria-pressed="false" title="Change theme">
           <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
@@ -103,19 +103,19 @@
             <div class="featured-project-stack">
               <span class="badge">Python</span>
               <span class="badge">OpenCV</span>
-              <span class="badge">OCR</span>
-              <span class="badge">ICR</span>
-              <span class="badge">OMR</span>
-              <span class="badge">JSON/SQL</span>
+              <span class="badge">OMR/OCR/ICR</span>
+              <span class="badge">docTR</span>
+              <span class="badge">JSON/CSV/SQLite</span>
             </div>
             <h3>Automated OCR/ICR/OMR Form Processing</h3>
-            <p>Automated capture system for processing scanned forms, detecting OMR marks, extracting fields through OCR/ICR, validating data, and exporting structured results for database loading or later review.</p>
+            <p>A structured-form pipeline that aligns scans against a reference image, reads QR, and processes layout-defined OMR, OCR, and ICR fields through explicit ROIs.</p>
             <ul class="featured-project-points">
-              <li>Image preprocessing and perspective correction.</li>
-              <li>Detection of areas, checkboxes, and OMR marks.</li>
-              <li>Validation, structured export, and low-confidence reporting.</li>
+              <li>Alignment against a public reference template.</li>
+              <li>Global QR and ROI-defined OMR/OCR/ICR fields.</li>
+              <li>Reproducible ten-form synthetic demo with ground truth and batch evaluation.</li>
             </ul>
-            <p class="featured-project-status">Synthetic use case based on real-world problems.</p>
+            <p class="featured-project-status">FormVision &middot; Open source &middot; Reproducible synthetic demo</p>
+            <div class="featured-project-actions"><a href="/en/projects/formvision/" class="text-link">View case study</a><a href="https://github.com/marcorios99/formvision" class="text-link" target="_blank" rel="noreferrer">GitHub</a></div>
           </div>
         </article>
       </div>

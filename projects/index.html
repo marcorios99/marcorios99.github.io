@@ -48,7 +48,7 @@
       <div class="flex items-center gap-2">
         <a href="/en/projects/" class="btn-outline" aria-label="View projects in English">
           <i data-lucide="languages" class="h-4 w-4"></i>
-          ES
+          EN
         </a>
         <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
           <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
@@ -103,19 +103,19 @@
             <div class="featured-project-stack">
               <span class="badge">Python</span>
               <span class="badge">OpenCV</span>
-              <span class="badge">OCR</span>
-              <span class="badge">ICR</span>
-              <span class="badge">OMR</span>
-              <span class="badge">JSON/SQL</span>
+              <span class="badge">OMR/OCR/ICR</span>
+              <span class="badge">docTR</span>
+              <span class="badge">JSON/CSV/SQLite</span>
             </div>
             <h3>Procesamiento autom&aacute;tico de formularios OCR/ICR/OMR</h3>
-            <p>Sistema de captura autom&aacute;tica para procesar formularios escaneados, detectar marcas OMR, extraer campos mediante OCR/ICR, validar datos y exportar resultados estructurados para carga en base de datos o revisi&oacute;n posterior.</p>
+            <p>Pipeline para formularios estructurados que alinea scans contra una referencia, lee QR y procesa fields OMR, OCR e ICR definidos mediante layouts y ROIs expl&iacute;citas.</p>
             <ul class="featured-project-points">
-              <li>Preprocesamiento de imagen y correcci&oacute;n de perspectiva.</li>
-              <li>Detecci&oacute;n de zonas, casillas y marcas OMR.</li>
-              <li>Validaciones, exportaci&oacute;n estructurada y reporte de baja confianza.</li>
+              <li>Alineamiento contra una plantilla p&uacute;blica de referencia.</li>
+              <li>QR global y fields OMR/OCR/ICR definidos mediante ROIs.</li>
+              <li>Demo reproducible de diez formularios sint&eacute;ticos con ground truth y evaluaci&oacute;n por lote.</li>
             </ul>
-            <p class="featured-project-status">Caso de uso sint&eacute;tico basado en problemas reales.</p>
+            <p class="featured-project-status">FormVision &middot; Open source &middot; Demo sint&eacute;tica reproducible</p>
+            <div class="featured-project-actions"><a href="/projects/formvision/" class="text-link">Ver case study</a><a href="https://github.com/marcorios99/formvision" class="text-link" target="_blank" rel="noreferrer">GitHub</a></div>
           </div>
         </article>
       </div>
