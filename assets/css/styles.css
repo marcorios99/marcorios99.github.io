@@ -13,6 +13,7 @@
   font-weight: 650;
   text-decoration: none;
   transition: background .16s ease, border-color .16s ease, color .16s ease;
+  gap: 0.4rem;
 }
 
 .project-cta:hover,
