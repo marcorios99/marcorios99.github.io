@@ -30,6 +30,7 @@
 }
 .case-study-media-frame, .case-study-evidence-placeholder { display: grid; place-items: center; border: 1px solid var(--border); background: color-mix(in srgb, var(--surface-soft) 70%, transparent); }
 .case-study-media-frame { aspect-ratio: 16 / 10; min-height: 16rem; }
+.case-study-media-frame--portrait { aspect-ratio: 1240 / 1754; }
 .case-study-media-frame > picture,
 .case-study-media-frame > video {
   display: block;
