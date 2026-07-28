@@ -1,2 +1,34 @@
 @import url("/assets/css/theme.css");
 @import url("/assets/css/components.css");
+/* Reusable small project CTA for landing rows and catalog cards. */
+.project-cta {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border-soft);
+  border-radius: .55rem;
+  padding: .35rem .6rem;
+  color: color-mix(in srgb, var(--accent) 68%, var(--text));
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+  font-size: .8rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background .16s ease, border-color .16s ease, color .16s ease;
+}
+
+.project-cta:hover,
+.project-cta:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border-soft));
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  color: var(--text);
+}
+
+.project-cta:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 65%, transparent);
+  outline-offset: 2px;
+}
+
+.project-cta--secondary {
+  color: var(--text-muted);
+  background: transparent;
+  font-weight: 600;
+}

@@ -156,14 +156,8 @@
 .featured-project-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: .9rem;
+  gap: .75rem;
   margin-top: 1rem;
-  font-size: .85rem;
-}
-
-.featured-project-actions > a:first-child {
-  color: var(--text);
-  font-weight: 700;
 }
 
 .projects-catalog {

@@ -280,26 +280,6 @@
   color: var(--accent-strong);
 }
 
-.top-layout .project-cta {
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid var(--border-soft);
-  border-radius: .55rem;
-  padding: .35rem .6rem;
-  color: color-mix(in srgb, var(--accent) 68%, var(--text));
-  background: color-mix(in srgb, var(--accent) 4%, transparent);
-  font-size: .8rem;
-  font-weight: 650;
-  text-decoration: none;
-  transition: background .16s ease, border-color .16s ease, color .16s ease;
-}
-
-.top-layout .project-cta:hover {
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--border-soft));
-  background: color-mix(in srgb, var(--accent) 8%, transparent);
-  color: var(--text);
-}
-
 .other-projects-section {
   padding-block: clamp(3.5rem, 7vw, 5.5rem);
   border-bottom: 1px solid var(--border);
