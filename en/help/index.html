@@ -1,20 +1,57 @@
-<!doctype html><html lang="es"><head>
-    <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Ayuda – Notas rápidas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    </head><body class="bg-slate-950 text-slate-100">
-    <main class="max-w-5xl mx-auto px-4 py-10">
-      <h1 class="text-3xl font-semibold mb-6">Ayuda / Chuletas</h1>
-      <div class="grid md:grid-cols-2 gap-4">
-        <a class="rounded-xl border border-white/10 p-5 hover:bg-white/5" href="/help/sql-window.html">
-          <h2 class="font-semibold">SQL Window functions</h2><p class="text-sm opacity-80">ROW_NUMBER, LAG/LEAD, SUM OVER…</p>
-        </a>
-        <a class="rounded-xl border border-white/10 p-5 hover:bg-white/5" href="/help/prefect-quickstart.html">
-          <h2 class="font-semibold">Prefect quickstart</h2><p class="text-sm opacity-80">flow, deployment, agent, CRON</p>
-        </a>
-        <a class="rounded-xl border border-white/10 p-5 hover:bg-white/5" href="/help/pyspark-101.html">
-          <h2 class="font-semibold">PySpark 101</h2><p class="text-sm opacity-80">read/write, joins, window</p>
-        </a>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ayuda - Notas r&aacute;pidas</title>
+  <meta name="theme-color" content="#0b0f14">
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
+  })();
+  </script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/pages/editorial.css">
+</head>
+<body class="editorial-page">
+  <header class="editorial-header">
+    <nav class="editorial-nav editorial-container">
+      <a href="/en/" class="site-wordmark">Marco Rios</a>
+      <div class="editorial-nav-links">
+        <a href="/en/" class="navlink">Home</a>
+        <a href="/en/projects/" class="navlink">Projects</a>
+        <a href="/en/about/" class="navlink">About</a>
       </div>
-    </main></body></html>
-    
+      <div class="editorial-nav-actions">
+        <a href="/help/" class="btn-outline" aria-label="View this page in Spanish"><i data-lucide="languages"></i> ES</a>
+        <button id="themeBtn" class="theme-btn" aria-label="Change theme" aria-pressed="false" title="Change theme"><span id="themeIcon"></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="editorial-main editorial-container">
+    <section class="editorial-hero" aria-labelledby="help-title">
+      <p class="editorial-kicker">Technical archive / notes</p>
+      <h1 id="help-title" class="editorial-title">Ayuda / Chuletas</h1>
+    </section>
+
+    <section class="editorial-section" aria-labelledby="notes-title">
+      <div class="editorial-section-heading"><div><p class="editorial-kicker">01 / Collections</p><h2 id="notes-title">Notas r&aacute;pidas</h2></div></div>
+      <div class="editorial-stack">
+        <article class="editorial-row"><div class="editorial-index">01</div><div><h3>SQL Window functions</h3><p>ROW_NUMBER, LAG/LEAD, SUM OVER&hellip;</p><a class="editorial-link" href="/help/sql-window.html">Ver notas &rarr;</a></div></article>
+        <article class="editorial-row"><div class="editorial-index">02</div><div><h3>Prefect quickstart</h3><p>flow, deployment, agent, CRON</p><a class="editorial-link" href="/help/prefect-quickstart.html">Ver notas &rarr;</a></div></article>
+        <article class="editorial-row"><div class="editorial-index">03</div><div><h3>PySpark 101</h3><p>read/write, joins, window</p><a class="editorial-link" href="/help/pyspark-101.html">Ver notas &rarr;</a></div></article>
+      </div>
+    </section>
+  </main>
+  <footer class="editorial-footer">&copy; <span id="yr"></span> Marco Rios &middot; Deployed on GitHub Pages</footer>
+</body>
+</html>

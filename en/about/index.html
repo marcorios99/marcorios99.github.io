@@ -1,83 +1,82 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>About me - Marco Rios</title>
-  <meta name="description" content="Marco Rios: software developer focused on automation, data, document processing, computer vision, APIs, and Android." />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Marco Rios: software developer focused on automation, data, document processing, computer vision, APIs, and Android.">
+  <meta name="theme-color" content="#0b0f14">
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
+  })();
+  </script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/pages/editorial.css">
 </head>
-<body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-slate-100">
-  <header class="sticky top-0 z-40 border-b border-white/10 bg-slate-950/70 backdrop-blur">
-    <nav class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="/en/" class="text-sm opacity-80 hover:opacity-100">← Home</a>
-      <span class="text-sm opacity-80">About me</span>
+<body class="editorial-page">
+  <header class="editorial-header">
+    <nav class="editorial-nav editorial-container">
+      <a href="/en/" class="site-wordmark">Marco Rios</a>
+      <div class="editorial-nav-links">
+        <a href="/en/" class="navlink">Home</a>
+        <a href="/en/projects/" class="navlink">Projects</a>
+        <a href="/en/help/" class="navlink">Notes</a>
+      </div>
+      <div class="editorial-nav-actions">
+        <a href="/about/" class="btn-outline" aria-label="View this page in Spanish"><i data-lucide="languages"></i> ES</a>
+        <button id="themeBtn" class="theme-btn" aria-label="Change theme" aria-pressed="false" title="Change theme"><span id="themeIcon"></span></button>
+      </div>
     </nav>
   </header>
 
-  <main class="max-w-5xl mx-auto px-4 py-12 space-y-10">
-    <!-- Avatar + nombre -->
-    <section class="text-center">
-      <img src="/assets/img/marco.jpg" alt="Marco Rios"
-           class="mx-auto h-40 w-40 md:h-52 md:w-52 lg:h-60 lg:w-60 rounded-full object-cover
-                  ring-2 ring-white/20 ring-offset-2 ring-offset-slate-950
-                  shadow-xl shadow-emerald-500/10" />
-      <h1 class="mt-4 text-3xl font-semibold">Marco Rios</h1>
-      <p class="mt-1 text-sm text-slate-300">Electronics Engineer - Software Developer</p>
-
-      <div class="mt-5 flex flex-wrap justify-center gap-3">
-        <a href="/assets/cv/CV_Marco Rios.pdf" target="_blank"
-           class="rounded-xl bg-emerald-500 px-4 py-2 text-slate-900 font-medium hover:bg-emerald-400">
-          Descargar CV (PDF)
-        </a>
-        <a href="mailto:marcoandrer99@hotmail.com"
-           class="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10">Email</a>
-        <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank"
-           class="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10">LinkedIn</a>
-        <a href="https://github.com/marcorios99" target="_blank"
-           class="rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10">GitHub</a>
+  <main class="editorial-main editorial-container">
+    <section class="editorial-hero" aria-labelledby="about-title">
+      <p class="editorial-kicker">Profile / trajectory</p>
+      <h1 id="about-title" class="editorial-title">Marco Rios</h1>
+      <p class="editorial-subtitle">Electronics Engineer - Software Developer</p>
+      <p class="editorial-lead">I am an electronics engineer and software developer with experience in automation, data, and document processing. I focus on simple, measurable, and well-documented solutions.</p>
+      <div class="editorial-actions">
+        <a href="/assets/cv/CV_Marco Rios.pdf" target="_blank" rel="noreferrer" class="btn-outline">Descargar CV (PDF)</a>
+        <a href="mailto:marcoandrer99@hotmail.com" class="btn-outline">Email</a>
+        <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" rel="noreferrer" class="btn-outline">LinkedIn</a>
+        <a href="https://github.com/marcorios99" target="_blank" rel="noreferrer" class="btn-outline">GitHub</a>
       </div>
     </section>
 
-    <!-- Resumen -->
-    <section class="grid md:grid-cols-5 gap-6 items-start">
-      <div class="md:col-span-3 space-y-3">
-        <h2 class="text-xl font-semibold">Summary</h2>
-        <p class="text-slate-300">
-          I am an electronics engineer and software developer with experience in automation, data, and document processing.
-          I focus on simple, measurable, and well-documented solutions.
-        </p>
-        <ul class="list-disc pl-5 text-sm text-slate-300">
-          <li>ETL con validaciones, control de totales y deduplicación idempotente.</li>
-          <li>Orquestación con Prefect/Airflow, logs estructurados, métricas y alertas.</li>
-          <li>MLOps básico: MLflow, FastAPI, Docker y CI/CD (GitHub Actions).</li>
-        </ul>
-      </div>
-      <aside class="md:col-span-2 glass rounded-3xl p-5 ring-1 ring-white/10">
-        <h3 class="font-semibold mb-2">Stack y foco</h3>
-        <div class="flex flex-wrap gap-2 text-xs text-slate-200">
-          <span class="rounded-full border px-3 py-1">Python</span>
-          <span class="rounded-full border px-3 py-1">SQL Server / Postgres</span>
-          <span class="rounded-full border px-3 py-1">Prefect / Airflow</span>
-          <span class="rounded-full border px-3 py-1">MLflow / FastAPI / Docker</span>
-          <span class="rounded-full border px-3 py-1">C / ESP32 (embebidos)</span>
+    <nav class="editorial-in-page-nav" aria-label="About sections"><a href="#summary">Summary</a><a href="#links">Links</a></nav>
+
+    <section id="summary" class="editorial-section">
+      <div class="editorial-layout editorial-layout--two-columns">
+        <div>
+          <div class="editorial-section-heading"><div><p class="editorial-kicker">01 / Summary</p><h2>Summary</h2></div></div>
+          <ul class="editorial-list">
+            <li>ETL con validaciones, control de totales y deduplicaci&oacute;n idempotente.</li>
+            <li>Orquestaci&oacute;n con Prefect/Airflow, logs estructurados, m&eacute;tricas y alertas.</li>
+            <li>MLOps b&aacute;sico: MLflow, FastAPI, Docker y CI/CD (GitHub Actions).</li>
+          </ul>
         </div>
-      </aside>
+        <aside aria-labelledby="stack-title">
+          <h2 id="stack-title" class="editorial-side-title">Stack y foco</h2>
+          <div class="editorial-tags"><span class="editorial-tag">Python</span><span class="editorial-tag">SQL Server / Postgres</span><span class="editorial-tag">Prefect / Airflow</span><span class="editorial-tag">MLflow / FastAPI / Docker</span><span class="editorial-tag">C / ESP32 (embebidos)</span></div>
+          <figure class="editorial-media-slot"><figcaption>Space for future image</figcaption></figure>
+        </aside>
+      </div>
     </section>
 
-    <!-- Links rápidos -->
-    <section>
-      <h2 class="text-xl font-semibold mb-3">Enlaces</h2>
-      <ul class="list-disc pl-6 text-sm text-emerald-300">
-        <li><a class="hover:text-emerald-200" href="/projects/">Proyectos destacados</a></li>
-        <li><a class="hover:text-emerald-200" href="/help/">Notas de ayuda</a></li>
-      </ul>
+    <section id="links" class="editorial-section" aria-labelledby="links-title">
+      <div class="editorial-section-heading"><div><p class="editorial-kicker">02 / Continue</p><h2 id="links-title">Enlaces</h2></div></div>
+      <div class="editorial-links"><a class="editorial-link" href="/projects/">Proyectos destacados &rarr;</a><a class="editorial-link" href="/help/">Notas de ayuda &rarr;</a></div>
     </section>
   </main>
-
-  <footer class="py-10 text-center text-xs text-slate-400">
-    © <script>document.write(new Date().getFullYear())</script> Marco Rios
-  </footer>
+  <footer class="editorial-footer">&copy; <span id="yr"></span> Marco Rios &middot; Deployed on GitHub Pages</footer>
 </body>
 </html>
