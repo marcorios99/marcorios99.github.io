@@ -3,7 +3,6 @@
 .code-note-header {
   max-width: 48rem;
   padding-bottom: clamp(2.5rem, 5vw, 4rem);
-  border-bottom: 1px solid var(--border);
 }
 
 .code-note-back {
@@ -65,8 +64,6 @@
   border-top: 1px solid var(--border);
 }
 
-.code-example:last-child { border-bottom: 1px solid var(--border); }
-
 .code-example::before {
   position: absolute;
   top: 1.55rem;
@@ -90,7 +87,7 @@
 .code-example pre,
 .code-lab-output {
   overflow-x: auto;
-  margin: .9rem 0 0;
+  margin: .95rem 0 0;
   border: 1px solid var(--border-soft);
   border-radius: .55rem;
   padding: 1rem;
@@ -144,17 +141,23 @@ html.dark .hljs-function .hljs-title { color: #c4b5fd; }
   min-width: 0;
   flex-direction: column;
   padding: 1rem 0 0;
-  border-top: 1px solid var(--border);
 }
 
 .code-lab-actions {
   display: flex;
   flex-wrap: wrap;
   gap: .55rem;
-  margin-bottom: 1rem;
+  min-height: 2.4rem;
+  margin-bottom: .9rem;
 }
 
-.code-lab-output { min-height: 420px; margin-top: 2rem; white-space: pre-wrap; }
+.code-lab-panel-title {
+  display: flex;
+  align-items: center;
+  min-height: 2.4rem;
+}
+
+.code-lab-output { min-height: 420px; white-space: pre-wrap; }
 
 .code-lab-panel textarea {
   display: block;

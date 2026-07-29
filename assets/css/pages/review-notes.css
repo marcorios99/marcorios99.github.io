@@ -3,7 +3,6 @@
 .review-note-header {
   max-width: 48rem;
   padding-bottom: clamp(2.5rem, 5vw, 4rem);
-  border-bottom: 1px solid var(--border);
 }
 
 .review-note-back {
@@ -88,7 +87,7 @@
 
 .review-note-item p {
   max-width: 48rem;
-  margin: .55rem 0 0;
+  margin: .75rem 0 0;
   color: var(--text-body);
   font-size: .92rem;
   line-height: 1.7;
@@ -96,13 +95,18 @@
 
 .review-note-questions,
 .review-note-sources { padding-left: 0; }
-.review-note-sources { border-bottom: 1px solid var(--border); }
+
+.review-note-questions h2,
+.review-note-sources h2 {
+  font-size: .9rem;
+  letter-spacing: .02em;
+}
 
 .review-note-list {
   display: grid;
   gap: .45rem;
   max-width: 48rem;
-  margin: .85rem 0 0;
+  margin: .95rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -130,7 +134,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: .55rem 1rem;
-  margin-top: .85rem;
+  margin-top: .95rem;
 }
 
 .review-note-source {
