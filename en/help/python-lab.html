@@ -1,15 +1,213 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mini code lab - Technical notes</title><meta name="theme-color" content="#0b0f14"><script>(function(){const t=localStorage.getItem('theme')||'dark',h=document.documentElement;h.classList.toggle('dark',t==='dark');h.classList.toggle('light',t!=='dark');h.dataset.theme=t;})();</script><script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script><script defer src="https://cdn.jsdelivr.net/pyodide/v314.0.0/full/pyodide.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css"><script defer src="/assets/js/site.js"></script><link rel="stylesheet" href="/assets/css/styles.css"><link rel="stylesheet" href="/assets/css/pages/editorial.css"><link rel="stylesheet" href="/assets/css/pages/code-notes.css"></head><body class="editorial-page"><header class="editorial-header"><nav class="editorial-nav editorial-container"><a href="/en/" class="site-wordmark">Marco Rios</a><div class="editorial-nav-links"><a href="/en/" class="navlink">Home</a><a href="/en/projects/" class="navlink">Projects</a><a href="/en/help/" class="navlink">Notes</a></div><div class="editorial-nav-actions"><a href="/help/python-lab.html" class="btn-outline" aria-label="Ver esta página en español"><i data-lucide="languages"></i> ES</a><button id="themeBtn" class="theme-btn" aria-label="Change theme"><span id="themeIcon"></span></button></div></nav></header><main class="editorial-main editorial-container"><section class="code-note-header"><a href="/en/help/" class="code-note-back">&larr; Back to notes</a><h1 class="code-note-title" data-kicker="Technical notes / Lab">Mini code lab</h1><p class="code-note-description">A lab for analysing snippets and running basic Python directly in the browser with Pyodide. Useful for recalling syntax, testing small functions, and checking <code>print(...)</code> output.</p></section><section class="code-lab"><div class="code-lab-panel"><div class="code-lab-actions"><button id="runBtn" class="btn-accent" type="button">Run Python</button><button id="sampleBtn" class="btn-outline" type="button">Load example</button><button id="clearBtn" class="btn-outline" type="button">Clear</button></div><textarea id="codeInput" spellcheck="false">name = "Marco"
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      Mini code lab - Technical notes
+    </title>
+    <meta name="theme-color" content="#0b0f14">
+    <script>
+      (function () {
+        const t = localStorage.getItem('theme') || 'dark';
+        const h = document.documentElement;
+        h.classList.toggle('dark', t === 'dark');
+        h.classList.toggle('light', t !== 'dark');
+        h.dataset.theme = t;
+      })();
+
+    </script>
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/pyodide/v314.0.0/full/pyodide.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+    <script defer src="/assets/js/site.js"></script>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/pages/editorial.css">
+    <link rel="stylesheet" href="/assets/css/pages/code-notes.css">
+  </head>
+  <body class="editorial-page">
+    <header class="editorial-header">
+      <nav class="editorial-nav editorial-container">
+        <a href="/en/" class="site-wordmark">
+          Marco Rios
+        </a>
+        <div class="editorial-nav-links">
+          <a href="/en/" class="navlink">
+            Home
+          </a>
+          <a href="/en/projects/" class="navlink">
+            Projects
+          </a>
+          <a href="/en/help/" class="navlink">
+            Notes
+          </a>
+        </div>
+        <div class="editorial-nav-actions">
+          <a href="/help/python-lab.html" class="btn-outline" aria-label="Ver esta página en español">
+            <i data-lucide="languages">
+            </i>
+            ES
+          </a>
+          <button id="themeBtn" class="theme-btn" aria-label="Change theme">
+            <span id="themeIcon">
+            </span>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <main class="editorial-main editorial-container">
+      <section class="code-note-header">
+        <a href="/en/help/" class="code-note-back">
+          &larr; Back to notes
+        </a>
+        <h1 class="code-note-title" data-kicker="Technical notes / Lab">
+          Mini code lab
+        </h1>
+        <p class="code-note-description">
+          A lab for analysing snippets and running basic Python directly in the browser with Pyodide. Useful for recalling syntax, testing small functions, and checking
+          <code>
+            print(...)
+          </code>
+          output.
+        </p>
+      </section>
+      <section class="code-lab">
+        <div class="code-lab-panel">
+          <div class="code-lab-actions">
+            <button id="runBtn" class="btn-accent" type="button">
+              Run Python
+            </button>
+            <button id="sampleBtn" class="btn-outline" type="button">
+              Load example
+            </button>
+            <button id="clearBtn" class="btn-outline" type="button">
+              Clear
+            </button>
+          </div>
+          <textarea id="codeInput" spellcheck="false">name = "Marco"
 items = ["SQL", "Python", "FastAPI"]
 
 for item in items:
     print(item)
 
-print(f"Hello {name}")</textarea></div><div class="code-lab-panel"><h2 class="code-lab-panel-title">Output</h2><pre id="output" class="code-lab-output">Press "Run Python" to execute the snippet.</pre></div></section></main><footer class="editorial-footer">&copy; <span id="yr"></span> Marco Rios &middot; Deployed on GitHub Pages</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script><script>(function(){const input=document.getElementById('codeInput'),output=document.getElementById('output'),runBtn=document.getElementById('runBtn'),sampleBtn=document.getElementById('sampleBtn'),clearBtn=document.getElementById('clearBtn');let pyodideReadyPromise=null;const editor=window.CodeMirror?CodeMirror.fromTextArea(input,{mode:'python',theme:document.documentElement.classList.contains('dark')?'material-darker':'default',lineNumbers:true,indentUnit:4,tabSize:4,lineWrapping:true}):null;const getCode=()=>editor?editor.getValue():input.value;const setCode=v=>editor?editor.setValue(v):input.value=v;document.getElementById('themeBtn')?.addEventListener('click',()=>setTimeout(()=>editor?.setOption('theme',document.documentElement.classList.contains('dark')?'material-darker':'default'),0));const setOutput=t=>output.textContent=t;async function getPyodide(){if(!pyodideReadyPromise){setOutput('Loading Python in the browser...\nThe first load may take a few seconds.');pyodideReadyPromise=loadPyodide()}return pyodideReadyPromise}async function runPython(){const code=getCode();if(!code.trim()){setOutput('There is no code to run.');return}runBtn.disabled=true;runBtn.textContent='Running...';try{const pyodide=await getPyodide();pyodide.globals.set('__user_code',code);setOutput(await pyodide.runPythonAsync(`import contextlib, io, traceback
-__stdout=io.StringIO(); __stderr=io.StringIO()
+print(f"Hello {name}")</textarea>
+        </div>
+        <div class="code-lab-panel">
+          <h2 class="code-lab-panel-title">
+            Output
+          </h2>
+          <pre id="output" class="code-lab-output">Press "Run Python" to execute the snippet.</pre>
+        </div>
+      </section>
+    </main>
+    <footer class="editorial-footer">
+      &copy;
+      <span id="yr">
+      </span>
+      Marco Rios &middot; Deployed on GitHub Pages
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script>
+      (function () {
+        const input = document.getElementById('codeInput');
+        const output = document.getElementById('output');
+        const runBtn = document.getElementById('runBtn');
+        const sampleBtn = document.getElementById('sampleBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        let pyodideReadyPromise = null;
+
+        const editor = window.CodeMirror
+          ? CodeMirror.fromTextArea(input, {
+              mode: 'python',
+              theme: document.documentElement.classList.contains('dark') ? 'material-darker' : 'default',
+              lineNumbers: true,
+              indentUnit: 4,
+              tabSize: 4,
+              lineWrapping: true
+            })
+          : null;
+
+        const getCode = () => (editor ? editor.getValue() : input.value);
+        const setCode = (value) => (editor ? editor.setValue(value) : (input.value = value));
+
+        document.getElementById('themeBtn')?.addEventListener('click', () => {
+          setTimeout(() => {
+            editor?.setOption(
+              'theme',
+              document.documentElement.classList.contains('dark') ? 'material-darker' : 'default'
+            );
+          }, 0);
+        });
+
+        const setOutput = (text) => {
+          output.textContent = text;
+        };
+
+        async function getPyodide() {
+          if (!pyodideReadyPromise) {
+            setOutput('Loading Python in the browser...\nThe first load may take a few seconds.');
+            pyodideReadyPromise = loadPyodide();
+          }
+          return pyodideReadyPromise;
+        }
+
+        async function runPython() {
+          const code = getCode();
+          if (!code.trim()) {
+            setOutput('There is no code to run.');
+            return;
+          }
+
+          runBtn.disabled = true;
+          runBtn.textContent = 'Running...';
+
+          try {
+            const pyodide = await getPyodide();
+            pyodide.globals.set('__user_code', code);
+            const result = await pyodide.runPythonAsync(`
+import contextlib
+import io
+import traceback
+
+__stdout = io.StringIO()
+__stderr = io.StringIO()
+
 try:
-    with contextlib.redirect_stdout(__stdout), contextlib.redirect_stderr(__stderr): exec(__user_code,{"__name__":"__main__"})
-    __result=__stdout.getvalue(); __err=__stderr.getvalue()
-    if __err: __result += ("\\n[stderr]\\n"+__err)
-    if not __result.strip(): __result="Execution completed without output."
-except Exception: __result=__stdout.getvalue()+traceback.format_exc()
-__result`))}catch(e){setOutput(String(e))}finally{runBtn.disabled=false;runBtn.textContent='Run Python'}}runBtn.addEventListener('click',runPython);sampleBtn.addEventListener('click',()=>{setCode('total = 0\nitems = [10, 20, 30]\n\nfor value in items:\n    total += value\n\nprint("Process finished")\nprint(total)');setOutput('Example loaded. Press "Run Python" to execute the snippet.')});clearBtn.addEventListener('click',()=>{setCode('');setOutput('Press "Run Python" to execute the snippet.')})})();</script></body></html>
+    with contextlib.redirect_stdout(__stdout), contextlib.redirect_stderr(__stderr):
+        exec(__user_code, {"__name__": "__main__"})
+    __result = __stdout.getvalue()
+    __err = __stderr.getvalue()
+    if __err:
+        __result += ("\\n[stderr]\\n" + __err)
+    if not __result.strip():
+        __result = "Execution completed without output."
+except Exception:
+    __result = __stdout.getvalue() + traceback.format_exc()
+
+__result
+`);
+            setOutput(result);
+          } catch (error) {
+            setOutput(String(error));
+          } finally {
+            runBtn.disabled = false;
+            runBtn.textContent = 'Run Python';
+          }
+        }
+
+        runBtn.addEventListener('click', runPython);
+        sampleBtn.addEventListener('click', () => {
+          setCode('total = 0\nitems = [10, 20, 30]\n\nfor value in items:\n    total += value\n\nprint("Process finished")\nprint(total)');
+          setOutput('Example loaded. Press "Run Python" to execute the snippet.');
+        });
+        clearBtn.addEventListener('click', () => {
+          setCode('');
+          setOutput('Press "Run Python" to execute the snippet.');
+        });
+      })();
+
+    </script>
+  </body>
+</html>

@@ -1,1 +1,237 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Python scripts - Technical notes</title><meta name="theme-color" content="#0b0f14"><script>(function(){const t=localStorage.getItem('theme')||'dark',h=document.documentElement;h.classList.toggle('dark',t==='dark');h.classList.toggle('light',t!=='dark');h.dataset.theme=t;})();</script><script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script><script defer src="/assets/js/site.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"><link rel="stylesheet" href="/assets/css/styles.css"><link rel="stylesheet" href="/assets/css/pages/editorial.css"><link rel="stylesheet" href="/assets/css/pages/code-notes.css"></head><body class="editorial-page"><header class="editorial-header"><nav class="editorial-nav editorial-container"><a href="/en/" class="site-wordmark">Marco Rios</a><div class="editorial-nav-links"><a href="/en/" class="navlink">Home</a><a href="/en/projects/" class="navlink">Projects</a><a href="/en/help/" class="navlink">Notes</a></div><div class="editorial-nav-actions"><a href="/help/python-snippets.html" class="btn-outline" aria-label="Ver esta página en español"><i data-lucide="languages"></i> ES</a><button id="themeBtn" class="theme-btn" aria-label="Change theme"><span id="themeIcon"></span></button></div></nav></header><main class="editorial-main editorial-container"><section class="code-note-header"><a href="/en/help/" class="code-note-back">&larr; Back to notes</a><h1 class="code-note-title" data-kicker="Technical notes / Python">Python scripts</h1><p class="code-note-description">Short snippets for recalling common patterns. This page can grow by category: files, APIs, validation, OCR/OpenCV, and reports.</p></section><section id="examples" class="code-examples"></section></main><footer class="editorial-footer">&copy; <span id="yr"></span> Marco Rios &middot; Deployed on GitHub Pages</footer><script>document.addEventListener('DOMContentLoaded',async()=>{const titles=['Read files from a folder','Validate required fields','Simple JSON response in FastAPI','OpenCV: binarise an image','OpenCV: detect contours','OpenCV: crop an ROI','fitz: render a PDF to an image','fitz: extract text by page','pathlib: traverse files','hashlib: file checksum'];const source=await fetch('/help/python-snippets.html').then(r=>r.text());const doc=new DOMParser().parseFromString(source,'text/html');const target=document.getElementById('examples');doc.querySelectorAll('.code-example').forEach((item,i)=>{item.querySelector('h2').textContent=titles[i];target.append(item)});if(window.hljs)hljs.highlightAll();});</script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      Python scripts - Technical notes
+    </title>
+    <meta name="theme-color" content="#0b0f14">
+    <script>
+      (function () {
+        const t = localStorage.getItem('theme') || 'dark';
+        const h = document.documentElement;
+        h.classList.toggle('dark', t === 'dark');
+        h.classList.toggle('light', t !== 'dark');
+        h.dataset.theme = t;
+      })();
+
+    </script>
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script defer src="/assets/js/site.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/pages/editorial.css">
+    <link rel="stylesheet" href="/assets/css/pages/code-notes.css">
+  </head>
+  <body class="editorial-page">
+    <header class="editorial-header">
+      <nav class="editorial-nav editorial-container">
+        <a href="/en/" class="site-wordmark">
+          Marco Rios
+        </a>
+        <div class="editorial-nav-links">
+          <a href="/en/" class="navlink">
+            Home
+          </a>
+          <a href="/en/projects/" class="navlink">
+            Projects
+          </a>
+          <a href="/en/help/" class="navlink">
+            Notes
+          </a>
+        </div>
+        <div class="editorial-nav-actions">
+          <a href="/help/python-snippets.html" class="btn-outline" aria-label="Ver esta página en español">
+            <i data-lucide="languages">
+            </i>
+            ES
+          </a>
+          <button id="themeBtn" class="theme-btn" aria-label="Change theme">
+            <span id="themeIcon">
+            </span>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <main class="editorial-main editorial-container">
+      <section class="code-note-header">
+        <a href="/en/help/" class="code-note-back">
+          &larr; Back to notes
+        </a>
+        <h1 class="code-note-title" data-kicker="Technical notes / Python">
+          Python scripts
+        </h1>
+        <p class="code-note-description">
+          Short snippets for recalling common patterns. This page can grow by category: files, APIs, validation, OCR/OpenCV, and reports.
+        </p>
+      </section>
+      <section class="code-examples">
+        <article class="code-example">
+          <h2>
+            Read files from a folder
+          </h2>
+          <pre><code class="language-python">from pathlib import Path
+
+folder = Path("data/input")
+for path in folder.glob("*.csv"):
+    print(path.name)</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            Validate required fields
+          </h2>
+          <pre><code class="language-python">required = ["document_id", "created_at", "status"]
+missing = [field for field in required if not row.get(field)]
+
+if missing:
+    raise ValueError(f"Missing fields: {missing}")</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            Simple JSON response in FastAPI
+          </h2>
+          <pre><code class="language-python">from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            OpenCV: binarise an image
+          </h2>
+          <pre><code class="language-python">import cv2
+
+image = cv2.imread("document.png")
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+_, binary = cv2.threshold(
+    gray,
+    0,
+    255,
+    cv2.THRESH_BINARY + cv2.THRESH_OTSU
+)
+
+cv2.imwrite("document_binary.png", binary)</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            OpenCV: detect contours
+          </h2>
+          <pre><code class="language-python">import cv2
+
+image = cv2.imread("form.png")
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+blur = cv2.GaussianBlur(gray, (5, 5), 0)
+edges = cv2.Canny(blur, 50, 150)
+
+contours, _ = cv2.findContours(
+    edges,
+    cv2.RETR_EXTERNAL,
+    cv2.CHAIN_APPROX_SIMPLE
+)
+
+for contour in contours:
+    x, y, w, h = cv2.boundingRect(contour)
+    if w * h > 500:
+        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+cv2.imwrite("contours.png", image)</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            OpenCV: crop an ROI
+          </h2>
+          <pre><code class="language-python">import cv2
+
+image = cv2.imread("form.png")
+
+# Coordenadas: x, y, ancho, alto
+x, y, w, h = 120, 240, 300, 80
+roi = image[y:y + h, x:x + w]
+
+cv2.imwrite("roi.png", roi)</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            fitz: render a PDF to an image
+          </h2>
+          <pre><code class="language-python">import fitz  # PyMuPDF
+
+doc = fitz.open("input.pdf")
+page = doc[0]
+
+zoom = 2
+matrix = fitz.Matrix(zoom, zoom)
+pixmap = page.get_pixmap(matrix=matrix)
+
+pixmap.save("page_001.png")
+doc.close()</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            fitz: extract text by page
+          </h2>
+          <pre><code class="language-python">import fitz  # PyMuPDF
+
+doc = fitz.open("input.pdf")
+
+for page_number, page in enumerate(doc, start=1):
+    text = page.get_text("text")
+    print(f"--- Page {page_number} ---")
+    print(text.strip())
+
+doc.close()</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            pathlib: traverse files
+          </h2>
+          <pre><code class="language-python">from pathlib import Path
+
+root = Path("data")
+
+for path in root.rglob("*"):
+    if path.is_file():
+        print(path.name, path.suffix, path.stat().st_size)</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            hashlib: file checksum
+          </h2>
+          <pre><code class="language-python">import hashlib
+from pathlib import Path
+
+def file_sha256(path: str | Path) -> str:
+    path = Path(path)
+    digest = hashlib.sha256()
+
+    with path.open("rb") as file:
+        for chunk in iter(lambda: file.read(1024 * 1024), b""):
+            digest.update(chunk)
+
+    return digest.hexdigest()
+
+print(file_sha256("document.pdf"))</code></pre>
+        </article>
+      </section>
+    </main>
+    <footer class="editorial-footer">
+      &copy;
+      <span id="yr">
+      </span>
+      Marco Rios &middot; Deployed on GitHub Pages
+    </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        if (window.hljs) hljs.highlightAll();
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,1 +1,226 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SQL queries - Technical notes</title><meta name="theme-color" content="#0b0f14"><script>(function(){const t=localStorage.getItem('theme')||'dark',h=document.documentElement;h.classList.toggle('dark',t==='dark');h.classList.toggle('light',t!=='dark');h.dataset.theme=t;})();</script><script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script><script defer src="/assets/js/site.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"><link rel="stylesheet" href="/assets/css/styles.css"><link rel="stylesheet" href="/assets/css/pages/editorial.css"><link rel="stylesheet" href="/assets/css/pages/code-notes.css"></head><body class="editorial-page"><header class="editorial-header"><nav class="editorial-nav editorial-container"><a href="/en/" class="site-wordmark">Marco Rios</a><div class="editorial-nav-links"><a href="/en/" class="navlink">Home</a><a href="/en/projects/" class="navlink">Projects</a><a href="/en/help/" class="navlink">Notes</a></div><div class="editorial-nav-actions"><a href="/help/sql-queries.html" class="btn-outline" aria-label="Ver esta página en español"><i data-lucide="languages"></i> ES</a><button id="themeBtn" class="theme-btn" aria-label="Change theme"><span id="themeIcon"></span></button></div></nav></header><main class="editorial-main editorial-container"><section class="code-note-header"><a href="/en/help/" class="code-note-back">&larr; Back to notes</a><h1 class="code-note-title" data-kicker="Technical notes / SQL">SQL queries</h1><p class="code-note-description">Reusable queries for recalling syntax for windows, aggregations, validations, joins, duplicates, and operational reports.</p></section><section id="examples" class="code-examples"></section></main><footer class="editorial-footer">&copy; <span id="yr"></span> Marco Rios &middot; Deployed on GitHub Pages</footer><script>document.addEventListener('DOMContentLoaded',async()=>{const titles=['ROW_NUMBER to select the most recent record','Detect duplicates by business key','Validate required fields','Monthly aggregation','LEFT JOIN to find missing records','SUM OVER for a running total','CASE to classify statuses','Basic MERGE for an upsert in SQL Server','Recursive CTE for hierarchical tables'];const source=await fetch('/help/sql-queries.html').then(r=>r.text());const doc=new DOMParser().parseFromString(source,'text/html');const target=document.getElementById('examples');doc.querySelectorAll('.code-example').forEach((item,i)=>{item.querySelector('h2').textContent=titles[i];target.append(item)});if(window.hljs)hljs.highlightAll();});</script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      SQL queries - Technical notes
+    </title>
+    <meta name="theme-color" content="#0b0f14">
+    <script>
+      (function () {
+        const t = localStorage.getItem('theme') || 'dark';
+        const h = document.documentElement;
+        h.classList.toggle('dark', t === 'dark');
+        h.classList.toggle('light', t !== 'dark');
+        h.dataset.theme = t;
+      })();
+
+    </script>
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+    <script defer src="/assets/js/site.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/pages/editorial.css">
+    <link rel="stylesheet" href="/assets/css/pages/code-notes.css">
+  </head>
+  <body class="editorial-page">
+    <header class="editorial-header">
+      <nav class="editorial-nav editorial-container">
+        <a href="/en/" class="site-wordmark">
+          Marco Rios
+        </a>
+        <div class="editorial-nav-links">
+          <a href="/en/" class="navlink">
+            Home
+          </a>
+          <a href="/en/projects/" class="navlink">
+            Projects
+          </a>
+          <a href="/en/help/" class="navlink">
+            Notes
+          </a>
+        </div>
+        <div class="editorial-nav-actions">
+          <a href="/help/sql-queries.html" class="btn-outline" aria-label="Ver esta página en español">
+            <i data-lucide="languages">
+            </i>
+            ES
+          </a>
+          <button id="themeBtn" class="theme-btn" aria-label="Change theme">
+            <span id="themeIcon">
+            </span>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <main class="editorial-main editorial-container">
+      <section class="code-note-header">
+        <a href="/en/help/" class="code-note-back">
+          &larr; Back to notes
+        </a>
+        <h1 class="code-note-title" data-kicker="Technical notes / SQL">
+          SQL queries
+        </h1>
+        <p class="code-note-description">
+          Reusable queries for recalling syntax for windows, aggregations, validations, joins, duplicates, and operational reports.
+        </p>
+      </section>
+      <section class="code-examples">
+        <article class="code-example">
+          <h2>
+            ROW_NUMBER to select the most recent record
+          </h2>
+          <pre><code class="language-sql">WITH ranked AS (
+    SELECT
+        document_id,
+        status,
+        updated_at,
+        ROW_NUMBER() OVER (
+            PARTITION BY document_id
+            ORDER BY updated_at DESC
+        ) AS rn
+    FROM documents
+)
+SELECT *
+FROM ranked
+WHERE rn = 1;</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            Detect duplicates by business key
+          </h2>
+          <pre><code class="language-sql">SELECT
+    business_key,
+    COUNT(*) AS total_rows
+FROM staging_table
+GROUP BY business_key
+HAVING COUNT(*) > 1;</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            Validate required fields
+          </h2>
+          <pre><code class="language-sql">SELECT *
+FROM staging_table
+WHERE document_id IS NULL
+   OR created_at IS NULL
+   OR status IS NULL;</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            Monthly aggregation
+          </h2>
+          <pre><code class="language-sql">SELECT
+    DATEFROMPARTS(YEAR(created_at), MONTH(created_at), 1) AS month_start,
+    COUNT(*) AS total_documents
+FROM documents
+GROUP BY DATEFROMPARTS(YEAR(created_at), MONTH(created_at), 1)
+ORDER BY month_start;</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            LEFT JOIN to find missing records
+          </h2>
+          <pre><code class="language-sql">SELECT s.*
+FROM source_table AS s
+LEFT JOIN target_table AS t
+    ON t.business_key = s.business_key
+WHERE t.business_key IS NULL;</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            SUM OVER for a running total
+          </h2>
+          <pre><code class="language-sql">SELECT
+    created_at,
+    amount,
+    SUM(amount) OVER (
+        ORDER BY created_at
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS running_total
+FROM transactions;</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            CASE to classify statuses
+          </h2>
+          <pre><code class="language-sql">SELECT
+    document_id,
+    status,
+    CASE
+        WHEN status IN ('APPROVED', 'VALIDATED') THEN 'ok'
+        WHEN status IN ('REJECTED', 'ERROR') THEN 'review'
+        ELSE 'pending'
+    END AS status_group
+FROM documents;</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            Basic MERGE for an upsert in SQL Server
+          </h2>
+          <pre><code class="language-sql">MERGE target_table AS target
+USING staging_table AS source
+    ON target.business_key = source.business_key
+WHEN MATCHED THEN
+    UPDATE SET
+        target.status = source.status,
+        target.updated_at = source.updated_at
+WHEN NOT MATCHED THEN
+    INSERT (business_key, status, updated_at)
+    VALUES (source.business_key, source.status, source.updated_at);</code></pre>
+        </article>
+        <article class="code-example">
+          <h2>
+            Recursive CTE for hierarchical tables
+          </h2>
+          <pre><code class="language-sql">WITH hierarchy AS (
+    SELECT
+        id,
+        parent_id,
+        name,
+        0 AS level,
+        CAST(name AS VARCHAR(MAX)) AS path
+    FROM categories
+    WHERE parent_id IS NULL
+
+    UNION ALL
+
+    SELECT
+        child.id,
+        child.parent_id,
+        child.name,
+        parent.level + 1 AS level,
+        CAST(parent.path + ' > ' + child.name AS VARCHAR(MAX)) AS path
+    FROM categories AS child
+    INNER JOIN hierarchy AS parent
+        ON child.parent_id = parent.id
+)
+SELECT
+    id,
+    parent_id,
+    name,
+    level,
+    path
+FROM hierarchy
+ORDER BY path
+OPTION (MAXRECURSION 100);</code></pre>
+        </article>
+      </section>
+    </main>
+    <footer class="editorial-footer">
+      &copy;
+      <span id="yr">
+      </span>
+      Marco Rios &middot; Deployed on GitHub Pages
+    </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        if (window.hljs) hljs.highlightAll();
+      });
+
+    </script>
+  </body>
+</html>

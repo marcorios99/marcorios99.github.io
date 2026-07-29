@@ -1,1 +1,151 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI applied to data - Technical notes</title><meta name="theme-color" content="#0b0f14"><script>(function(){const t=localStorage.getItem('theme')||'dark',h=document.documentElement;h.classList.toggle('dark',t==='dark');h.classList.toggle('light',t!=='dark');h.dataset.theme=t;})();</script><script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script><script defer src="/assets/js/site.js"></script><link rel="stylesheet" href="/assets/css/styles.css"><link rel="stylesheet" href="/assets/css/pages/editorial.css"><link rel="stylesheet" href="/assets/css/pages/review-notes.css"></head><body class="editorial-page"><header class="editorial-header"><nav class="editorial-nav editorial-container"><a href="/en/" class="site-wordmark">Marco Rios</a><div class="editorial-nav-links"><a href="/en/" class="navlink">Home</a><a href="/en/projects/" class="navlink">Projects</a><a href="/en/help/" class="navlink">Notes</a></div><div class="editorial-nav-actions"><a href="/help/notes/ai-data/" class="btn-outline" aria-label="Ver esta página en español"><i data-lucide="languages"></i> ES</a><button id="themeBtn" class="theme-btn" aria-label="Change theme"><span id="themeIcon"></span></button></div></nav></header><main class="editorial-main editorial-container"><section class="review-note-header"><a href="/en/help/" class="review-note-back">&larr; Back to notes</a><p class="review-note-kicker">Review note</p><h1 class="review-note-title">AI applied to data</h1><p class="review-note-description">For business queries, an LLM should help interpret a user’s intent, not have unrestricted access to execute SQL. A safer architecture turns natural language into structured JSON, validates it against an allowed catalogue, and only then builds controlled queries.</p></section><section class="review-note-items"><article class="review-note-item"><h2>LLM as interpreter, not executor</h2><p>An LLM is good at interpreting natural language, but it should not be free to execute SQL generated from text. In a safer architecture, the model returns structured intent and the backend decides which queries are allowed.</p></article><article class="review-note-item"><h2>Intent JSON</h2><p>Intent JSON can contain a metric, filters, date range, grouping, order, and output format. It turns an ambiguous question into a structure that can be validated. If JSON does not meet the schema or requests forbidden fields, it is rejected or clarification is requested.</p></article><article class="review-note-item"><h2>Controlled queries</h2><p>A query should be built from controlled rules, templates, or query builders. This reduces SQL injection risk, prevents access to sensitive tables, and makes it possible to audit which question generated which query. The LLM should not freely choose tables, joins, or unsafe functions.</p></article><article class="review-note-item"><h2>Usable output</h2><p>A good response separates data, explanation, and visualisation. The backend can return a table, summary, and metadata; the client decides whether to show text, a chart, or detail. This makes AI an interface over trusted data rather than a black box.</p></article><section class="review-note-questions"><h2>Typical questions</h2><ul class="review-note-list"><li>Why should an LLM not generate and execute SQL directly?</li><li>What should intent JSON contain?</li><li>How would you limit allowed metrics, tables, and filters?</li><li>How would you audit a query made from natural language?</li></ul></section><section class="review-note-sources"><h2>Sources</h2><div class="review-note-source-list"><a class="review-note-source" href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" target="_blank" rel="noreferrer">OWASP LLM06 - Excessive Agency</a><a class="review-note-source" href="https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/" target="_blank" rel="noreferrer">FastAPI OAuth2 + JWT</a><a class="review-note-source" href="https://datatracker.ietf.org/doc/html/rfc7519" target="_blank" rel="noreferrer">RFC 7519 - JSON Web Token</a><a class="review-note-source" href="https://learn.microsoft.com/en-us/sql/relational-databases/sql-server-index-design-guide?view=sql-server-ver17" target="_blank" rel="noreferrer">SQL Server Index Design Guide</a></div></section></section></main><footer class="editorial-footer">&copy; <span id="yr"></span> Marco Rios &middot; Deployed on GitHub Pages</footer></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      AI applied to data - Technical notes
+    </title>
+    <meta name="theme-color" content="#0b0f14">
+    <script>
+      (function () {
+        const t = localStorage.getItem('theme') || 'dark';
+        const h = document.documentElement;
+        h.classList.toggle('dark', t === 'dark');
+        h.classList.toggle('light', t !== 'dark');
+        h.dataset.theme = t;
+      })();
+
+    </script>
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="/assets/js/site.js"></script>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/pages/editorial.css">
+    <link rel="stylesheet" href="/assets/css/pages/review-notes.css">
+  </head>
+  <body class="editorial-page">
+    <header class="editorial-header">
+      <nav class="editorial-nav editorial-container">
+        <a href="/en/" class="site-wordmark">
+          Marco Rios
+        </a>
+        <div class="editorial-nav-links">
+          <a href="/en/" class="navlink">
+            Home
+          </a>
+          <a href="/en/projects/" class="navlink">
+            Projects
+          </a>
+          <a href="/en/help/" class="navlink">
+            Notes
+          </a>
+        </div>
+        <div class="editorial-nav-actions">
+          <a href="/help/notes/ai-data/" class="btn-outline" aria-label="Ver esta página en español">
+            <i data-lucide="languages">
+            </i>
+            ES
+          </a>
+          <button id="themeBtn" class="theme-btn" aria-label="Change theme">
+            <span id="themeIcon">
+            </span>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <main class="editorial-main editorial-container">
+      <section class="review-note-header">
+        <a href="/en/help/" class="review-note-back">
+          &larr; Back to notes
+        </a>
+        <p class="review-note-kicker">
+          Review note
+        </p>
+        <h1 class="review-note-title">
+          AI applied to data
+        </h1>
+        <p class="review-note-description">
+          For business queries, an LLM should help interpret a user’s intent, not have unrestricted access to execute SQL. A safer architecture turns natural language into structured JSON, validates it against an allowed catalogue, and only then builds controlled queries.
+        </p>
+      </section>
+      <section class="review-note-items">
+        <article class="review-note-item">
+          <h2>
+            LLM as interpreter, not executor
+          </h2>
+          <p>
+            An LLM is good at interpreting natural language, but it should not be free to execute SQL generated from text. In a safer architecture, the model returns structured intent and the backend decides which queries are allowed.
+          </p>
+        </article>
+        <article class="review-note-item">
+          <h2>
+            Intent JSON
+          </h2>
+          <p>
+            Intent JSON can contain a metric, filters, date range, grouping, order, and output format. It turns an ambiguous question into a structure that can be validated. If JSON does not meet the schema or requests forbidden fields, it is rejected or clarification is requested.
+          </p>
+        </article>
+        <article class="review-note-item">
+          <h2>
+            Controlled queries
+          </h2>
+          <p>
+            A query should be built from controlled rules, templates, or query builders. This reduces SQL injection risk, prevents access to sensitive tables, and makes it possible to audit which question generated which query. The LLM should not freely choose tables, joins, or unsafe functions.
+          </p>
+        </article>
+        <article class="review-note-item">
+          <h2>
+            Usable output
+          </h2>
+          <p>
+            A good response separates data, explanation, and visualisation. The backend can return a table, summary, and metadata; the client decides whether to show text, a chart, or detail. This makes AI an interface over trusted data rather than a black box.
+          </p>
+        </article>
+        <section class="review-note-questions">
+          <h2>
+            Typical questions
+          </h2>
+          <ul class="review-note-list">
+            <li>
+              Why should an LLM not generate and execute SQL directly?
+            </li>
+            <li>
+              What should intent JSON contain?
+            </li>
+            <li>
+              How would you limit allowed metrics, tables, and filters?
+            </li>
+            <li>
+              How would you audit a query made from natural language?
+            </li>
+          </ul>
+        </section>
+        <section class="review-note-sources">
+          <h2>
+            Sources
+          </h2>
+          <div class="review-note-source-list">
+            <a class="review-note-source" href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" target="_blank" rel="noreferrer">
+              OWASP LLM06 - Excessive Agency
+            </a>
+            <a class="review-note-source" href="https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/" target="_blank" rel="noreferrer">
+              FastAPI OAuth2 + JWT
+            </a>
+            <a class="review-note-source" href="https://datatracker.ietf.org/doc/html/rfc7519" target="_blank" rel="noreferrer">
+              RFC 7519 - JSON Web Token
+            </a>
+            <a class="review-note-source" href="https://learn.microsoft.com/en-us/sql/relational-databases/sql-server-index-design-guide?view=sql-server-ver17" target="_blank" rel="noreferrer">
+              SQL Server Index Design Guide
+            </a>
+          </div>
+        </section>
+      </section>
+    </main>
+    <footer class="editorial-footer">
+      &copy;
+      <span id="yr">
+      </span>
+      Marco Rios &middot; Deployed on GitHub Pages
+    </footer>
+  </body>
+</html>

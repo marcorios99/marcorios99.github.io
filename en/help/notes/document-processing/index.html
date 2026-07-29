@@ -1,1 +1,151 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OCR, images and documents - Technical notes</title><meta name="theme-color" content="#0b0f14"><script>(function(){const t=localStorage.getItem('theme')||'dark',h=document.documentElement;h.classList.toggle('dark',t==='dark');h.classList.toggle('light',t!=='dark');h.dataset.theme=t;})();</script><script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script><script defer src="/assets/js/site.js"></script><link rel="stylesheet" href="/assets/css/styles.css"><link rel="stylesheet" href="/assets/css/pages/editorial.css"><link rel="stylesheet" href="/assets/css/pages/review-notes.css"></head><body class="editorial-page"><header class="editorial-header"><nav class="editorial-nav editorial-container"><a href="/en/" class="site-wordmark">Marco Rios</a><div class="editorial-nav-links"><a href="/en/" class="navlink">Home</a><a href="/en/projects/" class="navlink">Projects</a><a href="/en/help/" class="navlink">Notes</a></div><div class="editorial-nav-actions"><a href="/help/notes/document-processing/" class="btn-outline" aria-label="Ver esta página en español"><i data-lucide="languages"></i> ES</a><button id="themeBtn" class="theme-btn" aria-label="Change theme"><span id="themeIcon"></span></button></div></nav></header><main class="editorial-main editorial-container"><section class="review-note-header"><a href="/en/help/" class="review-note-back">&larr; Back to notes</a><p class="review-note-kicker">Review note</p><h1 class="review-note-title">OCR, images and documents</h1><p class="review-note-description">Document processing combines images, extraction, and validation. OCR reads text, ICR attempts to recognise handwriting or more variable fields, and OMR detects marks. Before extracting data, it is often necessary to improve the image and crop regions of interest.</p></section><section class="review-note-items"><article class="review-note-item"><h2>OCR, ICR and OMR</h2><p>OCR focuses on recognising printed or scanned text. ICR targets handwriting or highly variable fields. OMR detects marks, checkboxes, or selections. A real form can use all three techniques: marks for answers, printed text for labels, and handwritten fields for identification.</p></article><article class="review-note-item"><h2>Preprocessing</h2><p>Before information is extracted, an image may need grayscale conversion, binarisation, noise reduction, contrast or perspective correction. The aim is to help the algorithm see the relevant structure instead of shadows, backgrounds, stains, or irregular scans.</p></article><article class="review-note-item"><h2>Contours and ROIs</h2><p>Contours help detect candidate regions: checkboxes, tables, text blocks, or document edges. An ROI is a region of interest cropped to process a specific field. Defining good ROIs reduces false positives and makes the pipeline easier to explain.</p></article><article class="review-note-item"><h2>Validation and evidence</h2><p>Extraction does not end when OCR returns text. Formats, ranges, required fields, confidence, and business-rule consistency must be validated. Keeping evidence such as the original image, processed ROI, checksum, and structured result helps audit and correct errors.</p></article><section class="review-note-questions"><h2>Typical questions</h2><ul class="review-note-list"><li>What is the practical difference between OCR, ICR, and OMR?</li><li>Why can binarisation improve or worsen OCR?</li><li>How would you define and validate an ROI?</li><li>Which metadata would you store for a processed document?</li></ul></section><section class="review-note-sources"><h2>Sources</h2><div class="review-note-source-list"><a class="review-note-source" href="https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html" target="_blank" rel="noreferrer">OpenCV Thresholding</a><a class="review-note-source" href="https://docs.opencv.org/4.x/d4/d73/tutorial_py_contours_begin.html" target="_blank" rel="noreferrer">OpenCV Contours</a><a class="review-note-source" href="https://pymupdf.readthedocs.io/en/latest/tutorial.html" target="_blank" rel="noreferrer">PyMuPDF Tutorial</a><a class="review-note-source" href="https://tesseract-ocr.github.io/tessdoc/" target="_blank" rel="noreferrer">Tesseract OCR Docs</a></div></section></section></main><footer class="editorial-footer">&copy; <span id="yr"></span> Marco Rios &middot; Deployed on GitHub Pages</footer></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      OCR, images and documents - Technical notes
+    </title>
+    <meta name="theme-color" content="#0b0f14">
+    <script>
+      (function () {
+        const t = localStorage.getItem('theme') || 'dark';
+        const h = document.documentElement;
+        h.classList.toggle('dark', t === 'dark');
+        h.classList.toggle('light', t !== 'dark');
+        h.dataset.theme = t;
+      })();
+
+    </script>
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="/assets/js/site.js"></script>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/pages/editorial.css">
+    <link rel="stylesheet" href="/assets/css/pages/review-notes.css">
+  </head>
+  <body class="editorial-page">
+    <header class="editorial-header">
+      <nav class="editorial-nav editorial-container">
+        <a href="/en/" class="site-wordmark">
+          Marco Rios
+        </a>
+        <div class="editorial-nav-links">
+          <a href="/en/" class="navlink">
+            Home
+          </a>
+          <a href="/en/projects/" class="navlink">
+            Projects
+          </a>
+          <a href="/en/help/" class="navlink">
+            Notes
+          </a>
+        </div>
+        <div class="editorial-nav-actions">
+          <a href="/help/notes/document-processing/" class="btn-outline" aria-label="Ver esta página en español">
+            <i data-lucide="languages">
+            </i>
+            ES
+          </a>
+          <button id="themeBtn" class="theme-btn" aria-label="Change theme">
+            <span id="themeIcon">
+            </span>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <main class="editorial-main editorial-container">
+      <section class="review-note-header">
+        <a href="/en/help/" class="review-note-back">
+          &larr; Back to notes
+        </a>
+        <p class="review-note-kicker">
+          Review note
+        </p>
+        <h1 class="review-note-title">
+          OCR, images and documents
+        </h1>
+        <p class="review-note-description">
+          Document processing combines images, extraction, and validation. OCR reads text, ICR attempts to recognise handwriting or more variable fields, and OMR detects marks. Before extracting data, it is often necessary to improve the image and crop regions of interest.
+        </p>
+      </section>
+      <section class="review-note-items">
+        <article class="review-note-item">
+          <h2>
+            OCR, ICR and OMR
+          </h2>
+          <p>
+            OCR focuses on recognising printed or scanned text. ICR targets handwriting or highly variable fields. OMR detects marks, checkboxes, or selections. A real form can use all three techniques: marks for answers, printed text for labels, and handwritten fields for identification.
+          </p>
+        </article>
+        <article class="review-note-item">
+          <h2>
+            Preprocessing
+          </h2>
+          <p>
+            Before information is extracted, an image may need grayscale conversion, binarisation, noise reduction, contrast or perspective correction. The aim is to help the algorithm see the relevant structure instead of shadows, backgrounds, stains, or irregular scans.
+          </p>
+        </article>
+        <article class="review-note-item">
+          <h2>
+            Contours and ROIs
+          </h2>
+          <p>
+            Contours help detect candidate regions: checkboxes, tables, text blocks, or document edges. An ROI is a region of interest cropped to process a specific field. Defining good ROIs reduces false positives and makes the pipeline easier to explain.
+          </p>
+        </article>
+        <article class="review-note-item">
+          <h2>
+            Validation and evidence
+          </h2>
+          <p>
+            Extraction does not end when OCR returns text. Formats, ranges, required fields, confidence, and business-rule consistency must be validated. Keeping evidence such as the original image, processed ROI, checksum, and structured result helps audit and correct errors.
+          </p>
+        </article>
+        <section class="review-note-questions">
+          <h2>
+            Typical questions
+          </h2>
+          <ul class="review-note-list">
+            <li>
+              What is the practical difference between OCR, ICR, and OMR?
+            </li>
+            <li>
+              Why can binarisation improve or worsen OCR?
+            </li>
+            <li>
+              How would you define and validate an ROI?
+            </li>
+            <li>
+              Which metadata would you store for a processed document?
+            </li>
+          </ul>
+        </section>
+        <section class="review-note-sources">
+          <h2>
+            Sources
+          </h2>
+          <div class="review-note-source-list">
+            <a class="review-note-source" href="https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html" target="_blank" rel="noreferrer">
+              OpenCV Thresholding
+            </a>
+            <a class="review-note-source" href="https://docs.opencv.org/4.x/d4/d73/tutorial_py_contours_begin.html" target="_blank" rel="noreferrer">
+              OpenCV Contours
+            </a>
+            <a class="review-note-source" href="https://pymupdf.readthedocs.io/en/latest/tutorial.html" target="_blank" rel="noreferrer">
+              PyMuPDF Tutorial
+            </a>
+            <a class="review-note-source" href="https://tesseract-ocr.github.io/tessdoc/" target="_blank" rel="noreferrer">
+              Tesseract OCR Docs
+            </a>
+          </div>
+        </section>
+      </section>
+    </main>
+    <footer class="editorial-footer">
+      &copy;
+      <span id="yr">
+      </span>
+      Marco Rios &middot; Deployed on GitHub Pages
+    </footer>
+  </body>
+</html>
