@@ -1,64 +1,51 @@
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Backend & APIs - Notas tecnicas</title>
-  <meta name="theme-color" content="#0b0b0b">
-  <script>(function(){const t=localStorage.getItem('theme')||'dark',h=document.documentElement;h.classList.toggle('dark',t==='dark');h.classList.toggle('light',t!=='dark');h.dataset.theme=t;})();</script>
-  <script>window.tailwind=window.tailwind||{};window.tailwind.config={darkMode:'class'};</script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Backend &amp; APIs - Notas tecnicas</title>
+  <meta name="theme-color" content="#0b0f14">
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
+  })();
+  </script>
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script defer src="/assets/js/site.js"></script>
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/pages/editorial.css">
+  <link rel="stylesheet" href="/assets/css/pages/review-notes.css">
 </head>
-<body class="min-h-screen bg-white text-slate-900 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100">
-  <header class="sticky top-0 z-50 border-b backdrop-blur bg-white/70 border-slate-200/70 dark:bg-slate-950/70 dark:border-white/10">
-    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
-      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
-      <div class="hidden md:flex items-center gap-6 text-sm"><a href="/help/" class="navlink">Notas tecnicas</a><a href="/projects/" class="navlink">Proyectos</a></div>
-      <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema"><span id="themeIcon" class="h-5 w-5 inline-flex"></span></button>
+<body class="editorial-page">
+  <header class="editorial-header">
+    <nav class="editorial-nav editorial-container">
+      <a href="/" class="site-wordmark">Marco Rios</a>
+      <div class="editorial-nav-links"><a href="/" class="navlink">Inicio</a><a href="/projects/" class="navlink">Proyectos</a><a href="/help/" class="navlink">Notas</a></div>
+      <div class="editorial-nav-actions"><button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"><span id="themeIcon"></span></button></div>
     </nav>
   </header>
-  <main class="mx-auto container-xx px-4 py-12 space-y-8">
-    <section class="max-w-3xl">
-      <a href="/help/" class="text-sm text-emerald-700 dark:text-emerald-300 hover:underline">&larr; Volver a notas</a>
-      <p class="mt-6 text-xs uppercase tracking-wide text-emerald-700 dark:text-emerald-300">Nota de repaso</p>
-      <h1 class="mt-2 text-3xl font-semibold">Backend & APIs</h1>
-      <p class="mt-4 text-slate-700 dark:text-slate-300">Una API no es solo un conjunto de rutas: es un contrato entre clientes y servidor. Para explicarla bien conviene dominar recursos, metodos HTTP, codigos de estado, validacion, autenticacion y autorizacion. En sistemas internos, una API clara reduce ambiguedad y hace mas facil operar, depurar y evolucionar servicios.</p>
+  <main class="editorial-main editorial-container">
+    <section class="review-note-header">
+      <a href="/help/" class="review-note-back">&larr; Volver a notas</a>
+      <p class="review-note-kicker">Nota de repaso</p>
+      <h1 class="review-note-title">Backend &amp; APIs</h1>
+      <p class="review-note-description">Una API no es solo un conjunto de rutas: es un contrato entre clientes y servidor. Para explicarla bien conviene dominar recursos, metodos HTTP, codigos de estado, validacion, autenticacion y autorizacion. En sistemas internos, una API clara reduce ambiguedad y hace mas facil operar, depurar y evolucionar servicios.</p>
     </section>
-
-    <section class="space-y-4">
-      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-        <h2 class="font-semibold">REST y recursos</h2>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">REST suele modelar el sistema alrededor de recursos: usuarios, documentos, ordenes, archivos o reportes. Los metodos HTTP describen la intencion: <code>GET</code> consulta, <code>POST</code> crea o dispara una operacion, <code>PUT/PATCH</code> actualizan y <code>DELETE</code> elimina. Lo importante no es memorizar rutas bonitas, sino que el contrato sea consistente para quien consume la API.</p>
-      </article>
-      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-        <h2 class="font-semibold">Idempotencia</h2>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Una operacion idempotente puede repetirse sin cambiar el resultado final mas alla de la primera ejecucion. Esto es clave en APIs internas porque hay reintentos, timeouts y jobs que pueden volver a enviar una solicitud. Por ejemplo, consultar con <code>GET</code> deberia ser idempotente; crear con <code>POST</code> no siempre lo es, salvo que uses una clave de negocio o idempotency key.</p>
-      </article>
-      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-        <h2 class="font-semibold">Codigos HTTP</h2>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Los codigos HTTP comunican el resultado sin depender solo del mensaje. <code>200</code> indica exito, <code>201</code> creacion, <code>400</code> error de solicitud, <code>401</code> falta de autenticacion, <code>403</code> falta de permisos, <code>404</code> recurso no encontrado, <code>409</code> conflicto y <code>422</code> datos semanticamente invalidos. Usarlos bien hace que clientes web, moviles y scripts puedan reaccionar correctamente.</p>
-      </article>
-      <article class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-        <h2 class="font-semibold">JWT y seguridad</h2>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Un JWT transporta claims firmados, como usuario, expiracion o audiencia. Sirve para que el backend verifique identidad y permisos sin consultar una sesion en cada request, pero no debe usarse como lugar para guardar informacion sensible. La firma protege integridad, no convierte el contenido en privado si el token puede ser leido por el cliente.</p>
-      </article>
+    <section class="review-note-items">
+      <article class="review-note-item"><h2>REST y recursos</h2><p>REST suele modelar el sistema alrededor de recursos: usuarios, documentos, ordenes, archivos o reportes. Los metodos HTTP describen la intencion: <code>GET</code> consulta, <code>POST</code> crea o dispara una operacion, <code>PUT/PATCH</code> actualizan y <code>DELETE</code> elimina. Lo importante no es memorizar rutas bonitas, sino que el contrato sea consistente para quien consume la API.</p></article>
+      <article class="review-note-item"><h2>Idempotencia</h2><p>Una operacion idempotente puede repetirse sin cambiar el resultado final mas alla de la primera ejecucion. Esto es clave en APIs internas porque hay reintentos, timeouts y jobs que pueden volver a enviar una solicitud. Por ejemplo, consultar con <code>GET</code> deberia ser idempotente; crear con <code>POST</code> no siempre lo es, salvo que uses una clave de negocio o idempotency key.</p></article>
+      <article class="review-note-item"><h2>Codigos HTTP</h2><p>Los codigos HTTP comunican el resultado sin depender solo del mensaje. <code>200</code> indica exito, <code>201</code> creacion, <code>400</code> error de solicitud, <code>401</code> falta de autenticacion, <code>403</code> falta de permisos, <code>404</code> recurso no encontrado, <code>409</code> conflicto y <code>422</code> datos semanticamente invalidos. Usarlos bien hace que clientes web, moviles y scripts puedan reaccionar correctamente.</p></article>
+      <article class="review-note-item"><h2>JWT y seguridad</h2><p>Un JWT transporta claims firmados, como usuario, expiracion o audiencia. Sirve para que el backend verifique identidad y permisos sin consultar una sesion en cada request, pero no debe usarse como lugar para guardar informacion sensible. La firma protege integridad, no convierte el contenido en privado si el token puede ser leido por el cliente.</p></article>
+      <section class="review-note-questions"><h2>Preguntas tipicas</h2><ul class="review-note-list"><li>Cuando usarias 400, 401, 403, 404, 409 y 422?</li><li>Que diferencia hay entre autenticar y autorizar?</li><li>Que hace que un endpoint sea idempotente?</li><li>Que informacion pondrias y que no pondrias dentro de un JWT?</li></ul></section>
+      <section class="review-note-sources"><h2>Fuentes</h2><div class="review-note-source-list"><a class="review-note-source" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status" target="_blank" rel="noreferrer">MDN HTTP status codes</a><a class="review-note-source" href="https://datatracker.ietf.org/doc/html/rfc7519" target="_blank" rel="noreferrer">RFC 7519 - JSON Web Token</a><a class="review-note-source" href="https://fastapi.tiangolo.com/tutorial/" target="_blank" rel="noreferrer">FastAPI Tutorial</a><a class="review-note-source" href="https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/" target="_blank" rel="noreferrer">FastAPI OAuth2 + JWT</a></div></section>
     </section>
-
-    <section class="rounded-2xl border p-5 bg-white border-slate-200 dark:bg-white/5 dark:border-white/10">
-      <h2 class="font-semibold">Preguntas tipicas</h2>
-      <ul class="mt-3 list-disc pl-5 text-sm space-y-1 text-slate-700 dark:text-slate-300">
-        <li>Cuando usarias 400, 401, 403, 404, 409 y 422?</li>
-        <li>Que diferencia hay entre autenticar y autorizar?</li>
-        <li>Que hace que un endpoint sea idempotente?</li>
-        <li>Que informacion pondrias y que no pondrias dentro de un JWT?</li>
-      </ul>
-    </section>
-
-    <section><h2 class="mb-3 text-xl font-semibold">Fuentes</h2><div class="flex flex-wrap gap-2 text-xs"><a class="badge hover:underline" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status" target="_blank" rel="noreferrer">MDN HTTP status codes</a><a class="badge hover:underline" href="https://datatracker.ietf.org/doc/html/rfc7519" target="_blank" rel="noreferrer">RFC 7519 - JSON Web Token</a><a class="badge hover:underline" href="https://fastapi.tiangolo.com/tutorial/" target="_blank" rel="noreferrer">FastAPI Tutorial</a><a class="badge hover:underline" href="https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/" target="_blank" rel="noreferrer">FastAPI OAuth2 + JWT</a></div></section>
   </main>
-  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">&copy; <span id="yr"></span> Marco Rios</footer>
+  <footer class="editorial-footer">&copy; <span id="yr"></span> Marco Rios &middot; Desplegable en GitHub Pages</footer>
 </body>
 </html>
