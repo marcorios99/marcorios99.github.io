@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Acerca de mi - Marco Rios</title>
-  <meta name="description" content="Marco Rios: desarrollador de software enfocado en automatizaci&oacute;n, datos, procesamiento documental, visi&oacute;n por computadora, APIs y Android." />
-  <meta name="theme-color" content="#0b0b0b">
-
+  <meta name="description" content="Marco Rios: desarrollador de software enfocado en automatizaci&oacute;n, datos, procesamiento documental, visi&oacute;n por computadora, APIs y Android.">
+  <meta name="theme-color" content="#0b0f14">
   <script>
   (function () {
     const theme = localStorage.getItem('theme') || 'dark';
@@ -15,114 +14,84 @@
     html.classList.toggle('light', theme !== 'dark');
     html.dataset.theme = theme;
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0b0b' : '#ffffff');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
   })();
   </script>
-
-  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
-  <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script defer src="/assets/js/site.js"></script>
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/pages/editorial.css">
 </head>
-
-<body class="min-h-screen bg-white text-slate-900 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100">
-  <header class="sticky top-0 z-40 border-b backdrop-blur bg-white/70 border-slate-200/70 dark:bg-slate-950/70 dark:border-white/10">
-    <nav class="mx-auto container-xx px-4 py-3 flex items-center justify-between">
-      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
-
-      <div class="hidden md:flex items-center gap-6 text-sm">
+<body>
+  <header class="editorial-header">
+    <nav class="editorial-nav mx-auto container-xx px-4">
+      <a href="/" class="site-wordmark">Marco Rios</a>
+      <div class="editorial-nav-links">
         <a href="/" class="navlink">Inicio</a>
         <a href="/projects/" class="navlink">Proyectos</a>
         <a href="/help/" class="navlink">Notas</a>
       </div>
-
-      <div class="flex items-center gap-2">
-        <a href="/en/about/" class="btn-outline" title="Switch to English">
-          <i data-lucide="languages" class="h-4 w-4"></i> ES
-        </a>
-        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
-          <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
-        </button>
-        <a href="/#contact" class="btn-accent btn-accent--sm">Zona Horaria: (UTC-5)</a>
+      <div class="editorial-nav-actions">
+        <a href="/en/about/" class="btn-outline" aria-label="Ver Acerca de mi en ingles" title="Ver Acerca de mi en ingles"><i data-lucide="languages"></i> EN</a>
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"><span id="themeIcon"></span></button>
       </div>
     </nav>
   </header>
 
-  <main class="mx-auto container-xx px-4 py-12 space-y-10">
-    <section class="text-center">
-      <img src="/assets/img/marco.jpg" alt="Marco Rios"
-           class="mx-auto h-40 w-40 md:h-52 md:w-52 lg:h-60 lg:w-60 rounded-full object-cover ring-2 ring-white/20 ring-offset-2 ring-offset-slate-950 shadow-xl shadow-emerald-500/10" />
-      <h1 class="mt-4 text-3xl font-semibold">Marco Rios</h1>
-      <p class="mt-1 text-sm text-slate-700 dark:text-slate-300">Ingeniero electr&oacute;nico - Desarrollador de software</p>
-
-      <div class="mt-5 flex flex-wrap justify-center gap-3">
-        <a href="/assets/cv/CV_Marco Rios.pdf" target="_blank" class="btn-accent">Descargar CV (PDF)</a>
+  <main class="editorial-main mx-auto container-xx px-4">
+    <section class="editorial-hero" aria-labelledby="about-title">
+      <p class="editorial-kicker">Perfil / trayectoria</p>
+      <h1 id="about-title" class="editorial-title">Marco Rios</h1>
+      <p class="editorial-subtitle">Ingeniero electr&oacute;nico - Desarrollador de software</p>
+      <p class="editorial-lead">Soy ingeniero electr&oacute;nico y desarrollador de software, con experiencia en automatizaci&oacute;n, datos y procesamiento documental. Construyo soluciones con APIs, validaciones, visi&oacute;n por computadora y consultas controladas para resolver problemas reales.</p>
+      <div class="editorial-actions">
+        <a href="/assets/cv/Marco_Rios_CV.pdf" target="_blank" rel="noreferrer" class="btn-outline">Descargar CV (PDF)</a>
         <a href="mailto:marcoandrer99@hotmail.com" class="btn-outline">Email</a>
         <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-outline" rel="noreferrer">LinkedIn</a>
         <a href="https://github.com/marcorios99" target="_blank" class="btn-outline" rel="noreferrer">GitHub</a>
       </div>
     </section>
 
-    <section class="grid md:grid-cols-5 gap-6 items-start">
-      <div class="md:col-span-3 space-y-3">
-        <h2 class="text-xl font-semibold">Resumen</h2>
-        <p class="text-slate-700 dark:text-slate-300">
-          Soy ingeniero electr&oacute;nico y desarrollador de software, con experiencia en automatizaci&oacute;n, datos y procesamiento documental. Construyo soluciones con APIs, validaciones, visi&oacute;n por computadora y consultas controladas para resolver problemas reales.
-        </p>
-        <ul class="list-disc pl-5 text-sm text-slate-700 dark:text-slate-300">
-          <li>Backend con Python, FastAPI, SQL Server y autenticacion JWT.</li>
-          <li>Captura documental con OCR/ICR/OMR, OpenCV, validaciones y salida estructurada.</li>
-          <li>Asistentes de datos con LLM local, JSON estructurado y consultas SQL seguras.</li>
-          <li>Clientes web/movil y Android como complemento para visualizar y operar la informacion.</li>
-          <li>Case studies sinteticos basados en problemas reales, cuidando datos y dominios privados.</li>
-        </ul>
-      </div>
+    <nav class="editorial-in-page-nav" aria-label="Secciones de Acerca de mi">
+      <a href="#resumen">Resumen</a><a href="#enfoque">Enfoque</a><a href="#enlaces">Enlaces</a>
+    </nav>
 
-      <aside class="md:col-span-2 glass rounded-3xl p-5 ring-1 ring-slate-200 dark:ring-white/10">
-        <h3 class="font-semibold mb-2">Stack y foco</h3>
-        <div class="flex flex-wrap gap-2 text-xs">
-          <span class="badge">Python</span>
-          <span class="badge">FastAPI</span>
-          <span class="badge">SQL Server</span>
-          <span class="badge">OCR/ICR/OMR</span>
-          <span class="badge">OpenCV</span>
-          <span class="badge">Android/Kotlin</span>
-          <span class="badge">LLM local</span>
-          <span class="badge">JSON estructurado</span>
-          <span class="badge">JWT</span>
-          <span class="badge">PDF processing</span>
-          <span class="badge">IIS/Nginx basico</span>
+    <section id="resumen" class="editorial-section">
+      <div class="editorial-layout editorial-layout--two-columns">
+        <div>
+          <div class="editorial-section-heading"><div><p class="editorial-kicker">01 / Resumen</p><h2>Áreas de trabajo</h2></div></div>
+          <ul class="editorial-list">
+            <li>Backend con Python, FastAPI, SQL Server y autenticacion JWT.</li>
+            <li>Captura documental con OCR/ICR/OMR, OpenCV, validaciones y salida estructurada.</li>
+            <li>Asistentes de datos con LLM local, JSON estructurado y consultas SQL seguras.</li>
+            <li>Clientes web/movil y Android como complemento para visualizar y operar la informacion.</li>
+            <li>Case studies sinteticos basados en problemas reales, cuidando datos y dominios privados.</li>
+          </ul>
         </div>
-      </aside>
+        <aside aria-labelledby="stack-title">
+          <h2 id="stack-title" class="editorial-side-title">Stack y foco</h2>
+          <div class="editorial-tags">
+            <span class="editorial-tag">Python</span><span class="editorial-tag">FastAPI</span><span class="editorial-tag">SQL Server</span><span class="editorial-tag">OCR/ICR/OMR</span><span class="editorial-tag">OpenCV</span><span class="editorial-tag">Android/Kotlin</span><span class="editorial-tag">LLM local</span><span class="editorial-tag">JSON estructurado</span><span class="editorial-tag">JWT</span><span class="editorial-tag">PDF processing</span><span class="editorial-tag">IIS/Nginx basico</span>
+          </div>
+          <figure class="editorial-media-slot"><figcaption>Espacio para imagen futura</figcaption></figure>
+        </aside>
+      </div>
     </section>
 
-    <section class="grid md:grid-cols-3 gap-4 text-sm">
-      <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <h2 class="font-semibold text-base mb-2">Lo que busco destacar</h2>
-        <p>Me interesa construir soluciones internas simples, eficientes y mantenibles, que conecten datos, documentos y personas para facilitar consultas, automatizar tareas repetitivas y convertir archivos o formularios en información útil para tomar decisiones.</p>
-      </article>
-      <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <h2 class="font-semibold text-base mb-2">Como trabajo</h2>
-        <p>Prefiero soluciones claras y mantenibles: APIs bien definidas, validaciones explícitas, consultas controladas, datos trazables y documentación suficiente para que otra persona pueda entender el flujo sin depender solo del código.</p>
-      </article>
-      <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-        <h2 class="font-semibold text-base mb-2">Enfoque actual</h2>
-        <p>Mis proyectos principales se centran en dos áreas: asistentes empresariales de datos con IA local y captura automática de información mediante OCR/ICR/OMR..</p>
-      </article>
+    <section id="enfoque" class="editorial-section" aria-labelledby="enfoque-title">
+      <div class="editorial-section-heading"><div><p class="editorial-kicker">02 / Enfoque</p><h2 id="enfoque-title">Principios de trabajo</h2></div></div>
+      <div class="editorial-stack">
+        <article class="editorial-row"><div class="editorial-index">01</div><div><h3>Lo que busco destacar</h3><p>Me interesa construir soluciones internas simples, eficientes y mantenibles, que conecten datos, documentos y personas para facilitar consultas, automatizar tareas repetitivas y convertir archivos o formularios en informaci&oacute;n &uacute;til para tomar decisiones.</p></div></article>
+        <article class="editorial-row"><div class="editorial-index">02</div><div><h3>Como trabajo</h3><p>Prefiero soluciones claras y mantenibles: APIs bien definidas, validaciones expl&iacute;citas, consultas controladas, datos trazables y documentaci&oacute;n suficiente para que otra persona pueda entender el flujo sin depender solo del c&oacute;digo.</p></div></article>
+        <article class="editorial-row"><div class="editorial-index">03</div><div><h3>Enfoque actual</h3><p>Mis proyectos principales se centran en dos &aacute;reas: asistentes empresariales de datos con IA local y captura autom&aacute;tica de informaci&oacute;n mediante OCR/ICR/OMR..</p></div></article>
+      </div>
     </section>
 
-    <section>
-      <h2 class="text-xl font-semibold mb-3">Enlaces</h2>
-      <ul class="list-disc pl-6 text-sm">
-        <li><a class="text-emerald-700 dark:text-emerald-300 hover:underline" href="/projects/">Proyectos destacados</a></li>
-        <li><a class="text-emerald-700 dark:text-emerald-300 hover:underline" href="/help/">Notas tecnicas</a></li>
-      </ul>
+    <section id="enlaces" class="editorial-section" aria-labelledby="enlaces-title">
+      <div class="editorial-section-heading"><div><p class="editorial-kicker">03 / Continuar</p><h2 id="enlaces-title">Enlaces</h2></div></div>
+      <div class="editorial-links"><a class="editorial-link" href="/projects/">Proyectos destacados &rarr;</a><a class="editorial-link" href="/help/">Notas tecnicas &rarr;</a></div>
     </section>
   </main>
-
-  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
-    &copy; <span id="yr"></span> Marco Rios
-  </footer>
+  <footer class="editorial-footer">&copy; <span id="yr"></span> Marco Rios &middot; Desplegable en GitHub Pages</footer>
 </body>
 </html>

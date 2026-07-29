@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Notas tecnicas - Marco Rios</title>
   <meta name="description" content="Notas tecnicas, queries, scripts de Python y laboratorio de codigo para recordar sintaxis y patrones utiles.">
-  <meta name="theme-color" content="#0b0b0b">
-
+  <meta name="theme-color" content="#0b0f14">
   <script>
   (function () {
     const theme = localStorage.getItem('theme') || 'dark';
@@ -15,166 +14,60 @@
     html.classList.toggle('light', theme !== 'dark');
     html.dataset.theme = theme;
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0b0b' : '#ffffff');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
   })();
   </script>
-
-  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
-  <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script defer src="/assets/js/site.js"></script>
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/pages/editorial.css">
 </head>
-
-<body class="min-h-screen bg-white text-slate-900 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 dark:text-slate-100">
-  <header class="sticky top-0 z-50 border-b backdrop-blur bg-white/70 border-slate-200/70 dark:bg-slate-950/70 dark:border-white/10">
-    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
-      <a href="/" class="font-semibold tracking-wide">Marco Rios</a>
-
-      <div class="hidden md:flex items-center gap-6 text-sm">
+<body>
+  <header class="editorial-header">
+    <nav class="editorial-nav mx-auto container-xx px-4">
+      <a href="/" class="site-wordmark">Marco Rios</a>
+      <div class="editorial-nav-links">
         <a href="/" class="navlink">Inicio</a>
         <a href="/projects/" class="navlink">Proyectos</a>
         <a href="/about/" class="navlink">Acerca de mi</a>
       </div>
-
-      <div class="flex items-center gap-2">
-        <a href="/en/" class="btn-outline" aria-label="Switch to English">
-          <i data-lucide="languages" class="h-4 w-4"></i> ES
-        </a>
-        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
-          <span id="themeIcon" class="h-5 w-5 inline-flex"></span>
-        </button>
+      <div class="editorial-nav-actions">
+        <a href="/en/help/" class="btn-outline" aria-label="Ver notas en ingles"><i data-lucide="languages"></i> EN</a>
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"><span id="themeIcon"></span></button>
       </div>
     </nav>
   </header>
 
-  <main class="mx-auto container-xx px-4 py-12 space-y-12">
-    <section class="max-w-3xl space-y-4">
-      <span class="inline-flex items-center gap-2 rounded-full border border-emerald-600/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-700 dark:text-emerald-300">Notas tecnicas</span>
-      <h1 class="text-3xl sm:text-4xl font-semibold">Queries, scripts y laboratorio de codigo</h1>
-      <p class="text-slate-700 dark:text-slate-300">
-        Espacio para guardar patrones, scripts utiles y pequenos ejercicios interactivos. La idea es recordar sintaxis, revisar si un fragmento esta bien escrito y tener referencias rapidas sin mezclarlo con los proyectos principales.
-      </p>
+  <main class="editorial-main mx-auto container-xx px-4">
+    <section class="editorial-hero" aria-labelledby="help-title">
+      <p class="editorial-kicker">Archivo técnico / notas</p>
+      <h1 id="help-title" class="editorial-title">Queries, scripts y laboratorio de codigo</h1>
+      <p class="editorial-lead">Espacio para guardar patrones, scripts utiles y pequenos ejercicios interactivos. La idea es recordar sintaxis, revisar si un fragmento esta bien escrito y tener referencias rapidas sin mezclarlo con los proyectos principales.</p>
     </section>
 
-    <section>
-      <h2 class="mb-4 text-2xl font-semibold">Categorias</h2>
-      <div class="grid md:grid-cols-3 gap-4">
-        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-          <div class="mb-2 flex items-center gap-2">
-            <i data-lucide="database" class="h-5 w-5 text-emerald-600 dark:text-emerald-400"></i>
-            <h3 class="font-semibold">Queries SQL</h3>
-          </div>
-          <p class="text-sm">Ventanas, agregaciones, validaciones, joins y consultas reutilizables.</p>
-          <div class="mt-4 flex flex-wrap gap-2">
-            <a href="/help/sql-queries.html" class="btn-outline">Ver queries</a>
-          </div>
-        </article>
+    <nav class="editorial-in-page-nav" aria-label="Secciones de notas"><a href="#categorias">Categorias</a><a href="#repaso">Notas de repaso</a></nav>
 
-        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-          <div class="mb-2 flex items-center gap-2">
-            <i data-lucide="file-code-2" class="h-5 w-5 text-emerald-600 dark:text-emerald-400"></i>
-            <h3 class="font-semibold">Scripts Python</h3>
-          </div>
-          <p class="text-sm">Snippets para archivos, validaciones, APIs, OCR/OpenCV y automatizaciones internas.</p>
-          <div class="mt-4 flex flex-wrap gap-2">
-            <a href="/help/python-snippets.html" class="btn-outline">Ver snippets</a>
-          </div>
-        </article>
-
-        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-          <div class="mb-2 flex items-center gap-2">
-            <i data-lucide="terminal-square" class="h-5 w-5 text-emerald-600 dark:text-emerald-400"></i>
-            <h3 class="font-semibold">Mini code lab</h3>
-          </div>
-          <p class="text-sm">Editor para pegar codigo Python, revisar estructura y probar prints simples desde el navegador.</p>
-          <div class="mt-4 flex flex-wrap gap-2">
-            <a href="/help/python-lab.html" class="btn-accent">Abrir lab</a>
-          </div>
-        </article>
+    <section id="categorias" class="editorial-section" aria-labelledby="categorias-title">
+      <div class="editorial-section-heading"><div><p class="editorial-kicker">01 / Colecciones</p><h2 id="categorias-title">Categorias</h2></div></div>
+      <div class="editorial-stack">
+        <article class="editorial-row"><div class="editorial-index">01</div><div><h3>Queries SQL</h3><p>Ventanas, agregaciones, validaciones, joins y consultas reutilizables.</p><div class="editorial-tags"><span class="editorial-tag">SQL</span><span class="editorial-tag">Consultas</span></div><a href="/help/sql-queries.html" class="editorial-link">Ver notas &rarr;</a></div></article>
+        <article class="editorial-row"><div class="editorial-index">02</div><div><h3>Scripts Python</h3><p>Snippets para archivos, validaciones, APIs, OCR/OpenCV y automatizaciones internas.</p><div class="editorial-tags"><span class="editorial-tag">Python</span><span class="editorial-tag">Automatización</span></div><a href="/help/python-snippets.html" class="editorial-link">Ver notas &rarr;</a></div></article>
+        <article class="editorial-row"><div class="editorial-index">03</div><div><h3>Mini code lab</h3><p>Editor para pegar codigo Python, revisar estructura y probar prints simples desde el navegador.</p><div class="editorial-tags"><span class="editorial-tag">Laboratorio</span><span class="editorial-tag">Python</span></div><a href="/help/python-lab.html" class="editorial-link">Abrir laboratorio &rarr;</a></div></article>
       </div>
     </section>
 
-    <section>
-      <div class="mb-4">
-        <h2 class="text-2xl font-semibold">Notas de repaso</h2>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
-          Fundamentos para tener a mano antes de entrevistas, dise&ntilde;o de proyectos o revisiones tecnicas. Aqui no va tanto codigo, sino conceptos que conviene saber explicar.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-4">
-        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-          <h3 class="font-semibold">Backend &amp; APIs</h3>
-          <ul class="mt-3 list-disc pl-5 text-sm space-y-1">
-            <li>REST, recursos, metodos HTTP e idempotencia.</li>
-            <li>Codigos HTTP clave: 200, 201, 400, 401, 403, 404, 409, 422, 500.</li>
-            <li>Autenticacion vs autorizacion; JWT, claims, expiracion y scopes.</li>
-            <li>Validacion de entrada, errores claros y contratos de respuesta.</li>
-          </ul>
-          <div class="mt-4">
-            <a class="btn-outline" href="/help/notes/backend-apis/">Ver resumen y fuentes</a>
-          </div>
-        </article>
-
-        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-          <h3 class="font-semibold">Bases de datos</h3>
-          <ul class="mt-3 list-disc pl-5 text-sm space-y-1">
-            <li>Indices: cuando ayudan, costo de escritura y riesgo de sobre-indexar.</li>
-            <li>Transacciones, commits, rollbacks y consistencia de cambios.</li>
-            <li>Joins, cardinalidad, duplicados y claves de negocio.</li>
-            <li>Auditoria: created_at, updated_at, usuario, estado y logs operativos.</li>
-          </ul>
-          <div class="mt-4">
-            <a class="btn-outline" href="/help/notes/databases/">Ver resumen y fuentes</a>
-          </div>
-        </article>
-
-        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-          <h3 class="font-semibold">Python</h3>
-          <ul class="mt-3 list-disc pl-5 text-sm space-y-1">
-            <li>Excepciones: capturar errores especificos y no ocultar fallos.</li>
-            <li>Context managers para manejar recursos con <code>with</code>.</li>
-            <li>Iteradores, generadores y comprensiones.</li>
-            <li>Mutabilidad: listas/dicts vs tuplas/strings; copias y referencias.</li>
-          </ul>
-          <div class="mt-4">
-            <a class="btn-outline" href="/help/notes/python/">Ver resumen y fuentes</a>
-          </div>
-        </article>
-
-        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-          <h3 class="font-semibold">OCR, imagenes y documentos</h3>
-          <ul class="mt-3 list-disc pl-5 text-sm space-y-1">
-            <li>OCR vs ICR vs OMR: texto impreso, escritura/campos y marcas.</li>
-            <li>Preprocesamiento: escala de grises, binarizacion, ruido y contraste.</li>
-            <li>Contornos, ROIs y validacion de confianza.</li>
-            <li>PDF a imagen, texto por pagina y metadata documental.</li>
-          </ul>
-          <div class="mt-4">
-            <a class="btn-outline" href="/help/notes/document-processing/">Ver resumen y fuentes</a>
-          </div>
-        </article>
-
-        <article class="rounded-2xl border p-5 bg-white border-slate-200 text-slate-700 dark:bg-white/5 dark:border-white/10 dark:text-slate-300 md:col-span-2">
-          <h3 class="font-semibold">IA aplicada a datos</h3>
-          <ul class="mt-3 list-disc pl-5 text-sm space-y-1">
-            <li>El LLM debe interpretar intenciones, no ejecutar SQL directamente.</li>
-            <li>JSON estructurado: metricas, filtros, fechas, orden y formato de salida.</li>
-            <li>Validar contra un catalogo permitido antes de consultar la base de datos.</li>
-            <li>Separar respuesta explicativa, tabla y grafico para que la salida sea usable.</li>
-          </ul>
-          <div class="mt-4">
-            <a class="btn-outline" href="/help/notes/ai-data/">Ver resumen y fuentes</a>
-          </div>
-        </article>
+    <section id="repaso" class="editorial-section" aria-labelledby="repaso-title">
+      <div class="editorial-section-heading"><div><p class="editorial-kicker">02 / Referencias</p><h2 id="repaso-title">Notas de repaso</h2></div></div>
+      <p class="editorial-section-copy">Fundamentos para tener a mano antes de entrevistas, dise&ntilde;o de proyectos o revisiones tecnicas. Aqui no va tanto codigo, sino conceptos que conviene saber explicar.</p>
+      <div class="editorial-stack">
+        <article class="editorial-row"><div class="editorial-index">01</div><div><h3>Backend &amp; APIs</h3><ul class="editorial-list"><li>REST, recursos, metodos HTTP e idempotencia.</li><li>Codigos HTTP clave: 200, 201, 400, 401, 403, 404, 409, 422, 500.</li><li>Autenticacion vs autorizacion; JWT, claims, expiracion y scopes.</li><li>Validacion de entrada, errores claros y contratos de respuesta.</li></ul><div class="editorial-tags"><span class="editorial-tag">Backend</span><span class="editorial-tag">APIs</span></div><a class="editorial-link" href="/help/notes/backend-apis/">Ver notas &rarr;</a></div></article>
+        <article class="editorial-row"><div class="editorial-index">02</div><div><h3>Bases de datos</h3><ul class="editorial-list"><li>Indices: cuando ayudan, costo de escritura y riesgo de sobre-indexar.</li><li>Transacciones, commits, rollbacks y consistencia de cambios.</li><li>Joins, cardinalidad, duplicados y claves de negocio.</li><li>Auditoria: created_at, updated_at, usuario, estado y logs operativos.</li></ul><div class="editorial-tags"><span class="editorial-tag">SQL</span><span class="editorial-tag">Modelado</span></div><a class="editorial-link" href="/help/notes/databases/">Ver notas &rarr;</a></div></article>
+        <article class="editorial-row"><div class="editorial-index">03</div><div><h3>Python</h3><ul class="editorial-list"><li>Excepciones: capturar errores especificos y no ocultar fallos.</li><li>Context managers para manejar recursos con <code>with</code>.</li><li>Iteradores, generadores y comprensiones.</li><li>Mutabilidad: listas/dicts vs tuplas/strings; copias y referencias.</li></ul><div class="editorial-tags"><span class="editorial-tag">Python</span><span class="editorial-tag">Fundamentos</span></div><a class="editorial-link" href="/help/notes/python/">Ver notas &rarr;</a></div></article>
+        <article class="editorial-row"><div class="editorial-index">04</div><div><h3>OCR, imagenes y documentos</h3><ul class="editorial-list"><li>OCR vs ICR vs OMR: texto impreso, escritura/campos y marcas.</li><li>Preprocesamiento: escala de grises, binarizacion, ruido y contraste.</li><li>Contornos, ROIs y validacion de confianza.</li><li>PDF a imagen, texto por pagina y metadata documental.</li></ul><div class="editorial-tags"><span class="editorial-tag">Documentos</span><span class="editorial-tag">OCR</span></div><a class="editorial-link" href="/help/notes/document-processing/">Ver notas &rarr;</a></div></article>
+        <article class="editorial-row"><div class="editorial-index">05</div><div><h3>IA aplicada a datos</h3><ul class="editorial-list"><li>El LLM debe interpretar intenciones, no ejecutar SQL directamente.</li><li>JSON estructurado: metricas, filtros, fechas, orden y formato de salida.</li><li>Validar contra un catalogo permitido antes de consultar la base de datos.</li><li>Separar respuesta explicativa, tabla y grafico para que la salida sea usable.</li></ul><div class="editorial-tags"><span class="editorial-tag">IA</span><span class="editorial-tag">Datos</span></div><a class="editorial-link" href="/help/notes/ai-data/">Ver notas &rarr;</a></div></article>
       </div>
     </section>
   </main>
-
-  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">
-    &copy; <span id="yr"></span> Marco Rios
-  </footer>
-
+  <footer class="editorial-footer">&copy; <span id="yr"></span> Marco Rios &middot; Desplegable en GitHub Pages</footer>
 </body>
 </html>
