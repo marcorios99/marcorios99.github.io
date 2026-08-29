@@ -355,6 +355,85 @@
   font-size: .68rem;
 }
 
+.experience-section {
+  padding-bottom: clamp(3rem, 5vw, 5rem);
+}
+
+.experience-list {
+  display: grid;
+  margin-top: 2rem;
+}
+
+.experience-entry {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  column-gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.experience-entry--primary {
+  padding-bottom: 1.5rem;
+}
+
+.experience-entry--secondary {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.experience-section .experience-period {
+  margin-top: .2rem;
+  color: var(--text-muted) !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: .75rem;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.experience-entry--primary .experience-period {
+  color: color-mix(in srgb, var(--accent) 72%, var(--text-muted)) !important;
+  font-weight: 700;
+}
+
+.experience-body {
+  min-width: 0;
+}
+
+.experience-entry--primary h3 {
+  color: var(--text) !important;
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.experience-section .experience-company {
+  margin-top: .25rem;
+  color: var(--text) !important;
+  font-size: .9rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.experience-section .experience-description {
+  margin-top: .8rem;
+  font-size: .9rem;
+  line-height: 1.65;
+}
+
+.experience-entry--secondary h3 {
+  color: var(--text-body) !important;
+  font-size: .9rem;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.experience-entry--secondary h3 span {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.experience-cv {
+  margin-top: 1.5rem;
+}
+
 .content-layout {
   display: grid;
   gap: clamp(4rem, 8vw, 6.5rem);
@@ -450,5 +529,14 @@
   .project-row {
     grid-template-columns: 1fr;
     gap: .45rem;
+  }
+
+  .experience-entry {
+    grid-template-columns: 1fr;
+    row-gap: .45rem;
+  }
+
+  .experience-section .experience-period {
+    margin-top: 0;
   }
 }
