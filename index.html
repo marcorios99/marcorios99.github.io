@@ -95,32 +95,34 @@
     <section id="projects" class="projects-section content-section mx-auto container-xx px-4">
         <div class="section-heading">
           <div><p class="section-kicker">Proyectos</p><h2>Proyectos principales</h2></div>
-          <a href="/projects/index.html" class="text-link">Ver todos</a>
+          <a href="/projects/" class="text-link">Ver todos</a>
         </div>
         <p class="section-copy">Casos de estudio p&uacute;blicos basados en problemas reales, usando datos sint&eacute;ticos o entornos controlados.</p>
 
-        <article class="project-row">
-          <div class="project-year">01</div>
-          <div>
-            <h3>Asistente empresarial de datos con IA local</h3>
-            <p>Asistente empresarial para consultar ventas, productos, inventario y metas usando lenguaje natural. El sistema convierte preguntas del usuario en una intenci&oacute;n JSON validada, ejecuta consultas SQL seguras y devuelve respuestas como resumen, tabla o gr&aacute;fico.</p>
-            <p class="project-note">Pensado para consultar datos internos con IA local sin que el LLM genere ni ejecute SQL directamente.</p>
-            <div class="tech-list"><span>FastAPI</span><span>SQL Server</span><span>JSON estructurado</span><span>SQL seguro</span><span>LLM local</span></div>
-            <div class="project-actions"><a href="/projects/#business-data-assistant" class="project-cta">Ver caso de uso &rarr;</a><span>Caso sint&eacute;tico basado en problemas reales.</span></div>
-          </div>
-        </article>
+        <div class="featured-projects-grid">
+          <article class="project-row">
+            <div class="project-year">01</div>
+            <div class="project-body">
+              <h3>Asistente empresarial de datos con IA local</h3>
+              <p>Asistente empresarial para consultar ventas, productos, inventario y metas usando lenguaje natural. El sistema convierte preguntas del usuario en una intenci&oacute;n JSON validada, ejecuta consultas SQL seguras y devuelve respuestas como resumen, tabla o gr&aacute;fico.</p>
+              <p class="project-note">Pensado para consultar datos internos con IA local sin que el LLM genere ni ejecute SQL directamente.</p>
+              <div class="tech-list"><span>FastAPI</span><span>SQL Server</span><span>JSON estructurado</span><span>SQL seguro</span><span>LLM local</span></div>
+              <div class="project-actions"><a href="/projects/#business-data-assistant" class="project-cta">Ver caso de uso &rarr;</a><span>Caso sint&eacute;tico basado en problemas reales.</span></div>
+            </div>
+          </article>
 
-        <article class="project-row">
-          <div class="project-year">02</div>
-          <div>
-            <h3>Procesamiento autom&aacute;tico de formularios OCR/ICR/OMR</h3>
-            <p class="project-note">FormVision &middot; Open source</p>
-            <p>Pipeline template-driven para procesar formularios estructurados. Puede alinear scans contra una referencia, lee QR sobre la p&aacute;gina completa y extrae fields OMR, OCR e ICR mediante ROIs definidas en el layout.</p>
-            <p class="project-note">Demo p&uacute;blica con diez formularios sint&eacute;ticos, ground truth y evaluaci&oacute;n por lote en JSON.</p>
-            <div class="tech-list"><span>Python</span><span>OpenCV</span><span>QR/OMR/OCR/ICR</span><span>Layouts y ROIs</span><span>JSON/CSV/SQLite</span></div>
-            <div class="project-actions"><a href="/projects/formvision/" class="project-cta">Ver proyecto &rarr;</a><span>Open source &middot; MIT</span></div>
-          </div>
-        </article>
+          <article class="project-row">
+            <div class="project-year">02</div>
+            <div class="project-body">
+              <h3>Procesamiento autom&aacute;tico de formularios OCR/ICR/OMR</h3>
+              <p class="project-note">FormVision &middot; Open source</p>
+              <p>Pipeline template-driven para procesar formularios estructurados. Puede alinear scans contra una referencia, lee QR sobre la p&aacute;gina completa y extrae fields OMR, OCR e ICR mediante ROIs definidas en el layout.</p>
+              <p class="project-note">Demo p&uacute;blica con diez formularios sint&eacute;ticos, ground truth y evaluaci&oacute;n por lote en JSON.</p>
+              <div class="tech-list"><span>Python</span><span>OpenCV</span><span>QR/OMR/OCR/ICR</span><span>Layouts y ROIs</span><span>JSON/CSV/SQLite</span></div>
+              <div class="project-actions"><a href="/projects/formvision/" class="project-cta">Ver proyecto &rarr;</a><span>Open source &middot; MIT</span></div>
+            </div>
+          </article>
+        </div>
     </section>
 
     <section class="other-projects-section mx-auto container-xx px-4" aria-labelledby="other-projects-title">
