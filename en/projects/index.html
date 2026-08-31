@@ -58,74 +58,109 @@
   </header>
 
   <main class="projects-page">
-    <section class="projects-hero mx-auto container-xx px-4" aria-labelledby="projects-title">
-      <div class="projects-hero-copy">
-        <p class="section-kicker">Projects</p>
-        <h1 id="projects-title">Projects in applied AI and document automation</h1>
-        <p>
-          This section organizes my portfolio around two main pillars: querying business data with local AI and capturing information from forms and documents. The projects are presented as synthetic use cases based on real-world problems, without exposing private data or original domains.
-        </p>
-        <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="text-link" rel="noreferrer">View GitHub profile</a>
-      </div>
-    </section>
-
-    <section class="featured-projects mx-auto container-xx px-4" aria-labelledby="featured-projects-title">
-      <div class="featured-projects-header">
-        <h2 id="featured-projects-title">Main projects</h2>
-        <p>The two case studies that best represent my current profile.</p>
-      </div>
+    <section class="featured-projects mx-auto container-xx px-4" aria-labelledby="projects-title">
+      <h1 id="projects-title" class="projects-title section-kicker">Projects</h1>
 
       <div class="featured-projects-list">
         <article id="business-data-assistant" class="featured-project">
           <div class="featured-project-index" aria-hidden="true">01</div>
           <div class="featured-project-body">
+            <h3>Local AI Business Data Assistant</h3>
+            <p>Enterprise assistant for querying sales, products, inventory, and targets using natural language. The system converts user questions into a validated JSON intent, runs safe SQL queries, and returns answers as a summary, table, or chart.</p>
+            <p class="featured-project-note">Designed to query internal data with local AI without having the LLM generate or run SQL directly.</p>
             <div class="featured-project-stack">
               <span class="badge">FastAPI</span>
               <span class="badge">SQL Server</span>
               <span class="badge">Local LLM</span>
-              <span class="badge">Structured JSON</span>
-              <span class="badge">Safe SQL</span>
             </div>
-            <h3>Local AI Business Data Assistant</h3>
-            <p>Enterprise assistant for querying sales, products, inventory, and targets using natural language. The system converts user questions into a validated JSON intent, runs safe SQL queries, and returns answers as a summary, table, or chart.</p>
-            <ul class="featured-project-points">
-              <li>The LLM does not generate or run SQL directly.</li>
-              <li>The backend validates the intent and builds controlled queries.</li>
-              <li>The response can be displayed as a summary, table, or visualization.</li>
-            </ul>
-            <p class="featured-project-status">Synthetic use case based on real-world problems.</p>
+            <div class="featured-project-actions">
+              <a href="#business-data-assistant" class="project-cta">View use case &rarr;</a>
+              <span class="featured-project-meta">Synthetic use case based on real-world problems.</span>
+            </div>
           </div>
         </article>
 
         <article id="automated-form-processing" class="featured-project">
           <div class="featured-project-index" aria-hidden="true">02</div>
           <div class="featured-project-body">
+            <h3>Automated OCR/ICR/OMR Form Processing</h3>
+            <p class="featured-project-note">FormVision &middot; Open source</p>
+            <p>FormVision is a template-driven pipeline for structured form processing. It can align scans against a reference image, read full-page QR, and extract OMR, OCR, and ICR fields through layout-defined ROIs.</p>
+            <p class="featured-project-note">Public demo with ten synthetic forms, ground truth, and JSON batch evaluation.</p>
             <div class="featured-project-stack">
               <span class="badge">Python</span>
               <span class="badge">OpenCV</span>
-              <span class="badge">OMR/OCR/ICR</span>
-              <span class="badge">docTR</span>
-              <span class="badge">JSON/CSV/SQLite</span>
             </div>
-            <h3>Automated OCR/ICR/OMR Form Processing</h3>
-            <p>A structured-form pipeline that can align scans against a reference image, read QR, and process layout-defined OMR, OCR, and ICR fields through explicit ROIs.</p>
-            <ul class="featured-project-points">
-              <li>Optional alignment against a public reference template.</li>
-              <li>Global QR and ROI-defined OMR/OCR/ICR fields.</li>
-              <li>Reproducible ten-form synthetic demo with ground truth and batch evaluation.</li>
-            </ul>
-            <p class="featured-project-status">FormVision &middot; Open source &middot; Reproducible synthetic demo</p>
-            <div class="featured-project-actions"><a href="/en/projects/formvision/" class="project-cta">View project &rarr;</a>
+            <div class="featured-project-actions">
+              <a href="/en/projects/formvision/" class="project-cta">View project &rarr;</a>
               <a
-              href="https://github.com/marcorios99/formvision"
-              class="project-cta project-cta--secondary"
-              target="_blank"
-              rel="noreferrer"    
+                href="https://github.com/marcorios99/formvision"
+                class="project-cta project-cta--secondary"
+                target="_blank"
+                rel="noreferrer"
               >
-              <i data-lucide="github" class="h-4 w-4" aria-hidden="true"></i>
-              <span>GitHub</span>
-            </a>
+                <i data-lucide="github" class="h-4 w-4" aria-hidden="true"></i>
+                <span>GitHub</span>
+              </a>
+              <span class="featured-project-meta">Open source &middot; MIT</span>
             </div>
+          </div>
+        </article>
+
+        <article class="featured-project">
+          <div class="featured-project-index" aria-hidden="true">03</div>
+          <div class="featured-project-body">
+            <h3>Public Data Extraction and Consolidation Platform</h3>
+            <p>Pipeline for extracting, validating, and consolidating information from public sources into a database that can be queried through backend services.</p>
+            <div class="featured-project-stack">
+              <span class="badge">Python</span>
+              <span class="badge">FastAPI</span>
+              <span class="badge">SQL</span>
+              <span class="badge">Web scraping</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="featured-project">
+          <div class="featured-project-index" aria-hidden="true">04</div>
+          <div class="featured-project-body">
+            <h3>Rivu Gallery</h3>
+            <p>Android gallery focused on smooth navigation and efficient loading of large media libraries.</p>
+            <div class="featured-project-stack">
+              <span class="badge">Kotlin</span>
+              <span class="badge">Jetpack Compose</span>
+              <span class="badge">Paging 3</span>
+              <span class="badge">Coil</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="featured-project">
+          <div class="featured-project-index" aria-hidden="true">05</div>
+          <div class="featured-project-body">
+            <h3>UltraHDR Off</h3>
+            <p>Android application for detecting Ultra HDR images and generating SDR copies while preserving their main metadata.</p>
+            <div class="featured-project-stack">
+              <span class="badge">Android</span>
+              <span class="badge">Kotlin</span>
+              <span class="badge">MediaStore</span>
+              <span class="badge">Ultra HDR</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="featured-project">
+          <div class="featured-project-index" aria-hidden="true">06</div>
+          <div class="featured-project-body">
+            <h3>Rivu Notes</h3>
+            <p>Local note-taking application with calendar, archive, trash, and persistent interface preferences.</p>
+            <div class="featured-project-stack">
+              <span class="badge">Kotlin</span>
+              <span class="badge">Jetpack Compose</span>
+              <span class="badge">Room</span>
+              <span class="badge">DataStore</span>
+            </div>
+          </div>
         </article>
       </div>
     </section>
@@ -135,32 +170,6 @@
         <h2 id="projects-catalog-title">Other projects and capabilities</h2>
         <p>Secondary categories for organizing individual projects, technical notes, and complementary work.</p>
       </div>
-
-      <section id="android-apps" class="project-category" aria-labelledby="android-apps-title">
-        <div class="project-category-header">
-          <div class="project-category-copy">
-            <h3 id="android-apps-title">Android apps</h3>
-            <p>Personal apps and mobile case studies. This category presents Android as a complement, not the main focus.</p>
-          </div>
-          <div class="project-category-tech">
-            <span class="badge">Android</span>
-            <span class="badge">Kotlin</span>
-            <span class="badge">Jetpack Compose</span>
-          </div>
-        </div>
-        <div class="project-category-grid">
-          <article class="catalog-project">
-            <h4>UltraHDR Off</h4>
-            <p>Android app related to Ultra HDR image processing and management, visual compatibility, permissions, metadata, and user experience.</p>
-            <p class="catalog-project-status">Use case &middot; Private code</p>
-          </article>
-          <article class="catalog-project">
-            <h4>Rivu Gallery</h4>
-            <p>Personal Android gallery focused on organization, image viewing, modern permissions, and a polished mobile experience.</p>
-            <p class="catalog-project-status">Personal app &middot; Use case/repository subject to availability</p>
-          </article>
-        </div>
-      </section>
 
       <section id="api-deployment" class="project-category" aria-labelledby="api-deployment-title">
         <div class="project-category-header">
