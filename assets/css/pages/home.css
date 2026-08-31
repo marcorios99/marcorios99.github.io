@@ -21,6 +21,10 @@
   line-height: 1.75;
 }
 
+.content-section .section-kicker {
+  color: color-mix(in srgb, var(--accent) 78%, var(--text)) !important;
+}
+
 .plain-list {
   display: grid;
   gap: .65rem;
@@ -43,6 +47,37 @@
   height: .35rem;
   border-radius: 9999px;
   background: color-mix(in srgb, var(--accent) 70%, var(--text));
+}
+
+.landing-nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: 1.5rem;
+}
+
+.landing-nav-links,
+.landing-nav-controls {
+  display: flex;
+  align-items: center;
+}
+
+.landing-nav-links {
+  justify-content: center;
+  gap: 1.5rem;
+  font-size: .875rem;
+}
+
+.landing-nav-links .navlink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  white-space: nowrap;
+}
+
+.landing-nav-controls {
+  justify-self: end;
+  gap: .5rem;
 }
 
 .top-layout {
@@ -270,13 +305,6 @@
   font-weight: 650;
 }
 
-.contact-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .55rem;
-  margin-top: 1rem;
-}
-
 .projects-section > .section-heading .text-link {
   color: var(--accent);
 }
@@ -288,7 +316,6 @@
 
 .other-projects-section {
   padding-block: clamp(3.5rem, 7vw, 5.5rem);
-  border-bottom: 1px solid var(--border);
 }
 
 .other-projects-heading h2 {
@@ -434,43 +461,104 @@
   margin-top: 1.5rem;
 }
 
-.content-layout {
-  display: grid;
-  gap: clamp(4rem, 8vw, 6.5rem);
-  max-width: 900px;
-  padding-block: clamp(4rem, 8vw, 6.5rem);
+.extras-section {
+  padding-block: clamp(2.75rem, 5vw, 4.5rem);
 }
 
-.skills-grid {
+.extras-actions {
   display: grid;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: 1.75rem;
 }
 
-.skills-grid div {
+.extras-action {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 7.5rem;
+  border: 0;
   border-top: 1px solid var(--border);
-  padding-top: 1rem;
+  padding: 1.25rem 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
 }
 
-.skills-grid h3 {
-  color: var(--text) !important;
-  font-size: .9rem;
-  font-weight: 650;
+.extras-action:disabled {
+  cursor: not-allowed;
+  opacity: 1;
 }
 
-.skills-grid p {
-  color: var(--text-body) !important;
-  margin-top: .35rem;
-  font-size: .85rem;
+.extras-action-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-@media (min-width: 768px) {
-  .skills-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.extras-action-title {
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.extras-action-copy {
+  margin-top: .4rem;
+  color: var(--text-body);
+  font-size: .86rem;
+  line-height: 1.6;
+}
+
+.extras-action-status {
+  margin-top: .75rem;
+  color: var(--text-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.landing-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+  color: var(--text-muted);
+  font-size: .78rem;
+}
+
+.landing-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.landing-footer-links .text-link {
+  color: var(--text-muted);
+  font-size: .78rem;
 }
 
 @media (max-width: 767px) {
+  .landing-nav {
+    grid-template-columns: 1fr auto;
+    row-gap: .35rem;
+  }
+
+  .landing-nav-links {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: center;
+    gap: clamp(1rem, 6vw, 1.5rem);
+    font-size: .8rem;
+  }
+
   .identity-profile-layout {
     grid-template-columns: 1fr;
     gap: 1.75rem;
@@ -489,6 +577,10 @@
   }
 
   .featured-projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .extras-actions {
     grid-template-columns: 1fr;
   }
 }
@@ -538,5 +630,11 @@
 
   .experience-section .experience-period {
     margin-top: 0;
+  }
+
+  .landing-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .75rem;
   }
 }

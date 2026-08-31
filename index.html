@@ -36,17 +36,16 @@
 
 <body class="min-h-screen">
   <header class="sticky top-0 z-50 border-b backdrop-blur">
-    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+    <nav class="landing-nav mx-auto container-xx px-4 py-3" aria-label="Navegaci&oacute;n principal">
       <a href="/" class="site-wordmark">Marco Rios</a>
 
-      <div class="hidden md:flex items-center gap-6 text-sm">
+      <div class="landing-nav-links">
         <a href="#projects" class="navlink">Proyectos</a>
         <a href="#experience" class="navlink">Experiencia</a>
-        <a href="#skills" class="navlink">Tecnolog&iacute;as</a>
-        <a href="#contact" class="navlink">Contacto</a>
+        <a href="/about/" class="navlink">Acerca de m&iacute;</a>
       </div>
 
-      <div class="flex items-center gap-2">
+      <div class="landing-nav-controls">
         <a href="/en/" class="btn-outline" aria-label="View homepage in English">
           <i data-lucide="languages" class="h-4 w-4"></i>
           EN
@@ -106,7 +105,7 @@
               <h3>Asistente empresarial de datos con IA local</h3>
               <p>Asistente empresarial para consultar ventas, productos, inventario y metas usando lenguaje natural. El sistema convierte preguntas del usuario en una intenci&oacute;n JSON validada, ejecuta consultas SQL seguras y devuelve respuestas como resumen, tabla o gr&aacute;fico.</p>
               <p class="project-note">Pensado para consultar datos internos con IA local sin que el LLM genere ni ejecute SQL directamente.</p>
-              <div class="tech-list"><span>FastAPI</span><span>SQL Server</span><span>JSON estructurado</span><span>SQL seguro</span><span>LLM local</span></div>
+              <div class="tech-list"><span>FastAPI</span><span>SQL Server</span><span>LLM local</span></div>
               <div class="project-actions"><a href="/projects/#business-data-assistant" class="project-cta">Ver caso de uso &rarr;</a><span>Caso sint&eacute;tico basado en problemas reales.</span></div>
             </div>
           </article>
@@ -118,7 +117,7 @@
               <p class="project-note">FormVision &middot; Open source</p>
               <p>Pipeline template-driven para procesar formularios estructurados. Puede alinear scans contra una referencia, lee QR sobre la p&aacute;gina completa y extrae fields OMR, OCR e ICR mediante ROIs definidas en el layout.</p>
               <p class="project-note">Demo p&uacute;blica con diez formularios sint&eacute;ticos, ground truth y evaluaci&oacute;n por lote en JSON.</p>
-              <div class="tech-list"><span>Python</span><span>OpenCV</span><span>QR/OMR/OCR/ICR</span><span>Layouts y ROIs</span><span>JSON/CSV/SQLite</span></div>
+              <div class="tech-list"><span>Python</span><span>OpenCV</span></div>
               <div class="project-actions"><a href="/projects/formvision/" class="project-cta">Ver proyecto &rarr;</a><span>Open source &middot; MIT</span></div>
             </div>
           </article>
@@ -150,6 +149,7 @@
       <a href="/assets/cv/Marco_Rios_CV.pdf" class="experience-cv text-link" target="_blank" rel="noreferrer">Ver CV &rarr;</a>
     </section>
 
+    <!--
     <section class="other-projects-section mx-auto container-xx px-4" aria-labelledby="other-projects-title">
       <div class="other-projects-heading">
         <p class="section-kicker">M&aacute;s proyectos</p>
@@ -194,36 +194,39 @@
         </article>
       </div>
     </section>
+    -->
 
-    <div class="mx-auto content-layout container-xx px-4">
-      <section id="skills" class="content-section">
-        <p class="section-kicker">Tecnolog&iacute;as</p>
-        <h2>Stack principal</h2>
-        <div class="skills-grid">
-          <div><h3>Backend/API</h3><p>Python &middot; FastAPI &middot; REST &middot; Pydantic</p></div>
-          <div><h3>Datos</h3><p>SQL Server &middot; PostgreSQL &middot; SQLite &middot; Pandas</p></div>
-          <div><h3>Documentos</h3><p>OCR &middot; OMR &middot; OpenCV &middot; PDFs &middot; Im&aacute;genes</p></div>
-          <div><h3>IA aplicada</h3><p>LLM local &middot; JSON estructurado &middot; SQL controlado</p></div>
-          <div><h3>Entrega</h3><p>Git &middot; Docker b&aacute;sico &middot; IIS/Nginx &middot; Windows/Linux Server</p></div>
-          <div><h3>Mobile</h3><p>Android &middot; Kotlin &middot; Jetpack Compose &middot; Retrofit</p></div>
-        </div>
-      </section>
+    <section class="extras-section content-section mx-auto container-xx px-4" aria-labelledby="extras-title">
+      <p class="section-kicker">Extras</p>
+      <h2 id="extras-title">Un poco m&aacute;s por aqu&iacute;.</h2>
 
-      <section id="contact" class="content-section">
-        <p class="section-kicker">Contacto</p>
-        <h2>&iquest;Conversamos?</h2>
-        <p>Estoy abierto a oportunidades remotas o h&iacute;bridas donde pueda aportar en backend, datos y automatizaci&oacute;n documental.</p>
-        <div class="contact-links">
-          <a href="mailto:marcoandrer99@hotmail.com" class="text-link">Email</a>
-          <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="text-link" rel="noreferrer">LinkedIn</a>
-          <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="text-link" rel="noreferrer">GitHub</a>
-          <a href="/assets/cv/Marco_Rios_CV.pdf" class="text-link" download>CV</a>
-        </div>
-        <p class="mt-6 text-xs text-slate-500 dark:text-slate-400">Lima, Per&uacute; &middot; UTC-5</p>
-      </section>
-    </div>
+      <div class="extras-actions">
+        <button type="button" class="extras-action" disabled>
+          <span class="extras-action-body">
+            <span class="extras-action-title">Proyecto aleatorio</span>
+            <span class="extras-action-copy">D&eacute;jale al azar qu&eacute; mirar.</span>
+            <span class="extras-action-status">Pr&oacute;ximamente</span>
+          </span>
+        </button>
+
+        <button type="button" class="extras-action" disabled>
+          <span class="extras-action-body">
+            <span class="extras-action-title">Sorpr&eacute;ndeme</span>
+            <span class="extras-action-copy">Dale click para saberlo.</span>
+            <span class="extras-action-status">Pr&oacute;ximamente</span>
+          </span>
+        </button>
+      </div>
+    </section>
   </main>
 
-  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">&copy; <span id="yr"></span> Marco Rios &middot; Desplegable en GitHub Pages</footer>
+  <footer class="landing-footer mx-auto container-xx px-4">
+    <p>&copy; <span id="yr"></span> Marco Rios</p>
+    <nav class="landing-footer-links" aria-label="Enlaces de contacto">
+      <a href="mailto:marcoandrer99@hotmail.com" class="text-link">Email</a>
+      <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="text-link" rel="noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="text-link" rel="noreferrer">LinkedIn</a>
+    </nav>
+  </footer>
 </body>
 </html>
