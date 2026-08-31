@@ -58,74 +58,109 @@
   </header>
 
   <main class="projects-page">
-    <section class="projects-hero mx-auto container-xx px-4" aria-labelledby="projects-title">
-      <div class="projects-hero-copy">
-        <p class="section-kicker">Proyectos</p>
-        <h1 id="projects-title">Proyectos de IA aplicada y automatizaci&oacute;n documental</h1>
-        <p>
-          Esta secci&oacute;n organiza mi portfolio en dos pilares principales: consultar datos empresariales con IA local y capturar informaci&oacute;n desde formularios/documentos. Los proyectos se presentan como casos de uso sint&eacute;ticos basados en problemas reales, sin exponer datos privados ni dominios originales.
-        </p>
-        <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="text-link" rel="noreferrer">Ver perfil en GitHub</a>
-      </div>
-    </section>
-
-    <section class="featured-projects mx-auto container-xx px-4" aria-labelledby="featured-projects-title">
-      <div class="featured-projects-header">
-        <h2 id="featured-projects-title">Proyectos principales</h2>
-        <p>Los dos case studies que mejor representan mi perfil actual.</p>
-      </div>
+    <section class="featured-projects mx-auto container-xx px-4" aria-labelledby="projects-title">
+      <h1 id="projects-title" class="projects-title section-kicker">Proyectos</h1>
 
       <div class="featured-projects-list">
         <article id="business-data-assistant" class="featured-project">
           <div class="featured-project-index" aria-hidden="true">01</div>
           <div class="featured-project-body">
+            <h3>Asistente empresarial de datos con IA local</h3>
+            <p>Asistente empresarial para consultar ventas, productos, inventario y metas usando lenguaje natural. El sistema convierte preguntas del usuario en una intenci&oacute;n JSON validada, ejecuta consultas SQL seguras y devuelve respuestas como resumen, tabla o gr&aacute;fico.</p>
+            <p class="featured-project-note">Pensado para consultar datos internos con IA local sin que el LLM genere ni ejecute SQL directamente.</p>
             <div class="featured-project-stack">
               <span class="badge">FastAPI</span>
               <span class="badge">SQL Server</span>
               <span class="badge">LLM local</span>
-              <span class="badge">JSON estructurado</span>
-              <span class="badge">SQL seguro</span>
             </div>
-            <h3>Asistente empresarial de datos con IA local</h3>
-            <p>Asistente empresarial para consultar ventas, productos, inventario y metas usando lenguaje natural. El sistema convierte preguntas del usuario en una intenci&oacute;n JSON validada, ejecuta consultas SQL seguras y devuelve respuestas como resumen, tabla o gr&aacute;fico.</p>
-            <ul class="featured-project-points">
-              <li>El LLM no genera ni ejecuta SQL directamente.</li>
-              <li>El backend valida la intenci&oacute;n y construye consultas controladas.</li>
-              <li>La respuesta puede mostrarse como resumen, tabla o visualizaci&oacute;n.</li>
-            </ul>
-            <p class="featured-project-status">Caso de uso sint&eacute;tico basado en problemas reales.</p>
+            <div class="featured-project-actions">
+              <a href="#business-data-assistant" class="project-cta">Ver caso de uso &rarr;</a>
+              <span class="featured-project-meta">Caso sint&eacute;tico basado en problemas reales.</span>
+            </div>
           </div>
         </article>
 
         <article id="automated-form-processing" class="featured-project">
           <div class="featured-project-index" aria-hidden="true">02</div>
           <div class="featured-project-body">
+            <h3>Procesamiento autom&aacute;tico de formularios OCR/ICR/OMR</h3>
+            <p class="featured-project-note">FormVision &middot; Open source</p>
+            <p>Pipeline template-driven para procesar formularios estructurados. Puede alinear scans contra una referencia, lee QR sobre la p&aacute;gina completa y extrae fields OMR, OCR e ICR mediante ROIs definidas en el layout.</p>
+            <p class="featured-project-note">Demo p&uacute;blica con diez formularios sint&eacute;ticos, ground truth y evaluaci&oacute;n por lote en JSON.</p>
             <div class="featured-project-stack">
               <span class="badge">Python</span>
               <span class="badge">OpenCV</span>
-              <span class="badge">OMR/OCR/ICR</span>
-              <span class="badge">docTR</span>
-              <span class="badge">JSON/CSV/SQLite</span>
             </div>
-            <h3>Procesamiento autom&aacute;tico de formularios OCR/ICR/OMR</h3>
-            <p>Pipeline para formularios estructurados que puede alinear scans contra una referencia, leer QR y procesar fields OMR, OCR e ICR definidos mediante layouts y ROIs expl&iacute;citas.</p>
-            <ul class="featured-project-points">
-              <li>Alineamiento opcional contra una plantilla p&uacute;blica de referencia.</li>
-              <li>QR global y fields OMR/OCR/ICR definidos mediante ROIs.</li>
-              <li>Demo reproducible de diez formularios sint&eacute;ticos con ground truth y evaluaci&oacute;n por lote.</li>
-            </ul>
-            <p class="featured-project-status">FormVision &middot; Open source &middot; Demo sint&eacute;tica reproducible</p>
-            <div class="featured-project-actions"><a href="/projects/formvision/" class="project-cta">Ver proyecto &rarr;</a>
+            <div class="featured-project-actions">
+              <a href="/projects/formvision/" class="project-cta">Ver proyecto &rarr;</a>
               <a
-              href="https://github.com/marcorios99/formvision"
-              class="project-cta project-cta--secondary"
-              target="_blank"
-              rel="noreferrer"    
+                href="https://github.com/marcorios99/formvision"
+                class="project-cta project-cta--secondary"
+                target="_blank"
+                rel="noreferrer"
               >
-              <i data-lucide="github" class="h-4 w-4" aria-hidden="true"></i>
-              <span>GitHub</span>
-            </a>
+                <i data-lucide="github" class="h-4 w-4" aria-hidden="true"></i>
+                <span>GitHub</span>
+              </a>
+              <span class="featured-project-meta">Open source &middot; MIT</span>
             </div>
+          </div>
+        </article>
+
+        <article class="featured-project">
+          <div class="featured-project-index" aria-hidden="true">03</div>
+          <div class="featured-project-body">
+            <h3>Plataforma de extracci&oacute;n y unificaci&oacute;n de datos p&uacute;blicos</h3>
+            <p>Pipeline para extraer, validar y unificar informaci&oacute;n de fuentes p&uacute;blicas en una base de datos consultable mediante servicios backend.</p>
+            <div class="featured-project-stack">
+              <span class="badge">Python</span>
+              <span class="badge">FastAPI</span>
+              <span class="badge">SQL</span>
+              <span class="badge">Web scraping</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="featured-project">
+          <div class="featured-project-index" aria-hidden="true">04</div>
+          <div class="featured-project-body">
+            <h3>Rivu Gallery</h3>
+            <p>Galer&iacute;a Android enfocada en navegaci&oacute;n fluida y carga eficiente de bibliotecas multimedia grandes.</p>
+            <div class="featured-project-stack">
+              <span class="badge">Kotlin</span>
+              <span class="badge">Jetpack Compose</span>
+              <span class="badge">Paging 3</span>
+              <span class="badge">Coil</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="featured-project">
+          <div class="featured-project-index" aria-hidden="true">05</div>
+          <div class="featured-project-body">
+            <h3>UltraHDR Off</h3>
+            <p>Aplicaci&oacute;n Android para detectar im&aacute;genes Ultra HDR y generar copias SDR manteniendo sus metadatos principales.</p>
+            <div class="featured-project-stack">
+              <span class="badge">Android</span>
+              <span class="badge">Kotlin</span>
+              <span class="badge">MediaStore</span>
+              <span class="badge">Ultra HDR</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="featured-project">
+          <div class="featured-project-index" aria-hidden="true">06</div>
+          <div class="featured-project-body">
+            <h3>Rivu Notes</h3>
+            <p>Aplicaci&oacute;n local de notas con calendario, archivo, papelera y preferencias de interfaz persistentes.</p>
+            <div class="featured-project-stack">
+              <span class="badge">Kotlin</span>
+              <span class="badge">Jetpack Compose</span>
+              <span class="badge">Room</span>
+              <span class="badge">DataStore</span>
+            </div>
+          </div>
         </article>
       </div>
     </section>
@@ -135,32 +170,6 @@
         <h2 id="projects-catalog-title">Otros proyectos y capacidades</h2>
         <p>Categorias secundarias para ordenar proyectos individuales, notas tecnicas y trabajos complementarios.</p>
       </div>
-
-      <section id="android-apps" class="project-category" aria-labelledby="android-apps-title">
-        <div class="project-category-header">
-          <div class="project-category-copy">
-            <h3 id="android-apps-title">Apps Android</h3>
-            <p>Apps propias y case studies m&oacute;viles. Esta categor&iacute;a muestra Android como complemento, no como foco principal.</p>
-          </div>
-          <div class="project-category-tech">
-            <span class="badge">Android</span>
-            <span class="badge">Kotlin</span>
-            <span class="badge">Jetpack Compose</span>
-          </div>
-        </div>
-        <div class="project-category-grid">
-          <article class="catalog-project">
-            <h4>UltraHDR Off</h4>
-            <p>App Android relacionada con procesamiento/gesti&oacute;n de im&aacute;genes Ultra HDR, compatibilidad visual, permisos, metadata y experiencia de usuario.</p>
-            <p class="catalog-project-status">Caso de uso &middot; C&oacute;digo privado</p>
-          </article>
-          <article class="catalog-project">
-            <h4>Rivu Gallery</h4>
-            <p>Galer&iacute;a Android propia enfocada en organizaci&oacute;n, visualizaci&oacute;n de im&aacute;genes, permisos modernos y experiencia m&oacute;vil cuidada.</p>
-            <p class="catalog-project-status">App propia &middot; Caso de uso/repositorio seg&uacute;n disponibilidad</p>
-          </article>
-        </div>
-      </section>
 
       <section id="api-deployment" class="project-category" aria-labelledby="api-deployment-title">
         <div class="project-category-header">
