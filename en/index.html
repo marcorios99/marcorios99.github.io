@@ -36,17 +36,16 @@
 
 <body class="min-h-screen">
   <header class="sticky top-0 z-50 border-b backdrop-blur">
-    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3">
+    <nav class="landing-nav mx-auto container-xx px-4 py-3" aria-label="Main navigation">
       <a href="/en/" class="site-wordmark">Marco Rios</a>
 
-      <div class="hidden md:flex items-center gap-6 text-sm">
+      <div class="landing-nav-links">
         <a href="#projects" class="navlink">Projects</a>
         <a href="#experience" class="navlink">Experience</a>
-        <a href="#skills" class="navlink">Technologies</a>
-        <a href="#contact" class="navlink">Contact</a>
+        <a href="/en/about/" class="navlink">About me</a>
       </div>
 
-      <div class="flex items-center gap-2">
+      <div class="landing-nav-controls">
         <a href="/" class="btn-outline" aria-label="View homepage in Spanish">
           <i data-lucide="languages" class="h-4 w-4"></i>
           ES
@@ -61,71 +60,97 @@
   <main>
     <div class="top-layout mx-auto container-xx px-4">
       <section id="about" class="identity-panel" aria-labelledby="hero-title">
-        <div class="identity-profile">
-          <figure class="hero-portrait-frame">
-            <img src="/assets/img/marco-3.png" alt="Marco Rios" class="hero-portrait" width="360" height="450">
-          </figure>
-          <div class="identity-profile-meta">
-            <p class="identity-badge">Software Developer</p>
-            <p class="identity-location">Lima, Peru &middot; UTC-5</p>
+        <p class="section-kicker identity-kicker">Profile</p>
+
+        <div class="identity-profile-layout">
+          <div class="identity-media">
+            <figure class="hero-portrait-frame">
+              <img src="/assets/img/marco-3.png" alt="Marco Rios" class="hero-portrait" width="360" height="450">
+            </figure>
+          </div>
+          <div class="identity-content">
+            <div class="identity-heading">
+              <h1 id="hero-title">Hey, I'm Marco Rios</h1>
+              <p class="identity-location-inline">Lima, Peru<span>&middot; UTC-5</span></p>
+            </div>
+
+            <div class="identity-copy">
+              <p class="identity-value">I am an electronics engineer and software developer with over two years of experience building internal solutions with Python and SQL Server for document processing, data validation, and data management.</p>
+              <p class="hero-lead">My public projects combine automation, computer vision, APIs, and Android development. I focus on building maintainable, verifiable systems designed to solve real-world problems.</p>
+
+              <div class="hero-actions">
+                <a href="/assets/cv/Marco_Rios_CV_English.pdf" class="btn-outline" target="_blank" rel="noreferrer">View CV</a>
+                <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="btn-icon" aria-label="GitHub" rel="noreferrer"><i data-lucide="github" class="h-4 w-4"></i></a>
+                <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-icon" aria-label="LinkedIn" rel="noreferrer"><i data-lucide="linkedin" class="h-4 w-4"></i></a>
+                <a href="mailto:marcoandrer99@hotmail.com" class="btn-icon" aria-label="Email"><i data-lucide="mail" class="h-4 w-4"></i></a>
+                <a href="/en/about/" class="btn-outline">About me</a>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="identity-intro">
-          <h1 id="hero-title">Marco Rios</h1>
-          <p class="identity-profession">Electronics Engineer</p>
-        </div>
-
-        <p class="section-kicker identity-kicker">Profile</p>
-        <h2>I develop software to automate processes and transform information.</h2>
-        <p class="identity-value">I am an electronics engineer and software developer with over two years of experience building internal solutions with Python and SQL Server for document processing, data validation, and data management.</p>
-        <p class="hero-lead">My public projects combine automation, computer vision, APIs, and Android development. I focus on building maintainable, verifiable systems designed to solve real-world problems.</p>
-
-        <div class="focus-list">
-          <span>Automation</span><span>Data and SQL</span><span>Computer Vision</span><span>APIs</span><span>Android Development</span>
-        </div>
-
-        <div class="hero-actions">
-          <a href="/en/projects/" class="btn-accent">View projects</a>
-          <a href="/assets/cv/Marco_Rios_CV_English.pdf" class="btn-outline" target="_blank" rel="noreferrer">View CV</a>
-          <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="btn-icon" aria-label="GitHub" rel="noreferrer"><i data-lucide="github" class="h-4 w-4"></i></a>
-          <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="btn-icon" aria-label="LinkedIn" rel="noreferrer"><i data-lucide="linkedin" class="h-4 w-4"></i></a>
-        </div>
-
       </section>
+    </div>
 
-      <section id="projects" class="content-section">
+    <section id="projects" class="projects-section content-section mx-auto container-xx px-4">
         <div class="section-heading">
           <div><p class="section-kicker">Projects</p><h2>Main projects</h2></div>
           <a href="/en/projects/" class="text-link">View all</a>
         </div>
         <p class="section-copy">Public case studies based on real-world problems, using synthetic data or controlled environments.</p>
 
-        <article class="project-row">
-          <div class="project-year">01</div>
-          <div>
-            <h3>Local AI Business Data Assistant</h3>
-            <p>Enterprise assistant for querying sales, products, inventory, and targets using natural language. The system converts user questions into a validated JSON intent, runs safe SQL queries, and returns answers as a summary, table, or chart.</p>
-            <p class="project-note">Designed to query internal data with local AI without having the LLM generate or run SQL directly.</p>
-            <div class="tech-list"><span>FastAPI</span><span>SQL Server</span><span>Structured JSON</span><span>Safe SQL</span><span>Local LLM</span></div>
-            <div class="project-actions"><a href="/en/projects/#business-data-assistant" class="project-cta">View use case &rarr;</a><span>Synthetic use case based on real-world problems.</span></div>
+        <div class="featured-projects-grid">
+          <article class="project-row">
+            <div class="project-year">01</div>
+            <div class="project-body">
+              <h3>Local AI Business Data Assistant</h3>
+              <p>Enterprise assistant for querying sales, products, inventory, and targets using natural language. The system converts user questions into a validated JSON intent, runs safe SQL queries, and returns answers as a summary, table, or chart.</p>
+              <p class="project-note">Designed to query internal data with local AI without having the LLM generate or run SQL directly.</p>
+              <div class="tech-list"><span>FastAPI</span><span>SQL Server</span><span>Local LLM</span></div>
+              <div class="project-actions"><a href="/en/projects/#business-data-assistant" class="project-cta">View use case &rarr;</a><span>Synthetic use case based on real-world problems.</span></div>
+            </div>
+          </article>
+
+          <article class="project-row">
+            <div class="project-year">02</div>
+            <div class="project-body">
+              <h3>Automated OCR/ICR/OMR Form Processing</h3>
+              <p class="project-note">FormVision &middot; Open source</p>
+              <p>FormVision is a template-driven pipeline for structured form processing. It can align scans against a reference image, read full-page QR, and extract OMR, OCR, and ICR fields through layout-defined ROIs.</p>
+              <p class="project-note">Public demo with ten synthetic forms, ground truth, and JSON batch evaluation.</p>
+              <div class="tech-list"><span>Python</span><span>OpenCV</span></div>
+              <div class="project-actions"><a href="/en/projects/formvision/" class="project-cta">View project &rarr;</a><span>Open source &middot; MIT</span></div>
+            </div>
+          </article>
+        </div>
+    </section>
+
+    <section id="experience" class="experience-section content-section mx-auto container-xx px-4">
+      <p class="section-kicker">Experience</p>
+      <h2>Professional experience</h2>
+
+      <div class="experience-list">
+        <article class="experience-entry experience-entry--primary">
+          <p class="experience-period">2024 &mdash; Present</p>
+          <div class="experience-body">
+            <h3>Software Developer</h3>
+            <p class="experience-company">SAFD S.A.C.</p>
+            <p class="experience-description">I develop and maintain internal solutions related to automation, document processing, and data handling and validation, working mainly with Python and SQL Server.</p>
           </div>
         </article>
 
-        <article class="project-row">
-          <div class="project-year">02</div>
-          <div>
-            <h3>Automated OCR/ICR/OMR Form Processing</h3>
-            <p class="project-note">FormVision &middot; Open source</p>
-            <p>FormVision is a template-driven pipeline for structured form processing. It can align scans against a reference image, read full-page QR, and extract OMR, OCR, and ICR fields through layout-defined ROIs.</p>
-            <p class="project-note">Public demo with ten synthetic forms, ground truth, and JSON batch evaluation.</p>
-            <div class="tech-list"><span>Python</span><span>OpenCV</span><span>QR/OMR/OCR/ICR</span><span>Layouts and ROIs</span><span>JSON/CSV/SQLite</span></div>
-            <div class="project-actions"><a href="/en/projects/formvision/" class="project-cta">View project &rarr;</a><span>Open source &middot; MIT</span></div>
+        <article class="experience-entry experience-entry--secondary">
+          <p class="experience-period">2023 &mdash; 2024</p>
+          <div class="experience-body">
+            <h3>NOC Operator <span>&middot; WOW TEL S.A.C Peru</span></h3>
+            <p class="experience-description">24/7 monitoring of FTTH infrastructure with Zabbix, incident management and escalation through Jira, and tracking of service levels, availability, and recovery times.</p>
           </div>
         </article>
-      </section>
-    </div>
+      </div>
 
+      <a href="/assets/cv/Marco_Rios_CV_English.pdf" class="experience-cv text-link" target="_blank" rel="noreferrer">View CV &rarr;</a>
+    </section>
+
+    <!--
     <section class="other-projects-section mx-auto container-xx px-4" aria-labelledby="other-projects-title">
       <div class="other-projects-heading">
         <p class="section-kicker">More projects</p>
@@ -170,44 +195,39 @@
         </article>
       </div>
     </section>
+    -->
 
-    <div class="mx-auto content-layout container-xx px-4">
-      <section id="experience" class="content-section">
-        <p class="section-kicker">Experience</p>
-        <h2>Internal, documented, and maintainable solutions.</h2>
-        <p>My experience centers on building internal solutions for document processing, data capture, validation, SQL queries, and tools used by operations teams. Since I cannot publish real systems or data from work environments, my open-source projects serve as synthetic, documented versions of those technical patterns.</p>
-        <ul class="plain-list"><li>Simple, maintainable, and well-documented solutions.</li><li>Integration between backend services, SQL databases, and document processing.</li><li>Focus on traceability, validation, and usefulness for real users.</li></ul>
-        <a href="/assets/cv/Marco_Rios_CV_English.pdf" class="text-link" target="_blank" rel="noreferrer">View full CV</a>
-      </section>
+    <section class="extras-section content-section mx-auto container-xx px-4" aria-labelledby="extras-title">
+      <p class="section-kicker">Extras</p>
+      <h2 id="extras-title">A little more around here.</h2>
 
-      <section id="skills" class="content-section">
-        <p class="section-kicker">Technologies</p>
-        <h2>Core stack</h2>
-        <div class="skills-grid">
-          <div><h3>Backend/API</h3><p>Python &middot; FastAPI &middot; REST &middot; Pydantic</p></div>
-          <div><h3>Data</h3><p>SQL Server &middot; PostgreSQL &middot; SQLite &middot; Pandas</p></div>
-          <div><h3>Documents</h3><p>OCR &middot; OMR &middot; OpenCV &middot; PDFs &middot; Images</p></div>
-          <div><h3>Applied AI</h3><p>Local LLM &middot; Structured JSON &middot; Controlled SQL</p></div>
-          <div><h3>Delivery</h3><p>Git &middot; Basic Docker &middot; IIS/Nginx &middot; Windows/Linux Server</p></div>
-          <div><h3>Mobile</h3><p>Android &middot; Kotlin &middot; Jetpack Compose &middot; Retrofit</p></div>
-        </div>
-      </section>
+      <div class="extras-actions">
+        <button type="button" class="extras-action" disabled>
+          <span class="extras-action-body">
+            <span class="extras-action-title">Random project</span>
+            <span class="extras-action-copy">Let chance decide what to see.</span>
+            <span class="extras-action-status">Coming soon</span>
+          </span>
+        </button>
 
-      <section id="contact" class="content-section">
-        <p class="section-kicker">Contact</p>
-        <h2>Let's talk.</h2>
-        <p>I am open to remote or hybrid opportunities where I can contribute to backend development, data, and document automation.</p>
-        <div class="contact-links">
-          <a href="mailto:marcoandrer99@hotmail.com" class="text-link">Email</a>
-          <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="text-link" rel="noreferrer">LinkedIn</a>
-          <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="text-link" rel="noreferrer">GitHub</a>
-          <a href="/assets/cv/Marco_Rios_CV_English.pdf" class="text-link" download>CV</a>
-        </div>
-        <p class="mt-6 text-xs text-slate-500 dark:text-slate-400">Lima, Peru &middot; UTC-5</p>
-      </section>
-    </div>
+        <button type="button" class="extras-action" disabled>
+          <span class="extras-action-body">
+            <span class="extras-action-title">Surprise me</span>
+            <span class="extras-action-copy">Click to find out.</span>
+            <span class="extras-action-status">Coming soon</span>
+          </span>
+        </button>
+      </div>
+    </section>
   </main>
 
-  <footer class="py-10 text-center text-xs text-slate-600 dark:text-slate-400">&copy; <span id="yr"></span> Marco Rios &middot; Deployed on GitHub Pages</footer>
+  <footer class="landing-footer mx-auto container-xx px-4">
+    <p>&copy; <span id="yr"></span> Marco Rios</p>
+    <nav class="landing-footer-links" aria-label="Contact links">
+      <a href="mailto:marcoandrer99@hotmail.com" class="text-link">Email</a>
+      <a href="https://github.com/marcorios99?tab=repositories" target="_blank" class="text-link" rel="noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/marco-rios-chung-7816b522a" target="_blank" class="text-link" rel="noreferrer">LinkedIn</a>
+    </nav>
+  </footer>
 </body>
 </html>
