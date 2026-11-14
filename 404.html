@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>404 &middot; Página no encontrada - Marco Rios</title>
+  <meta name="description" content="La página solicitada no existe en marcorios99.github.io. Enlaces a la portada, proyectos, notas y acerca de mí.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="theme-color" content="#0b0f14">
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
+  })();
+  </script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/pages/editorial.css">
+</head>
+<body class="editorial-page">
+  <header class="editorial-header">
+    <nav class="editorial-nav editorial-container">
+      <a href="/" class="site-wordmark">Marco Rios</a>
+      <div class="editorial-nav-links">
+        <a href="/" class="navlink">Inicio</a>
+        <a href="/projects/" class="navlink">Proyectos</a>
+        <a href="/help/" class="navlink">Notas</a>
+      </div>
+      <div class="editorial-nav-actions">
+        <a href="/en/404.html" class="btn-outline"><i data-lucide="languages" aria-hidden="true"></i> EN<span class="sr-only"> &middot; ver esta página en inglés</span></a>
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"><span id="themeIcon"></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="editorial-main editorial-container">
+    <section class="editorial-hero" aria-labelledby="notfound-title">
+      <p class="editorial-kicker">Error 404</p>
+      <h1 id="notfound-title" class="editorial-title">Página no encontrada</h1>
+      <p class="editorial-lead">La dirección que pediste no existe en este sitio. Puede que la ruta esté mal escrita, que la página haya cambiado de nombre o que el enlace apuntara a una sección que todavía no se publicó.</p>
+      <ul class="editorial-list">
+        <li>Si llegaste desde un enlace externo, la ruta probablemente cambió; el contenido está en el catálogo de proyectos.</li>
+        <li>Las notas técnicas y los casos de estudio siguen publicados desde sus páginas principales.</li>
+      </ul>
+      <div class="editorial-links">
+        <a class="editorial-link" href="/">Ir a la portada &rarr;</a>
+        <a class="editorial-link" href="/projects/">Ver proyectos &rarr;</a>
+        <a class="editorial-link" href="/help/">Ver notas &rarr;</a>
+        <a class="editorial-link" href="/about/">Acerca de mí &rarr;</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="editorial-footer">&copy; <span id="yr"></span> Marco Rios &middot; Desplegable en GitHub Pages</footer>
+</body>
+</html>
