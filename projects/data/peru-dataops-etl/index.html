@@ -199,10 +199,10 @@
 
       <div class="flex items-center gap-2">
         <!-- Botón idioma (ajusta la URL si tienes versión en inglés de este proyecto) -->
-        <a href="/en/" class="btn-outline" aria-label="Ver sitio en inglés">
-          <i data-lucide="languages" class="h-4 w-4"></i>
+        <a href="/en/" class="btn-outline">
+          <i data-lucide="languages" aria-hidden="true" class="h-4 w-4"></i>
           ES
-        </a>
+        <span class="sr-only"> &middot; ver el sitio en inglés</span></a>
 
         <!-- Botón Light/Dark (site.js hace el toggle y el icono) -->
         <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema">
