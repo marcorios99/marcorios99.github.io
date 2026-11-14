@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Local AI testing with XeStrata and qwen3.8-flash-next-gyro-gyro-s on a 24 GB Intel Arc Pro B60: real machine specs, the three ways to measure it, and the results of the gyro-bench harness." />
+  <link rel="canonical" href="https://marcorios99.github.io/en/projects/local-ai/" />
+  <link rel="alternate" hreflang="es" href="https://marcorios99.github.io/projects/local-ai/" />
+  <link rel="alternate" hreflang="en" href="https://marcorios99.github.io/en/projects/local-ai/" />
+  <link rel="alternate" hreflang="x-default" href="https://marcorios99.github.io/projects/local-ai/" />
+  <meta property="og:title" content="Local AI testing – XeStrata and Gyro S on an Intel Arc Pro B60 | Marco Rios" />
+  <meta property="og:description" content="Local AI with XeStrata on an Intel Arc Pro B60: the machine, the ways to measure it, and real numbers from 46 behavioural tests." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover-portfolio-2026.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/en/projects/local-ai/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Local AI testing | XeStrata and Gyro S on an Intel Arc Pro B60 – Marco Rios</title>
+  <meta name="theme-color" content="#0b0f14" />
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
+  })();
+  </script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages/project-detail.css" />
+  <link rel="stylesheet" href="/assets/css/pages/local-ai.css" />
+</head>
+<body class="min-h-screen">
+  <header class="sticky top-0 z-50 border-b backdrop-blur">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3" aria-label="Primary navigation">
+      <a href="/" class="site-wordmark">Marco Rios</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/" class="navlink">Home</a>
+        <a href="/en/projects/" class="navlink">Projects</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="/projects/local-ai/" class="btn-outline"><i data-lucide="languages" aria-hidden="true" class="h-4 w-4"></i> ES<span class="sr-only"> &middot; view this project in Spanish</span></a>
+        <button id="themeBtn" class="theme-btn" aria-label="Change theme" aria-pressed="false" title="Change theme"><span id="themeIcon" class="h-5 w-5 inline-flex"></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="case-study-page">
+    <div class="case-study-back-wrap mx-auto container-xx px-4"><a href="/en/projects/" class="case-study-back text-link">&larr; Back to projects</a></div>
+
+    <section class="case-study-hero mx-auto container-xx px-4" aria-labelledby="case-study-title">
+      <div class="case-study-hero-grid">
+        <div class="case-study-hero-copy">
+          <p class="section-kicker">Case study · Local AI</p>
+          <h1 id="case-study-title">Local AI testing</h1>
+          <p class="case-study-summary">XeStrata running <code>qwen3.8-flash-next-gyro-gyro-s</code> on a 24 GB Intel Arc Pro B60: the machine, the ways to measure it, and real numbers from 46 behavioural tests.</p>
+          <p class="case-study-note">The engine, the weights and the loop guard come from other projects. What is mine here is the deployment, the <code>gyro-bench</code> harness and the measurements. The numbers come from one real run on 14 November 2026, and its limits are documented on the same page.</p>
+          <div class="flex flex-wrap gap-2 mt-5" aria-label="Project technologies and status">
+            <span class="badge">XeStrata</span><span class="badge">GGUF</span><span class="badge">MoE</span><span class="badge">Intel Arc Pro B60</span><span class="badge">Python</span>
+          </div>
+          <dl class="case-study-meta">
+            <div class="case-study-meta-item"><dt>Role</dt><dd>Local deployment, testing harness and behavioural measurement.</dd></div>
+            <div class="case-study-meta-item"><dt>Machine</dt><dd>Intel Arc Pro B60 24 GB · i5-12400F · 31.2 GiB RAM · Ubuntu 24.04.5 LTS.</dd></div>
+            <div class="case-study-meta-item"><dt>Output</dt><dd><code>results.json</code>, suite report and public summary data in JSON.</dd></div>
+          </dl>
+          <nav class="case-study-hero-links" aria-label="Local AI testing links">
+            <a href="/en/projects/local-ai/testing/" class="project-cta"><i data-lucide="list-checks" class="h-4 w-4" aria-hidden="true"></i><span>See the 8 suites</span></a>
+            <a href="/en/projects/local-ai/data/run-2026-11-14.json" class="project-cta project-cta--secondary"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>Data as JSON</span></a>
+            <a href="https://github.com/MistVVK/XeStrata" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="github" class="h-4 w-4" aria-hidden="true"></i><span>XeStrata</span></a>
+          </nav>
+        </div>
+        <figure class="case-study-hero-media">
+          <div class="ai-figure-frame">
+            <svg viewBox="0 0 660 400" role="img" aria-labelledby="ai-figure-title ai-figure-desc">
+              <title id="ai-figure-title">The three memory tiers where the model lives</title>
+              <desc id="ai-figure-desc">Tier diagram: 24 GB of VRAM with an 11.1 GiB cache holding 11,383 of the MoE model's 24,576 experts; 31.2 GiB of RAM for experts that do not fit; NVMe holding the 54.5 GiB GGUF. Between VRAM and RAM the PCIe Gen4 x8 link with pcie_frac 0.38.</desc>
+              <text class="ai-figure-title" x="20" y="28" font-size="13">MoE: 48 layers &times; 512 experts = 24,576 (24.0 GiB)</text>
+              <text class="ai-figure-accent" x="20" y="46" font-size="11">46% of experts resident in VRAM</text>
+
+              <rect class="ai-band" x="20" y="62" width="620" height="92" rx="10" />
+              <text class="ai-figure-strong" x="34" y="86" font-size="12">VRAM · 24 GB GDDR6 · 456 GB/s</text>
+              <text x="34" y="105" font-size="11">expert cache 11.1 GiB · 11,383 slots</text>
+              <text x="34" y="123" font-size="11">int8 KV (ctx 131,072) &middot; conv cache 2.0 GiB</text>
+              <text x="386" y="105" font-size="11">arena 11.6 GiB</text>
+              <text x="386" y="123" font-size="11">free while measuring: 1.9 GiB</text>
+
+              <line class="ai-line" x1="330" y1="154" x2="330" y2="212" />
+              <text class="ai-figure-accent" x="348" y="186" font-size="11">PCIe Gen4 x8 · pcie_frac 0.38</text>
+
+              <rect class="ai-band" x="20" y="212" width="620" height="62" rx="10" />
+              <text class="ai-figure-strong" x="34" y="236" font-size="12">RAM · 31.2 GiB</text>
+              <text x="34" y="255" font-size="11">experts that do not fit resolve here · 1,679 blobs in the worst case</text>
+
+              <line class="ai-line" x1="330" y1="274" x2="330" y2="320" />
+              <text class="ai-figure-accent" x="348" y="300" font-size="11">NVMe · reads during prefill: 0.0 MB</text>
+
+              <rect class="ai-band" x="20" y="320" width="620" height="58" rx="10" />
+              <text class="ai-figure-strong" x="34" y="344" font-size="12">NVMe · 54.5 GiB GGUF + pack + MTP</text>
+              <text x="34" y="363" font-size="11">full MoE and dense weights</text>
+
+              <text class="ai-figure-strong" x="20" y="392" font-size="11">Speculative MTP: 1,437 of 2,274 drafts accepted (63%)</text>
+            </svg>
+          </div>
+          <figcaption>One token can touch three tiers: experts resident on the card, ones pulled over PCIe or RAM, and the GGUF on NVMe. The numbers are the engine's and the 14 Nov 2026 run's.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="model-title">
+      <div class="case-study-section-header"><p class="section-kicker">The model running here</p><h2 id="model-title">A large MoE on a 24 GB card</h2><p>The engine is XeStrata (<code>strata</code>, version <code>xe0.2.8-1</code>). Its central idea is that the model does not fit in VRAM as a whole, so it decides which part lives on the card and pulls the rest on demand.</p></div>
+      <dl class="ai-spec">
+        <div class="ai-spec-row"><dt>Model</dt><dd><code>qwen3.8-flash-next-gyro-gyro-s</code>, the name <code>/health</code> and <code>/metrics</code> return. 131,072 token context, int8 KV, image input enabled.</dd></div>
+        <div class="ai-spec-row"><dt>Weights</dt><dd><code>Qwen3.8-Flash-Next-Gyro-S-TQ1_0.gguf</code>: 58,487,015,808 bytes (54.5 GiB) on NVMe. The derived weights come from public Qwen model weights published by ISTA-DASLab and agentionai.</dd></div>
+        <div class="ai-spec-row"><dt>MoE</dt><dd>48 layers with 512 experts each: 24,576 blobs of 1.0 MiB, 24.0 GiB in total. The card cache holds 11,383 slots (11.1 GiB), 46% of the expert model.</dd></div>
+        <div class="ai-spec-row"><dt>Missing experts</dt><dd>They resolve through RAM or the PCIe link (<code>pcie_frac 0.38</code>). In the run the expert cache hit rate was 0.79&ndash;0.997, and the worst case read nothing from the GGUF (0.0 MB).</dd></div>
+        <div class="ai-spec-row"><dt>Speculative</dt><dd>MTP (<code>mtp/rt</code>) with <code>mtp_max 4</code> and <code>lookup 3</code>. The start line passes <code>--spec 4</code> and the engine reports <code>spec 6</code> with <code>spec_window auto</code>.</dd></div>
+        <div class="ai-spec-row"><dt>Vision</dt><dd>A separate process: <code>strata-vision-vulkan</code> with <code>mmproj-Qwen3.8-Flash-Next-BF16.gguf</code> and <code>--max-tokens 1024</code>.</dd></div>
+        <div class="ai-spec-row"><dt>Thinking</dt><dd><code>reasoning_effort</code> accepts <code>none</code>, <code>low</code>, <code>medium</code>, <code>high</code>; the default is <code>high</code>. The loop guard comes from Project Maya.</dd></div>
+      </dl>
+      <p class="case-study-note">XeStrata is a fork of <a class="text-link" href="https://github.com/Niko1221/Strata">Strata</a> maintained by MistVVK, licensed LGPL-3.0-or-later (Strata upstream is MIT). The measurements on this page come from my own start line, not from an official XeStrata benchmark.</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="machine-title">
+      <div class="case-study-section-header"><p class="section-kicker">The machine</p><h2 id="machine-title">Specs read from hardware, not from the label</h2><p>The values come from <code>lspci</code>, <code>/proc/cpuinfo</code>, <code>free</code> and the engine's own <code>/metrics</code>. Intel's product page confirms the PCI device.</p></div>
+      <dl class="ai-spec">
+        <div class="ai-spec-row"><dt>GPU</dt><dd>Intel Arc Pro B60 (Battlemage G21 family, Xe2 microarchitecture). PCI <code>0000:03:00.0</code>, device <code>8086:e211</code>, subsystem ASRock 6023, kernel driver <code>xe</code>.</dd></div>
+        <div class="ai-spec-row"><dt>Card</dt><dd>20 Xe cores, 160 XMX and 160 Xe vector engines, 2400 MHz clock, 12.28 TFLOPS FP32, 197 TOPS int8, 200 W TBP.</dd></div>
+        <div class="ai-spec-row"><dt>GPU memory</dt><dd>24 GB GDDR6 at 19 Gbps over a 192-bit interface: 456 GB/s. The engine reports 23.9 GiB usable and 21.0 GiB occupied during the run.</dd></div>
+        <div class="ai-spec-row"><dt>Link</dt><dd>PCIe Gen4 x8 active (the chip's maximum is Gen5 x8). This is the bottleneck when experts do not fit.</dd></div>
+        <div class="ai-spec-row"><dt>CPU</dt><dd>12th Gen Intel Core i5-12400F: 6 cores / 12 threads. Relevant instructions: AVX2 and VNNI; no AVX-512 on this machine.</dd></div>
+        <div class="ai-spec-row"><dt>RAM</dt><dd>32 GB physical, 31.2 GiB visible; 26.3 GiB occupied in the measurement window (model + server + other sessions).</dd></div>
+        <div class="ai-spec-row"><dt>Storage</dt><dd>NVMe SSD holding weights, pack, MTP and logs.</dd></div>
+        <div class="ai-spec-row"><dt>System</dt><dd>Ubuntu 24.04.5 LTS. XeStrata installed from source at <code>/mnt/local-ai-nvme/LocalAI/XeStrata</code>, no deb package.</dd></div>
+      </dl>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="deploy-title">
+      <div class="case-study-section-header"><p class="section-kicker">Deployment</p><h2 id="deploy-title">An OpenAI-compatible server on localhost</h2><p>Three processes: the HTTP server, the <code>strata --serve</code> engine and the vision process. The API is <code>http://127.0.0.1:8095/v1</code>, plus <code>/health</code> and <code>/metrics</code>.</p></div>
+      <pre class="case-study-code-block"><code>.venv/bin/python serve/server.py --engine strata \
+  --config xestrata-gyro-vision.json --host 127.0.0.1 --port 8095
+
+engine/strata --serve --pack packs/gyro-gyro-s \
+  --native Qwen3.8-Flash-Next-Gyro-S-TQ1_0.gguf \
+  --ple-gguf Qwen3.8-Flash-Next-Gyro-S-TQ1_0.gguf \
+  --expert-profile data/expert-profile.bin --expert-cache auto \
+  --prefill auto --spec 4 --spec-min-p 0.5 --mtp mtp/rt \
+  --max-context 131072 --kv int8 --resident-experts \
+  --vram-reserve-mib 2048 --prefill-cpu-share 0.79 \
+  --vram-free-mib 22179 --vision
+
+engine/strata-vision-vulkan --mmproj mmproj-Qwen3.8-Flash-Next-BF16.gguf \
+  --model Qwen3.8-Flash-Next-Gyro-S-TQ1_0.gguf --gpu --gpu-pci 0000:03:00.0 \
+  --max-tokens 1024</code></pre>
+      <ul class="case-study-validation-list">
+        <li>The build is local: <code>contrib</code> license with Intel's own LLVM, not a package download.</li>
+        <li><code>~/.config/xestrata/settings.json</code> holds card data and keys; they are not published.</li>
+        <li>The first start is slow: the engine builds the pack and fills the expert cache before answering.</li>
+        <li>The same server was serving other sessions during the run, and that contaminates part of the timings.</li>
+      </ul>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="how-title">
+      <div class="case-study-section-header"><p class="section-kicker">Three ways to measure</p><h2 id="how-title">Speed, behaviour and engine counters</h2><p>These are three different things and should not be mixed: raw speed, model behaviour and the engine's internal counters.</p></div>
+      <div class="ai-table-wrap">
+        <table class="ai-table">
+          <thead>
+            <tr><th scope="col">Tool</th><th scope="col">What it answers</th><th scope="col">Where the numbers come from</th><th scope="col">Cost</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>gyro-bench</strong> (mine)</td>
+              <td>Does it behave well: thinking, tools, schema, needle, loops?</td>
+              <td>HTTP against a live server: per-request <code>timings</code> + <code>/metrics</code> + <code>/health</code>.</td>
+              <td class="ai-num">~2 min <code>--quick</code>, ~5&ndash;10 min full</td>
+            </tr>
+            <tr>
+              <td><code>xestrata --bench</code></td>
+              <td>How many tokens/s per prompt size and quantization?</td>
+              <td>XeStrata's own benchmark; writes <code>records/bench-&lt;time&gt;/</code>.</td>
+              <td class="ai-num">~40 min</td>
+            </tr>
+            <tr>
+              <td><code>/metrics</code> and <code>/health</code></td>
+              <td>What is the engine doing right now (cache, experts, hardware)?</td>
+              <td>Global counters since start plus a rolling window of requests.</td>
+              <td class="ai-num">instant read</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="findings-title">
+      <div class="case-study-section-header"><p class="section-kicker">What the run shows</p><h2 id="findings-title">Four things useful for anyone building a similar machine</h2></div>
+      <div class="case-study-story">
+        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">01</span><div><h3>The conversation cache is the biggest saving</h3><p>The same 6,439 token prefix went from 0% KV reuse to 99.9% (6,432 of 6,439). The first pass TTFT was 6,512 ms and the following ones 153&ndash;205 ms.</p></div></article>
+        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">02</span><div><h3>Prefill depends on cache, not on the card</h3><p>Without cache the median is 71.1 tok/s; with the prefix reused it rises to 1,047 tok/s in the 15,324 token case. Calling both figures "speed" would be misleading.</p></div></article>
+        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">03</span><div><h3>Thinking has a measurable price</h3><p>Across four trap problems: <code>none</code> reasoned 0 tokens and got 2 of 4 right; <code>low</code>, <code>medium</code> and <code>high</code> got 4 of 4 right with 289, 321 and 395 reasoning tokens.</p></div></article>
+      </div>
+      <div class="case-study-story">
+        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">04</span><div><h3>Concurrency barely scales</h3><p><code>batch_slots: 0</code>: the engine serves one request at a time. With 2 requests the scaling was 1.25&times; and with 4, 1.08&times;. That is an engine property, not a model one.</p></div></article>
+        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">05</span><div><h3>Speculative decoding multiplies decode</h3><p>1,437 drafts accepted out of 2,274 offered (63%). The engine decode median was 38.6 tok/s (19.9&ndash;53.5), and the real wall clock rate is much lower because it includes prefill and TTFT.</p></div></article>
+        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">06</span><div><h3>The loop guard intervenes</h3><p>On a repetition-prone prompt: 35 words with 3 unique ones; <code>detected 2</code>, <code>penalised 1</code>, <code>stopped 1</code>. Without that guard the output repeats until the limit.</p></div></article>
+      </div>
+    </section>
+
+    <section class="case-study-section case-study-outlook mx-auto container-xx px-4" aria-labelledby="limits-title">
+      <div class="case-study-section-header"><p class="section-kicker">Limits</p><h2 id="limits-title">What this run means and what it does not</h2></div>
+      <div class="case-study-outlook-grid">
+        <div>
+          <h3>Real limits of these numbers</h3>
+          <ul>
+            <li>The suite ran while the same server was serving a coding agent: six requests waited 2,807&ndash;116,147 ms in queue, so those TTFTs measure waiting, not model latency.</li>
+            <li>Pairing with <code>/metrics</code> uses <code>(prompt_total, output_tokens)</code>; duplicate signatures can attribute the wrong record.</li>
+            <li><code>/metrics</code> keeps a rolling window, not the complete history of the run.</li>
+            <li>Thinking cases are not deterministic: <code>none</code> failed the bat-and-ball and the trains problem in this run and may get them right in another.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Non-goals</h3>
+          <ul>
+            <li>Not a speed benchmark: that is what <code>xestrata --bench</code> is for.</li>
+            <li>No claim of sustained or multi-user throughput: <code>batch_slots: 0</code> serves one request at a time.</li>
+            <li>Does not test other quantizations or other cards.</li>
+            <li>Not a product: it is a measurement of one personal deployment.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ai-limits">
+        <h3>Reproducibility</h3>
+        <p>The data is in <a class="text-link" href="/en/projects/local-ai/data/run-2026-11-14.json"><code>run-2026-11-14.json</code></a> (46 cases with their metrics and caveats). The run will be re-executed with the server idle to clear the contaminated TTFTs; then the tables and the JSON get updated.</p>
+      </div>
+    </section>
+
+    <section class="case-study-section case-study-resources mx-auto container-xx px-4" aria-labelledby="resources-title">
+      <div class="case-study-section-header"><p class="section-kicker">Stack and resources</p><h2 id="resources-title">What this page uses</h2><p>XeStrata (a fork of Strata, LGPL-3.0-or-later), a TQ1_0 GGUF with an expert pack, MTP, Vulkan vision, and a dependency-free Python harness.</p></div>
+      <nav class="case-study-resource-links" aria-label="Local AI testing technical resources">
+        <a href="/en/projects/local-ai/testing/" class="project-cta"><i data-lucide="list-checks" class="h-4 w-4" aria-hidden="true"></i><span>Suites and tables</span></a>
+        <a href="/en/projects/local-ai/data/run-2026-11-14.json" class="project-cta project-cta--secondary"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>Data as JSON</span></a>
+        <a href="https://github.com/MistVVK/XeStrata/blob/main/docs/XE.md" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="book-open" class="h-4 w-4" aria-hidden="true"></i><span>XeStrata on Intel Xe</span></a>
+        <a href="https://github.com/MistVVK/XeStrata/blob/main/docs/BATCHING.md" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="layers" class="h-4 w-4" aria-hidden="true"></i><span>Batching and experts</span></a>
+        <a href="https://www.intel.com/content/www/us/en/products/sku/243916/intel-arc-pro-b60-graphics/specifications.html" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="cpu" class="h-4 w-4" aria-hidden="true"></i><span>B60 spec sheet</span></a>
+      </nav>
+    </section>
+    <div class="case-study-back-wrap case-study-back-wrap--footer mx-auto container-xx px-4"><a href="/en/projects/" class="case-study-back text-link">&larr; Back to projects</a></div>
+  </main>
+  <footer class="case-study-footer">&copy; <span id="yr"></span> Marco Rios &middot; Deployed on GitHub Pages</footer>
+</body>
+</html>

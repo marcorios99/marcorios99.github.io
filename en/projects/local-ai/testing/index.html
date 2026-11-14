@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="gyro-bench: eight behavioural test suites against a local AI server (XeStrata on an Intel Arc Pro B60). How the numbers are obtained, how to read them, and the fixes still pending." />
+  <link rel="canonical" href="https://marcorios99.github.io/en/projects/local-ai/testing/" />
+  <link rel="alternate" hreflang="es" href="https://marcorios99.github.io/projects/local-ai/testing/" />
+  <link rel="alternate" hreflang="en" href="https://marcorios99.github.io/en/projects/local-ai/testing/" />
+  <link rel="alternate" hreflang="x-default" href="https://marcorios99.github.io/projects/local-ai/testing/" />
+  <meta property="og:title" content="gyro-bench · 8 local AI test suites | Marco Rios" />
+  <meta property="og:description" content="A dependency-free harness that tests thinking, tools, schema, long context, concurrency and loops against a local AI server." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover-portfolio-2026.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/en/projects/local-ai/testing/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>gyro-bench · 8 local AI test suites – Marco Rios</title>
+  <meta name="theme-color" content="#0b0f14" />
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
+  })();
+  </script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages/project-detail.css" />
+  <link rel="stylesheet" href="/assets/css/pages/local-ai.css" />
+</head>
+<body class="min-h-screen">
+  <header class="sticky top-0 z-50 border-b backdrop-blur">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3" aria-label="Primary navigation">
+      <a href="/" class="site-wordmark">Marco Rios</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/" class="navlink">Home</a>
+        <a href="/en/projects/" class="navlink">Projects</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="/projects/local-ai/testing/" class="btn-outline"><i data-lucide="languages" aria-hidden="true" class="h-4 w-4"></i> ES<span class="sr-only"> &middot; view this project in Spanish</span></a>
+        <button id="themeBtn" class="theme-btn" aria-label="Change theme" aria-pressed="false" title="Change theme"><span id="themeIcon" class="h-5 w-5 inline-flex"></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="case-study-page">
+    <div class="case-study-back-wrap mx-auto container-xx px-4"><a href="/en/projects/local-ai/" class="case-study-back text-link">&larr; Back to Local AI testing</a></div>
+
+    <section class="case-study-hero mx-auto container-xx px-4" aria-labelledby="case-study-title">
+      <div class="case-study-hero-grid">
+        <div class="case-study-hero-copy">
+          <p class="section-kicker">Case study · Testing harness</p>
+          <h1 id="case-study-title">gyro-bench</h1>
+          <p class="case-study-summary">Eight behavioural suites against a local AI server: 46 cases, 42 OK, 2 failures and 2 informational.</p>
+          <p class="case-study-note">Dependency-free Python speaking the OpenAI API against a live server. It tests behaviour, not speed: for speed there is <code>xestrata --bench</code>. The thinking cases are not deterministic and the report records what came out, not a "stabilised" answer.</p>
+          <div class="flex flex-wrap gap-2 mt-5" aria-label="Project technologies and status">
+            <span class="badge">Python 3</span><span class="badge">OpenAI API</span><span class="badge">/metrics</span><span class="badge">/health</span>
+          </div>
+          <dl class="case-study-meta">
+            <div class="case-study-meta-item"><dt>Role</dt><dd>My own harness: cases, metric pairing and report.</dd></div>
+            <div class="case-study-meta-item"><dt>Input</dt><dd>A live local server at <code>http://127.0.0.1:8095</code>.</dd></div>
+            <div class="case-study-meta-item"><dt>Output</dt><dd><code>results.json</code> and <code>report.md</code>; exit code 0 only if everything passes.</dd></div>
+          </dl>
+          <nav class="case-study-hero-links" aria-label="gyro-bench links">
+            <a href="/en/projects/local-ai/" class="project-cta"><i data-lucide="cpu" class="h-4 w-4" aria-hidden="true"></i><span>The machine and the model</span></a>
+            <a href="/en/projects/local-ai/data/run-2026-11-14.json" class="project-cta project-cta--secondary"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>Data as JSON</span></a>
+            <a href="https://github.com/MistVVK/XeStrata/blob/main/docs/BENCH.md" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="book-open" class="h-4 w-4" aria-hidden="true"></i><span>XeStrata bench</span></a>
+          </nav>
+        </div>
+        <figure class="case-study-hero-media">
+          <div class="ai-figure-frame">
+            <svg viewBox="0 0 660 260" role="img" aria-labelledby="ai-figure-title ai-figure-desc">
+              <title id="ai-figure-title">How the harness turns a request into metrics</title>
+              <desc id="ai-figure-desc">Four-step flow: a POST to /v1/chat/completions returns per-request timings; the harness computes queue_ms by subtracting engine time from the wall clock; it then reads /metrics, which keeps a rolling window of requests with expert hit rate and hardware; finally it pairs each case with its record by prompt_total and output_tokens and writes results.json.</desc>
+              <rect class="ai-band" x="20" y="16" width="620" height="52" rx="10" />
+              <text class="ai-figure-strong" x="34" y="38" font-size="12">POST /v1/chat/completions</text>
+              <text x="34" y="57" font-size="11">usage · timings: cache_n, prompt_per_second, predicted_per_second, draft_n</text>
+
+              <rect class="ai-band" x="20" y="80" width="620" height="52" rx="10" />
+              <text class="ai-figure-strong" x="34" y="102" font-size="12">queue_ms = wall &minus; (prompt_ms + predicted_ms)</text>
+              <text x="34" y="121" font-size="11">if it is large, that case's TTFT measured queue waiting</text>
+
+              <rect class="ai-band" x="20" y="144" width="620" height="52" rx="10" />
+              <text class="ai-figure-strong" x="34" y="166" font-size="12">GET /metrics &middot; rolling window</text>
+              <text x="34" y="185" font-size="11">expert hit_rate · ram_blobs · loop_guard · VRAM, temperature, power</text>
+
+              <rect class="ai-band" x="20" y="208" width="620" height="52" rx="10" />
+              <text class="ai-figure-strong" x="34" y="230" font-size="12">pair by (prompt_total, output_tokens)</text>
+              <text x="34" y="249" font-size="11">results.json + report.md &middot; duplicate signatures can misattribute</text>
+            </svg>
+          </div>
+          <figcaption>Each case joins two sources: what the server answers per request and what the engine accumulates in <code>/metrics</code>. The pairing is the most fragile part of the harness.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="suites-title">
+      <div class="case-study-section-header"><p class="section-kicker">The eight suites</p><h2 id="suites-title">Each suite asks a different question</h2><p>The full run launches 46 cases. In <code>--quick</code> both the number of cases and the token counts shrink.</p></div>
+      <div class="ai-suite-list">
+        <div class="ai-suite"><div class="ai-suite-name">latency</div><div class="ai-suite-body"><p>TTFT, prefill tok/s and decode tok/s by prompt size: 29, 209 and 976 tokens.</p><p>3 cases · 3 OK</p></div></div>
+        <div class="ai-suite"><div class="ai-suite-name">kv_reuse</div><div class="ai-suite-body"><p>How much the conversation cache reuses the same repeated prefix: four passes of 6,439 tokens.</p><p>4 cases · 4 OK</p></div></div>
+        <div class="ai-suite"><div class="ai-suite-name">thinking</div><div class="ai-suite-body"><p>Token cost and correctness of <code>reasoning_effort</code> <code>none</code>, <code>low</code>, <code>medium</code>, <code>high</code> over four problems; two of them are traps (bat and ball, trains).</p><p>16 cases · 14 OK · 2 failures</p></div></div>
+        <div class="ai-suite"><div class="ai-suite-name">tools</div><div class="ai-suite-body"><p>Right tool, valid JSON, typed arguments, two parallel calls and not calling when it is not due.</p><p>5 cases · 5 OK</p></div></div>
+        <div class="ai-suite"><div class="ai-suite-name">structured</div><div class="ai-suite-body"><p><code>response_format</code> with a strict <code>json_schema</code>, with and without thinking. With a small budget and thinking active the server fails with <code>structured_output_failed</code>, so the budget is 400.</p><p>2 cases · 2 OK</p></div></div>
+        <div class="ai-suite"><div class="ai-suite-name">long_context</div><div class="ai-suite-body"><p>Needle in ~12,000 tokens plus GPU memory, GGUF reads, temperature and power during prefill. The needle sits at the start of the prompt; putting it in the middle and at the end too is a planned fix.</p><p>1 case · 1 OK</p></div></div>
+        <div class="ai-suite"><div class="ai-suite-name">concurrency</div><div class="ai-suite-body"><p>Sequential versus concurrent throughput with 2 and 4 requests. <code>batch_slots: 0</code> serves one request at a time, so the <code>scale</code> cases stay informational.</p><p>14 cases · 12 OK · 2 informational</p></div></div>
+        <div class="ai-suite"><div class="ai-suite-name">stability</div><div class="ai-suite-body"><p>A repetition-prone prompt and whether the engine's loop guard intervenes.</p><p>1 case · 1 OK</p></div></div>
+      </div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="numbers-title">
+      <div class="case-study-section-header"><p class="section-kicker">How the numbers are obtained</p><h2 id="numbers-title">Two sources per case: the response and the engine</h2><p>The response carries per-request timings and does not require reading the log. <code>/metrics</code> adds what is global to the engine.</p></div>
+      <pre class="case-study-code-block"><code>POST /v1/chat/completions   usage: prompt_tokens, completion_tokens,
+                            completion_tokens_details.reasoning_tokens
+                          timings: cache_n, prompt_ms, predicted_ms,
+                                   prompt_per_second, predicted_per_second,
+                                   draft_n, draft_n_accepted
+GET  /health                supported thinking levels (default high)
+GET  /metrics               expert hit_rate, ram_blobs, file_mb, reused,
+                            loop_guard counters and hardware state</code></pre>
+      <ul class="case-study-validation-list">
+        <li><code>queue_ms</code> is <code>wall_ms</code> minus engine time (<code>prompt_ms + predicted_ms</code>): how long the request waited behind other generations.</li>
+        <li>Pairing looks in the rolling window for the record with the case's <code>prompt_total</code> and <code>output_tokens</code>.</li>
+        <li>Tools go in the nested OpenAI format (<code>{type: "function", function: {...}}</code>). A 400 with an explicit body is a malformed payload from the harness, not an engine failure, and is not retried.</li>
+        <li><code>--from-results</code> rewrites the report from a saved <code>results.json</code>, but it queries the live server and shows its current counters, not those of the saved run.</li>
+      </ul>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="tables-title">
+      <div class="case-study-section-header"><p class="section-kicker">Run tables</p><h2 id="tables-title">What can be read without the raw report</h2></div>
+      <div class="ai-table-wrap">
+        <table class="ai-table">
+          <caption class="sr-only">Latency of three prompts and how much of that latency was queue waiting</caption>
+          <thead>
+            <tr><th scope="col">Case</th><th scope="col" class="ai-num">Prompt tok</th><th scope="col" class="ai-num">TTFT ms</th><th scope="col" class="ai-num">Queue ms</th><th scope="col" class="ai-num">Decode tok/s</th><th scope="col" class="ai-num">Prefill tok/s</th><th scope="col">Reading</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>short</td><td class="ai-num">29</td><td class="ai-num">12,764</td><td class="ai-num">12,236</td><td class="ai-num">28.7</td><td class="ai-num">58.8</td><td>TTFT discarded: 96% was waiting</td></tr>
+            <tr><td>medium</td><td class="ai-num">209</td><td class="ai-num">117,337</td><td class="ai-num">116,147</td><td class="ai-num">40.3</td><td class="ai-num">180.5</td><td>TTFT discarded: 99% was waiting</td></tr>
+            <tr><td>large</td><td class="ai-num">976</td><td class="ai-num">1,945</td><td class="ai-num">49</td><td class="ai-num">37.9</td><td class="ai-num">524.0</td><td>TTFT usable</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ai-table-wrap">
+        <table class="ai-table">
+          <caption class="sr-only">Four passes of the same prefix and their KV reuse</caption>
+          <thead>
+            <tr><th scope="col">Pass</th><th scope="col" class="ai-num">KV reused</th><th scope="col" class="ai-num">% reuse</th><th scope="col" class="ai-num">TTFT ms</th><th scope="col" class="ai-num">Prefill tok/s</th><th scope="col">Reading</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td class="ai-num">0 / 6,439</td><td class="ai-num">0%</td><td class="ai-num">6,512</td><td class="ai-num">1,000.6</td><td>Full prefix computed</td></tr>
+            <tr><td>2</td><td class="ai-num">6,432 / 6,439</td><td class="ai-num">99.9%</td><td class="ai-num">205</td><td class="ai-num">65.6</td><td>The tok/s drops because almost nothing is computed</td></tr>
+            <tr><td>3</td><td class="ai-num">6,432 / 6,439</td><td class="ai-num">99.9%</td><td class="ai-num">153</td><td class="ai-num">64.4</td><td>Same prefix, same answer</td></tr>
+            <tr><td>4</td><td class="ai-num">6,432 / 6,439</td><td class="ai-num">99.9%</td><td class="ai-num">162</td><td class="ai-num">73.5</td><td>Same prefix, same answer</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ai-table-wrap">
+        <table class="ai-table">
+          <caption class="sr-only">Cost of each thinking level over four problems</caption>
+          <thead>
+            <tr><th scope="col">Level</th><th scope="col" class="ai-num">Correct</th><th scope="col" class="ai-num">Reasoning tok</th><th scope="col" class="ai-num">Output tok</th><th scope="col" class="ai-num">Median decode tok/s</th><th scope="col">Failures</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>none</code></td><td class="ai-num">2 / 4</td><td class="ai-num">0</td><td class="ai-num">15</td><td class="ai-num">28.4</td><td>bat and ball (0.05 &rarr; 0.10), trains (20 &rarr; 33)</td></tr>
+            <tr><td><code>low</code></td><td class="ai-num">4 / 4</td><td class="ai-num">289</td><td class="ai-num">308</td><td class="ai-num">45.8</td><td>none</td></tr>
+            <tr><td><code>medium</code></td><td class="ai-num">4 / 4</td><td class="ai-num">321</td><td class="ai-num">340</td><td class="ai-num">46.4</td><td>none</td></tr>
+            <tr><td><code>high</code></td><td class="ai-num">4 / 4</td><td class="ai-num">395</td><td class="ai-num">414</td><td class="ai-num">43.5</td><td>none</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ai-table-wrap">
+        <table class="ai-table">
+          <caption class="sr-only">Sequential and concurrent throughput for two and four requests</caption>
+          <thead>
+            <tr><th scope="col">Requests</th><th scope="col">Mode</th><th scope="col" class="ai-num">Output tok</th><th scope="col" class="ai-num">Wall ms</th><th scope="col" class="ai-num">Throughput tok/s</th><th scope="col" class="ai-num">Scaling</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="ai-num">2</td><td>sequential</td><td class="ai-num">159</td><td class="ai-num">6,661</td><td class="ai-num">23.9</td><td class="ai-num">&mdash;</td></tr>
+            <tr><td class="ai-num">2</td><td>concurrent</td><td class="ai-num">157</td><td class="ai-num">5,251</td><td class="ai-num">29.9</td><td class="ai-num">1.25&times;</td></tr>
+            <tr><td class="ai-num">4</td><td>sequential</td><td class="ai-num">335</td><td class="ai-num">12,084</td><td class="ai-num">27.7</td><td class="ai-num">&mdash;</td></tr>
+            <tr><td class="ai-num">4</td><td>concurrent</td><td class="ai-num">302</td><td class="ai-num">10,058</td><td class="ai-num">30.0</td><td class="ai-num">1.08&times;</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ai-table-wrap">
+        <table class="ai-table">
+          <caption class="sr-only">One key number from each remaining suite</caption>
+          <thead>
+            <tr><th scope="col">Suite</th><th scope="col">Case</th><th scope="col">Key number</th><th scope="col">Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>tools</td><td><code>no-call</code></td><td>0 valid calls: it does not call when it is not due</td><td>OK</td></tr>
+            <tr><td>tools</td><td><code>parallel</code></td><td>2 valid calls in one answer</td><td>OK</td></tr>
+            <tr><td>structured</td><td><code>thinking-high</code></td><td>122 output tokens, 71 reasoning, schema satisfied</td><td>OK</td></tr>
+            <tr><td>long_context</td><td><code>needle-12000</code></td><td>15,324 prompt tokens, needle <code>ZEBRA-42</code>, 21,321 of 24,480 MiB VRAM, 70 &deg;C, 125.7 W, 0.0 MB read from the GGUF</td><td>OK</td></tr>
+            <tr><td>stability</td><td><code>repeat-loop</code></td><td>35 words with 3 unique ones; loop guard detected 2, penalised 1, stopped 1</td><td>OK</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="reading-title">
+      <div class="case-study-section-header"><p class="section-kicker">How to read the numbers</p><h2 id="reading-title">Four usual traps of these metrics</h2></div>
+      <ol class="case-study-flow">
+        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">01</span><div><h3>Engine decode is not wall clock</h3><p><code>decode_tok_s</code> is the engine's rate after accepted drafts. <code>decode_tok_s_wall</code> uses the real request clock and is much lower because it includes prefill and TTFT.</p></div></li>
+        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">02</span><div><h3>The queue contaminates TTFT</h3><p>With a high <code>queue_ms</code>, that TTFT measures waiting behind other generations. The engine's tok/s remain valid; the TTFT does not.</p></div></li>
+        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">03</span><div><h3>Prefill and cache contradict each other</h3><p>A high prefill rate with high <code>cache_reused</code> means the cache hit, not fast compute. The figure that matters there is TTFT.</p></div></li>
+        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">04</span><div><h3>Informational is not a pass</h3><p>The <code>scale n=2</code> and <code>scale n=4</code> cases leave <code>passed</code> as <code>None</code>: concurrent scaling is an engine property (<code>batch_slots: 0</code>), not an exam of the model.</p></div></li>
+      </ol>
+      <pre class="case-study-code-block"><code>python3 bench.py --quick                        # compact suite, ~2 min
+python3 bench.py                                # full suite
+python3 bench.py --suite tools,thinking,structured
+python3 bench.py --long-tokens 24000            # more aggressive long context
+python3 bench.py --json-out runs/1.json --report runs/1.md</code></pre>
+      <p class="case-study-note">Run it with the server free. If another heavy session is using the same server, the concurrency numbers, expert hit rate and TTFTs suffer.</p>
+    </section>
+
+    <section class="case-study-section case-study-outlook mx-auto container-xx px-4" aria-labelledby="portable-title">
+      <div class="case-study-section-header"><p class="section-kicker">Portable and engine-specific</p><h2 id="portable-title">What works with any server and what only works with this engine</h2></div>
+      <div class="case-study-outlook-grid">
+        <div>
+          <h3>Portable (any OpenAI-compatible API)</h3>
+          <ul>
+            <li>Verdicts for thinking, tools, structured, long_context and stability are decided by the response: content, <code>finish_reason</code>, tool calls and JSON.</li>
+            <li>Retries only on transient statuses; a 400 with an explicit body is treated as a malformed payload of the harness itself.</li>
+            <li>Without the <code>timings</code> block the tok/s stay <code>None</code>, but pass or fail still works.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>XeStrata/Strata specific</h3>
+          <ul>
+            <li><code>hit_rate</code> of experts, <code>ram_blobs</code> and <code>file_mb</code>: they only exist in this engine's <code>/metrics</code>.</li>
+            <li><code>loop_guard</code> counters and thinking closure.</li>
+            <li>Hardware during generation: VRAM used, temperature, power and disk reads during prefill.</li>
+            <li><code>batch_slots</code> and the <code>reasoning_effort</code> levels advertised by <code>/health</code>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="roadmap-title">
+      <div class="case-study-section-header"><p class="section-kicker">Planned fixes</p><h2 id="roadmap-title">Ten changes that make the numbers more defensible</h2><p>None of them changes the cases: they change how numbers are attributed and stored.</p></div>
+      <ul class="case-study-validation-list">
+        <li>Pair by request id instead of <code>(prompt_total, output_tokens)</code>, so two cases with the same signature do not receive the wrong record.</li>
+        <li>Store a copy of <code>/health</code> and <code>/metrics</code> taken at the start and end of the run in <code>results.json</code>, so the report does not depend on a live server.</li>
+        <li>Mark clean TTFTs with a flag and exclude queue-contaminated ones from medians.</li>
+        <li>Turn the <code>none</code> level traps into expected-fail: they are a model fact, not a harness failure.</li>
+        <li>Place the needle also in the middle and at the end of the long context, not only at the start.</li>
+        <li>Make <code>structured</code> go through <code>run_case</code> so it gets <code>prompt_tokens</code>, TTFT and wall.</li>
+        <li>Fix a <code>seed</code> and measure pass@3 so runs can be compared.</li>
+        <li>Collect <code>pcie_share</code>, <code>prompt_read</code>, <code>projection</code>, <code>decode_ms</code>, <code>duration_s</code> and <code>reasoning_recoveries</code>, which <code>/metrics</code> already gives and are currently discarded.</li>
+        <li>Warm the server with one request before measuring and check in <code>live.state</code> that it is idle.</li>
+        <li>Fix the docstring: suite names are the real ones (<code>thinking</code>, not <code>think</code>).</li>
+      </ul>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="limits-title">
+      <div class="case-study-section-header"><p class="section-kicker">Limits</p><h2 id="limits-title">What this suite does not prove</h2></div>
+      <div class="ai-limits">
+        <h3>Caveats of the 14 Nov 2026 run</h3>
+        <ul>
+          <li>It ran while the same server was serving a coding agent: six requests waited 2,807&ndash;116,147 ms in queue, so their TTFT and wall stay contaminated.</li>
+          <li>Pairing with <code>/metrics</code> uses <code>(prompt_total, output_tokens)</code>; duplicate signatures can attribute the wrong record.</li>
+          <li><code>/metrics</code> keeps a rolling window of requests, not the complete history of the run.</li>
+          <li>Thinking cases are not deterministic: <code>none</code> failed the bat-and-ball and the trains problem in this run and may get them right in another.</li>
+          <li>Only one quantization (TQ1_0) and one card were tested; none of this is sustained or multi-user throughput.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="case-study-section case-study-resources mx-auto container-xx px-4" aria-labelledby="resources-title">
+      <div class="case-study-section-header"><p class="section-kicker">Stack and resources</p><h2 id="resources-title">Where the data and the engine live</h2><p>Python 3 with no dependencies (standard library only), the OpenAI API, and XeStrata's <code>/metrics</code> and <code>/health</code>.</p></div>
+      <nav class="case-study-resource-links" aria-label="gyro-bench technical resources">
+        <a href="/en/projects/local-ai/" class="project-cta"><i data-lucide="cpu" class="h-4 w-4" aria-hidden="true"></i><span>Case study</span></a>
+        <a href="/en/projects/local-ai/data/run-2026-11-14.json" class="project-cta project-cta--secondary"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>46 cases in JSON</span></a>
+        <a href="https://github.com/MistVVK/XeStrata/blob/main/docs/BENCH.md" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="gauge" class="h-4 w-4" aria-hidden="true"></i><span>XeStrata bench</span></a>
+        <a href="https://github.com/MistVVK/XeStrata/blob/main/docs/DEVTOOLS.md" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="book-open" class="h-4 w-4" aria-hidden="true"></i><span>Engine devtools</span></a>
+      </nav>
+    </section>
+    <div class="case-study-back-wrap case-study-back-wrap--footer mx-auto container-xx px-4"><a href="/en/projects/local-ai/" class="case-study-back text-link">&larr; Back to Local AI testing</a></div>
+  </main>
+  <footer class="case-study-footer">&copy; <span id="yr"></span> Marco Rios &middot; Deployed on GitHub Pages</footer>
+</body>
+</html>

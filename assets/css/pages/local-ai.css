@@ -1,0 +1,117 @@
+/* Local AI pages: tables, spec grid, metric figure, limitations panel. */
+
+.ai-figure-frame {
+  display: grid;
+  place-items: center;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  padding: 1.5rem;
+  background: color-mix(in srgb, var(--surface-soft) 70%, transparent);
+}
+.ai-figure-frame svg { display: block; width: 100%; height: auto; }
+.ai-figure-frame text { fill: var(--text-body); font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.ai-figure-frame .ai-figure-title { fill: var(--text); font-size: 13px; font-weight: 700; }
+.ai-figure-frame .ai-figure-strong { fill: var(--text); font-weight: 700; }
+.ai-figure-frame .ai-figure-accent { fill: color-mix(in srgb, var(--accent) 78%, var(--text)); font-weight: 700; }
+.ai-figure-frame .ai-band { fill: color-mix(in srgb, var(--accent) 12%, var(--surface)); stroke: var(--border-soft); }
+.ai-figure-frame .ai-line { stroke: var(--border-soft); }
+
+.ai-table-wrap {
+  max-width: 52rem;
+  margin-top: 2.25rem;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  background: color-mix(in srgb, var(--surface-soft) 55%, transparent);
+}
+.ai-table { width: 100%; border-collapse: collapse; font-size: .82rem; line-height: 1.5; }
+.ai-table th,
+.ai-table td { padding: .7rem .9rem; text-align: left; vertical-align: top; }
+.ai-table th {
+  color: color-mix(in srgb, var(--text-muted) 78%, var(--text));
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+.ai-table td { color: var(--text-body); border-top: 1px solid var(--border); }
+.ai-table tbody tr:first-child td { border-top: 0; }
+.ai-table td.ai-num { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-variant-numeric: tabular-nums; }
+.ai-table th.ai-num, .ai-table td.ai-num { text-align: right; }
+.ai-table strong { color: var(--text); font-weight: 650; }
+
+.ai-spec { margin-top: 2.25rem; border-top: 1px solid var(--border); }
+.ai-spec-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 14rem) minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: .85rem;
+  border-bottom: 1px solid var(--border);
+}
+.ai-spec-row dt {
+  color: var(--text-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: .67rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.ai-spec-row dd { margin: 0; color: var(--text-body); font-size: .85rem; line-height: 1.6; }
+.ai-spec-row dd code {
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: .78rem;
+}
+
+.ai-limits {
+  max-width: 48rem;
+  margin-top: 2.25rem;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-solid);
+  border-radius: .75rem;
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+}
+.ai-limits h3 { margin: 0; color: var(--text); font-size: .95rem; font-weight: 700; }
+.ai-limits p { margin: .6rem 0 0; color: var(--text-body); font-size: .85rem; line-height: 1.65; }
+.ai-limits ul { margin: .8rem 0 0; padding: 0; list-style: none; display: grid; gap: .6rem; }
+.ai-limits li { position: relative; padding-left: 1rem; color: var(--text-body); font-size: .85rem; line-height: 1.6; }
+.ai-limits li::before {
+  content: "";
+  position: absolute;
+  top: .65em;
+  left: 0;
+  width: .32rem;
+  height: .32rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 72%, var(--text));
+}
+
+.ai-suite-list { margin-top: 2.25rem; border-top: 1px solid var(--border); }
+.ai-suite {
+  display: grid;
+  grid-template-columns: minmax(7rem, 11rem) minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.ai-suite-name {
+  color: color-mix(in srgb, var(--accent) 72%, var(--text-muted));
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+.ai-suite-body { min-width: 0; }
+.ai-suite-body p { margin: 0; color: var(--text-body); font-size: .86rem; line-height: 1.6; }
+.ai-suite-body p + p { margin-top: .45rem; color: var(--text-muted); font-size: .78rem; }
+
+@media (max-width: 767px) {
+  /* The diagram is legible only at its own size, so it scrolls inside the frame instead of shrinking to ~5px text. */
+  .ai-figure-frame svg { min-width: 560px; }
+  .ai-spec-row, .ai-suite { grid-template-columns: 1fr; gap: .45rem; }
+  .ai-table th, .ai-table td { padding: .6rem .7rem; }
+}
