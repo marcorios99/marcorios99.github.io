@@ -8,6 +8,7 @@
 - `assets/css/pages/home.css`: layout y estilos exclusivos de la landing.
 - `assets/css/pages/projects.css`: catálogo de proyectos.
 - `assets/css/pages/project-detail.css`: casos de estudio individuales.
+- `assets/css/pages/app-detail.css`: casos de estudio de apps publicadas (Google Play); se carga después de `project-detail.css`.
 
 ## Orden de carga
 
@@ -21,6 +22,14 @@ Para un caso de estudio:
 ```html
 <link rel="stylesheet" href="/assets/css/styles.css">
 <link rel="stylesheet" href="/assets/css/pages/project-detail.css">
+```
+
+Para un caso de estudio de una app publicada en Google Play (capturas con aspect ratio real):
+
+```html
+<link rel="stylesheet" href="/assets/css/styles.css">
+<link rel="stylesheet" href="/assets/css/pages/project-detail.css">
+<link rel="stylesheet" href="/assets/css/pages/app-detail.css">
 ```
 
 ## Theme tokens

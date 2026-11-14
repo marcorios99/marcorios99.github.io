@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="UltraHDR Off detecta fotos Ultra HDR en Android y crea copias SDR estándar sin modificar los originales. Aplicación publicada en Google Play por Rios Studio." />
+  <link rel="canonical" href="https://marcorios99.github.io/projects/android/ultrahdr-off/" />
+  <link rel="alternate" hreflang="es" href="https://marcorios99.github.io/projects/android/ultrahdr-off/" />
+  <link rel="alternate" hreflang="en" href="https://marcorios99.github.io/en/projects/android/ultrahdr-off/" />
+  <link rel="alternate" hreflang="x-default" href="https://marcorios99.github.io/projects/android/ultrahdr-off/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="UltraHDR Off | Copias SDR para fotos Ultra HDR en Android – Marco Rios" />
+  <meta property="og:description" content="App Android que detecta fotos Ultra HDR y genera copias SDR independientes, guardadas localmente y sin alterar la foto original." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/projects/ultrahdr-off/og-cover.jpg" />
+  <meta property="og:url" content="https://marcorios99.github.io/projects/android/ultrahdr-off/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>UltraHDR Off | Copias SDR para fotos Ultra HDR en Android – Marco Rios</title>
+  <meta name="theme-color" content="#0b0f14" />
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
+  })();
+  </script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages/project-detail.css" />
+  <link rel="stylesheet" href="/assets/css/pages/app-detail.css" />
+</head>
+<body class="min-h-screen">
+  <header class="sticky top-0 z-50 border-b backdrop-blur">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3" aria-label="Navegación principal">
+      <a href="/" class="site-wordmark">Marco Rios</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/projects/" class="navlink">Proyectos</a>
+        <a href="/about/" class="navlink">Acerca de mí</a>
+        <a href="/help/" class="navlink">Notas</a>
+        <a href="/" class="navlink">Inicio</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="/en/projects/android/ultrahdr-off/" class="btn-outline"><i data-lucide="languages" class="h-4 w-4" aria-hidden="true"></i> EN<span class="sr-only"> &middot; ver este proyecto en ingl&eacute;s</span></a>
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"><span id="themeIcon" class="h-5 w-5 inline-flex"></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="case-study-page">
+    <div class="case-study-back-wrap mx-auto container-xx px-4"><a href="/projects/" class="case-study-back text-link">&larr; Volver a proyectos</a></div>
+
+    <section class="case-study-hero mx-auto container-xx px-4" aria-labelledby="case-study-title">
+      <div class="case-study-hero-grid">
+        <div class="case-study-hero-copy">
+          <img src="/assets/img/projects/ultrahdr-off/icon.webp" alt="Icono de la aplicación UltraHDR Off publicado en Google Play." width="512" height="512" loading="eager" decoding="async" class="app-detail-icon" />
+          <p class="section-kicker">Caso de estudio · App Android</p>
+          <h1 id="case-study-title">UltraHDR Off</h1>
+          <p class="case-study-summary">Convierte fotos Ultra HDR en copias SDR estándar directamente en el dispositivo Android. Resuelve el caso en que galerías, aplicaciones y dispositivos que no son totalmente compatibles con Ultra HDR muestran esas fotos de forma diferente: la app selecciona las imágenes Ultra HDR y produce copias más fáciles de ver, compartir o gestionar, sin tocar los originales.</p>
+          <p class="case-study-note">Aplicación publicada en Google Play por Rios Studio. No tiene repositorio público ni código fuente abierto: la única fuente oficial de esta página es el listado de Google Play.</p>
+          <div class="flex flex-wrap gap-2 mt-5" aria-label="Ámbito del proyecto">
+            <span class="badge">Android</span><span class="badge">Ultra HDR &rarr; SDR</span><span class="badge">Procesamiento local</span>
+          </div>
+          <dl class="case-study-meta">
+            <div class="case-study-meta-item"><dt>Rol</dt><dd>Diseño, desarrollo y publicación de la aplicación.</dd></div>
+            <div class="case-study-meta-item"><dt>Alcance</dt><dd>App publicada en Google Play (liberación inicial).</dd></div>
+            <div class="case-study-meta-item"><dt>Plataforma</dt><dd>Android; las fotos se procesan en el dispositivo.</dd></div>
+          </dl>
+          <nav class="case-study-hero-links" aria-label="Enlaces de UltraHDR Off">
+            <a href="https://play.google.com/store/apps/details?id=com.riosstudio.ultrahdroff&amp;hl=es" class="project-cta" target="_blank" rel="noreferrer"><i data-lucide="smartphone" class="h-4 w-4" aria-hidden="true"></i><span>Google Play</span></a>
+          </nav>
+        </div>
+        <figure class="case-study-hero-media app-detail-hero-media">
+          <img src="/assets/img/projects/ultrahdr-off/shot-01.webp" alt="Pantalla inicial de UltraHDR Off en un tel&eacute;fono: t&iacute;tulo de la app, el subt&iacute;tulo &quot;Convert Ultra HDR photos to SDR.&quot;, el bot&oacute;n Select photos y el acceso Advanced." width="720" height="1524" loading="eager" decoding="async" />
+          <figcaption>Captura 1 del carrusel de Google Play: pantalla inicial con la acci&oacute;n principal y el acceso a opciones avanzadas.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="story-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Del problema a la salida</p>
+        <h2 id="story-title">Fotos que otros lectores no muestran bien</h2>
+      </div>
+      <ol class="case-study-story">
+        <li class="case-study-story-step">
+          <span class="case-study-story-index" aria-hidden="true">01</span>
+          <div><h3>Problema</h3><p>Una foto Ultra HDR lleva información de brillo alto además del rango dinámico estándar. Las galerías, aplicaciones y dispositivos que no interpretan ese formato la muestran de forma distinta, y los flujos que solo aceptan SDR estándar no la procesan con claridad.</p></div>
+        </li>
+        <li class="case-study-story-step">
+          <span class="case-study-story-index" aria-hidden="true">02</span>
+          <div><h3>Solución</h3><p>Una app centrada en una sola tarea: seleccionar una o varias fotos, detectar cuáles son Ultra HDR y generar copias SDR independientes, guardadas en una carpeta aparte y conservando los metadatos relevantes.</p></div>
+        </li>
+        <li class="case-study-story-step">
+          <span class="case-study-story-index" aria-hidden="true">03</span>
+          <div><h3>Resultado</h3><p>Copias SDR listas para ver, compartir o gestionar en aplicaciones sin soporte Ultra HDR, con las fotos originales intactas y todo el procesamiento ejecutado en el dispositivo.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="flow-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Flujo</p>
+        <h2 id="flow-title">Cómo funciona la conversión</h2>
+        <p>Recorrido general declarado en el listado de Google Play y visible en sus capturas. La documentaci&oacute;n de implementaci&oacute;n no es p&uacute;blica.</p>
+      </div>
+      <ol class="case-study-flow">
+        <li class="case-study-flow-step">
+          <span class="case-study-flow-index" aria-hidden="true">01</span>
+          <div class="case-study-flow-copy"><h3>Selección</h3><p>Se eligen una o varias fotos. El selector permite filtrar por carpeta (All, la carpeta de copias Pictures/SDR-Copies y una carpeta Demo) y la selección múltiple se hace con pulsación prolongada y arrastre, con un contador de fotos pendientes.</p></div>
+        </li>
+        <li class="case-study-flow-step">
+          <span class="case-study-flow-index" aria-hidden="true">02</span>
+          <div class="case-study-flow-copy"><h3>Detección</h3><p>Antes de convertir, la app muestra de cada foto su nombre, resolución, tamaño y si contiene Ultra HDR.</p></div>
+        </li>
+        <li class="case-study-flow-step">
+          <span class="case-study-flow-index" aria-hidden="true">03</span>
+          <div class="case-study-flow-copy"><h3>Conversión</h3><p>Genera la copia SDR estándar con el nombre <code>&lt;original&gt;_SDR.jpg</code> en la carpeta de salida y conserva los metadatos relevantes; si ese nombre ya existe, aplica la regla de duplicados configurada.</p></div>
+        </li>
+        <li class="case-study-flow-step">
+          <span class="case-study-flow-index" aria-hidden="true">04</span>
+          <div class="case-study-flow-copy"><h3>Entrega</h3><p>Al terminar informa el resultado del lote: copias correctas, copias fallidas y la carpeta donde se guardaron. Los originales quedan intactos.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="case-study-section case-study-evidence mx-auto container-xx px-4" aria-labelledby="evidence-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Evidencia</p>
+        <h2 id="evidence-title">Capturas publicadas en Google Play</h2>
+        <p>Las siete capturas del carrusel del listado, en el orden en que Play las muestra: cinco en tel&eacute;fono y dos en tablet.</p>
+      </div>
+      <div class="app-detail-gallery">
+        <figure class="app-detail-shot"><img src="/assets/img/projects/ultrahdr-off/shot-02.webp" alt="Hoja Select photos de UltraHDR Off con las carpetas All, SDR-Copies (Pictures/SDR-Copies) y Demo (Download/Demo); dos miniaturas marcadas y el contador To convert: 2 of 50." width="720" height="1524" loading="lazy" decoding="async" /><figcaption>Captura 2 · selecci&oacute;n de fotos con carpetas filtrables y contador de pendientes.</figcaption></figure>
+        <figure class="app-detail-shot"><img src="/assets/img/projects/ultrahdr-off/shot-03.webp" alt="Bloque Selected images con Total: 2 y las miniaturas 4.jpg y 3.jpg, seguido del bloque Individual detail con una foto ampliada." width="720" height="1524" loading="lazy" decoding="async" /><figcaption>Captura 3 · im&aacute;genes seleccionadas y detalle individual.</figcaption></figure>
+        <figure class="app-detail-shot"><img src="/assets/img/projects/ultrahdr-off/shot-04.webp" alt="Individual detail de la foto 4.jpg: resoluci&oacute;n 1080 x 1920 px, tama&ntilde;o 388.8 KB, Ultra HDR detectado, carpeta de salida Pictures/SDR-Copies y nombre de salida 4_SDR.jpg, con el bot&oacute;n Convert batch to SDR." width="720" height="1524" loading="lazy" decoding="async" /><figcaption>Captura 4 · detección antes de convertir: resolución, tamaño, Ultra HDR y salida prevista.</figcaption></figure>
+        <figure class="app-detail-shot"><img src="/assets/img/projects/ultrahdr-off/shot-05.webp" alt="Resultado de la conversi&oacute;n en lote: Conversion finished, Successful: 2 of 2, Failed: 0 y Saved in Pictures/SDR-Copies." width="720" height="1524" loading="lazy" decoding="async" /><figcaption>Captura 5 · resultado del lote: 2 de 2 copias correctas, 0 fallidas.</figcaption></figure>
+      </div>
+      <div class="app-detail-gallery app-detail-gallery--wide">
+        <figure class="app-detail-shot"><img src="/assets/img/projects/ultrahdr-off/shot-06.webp" alt="Pantalla inicial de UltraHDR Off en una tablet en horizontal, con el bot&oacute;n Select photos a ancho completo y el acceso Advanced." width="720" height="472" loading="lazy" decoding="async" /><figcaption>Captura 6 · pantalla inicial en tablet (layout horizontal).</figcaption></figure>
+        <figure class="app-detail-shot"><img src="/assets/img/projects/ultrahdr-off/shot-07.webp" alt="Detalle de una foto en tablet en horizontal: la imagen seleccionada y el bloque Image information con 1.jpg, resoluci&oacute;n 1080 x 1920 px y tama&ntilde;o 447.8 KB." width="720" height="472" loading="lazy" decoding="async" /><figcaption>Captura 7 · detalle de una imagen y su informaci&oacute;n en tablet.</figcaption></figure>
+      </div>
+      <ul class="case-study-validation-list">
+        <li>Selecci&oacute;n m&uacute;ltiple sobre una colecci&oacute;n de 50 fotos, con 2 marcadas y carpeta de destino filtrable (captura 2).</li>
+        <li>Detecci&oacute;n mostrada por la app: <code>4.jpg</code> con resoluci&oacute;n 1080 &times; 1920 px, 388.8 KB y Ultra HDR presente (captura 4).</li>
+        <li>Salida prevista declarada antes de convertir: <code>4_SDR.jpg</code> en <code>Pictures/SDR-Copies</code> (captura 4).</li>
+        <li>Lote ejecutado: Successful: 2 of 2, Failed: 0, guardado en <code>Pictures/SDR-Copies/</code> (captura 5).</li>
+        <li>Conservaci&oacute;n de metadatos relevantes declarada en Play; las capturas no exponen los metadatos concretos.</li>
+        <li>Interfaz disponible en tel&eacute;fono y en tablet en horizontal (capturas 1 y 6).</li>
+      </ul>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="listing-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Ficha</p>
+        <h2 id="listing-title">Información publicada en Google Play</h2>
+        <p>Datos tomados del listado público de Google Play en español. Play no publica requisitos mínimos de Android ni métricas de rendimiento.</p>
+      </div>
+      <dl class="app-detail-spec">
+        <div class="app-detail-spec-row"><dt>Desarrollador</dt><dd>Rios Studio</dd></div>
+        <div class="app-detail-spec-row"><dt>Paquete</dt><dd><code>com.riosstudio.ultrahdroff</code></dd></div>
+        <div class="app-detail-spec-row"><dt>Categoría</dt><dd>Fotografía</dd></div>
+        <div class="app-detail-spec-row"><dt>Precio</dt><dd>Gratis</dd></div>
+        <div class="app-detail-spec-row"><dt>Descargas</dt><dd>100+ (dato declarado por Google Play)</dd></div>
+        <div class="app-detail-spec-row"><dt>Última actualización</dt><dd>30 jul 2026 · liberación inicial</dd></div>
+        <div class="app-detail-spec-row"><dt>Clasificación</dt><dd>Para todos</dd></div>
+        <div class="app-detail-spec-row"><dt>Idiomas</dt><dd>Inglés (Estados Unidos) y español (España)</dd></div>
+        <div class="app-detail-spec-row"><dt>Datos</dt><dd>No se recogen datos y no se comparten con terceros</dd></div>
+      </dl>
+    </section>
+
+    <section class="case-study-section case-study-resources mx-auto container-xx px-4" aria-labelledby="resources-title">
+      <div class="case-study-section-header">
+        <p class="section-kicker">Recursos</p>
+        <h2 id="resources-title">Fuentes oficiales</h2>
+        <p>Este proyecto no enlaza repositorio ni código fuente: el listado de Google Play es la fuente oficial.</p>
+      </div>
+      <nav class="case-study-resource-links" aria-label="Recursos de UltraHDR Off">
+        <a href="https://play.google.com/store/apps/details?id=com.riosstudio.ultrahdroff&amp;hl=es" class="project-cta" target="_blank" rel="noreferrer"><i data-lucide="smartphone" class="h-4 w-4" aria-hidden="true"></i><span>Google Play (es)</span></a>
+        <a href="https://play.google.com/store/apps/details?id=com.riosstudio.ultrahdroff&amp;hl=en" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="languages" class="h-4 w-4" aria-hidden="true"></i><span>Google Play (en)</span></a>
+        <a href="https://play.google.com/store/apps/developer?id=Rios+Studio" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="user" class="h-4 w-4" aria-hidden="true"></i><span>Rios Studio</span></a>
+      </nav>
+    </section>
+
+    <div class="case-study-back-wrap case-study-back-wrap--footer mx-auto container-xx px-4">
+      <a href="/projects/" class="project-cta"><i data-lucide="arrow-left" class="h-4 w-4" aria-hidden="true"></i><span>Volver a proyectos</span></a>
+    </div>
+  </main>
+  <footer class="case-study-footer">&copy; <span id="yr"></span> Marco Rios &middot; Desplegable en GitHub Pages</footer>
+</body>
+</html>

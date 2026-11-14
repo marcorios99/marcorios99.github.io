@@ -1,0 +1,54 @@
+/* Layout for published app case studies (Google Play listings). Loaded after shared styles. */
+
+/* Play screenshots keep their real aspect ratio: the shared media frames crop, so the
+   hero portrait and the gallery use width-constrained images instead of a frame. */
+.app-detail-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid var(--border-soft);
+  border-radius: .9rem;
+  margin-bottom: 1.25rem;
+}
+.case-study-hero-media.app-detail-hero-media { max-width: 20rem; }
+.app-detail-hero-media img { width: 100%; height: auto; }
+
+.app-detail-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+.app-detail-gallery--wide { grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+.app-detail-shot { min-width: 0; }
+.app-detail-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  background: color-mix(in srgb, var(--surface-soft) 70%, transparent);
+}
+.app-detail-shot figcaption { margin-top: .7rem; color: var(--text-muted); font-size: .75rem; line-height: 1.55; }
+
+.app-detail-spec { max-width: 46rem; margin-top: 2rem; border-top: 1px solid var(--border); }
+.app-detail-spec-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 13rem) minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: .8rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+.app-detail-spec-row dt {
+  color: var(--text-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: .67rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.app-detail-spec-row dd { color: var(--text-body); font-size: .88rem; line-height: 1.6; }
+
+@media (max-width: 767px) {
+  .app-detail-gallery { gap: 1rem; }
+  .app-detail-spec-row { grid-template-columns: 1fr; gap: .35rem; }
+}
