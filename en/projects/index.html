@@ -61,21 +61,29 @@
     <section class="featured-projects mx-auto container-xx px-4" aria-labelledby="projects-title">
       <h1 id="projects-title" class="projects-title section-kicker">Projects</h1>
 
+      <div class="featured-projects-header">
+        <h2 id="featured-projects-title">Featured projects</h2>
+        <p>Published case studies and active projects, using synthetic data or controlled environments.</p>
+      </div>
+
       <div class="featured-projects-list">
-        <article id="business-data-assistant" class="featured-project">
+        <article id="local-ai-testing" class="featured-project">
           <div class="featured-project-index" aria-hidden="true">01</div>
           <div class="featured-project-body">
-            <h3>Local AI Business Data Assistant</h3>
-            <p>Enterprise assistant for querying sales, products, inventory, and targets using natural language. The system converts user questions into a validated JSON intent, runs safe SQL queries, and returns answers as a summary, table, or chart.</p>
-            <p class="featured-project-note">Designed to query internal data with local AI without having the LLM generate or run SQL directly.</p>
+            <h3>Local AI testing</h3>
+            <p class="featured-project-note">XeStrata &middot; Intel Arc Pro B60</p>
+            <p>Deployment of a MoE model in GGUF format on a 24 GB Intel Arc Pro B60 GPU, with a Python harness (gyro-bench) that tests a live server: reasoning, structured JSON, tools, KV cache, speculative decoding and loop guard.</p>
+            <p class="featured-project-note">46 cases measured in one real run, with the PC specifications and the published data in JSON.</p>
             <div class="featured-project-stack">
-              <span class="badge">FastAPI</span>
-              <span class="badge">SQL Server</span>
-              <span class="badge">Local LLM</span>
+              <span class="badge">XeStrata</span>
+              <span class="badge">GGUF</span>
+              <span class="badge">Python</span>
+              <span class="badge">Intel Arc Pro B60</span>
             </div>
             <div class="featured-project-actions">
-              <a href="#business-data-assistant" class="project-cta">View use case &rarr;</a>
-              <span class="featured-project-meta">Synthetic use case based on real-world problems.</span>
+              <a href="/en/projects/local-ai/" class="project-cta">View project &rarr;</a>
+              <a href="/en/projects/local-ai/testing/" class="project-cta project-cta--secondary">View testing &rarr;</a>
+              <span class="featured-project-meta">Run data in JSON.</span>
             </div>
           </div>
         </article>
