@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="XeStrata corriendo qwen3.8-flash-next-gyro-gyro-s en Ubuntu 24.04 con una Intel Arc Pro B60: los requisitos reales, las cuantizaciones posibles, las cuatro formas de instalarlo, el primer arranque y la API." />
+  <link rel="canonical" href="https://marcorios99.github.io/projects/local-ai/running/" />
+  <link rel="alternate" hreflang="es" href="https://marcorios99.github.io/projects/local-ai/running/" />
+  <link rel="alternate" hreflang="en" href="https://marcorios99.github.io/en/projects/local-ai/running/" />
+  <link rel="alternate" hreflang="x-default" href="https://marcorios99.github.io/projects/local-ai/running/" />
+  <meta property="og:title" content="Correr IA local – XeStrata en Intel Arc Pro B60 | Marco Rios" />
+  <meta property="og:description" content="Requisitos reales, cuantizaciones, cuatro vías de instalación, qué pasa en el primer arranque y cómo conectar la API de un despliegue de IA local con XeStrata." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover-portfolio-2026.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/projects/local-ai/running/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Correr IA local | XeStrata en Intel Arc Pro B60 – Marco Rios</title>
+  <meta name="theme-color" content="#0b0f14" />
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
+  })();
+  </script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages/project-detail.css" />
+  <link rel="stylesheet" href="/assets/css/pages/local-ai.css" />
+</head>
+<body class="min-h-screen">
+  <header class="sticky top-0 z-50 border-b backdrop-blur">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3" aria-label="Navegación principal">
+      <a href="/" class="site-wordmark">Marco Rios</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/" class="navlink">Inicio</a>
+        <a href="/projects/" class="navlink">Proyectos</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="/en/projects/local-ai/running/" class="btn-outline"><i data-lucide="languages" aria-hidden="true" class="h-4 w-4"></i> EN<span class="sr-only"> &middot; ver esta página en inglés</span></a>
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"><span id="themeIcon" class="h-5 w-5 inline-flex"></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="case-study-page">
+    <div class="case-study-back-wrap mx-auto container-xx px-4"><a href="/projects/local-ai/" class="case-study-back text-link">&larr; Volver a Pruebas de IA local</a></div>
+
+    <section class="case-study-hero mx-auto container-xx px-4" aria-labelledby="case-study-title">
+      <div class="case-study-hero-grid">
+        <div class="case-study-hero-copy">
+          <p class="section-kicker">Guía práctica · IA local</p>
+          <h1 id="case-study-title">Correr IA local</h1>
+          <p class="case-study-summary">XeStrata con <code>qwen3.8-flash-next-gyro-gyro-s</code> (GGUF TQ1_0, 54.5 GiB) en un PC de escritorio: 24 GB de VRAM y 32 GB de RAM. Los requisitos reales, las cuantizaciones que se pueden elegir, las cuatro formas de instalarlo y qué ocurre en el primer arranque.</p>
+          <p class="case-study-note">Los tiempos de arranque salen del log del motor (11 de noviembre de 2026) y el estado del servidor vivo viene de <code>/metrics</code>. El motor, los pesos y el loop guard son de otros proyectos; lo propio aquí es el despliegue y las mediciones.</p>
+          <div class="flex flex-wrap gap-2 mt-5" aria-label="Tecnologías y estado del despliegue">
+            <span class="badge">XeStrata</span><span class="badge">GGUF</span><span class="badge">SYCL</span><span class="badge">Ubuntu 24.04</span><span class="badge">Intel Arc Pro B60</span>
+          </div>
+          <dl class="case-study-meta">
+            <div class="case-study-meta-item"><dt>Motor</dt><dd><code>xe0.2.8-1</code>, backend <code>xe</code>, Clang 23.1.1 (intel/llvm 7.2.0), código de GPU SPIR-V JIT.</dd></div>
+            <div class="case-study-meta-item"><dt>Modelo</dt><dd>Qwen3.8-Flash-Next Gyro-S: 125B MoE, 48 capas de 512 experts (24.576 blobs de 1.0 MiB).</dd></div>
+            <div class="case-study-meta-item"><dt>Servidor</dt><dd><code>http://127.0.0.1:8095</code>: OpenAI <code>/v1</code>, Anthropic <code>/v1/messages</code>, <code>/health</code>, <code>/metrics</code>.</dd></div>
+          </dl>
+          <div class="case-study-hero-links">
+            <a href="/projects/local-ai/" class="project-cta"><i data-lucide="gauge" class="h-4 w-4" aria-hidden="true"></i><span>Caso de estudio</span></a>
+            <a href="/projects/local-ai/testing/" class="project-cta project-cta--secondary"><i data-lucide="list-checks" class="h-4 w-4" aria-hidden="true"></i><span>gyro-bench</span></a>
+            <a href="https://github.com/MistVVK/XeStrata" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="github" class="h-4 w-4" aria-hidden="true"></i><span>XeStrata</span></a>
+          </div>
+        </div>
+        <div class="case-study-hero-media">
+          <figure>
+            <div class="ai-figure-frame">
+              <svg viewBox="0 0 660 380" role="img" aria-labelledby="ai-figure-title ai-figure-desc" xmlns="http://www.w3.org/2000/svg">
+                <title id="ai-figure-title">Primer arranque segundo a segundo</title>
+                <desc id="ai-figure-desc">Four steps of the first start, from the engine log: the engine starts with 22.2 GiB of VRAM free and probes the PCIe link at 13.2 GB/s, giving pcie_frac 0.36; the expert cache is sized as 14,294 slots of 13.97 GiB and pre-filled from the profile in 24.6 s at 610 MB/s; 13.10 GiB of experts that the card does not hold are copied into RAM layer by layer in 23 s; the server is ready at about 58 s with 2,253 MiB of VRAM free, and raising the context to 131,072 leaves the expert cache at 11.1 GiB.</desc>
+                <rect class="ai-band" x="20" y="16" width="620" height="52" rx="10" />
+                <text class="ai-figure-strong" x="34" y="38" font-size="12">arranque del motor &middot; 22.2 GiB de VRAM libres</text>
+                <text x="34" y="57" font-size="11">pack de experts 266 MiB en 0.1 s &middot; PCIe 13.2 GB/s &rarr; pcie_frac 0.36</text>
+
+                <rect class="ai-band" x="20" y="80" width="620" height="52" rx="10" />
+                <text class="ai-figure-strong" x="34" y="102" font-size="12">cache de experts: 14.294 slots &middot; 13.97 GiB</text>
+                <text x="34" y="121" font-size="11">llenado desde el perfil en 24.6 s (610 MB/s) &middot; slot 0 verificado</text>
+
+                <rect class="ai-band" x="20" y="144" width="620" height="52" rx="10" />
+                <text class="ai-figure-strong" x="34" y="166" font-size="12">RAM: 13.10 GiB residentes en 23 s</text>
+                <text x="34" y="185" font-size="11">10.282 experts por rango de perfil &middot; pinned 0.00 GiB &middot; capa 48/48</text>
+
+                <rect class="ai-band" x="20" y="208" width="620" height="52" rx="10" />
+                <text class="ai-figure-strong" x="34" y="230" font-size="12">listo a los ~58 s &middot; 2.253 MiB de VRAM libres</text>
+                <text x="34" y="249" font-size="11">cache de conversación 2048 MiB para hasta 4 aparcadas</text>
+
+                <line class="ai-line" x1="330" y1="274" x2="330" y2="320" />
+                <text class="ai-figure-accent" x="348" y="300" font-size="11">contexto 131072 &rarr; cache 11.1 GiB</text>
+                <text class="ai-figure-strong" x="20" y="356" font-size="11">el PC puede quedarse lento 1&ndash;3 minutos: es el copy a RAM</text>
+              </svg>
+            </div>
+            <figcaption>Los cuatro pasos del primer arranque según el log del motor (<code>xestrata-gyro-gyro-s.log</code>), con el contexto de 32.768 tokens de aquella corrida. El despliegue de las pruebas usa 131.072, donde el cache de experts queda en 11.1 GiB.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="requirements-title">
+      <div class="case-study-section-header"><p class="section-kicker">Requisitos</p><h2 id="requirements-title">Lo que pide XeStrata y lo que tiene este PC</h2><p>La columna izquierda es la documentación del proyecto; la derecha está medida en esta máquina (<code>lspci</code>, <code>dpkg</code>, <code>/metrics</code> y el log del arranque).</p></div>
+      <div class="ai-table-wrap">
+        <table class="ai-table">
+          <caption class="sr-only">Requisitos de XeStrata frente a lo que tiene este PC</caption>
+          <thead>
+            <tr><th scope="col">Pieza</th><th scope="col">XeStrata pide</th><th scope="col">Este PC tiene</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>GPU</td><td>Arc serie A o B, Radeon RDNA2 o más nueva, NVIDIA Pascal o más nueva; 12 GB de VRAM o más recomendado</td><td>Intel Arc Pro B60 (Battlemage G21, Xe2), PCI <code>8086:e211</code>, driver <code>xe</code>, 23.9 GiB útiles, 160 unidades de cómputo</td></tr>
+            <tr><td>CPU</td><td>x86-64 con AVX2; con AVX-512 la parte de CPU corre en AVX-512</td><td>i5-12400F (6 núcleos, 12 hilos) con AVX2 y VNNI, sin AVX-512: el log dice <code>this CPU has no AVX-512</code> y los kernels de experts corren en AVX2</td></tr>
+            <tr><td>RAM</td><td>32&ndash;62 GB según la cuantización; Gyro-S pide unos 36 GB (38 GB de RAM y VRAM juntos)</td><td>32 GB físicos y 31.2 GiB visibles. El guard de memoria limita a 31.2 GiB y la VRAM compensa los experts que no caben</td></tr>
+            <tr><td>Disco</td><td>60&ndash;110 GB para el modelo y unos 5 GB para el MTP; SSD (NVMe) muy recomendable</td><td>NVMe: 54.5 GiB del GGUF + 1.5 GiB del pack de experts + 6.5 GiB del MTP, unos 62.5 GiB en total</td></tr>
+            <tr><td>SO</td><td>Paquetes para Ubuntu 26.04 y Fedora 44; en otras distribuciones, Podman o desde el fuente</td><td>Ubuntu 24.04.5 LTS con kernel HWE 7.0 y el PPA <code>kobuk-team/intel-graphics</code>: compute-runtime 26.35, IGC 2.41</td></tr>
+            <tr><td>BIOS</td><td>Para una GPU dedicada: Above 4G Decoding y Re-Size BAR activados, CSM apagado</td><td>Re-Size BAR activo: la región BAR de la GPU es de 32 GB (<code>lspci -vvs 03:00.0</code>)</td></tr>
+            <tr><td>Permisos</td><td>El usuario debe poder abrir <code>/dev/dri/renderD*</code> (grupo <code>render</code>)</td><td>Usuario en el grupo <code>render</code>; <code>/dev/dri/renderD128</code> accesible</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <dl class="ai-spec">
+        <div class="ai-spec-row"><dt>Lo que se ajustó en este PC</dt><dd>El motor eligió casi todo solo a partir de lo que midió: <code>--expert-cache auto</code> y <code>--prefill auto</code>. Lo que se fijó a mano fue el contexto (<code>--max-context 131072</code>), el KV (<code>int8</code>), la reserva de VRAM (<code>--vram-reserve-mib 2048</code>) y el reparto del prefill con la CPU (<code>--prefill-cpu-share 0.79</code>).</dd></div>
+        <div class="ai-spec-row"><dt>El enlace PCIe</dt><dd>Gen4 x8. El motor probea el enlace al arrancar: 13.2 GB/s de host a device (mejor de 12.4, 13.2, 12.5, 12.6), y ajusta <code>pcie_frac</code> a 0.36 en aquel arranque; el servidor de las pruebas reporta 0.38.</dd></div>
+        <div class="ai-spec-row"><dt>El procesador sin AVX-512</dt><dd>Es el caso que XeStrata documenta como &ldquo;sin matriz de CPU&rdquo;: los experts se resuelven en AVX2 con multi-token para las filas gate/up. Funciona, pero el prefill de los experts que no están en la tarjeta es más lento que en una CPU con AVX-512.</dd></div>
+      </dl>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="install-title">
+      <div class="case-study-section-header"><p class="section-kicker">Instalación</p><h2 id="install-title">Cuatro formas de ponerlo</h2><p>La de paquetes es la más simple, pero solo cubre Ubuntu 26.04 y Fedora 44. En Ubuntu 24.04 quedan el contenedor Podman o el fuente, y fue esta la que se usó.</p></div>
+      <div class="ai-suite-list">
+        <div class="ai-suite"><div class="ai-suite-name">deb / rpm</div><div class="ai-suite-body"><p>Paquete desde GitHub Releases con <code>SHA256SUMS</code>: <code>xestrata-contrib-cuda13.1</code> (Ubuntu 26.04) o <code>xestrata-contrib-cuda13.4</code> (Fedora 44), y <code>cuda12.4</code> para Pascal y Volta. Se comprueba con <code>sha256sum -c SHA256SUMS --ignore-missing</code>, se instala con <code>sudo apt install ./&lt;file&gt;.deb</code> y luego <code>xestrata --setup</code> pregunta modelo, contexto, imágenes.</p><p>No sirve en Ubuntu 24.04. El paquete solo con software libre (<code>xestrata-free</code>) no está en Releases: se construye con <code>tools/package/build.sh ubuntu26.04 free</code>.</p></div></div>
+        <div class="ai-suite"><div class="ai-suite-name">Podman</div><div class="ai-suite-body"><p>Contenedor Fedora 44 rootless: en el host solo hacen falta podman y podman-compose, más el driver de la GPU y el usuario en el grupo <code>render</code>. <code>podman compose build</code>, <code>podman compose run --rm xestrata --setup</code>, <code>podman compose up -d</code> y el servidor en <code>127.0.0.1:8095</code>.</p><p>Las settings, los logs y los modelos son los del host, en los mismos sitios que los paquetes, así que las dos vías se sustituyen. Para NVIDIA hace falta el CDI del NVIDIA Container Toolkit.</p></div></div>
+        <div class="ai-suite"><div class="ai-suite-name">Windows</div><div class="ai-suite-body"><p><code>XeStrata-&lt;version&gt;-windows-x64.7z</code> desempaquetado en una carpeta: <code>xestrata.exe</code> guía el arranque en pantalla y <code>xestrata-cli.exe</code> es la consola. Necesita el runtime .NET 10, el Visual C++ Redistributable y el driver de la GPU.</p><p>Las settings van a <code>%APPDATA%\xestrata</code>, los logs y el resto a <code>%LOCALAPPDATA%\xestrata</code>. No probado en este proyecto: se documenta, no se mide.</p></div></div>
+        <div class="ai-suite"><div class="ai-suite-name">Desde el fuente</div><div class="ai-suite-body"><p><code>./setup.sh</code>: comprueba GPU, RAM y CPU, elige el compilador SYCL, compila el motor y descarga el modelo. No instala paquetes del sistema ni usa sudo, salvo Python si no hay ninguno; <code>./setup.sh --packages</code> imprime la línea que necesita esta distribución y estos GPUs.</p><p>Usada aquí: modo <code>contrib-llvm</code> con intel/llvm 7.2.0 construido por <code>tools/intel_llvm_build.py</code>, <code>intel-oneapi-mkl-sycl-devel</code> 2026.2 del repositorio oneAPI y los drivers nuevos del PPA de Intel.</p></div></div>
+      </div>
+      <pre class="case-study-code-block"><code>./setup.sh --packages        # la línea de paquetes que pide este PC
+./setup.sh                   # instala la primera vez; luego arranca directamente
+./update.sh                  # motor, paquetes Python y settings (no arranca el modelo)
+./setup.sh --license free    # solo software libre (Intel y AMD)</code></pre>
+      <ul class="case-study-validation-list">
+        <li>Ubuntu 24.04 trae el driver Intel viejo: <code>setup</code> apunta al PPA de gráficos de Intel y no arranca hasta actualizarlo (<code>--old-driver</code> arranca igualmente). Aquí quedaron compute-runtime 26.35 e IGC 2.41.</li>
+        <li>CMake rechaza <code>icpx</code>: el modo <code>contrib-icpx</code> se retiró el 15 de octubre de 2026. El modo por defecto es <code>contrib-llvm</code>, que usa oneMKL (no es software libre).</li>
+        <li>El motor se guarda en <code>engine/</code> con <code>BUILD.json</code> (<code>"backend": "xe"</code> y el compilador). Un motor sin ese registro se recompila, y también si cambió el compilador.</li>
+        <li>Los datos del modelo van a <code>XeStrata-data</code>, al lado de la carpeta del proyecto; las configs <code>xestrata-&lt;modelo&gt;.json</code> y los logs quedan en el proyecto.</li>
+        <li>En el fuente el chat de terminal es <code>.venv/bin/python chat.py</code> y el servicio se lanza con <code>serve/server.py --engine strata --config &lt;config&gt;.json --port 8095</code>, que es lo que hace el script de arranque de este despliegue.</li>
+      </ul>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="quant-title">
+      <div class="case-study-section-header"><p class="section-kicker">Cuantizaciones</p><h2 id="quant-title">La elección es tamaño, no otro modelo</h2><p>Todas son el mismo Qwen3.8-Flash-Next comprimido de otra forma, o una variante afinada. Los pesos los hacen otros proyectos: Qwen publica el original, ISTA-DASLab lo comprime, agentionai hace las Gyro, Unsloth las de 4 a 8 bits.</p></div>
+      <div class="ai-table-wrap">
+        <table class="ai-table">
+          <caption class="sr-only">Cuantizaciones disponibles con su tamaño y RAM aproximada</caption>
+          <thead>
+            <tr><th scope="col">Versión</th><th scope="col">Cuantización</th><th scope="col" class="ai-num">Descarga</th><th scope="col" class="ai-num">RAM aprox</th><th scope="col">Nota</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>original (Swift 1.5)</td><td><code>Q2_0</code></td><td class="ai-num">66 GB</td><td class="ai-num">48 GB</td><td>El más rápido; buena calidad</td></tr>
+            <tr><td>original (Swift 1.5)</td><td><code>IQ2_XS</code></td><td class="ai-num">68 GB</td><td class="ai-num">48 GB</td><td>Casi la velocidad de Q2_0, un poco mejor</td></tr>
+            <tr><td>original (Swift 1.5)</td><td><code>IQ3_XXS</code></td><td class="ai-num">76 GB</td><td class="ai-num">60 GB</td><td>Más lento; muy buena calidad</td></tr>
+            <tr><td>original (Swift 1.5)</td><td><code>IQ3_S</code></td><td class="ai-num">84 GB</td><td class="ai-num">62 GB</td><td>Lento; como el modelo original</td></tr>
+            <tr><td>Coder</td><td><code>IQ1_M</code></td><td class="ai-num">58 GB</td><td class="ai-num">32 GB</td><td>Rápido y bueno en código; más flojo fuera</td></tr>
+            <tr><td>Gyro</td><td><code>Gyro-S</code> (TQ1_0)</td><td class="ai-num">58 GB</td><td class="ai-num">36 GB (38 con VRAM)</td><td><strong>La usada aquí</strong>: cabe en 32 GB de RAM compensando con la tarjeta</td></tr>
+            <tr><td>Gyro</td><td><code>Gyro-M</code></td><td class="ai-num">92 GB</td><td class="ai-num">43 GB (45 con VRAM)</td><td>Aproximadamente IQ3_XXS</td></tr>
+            <tr><td>Gyro</td><td><code>Gyro-L</code></td><td class="ai-num">108 GB</td><td class="ai-num">59 GB (61 con VRAM)</td><td>La mejor de las Gyro</td></tr>
+            <tr><td>Gyro-Coder</td><td><code>Gyro-Coder-L</code></td><td class="ai-num">84 GB</td><td class="ai-num">35 GB (37 con VRAM)</td><td>Mitad de experts, para código</td></tr>
+            <tr><td>Gyro-Coder</td><td><code>Gyro-Coder</code></td><td class="ai-num">76 GB</td><td class="ai-num">26 GB (28 con VRAM)</td><td>La que menos RAM pide</td></tr>
+            <tr><td>Unsloth</td><td><code>UD-IQ4_XS</code></td><td class="ai-num">94 GB</td><td class="ai-num">48 GB</td><td>Mejor que IQ3_S; lento por debajo de ~80 GB de RAM</td></tr>
+            <tr><td>Unsloth (experimental)</td><td><code>UD-Q4_K_XL</code></td><td class="ai-num">111 GB</td><td class="ai-num">48 GB</td><td>Lento en un PC de 64 GB</td></tr>
+            <tr><td>Unsloth (experimental)</td><td><code>UD-Q5_K_XL</code>, <code>UD-Q6_K_XL</code>, <code>Q8_0</code></td><td class="ai-num">158&ndash;188 GB</td><td class="ai-num">108&ndash;136 GB</td><td>Para PCs con mucha RAM; Q8_0 lo más cercano al original</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="case-study-validation-list">
+        <li>En este PC la RAM es el cuello de botella: Gyro-S pide unos 36 GB y hay 31.2 GiB visibles, así que entran los modos de RAM baja donde la VRAM compensa.</li>
+        <li>Las variantes afinadas son de otros: <code>Swift 1.5</code> (UkisAI) piensa más corto y responde antes; <code>Coder</code> (ISTA-DASLab) tiene la mitad de los experts; las abliterated de huihui-ai llevan la dirección de rechazo eliminada y su filtrado es más débil.</li>
+        <li>Solo se midió una cuantización (<code>TQ1_0</code>) en una tarjeta. Las cifras de la tabla son las que documenta XeStrata, no mediciones de este PC.</li>
+      </ul>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="boot-title">
+      <div class="case-study-section-header"><p class="section-kicker">Arranque</p><h2 id="boot-title">Qué hace el motor antes de responder</h2><p>La primera vez tarda más porque copia los experts a RAM y llena el cache de la tarjeta. El aviso del propio programa dice que el PC puede responder mal 1&ndash;3 minutos: es normal y no hay que cerrar la ventana.</p></div>
+      <ol class="case-study-flow">
+        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">01</span><div><h3>Probea la tarjeta y el enlace</h3><p>22.2 GiB de VRAM libres al empezar, 160 unidades de cómputo, los productos densos del prefill en oneMKL y el resto en kernels propios con XMX. Mide el PCIe (13.2 GB/s) y baja <code>pcie_frac</code> de 0.55 a 0.36 porque el enlace es lento para este CPU.</p></div></li>
+        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">02</span><div><h3>Dimensiona el cache de experts</h3><p>16.26 GiB libres menos los 2048 MiB reservados y 292 MiB para la cabeza draft: 14.294 espacios, 13.97 GiB de VRAM. Los llena desde un perfil de experts en 24.6 s a 610 MB/s.</p></div></li>
+        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">03</span><div><h3>Copia a RAM lo que no cabe</h3><p>Presupuesto de 13.10 GiB: 10.282 experts ordenados por el perfil, copiados capa a capa (8/48 en 5 s, 48/48 en 23 s), residentes pero sin fijar (<code>pinned 0.00 GiB</code>). Los demás se leen del GGUF.</p></div></li>
+        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">04</span><div><h3>Reserva el cache de conversación</h3><p>2048 MiB tomados de la RAM libre, para hasta 4 conversaciones aparcadas. Con todo cargado quedan 2.253 MiB de VRAM libres, y ahí entra la cabeza MTP (839 MiB).</p></div></li>
+        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">05</span><div><h3>Un aviso que solo aparece en este PC</h3><p>La sesión de escritorio pone un límite de CPU en tiempo real (<code>RLIMIT_RTTIME</code> 200000 µs) y aquí no está instalado <code>rtkit</code>: Linux puede matar el proceso con señal 9 sin motivo visible. Fuera de esos límites se arranca con <code>systemd-run</code>.</p></div></li>
+      </ol>
+      <pre class="case-study-code-block"><code>xestrata                      # arranca lo que dejó --setup
+xestrata chat                 # chat en terminal (/think low, /image &lt;ruta&gt;)
+xestrata --calibrate          # recalibra los valores del motor (~15-30 min)
+xestrata --bench              # velocidad en este PC (~40 min); escribe records/
+systemd-run --user --collect -p LimitRTTIME=infinity -- xestrata
+# en el fuente, como lo usa este despliegue:
+.venv/bin/python serve/server.py --engine strata \
+  --config xestrata-gyro-gyro-s.json --port 8095</code></pre>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="api-title">
+      <div class="case-study-section-header"><p class="section-kicker">API</p><h2 id="api-title">Cómo se conecta un cliente</h2><p>Como proveedor &ldquo;OpenAI-compatible&rdquo; con la base <code>http://127.0.0.1:8095/v1</code>: cualquier clave y cualquier nombre de modelo sirven. Para clientes de Anthropic, <code>/v1/messages</code>.</p></div>
+      <div class="ai-table-wrap">
+        <table class="ai-table">
+          <caption class="sr-only">Endpoints del servidor y para qué sirve cada uno</caption>
+          <thead>
+            <tr><th scope="col">Endpoint</th><th scope="col">Para qué</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>/v1/chat/completions</code></td><td>OpenAI: respuestas, streaming, herramientas, <code>response_format</code> con <code>json_schema</code> estricto</td></tr>
+            <tr><td><code>/v1/messages</code></td><td>Anthropic; <code>/v1/messages/count_tokens</code> tokeniza un pedido sin generar</td></tr>
+            <tr><td><code>/v1/responses</code></td><td>La Responses API, la que usa Codex CLI</td></tr>
+            <tr><td><code>/v1/models</code></td><td>Lista el modelo cargado; cualquier nombre enviado es aceptado</td></tr>
+            <tr><td><code>/health</code></td><td>Niveles de thinking soportados (por defecto <code>high</code>) y el estado del motor</td></tr>
+            <tr><td><code>/metrics</code></td><td>Contadores globales, acierto del cache de experts, hardware; <code>?requests=all</code> lee el buffer de 500 peticiones</td></tr>
+            <tr><td><code>/metrics/prometheus</code></td><td>Los mismos contadores en formato Prometheus</td></tr>
+            <tr><td><code>/v1/vram</code>, <code>/v1/load</code>, <code>/v1/unload</code></td><td>Devolver VRAM a otros programas, cargar o descargar el modelo</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ai-table-wrap">
+        <table class="ai-table">
+          <caption class="sr-only">Cómo se pide el nivel de thinking en cada dialecto</caption>
+          <thead>
+            <tr><th scope="col">Dialecto</th><th scope="col">Cómo se elige</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>OpenAI</td><td><code>"reasoning_effort": "none" | "low" | "medium" | "high"</code>, o <code>"reasoning": {"effort": ...}</code>, o <code>"chat_template_kwargs": {"enable_thinking": false}</code></td></tr>
+            <tr><td>Anthropic</td><td><code>"output_config": {"effort": ...}</code>, <code>"thinking": {"type": "disabled"}</code>, <code>"thinking": {"type": "enabled", "budget_tokens": N}</code> (menos de 2K es low, menos de 8K medium, más high), o <code>"type": "adaptive"</code></td></tr>
+            <tr><td>Sin nada pedido</td><td>El nivel propio del modelo, <code>high</code>. En <code>xestrata-&lt;modelo&gt;.json</code> se puede fijar el de todos los pedidos</td></tr>
+            <tr><td>Presupuesto duro</td><td><code>"reasoning_budget_tokens": N</code> corta el thinking en N tokens y el modelo responde desde ahí; el servidor deja sitio a la respuesta cuando el cliente manda <code>max_tokens</code> de 1.024 o más</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre class="case-study-code-block"><code>curl http://127.0.0.1:8095/v1/chat/completions \
+  -H 'Content-Type: application/json' \
+  -d '{"model":"qwen3.8-flash-next-gyro-gyro-s",
+       "messages":[{"role":"user","content":"resume esto en 3 frases"}],
+       "reasoning_effort":"low","stream":true}'
+
+curl http://127.0.0.1:8095/v1/messages \
+  -H 'Content-Type: application/json' \
+  -d '{"model":"qwen3.8-flash-next-gyro-gyro-s","max_tokens":1024,
+       "messages":[{"role":"user","content":"hola"}],
+       "thinking":{"type":"disabled"}}'
+
+curl http://127.0.0.1:8095/health
+curl 'http://127.0.0.1:8095/metrics?requests=all'</code></pre>
+      <ul class="case-study-validation-list">
+        <li>Una petición a la vez (<code>batch_slots: 0</code>). Varias simultáneas son opt-in con <code>"parallel": 2</code>, y en este PC casi no escalan: 1.22&times; con 2 peticiones y 1.06&times; con 4.</li>
+        <li>El primer mensaje de una conversación se lee entero; después el motor mantiene el cache y lee solo lo nuevo, así que los turnos siguientes arrancan en ~140 ms en vez de ~11.300 ms.</li>
+        <li>Para usarlo desde un móvil u otra máquina: <code>xestrata --host 0.0.0.0 --api-key &lt;secreto&gt;</code> y la dirección que imprime la ventana del servidor.</li>
+        <li>Un prompt que repite un bloque se corta por el loop guard (transcrito de Project Maya); los contadores aparecen en <code>/metrics</code> bajo <code>loop_guard</code>.</li>
+      </ul>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="faults-title">
+      <div class="case-study-section-header"><p class="section-kicker">Fallas</p><h2 id="faults-title">Cuando algo se rompe, y qué hace este PC</h2></div>
+      <ul class="case-study-validation-list">
+        <li><strong>Rechaza una asignación de VRAM</strong> (<code>alloc_device: ... refused</code>): el driver Intel puede rechazar asignaciones con la VRAM libre. El motor vuelve a intentar en piezas más pequeñas y arranca con lo que obtiene; si la tarjeta queda así, solo reiniciar el PC la recupera. Un driver nuevo lo evita.</li>
+        <li><strong>Puerto 8095 ocupado</strong>: casi siempre es que XeStrata ya está corriendo. Si lo usa otro programa, <code>xestrata --port 8081</code>.</li>
+        <li><strong>Driver o IGC viejos</strong>: <code>setup</code> lo dice y muestra el comando. En Ubuntu 24.04 el camino es el PPA <code>kobuk-team/intel-graphics</code> con el kernel HWE.</li>
+        <li><strong>XMX no disponible</strong>: el compilador no puede usar las matrix engines de esa GPU. Sin ellas corre, pero el prefill tarda alrededor de 1.6 veces más.</li>
+        <li><strong>&ldquo;the engine stopped unexpectedly&rdquo;</strong>: casi siempre RAM insuficiente. Reenviar el mensaje: el motor arranca solo. Si se repite, cerrar programas o elegir una cuantización menor.</li>
+        <li><strong>El prompt excede el contexto</strong>: la conversación es más larga que el contexto elegido. Nueva conversación o <code>xestrata --setup</code> con uno mayor, sabiendo que subir el contexto quita VRAM al cache de experts: de 32.768 a 131.072 el cache pasa de 13.97 GiB a 11.1 GiB.</li>
+        <li><strong><code>structured_output_failed</code></strong>: con thinking activo y un presupuesto corto, el <code>json_schema</code> estricto no sale. En gyro-bench el presupuesto es 400 tokens por caso.</li>
+        <li><strong>Señal 9 sin motivo visible</strong>: el límite de tiempo real de la sesión de escritorio (<code>RLIMIT_RTTIME</code>) sin <code>rtkit</code> instalado. Arrancar con <code>systemd-run --user --collect -p LimitRTTIME=infinity -- xestrata</code>.</li>
+      </ul>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="limits-title">
+      <div class="case-study-section-header"><p class="section-kicker">Alcance</p><h2 id="limits-title">Lo medido y lo solo documentado</h2></div>
+      <div class="ai-limits-grid">
+        <div class="ai-limits">
+          <h3>Medido en este PC</h3>
+          <ul>
+            <li>Una cuantización (<code>TQ1_0</code> Gyro-S), una tarjeta (Arc Pro B60), una vía de instalación (desde el fuente).</li>
+            <li>Los tiempos del primer arranque son del 11 de noviembre de 2026 con contexto de 32.768; el despliegue de las pruebas usa 131.072.</li>
+            <li>El estado del servidor vivo viene de <code>/metrics</code> del proceso en marcha mientras se escribía esta página.</li>
+          </ul>
+        </div>
+        <div class="ai-limits">
+          <h3>Solo documentado, no probado aquí</h3>
+          <ul>
+            <li>Los paquetes deb/rpm, Podman y el 7z de Windows.</li>
+            <li>Las demás cuantizaciones de la tabla, y GPUs de AMD o NVIDIA.</li>
+            <li>La generación de imágenes y el modo de varios GPUs.</li>
+            <li>Rendimiento sostenido o multiusuario: una petición a la vez.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-study-section case-study-resources mx-auto container-xx px-4" aria-labelledby="resources-title">
+      <div class="case-study-section-header"><p class="section-kicker">Recursos</p><h2 id="resources-title">Dónde está cada pieza</h2><p>XeStrata es un fork de Strata (LGPL-3.0-or-later). Los pesos son de Qwen, comprimidos por ISTA-DASLab, y las cuantizaciones Gyro de agentionai.</p></div>
+      <nav class="case-study-resource-links" aria-label="Recursos técnicos de Correr IA local">
+        <a href="/projects/local-ai/" class="project-cta"><i data-lucide="gauge" class="h-4 w-4" aria-hidden="true"></i><span>Caso de estudio</span></a>
+        <a href="/projects/local-ai/testing/" class="project-cta project-cta--secondary"><i data-lucide="list-checks" class="h-4 w-4" aria-hidden="true"></i><span>gyro-bench</span></a>
+        <a href="https://github.com/MistVVK/XeStrata/blob/main/docs/BUILD.md" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="hammer" class="h-4 w-4" aria-hidden="true"></i><span>Build</span></a>
+        <a href="https://github.com/MistVVK/XeStrata/blob/main/docs/DETAILS.md" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="book-open" class="h-4 w-4" aria-hidden="true"></i><span>Detalles</span></a>
+        <a href="https://github.com/MistVVK/XeStrata/blob/main/docs/DIAGNOSE.md" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="wrench" class="h-4 w-4" aria-hidden="true"></i><span>Diagnóstico</span></a>
+        <a href="https://huggingface.co/agentionai/Qwen3.8-Flash-Next-Gyro-GGUF" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="download" class="h-4 w-4" aria-hidden="true"></i><span>Pesos Gyro</span></a>
+      </nav>
+    </section>
+    <div class="case-study-back-wrap case-study-back-wrap--footer mx-auto container-xx px-4"><a href="/projects/" class="case-study-back text-link">&larr; Volver a proyectos</a></div>
+  </main>
+  <footer class="case-study-footer">&copy; <span id="yr"></span> Marco Rios &middot; Desplegado en GitHub Pages</footer>
+</body>
+</html>

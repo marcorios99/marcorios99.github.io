@@ -90,6 +90,14 @@
   background: color-mix(in srgb, var(--accent) 72%, var(--text));
 }
 
+.ai-limits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.25rem;
+}
+.ai-limits-grid .ai-limits { margin-top: 0; }
+
 .ai-suite-list { margin-top: 2.25rem; border-top: 1px solid var(--border); }
 .ai-suite {
   display: grid;
