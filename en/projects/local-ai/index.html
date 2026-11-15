@@ -9,7 +9,7 @@
   <link rel="alternate" hreflang="en" href="https://marcorios99.github.io/en/projects/local-ai/" />
   <link rel="alternate" hreflang="x-default" href="https://marcorios99.github.io/projects/local-ai/" />
   <meta property="og:title" content="Local AI testing – XeStrata and Gyro S on an Intel Arc Pro B60 | Marco Rios" />
-  <meta property="og:description" content="Local AI with XeStrata on an Intel Arc Pro B60: the machine, the ways to measure it, and real numbers from 46 behavioural tests." />
+  <meta property="og:description" content="Local AI with XeStrata on an Intel Arc Pro B60: the machine, the ways to measure it, and real numbers from 49 behavioural tests." />
   <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover-portfolio-2026.png" />
   <meta property="og:url" content="https://marcorios99.github.io/en/projects/local-ai/" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -57,8 +57,8 @@
         <div class="case-study-hero-copy">
           <p class="section-kicker">Case study · Local AI</p>
           <h1 id="case-study-title">Local AI testing</h1>
-          <p class="case-study-summary">XeStrata running <code>qwen3.8-flash-next-gyro-gyro-s</code> on a 24 GB Intel Arc Pro B60: the machine, the ways to measure it, and real numbers from 46 behavioural tests.</p>
-          <p class="case-study-note">The engine, the weights and the loop guard come from other projects. What is mine here is the deployment, the <code>gyro-bench</code> harness and the measurements. The numbers come from one real run on 14 November 2026, and its limits are documented on the same page.</p>
+          <p class="case-study-summary">XeStrata running <code>qwen3.8-flash-next-gyro-gyro-s</code> on a 24 GB Intel Arc Pro B60: the machine, the ways to measure it, and real numbers from 49 behavioural tests.</p>
+          <p class="case-study-note">The engine, the weights and the loop guard come from other projects. What is mine here is the deployment, the <code>gyro-bench</code> harness and the measurements. The numbers come from one real run on 14 November 2026 with <code>--seed 7 --repeat 3</code>, and its limits are documented on the same page.</p>
           <div class="flex flex-wrap gap-2 mt-5" aria-label="Project technologies and status">
             <span class="badge">XeStrata</span><span class="badge">GGUF</span><span class="badge">MoE</span><span class="badge">Intel Arc Pro B60</span><span class="badge">Python</span>
           </div>
@@ -96,13 +96,13 @@
               <text x="34" y="255" font-size="11">experts that do not fit resolve here · 1,679 blobs in the worst case</text>
 
               <line class="ai-line" x1="330" y1="274" x2="330" y2="320" />
-              <text class="ai-figure-accent" x="348" y="300" font-size="11">NVMe · reads during prefill: 0.0 MB</text>
+              <text class="ai-figure-accent" x="348" y="300" font-size="11">NVMe · cold prefill: 259 MB</text>
 
               <rect class="ai-band" x="20" y="320" width="620" height="58" rx="10" />
               <text class="ai-figure-strong" x="34" y="344" font-size="12">NVMe · 54.5 GiB GGUF + pack + MTP</text>
               <text x="34" y="363" font-size="11">full MoE and dense weights</text>
 
-              <text class="ai-figure-strong" x="20" y="392" font-size="11">Speculative MTP: 1,437 of 2,274 drafts accepted (63%)</text>
+              <text class="ai-figure-strong" x="20" y="392" font-size="11">Speculative MTP: 1,639 of 2,386 drafts accepted (68.7%)</text>
             </svg>
           </div>
           <figcaption>One token can touch three tiers: experts resident on the card, ones pulled over PCIe or RAM, and the GGUF on NVMe. The numbers are the engine's and the 14 Nov 2026 run's.</figcaption>
@@ -116,7 +116,7 @@
         <div class="ai-spec-row"><dt>Model</dt><dd><code>qwen3.8-flash-next-gyro-gyro-s</code>, the name <code>/health</code> and <code>/metrics</code> return. 131,072 token context, int8 KV, image input enabled.</dd></div>
         <div class="ai-spec-row"><dt>Weights</dt><dd><code>Qwen3.8-Flash-Next-Gyro-S-TQ1_0.gguf</code>: 58,487,015,808 bytes (54.5 GiB) on NVMe. The derived weights come from public Qwen model weights published by ISTA-DASLab and agentionai.</dd></div>
         <div class="ai-spec-row"><dt>MoE</dt><dd>48 layers with 512 experts each: 24,576 blobs of 1.0 MiB, 24.0 GiB in total. The card cache holds 11,383 slots (11.1 GiB), 46% of the expert model.</dd></div>
-        <div class="ai-spec-row"><dt>Missing experts</dt><dd>They resolve through RAM or the PCIe link (<code>pcie_frac 0.38</code>). In the run the expert cache hit rate was 0.79&ndash;0.997, and the worst case read nothing from the GGUF (0.0 MB).</dd></div>
+        <div class="ai-spec-row"><dt>Missing experts</dt><dd>They resolve through RAM or the PCIe link (<code>pcie_frac 0.38</code>). In the run the expert cache hit rate was 0.66&ndash;0.995, and requests with a cache hit read nothing from the GGUF (0.0 MB).</dd></div>
         <div class="ai-spec-row"><dt>Speculative</dt><dd>MTP (<code>mtp/rt</code>) with <code>mtp_max 4</code> and <code>lookup 3</code>. The start line passes <code>--spec 4</code> and the engine reports <code>spec 6</code> with <code>spec_window auto</code>.</dd></div>
         <div class="ai-spec-row"><dt>Vision</dt><dd>A separate process: <code>strata-vision-vulkan</code> with <code>mmproj-Qwen3.8-Flash-Next-BF16.gguf</code> and <code>--max-tokens 1024</code>.</dd></div>
         <div class="ai-spec-row"><dt>Thinking</dt><dd><code>reasoning_effort</code> accepts <code>none</code>, <code>low</code>, <code>medium</code>, <code>high</code>; the default is <code>high</code>. The loop guard comes from Project Maya.</dd></div>
@@ -129,10 +129,10 @@
       <dl class="ai-spec">
         <div class="ai-spec-row"><dt>GPU</dt><dd>Intel Arc Pro B60 (Battlemage G21 family, Xe2 microarchitecture). PCI <code>0000:03:00.0</code>, device <code>8086:e211</code>, subsystem ASRock 6023, kernel driver <code>xe</code>.</dd></div>
         <div class="ai-spec-row"><dt>Card</dt><dd>20 Xe cores, 160 XMX and 160 Xe vector engines, 2400 MHz clock, 12.28 TFLOPS FP32, 197 TOPS int8, 200 W TBP.</dd></div>
-        <div class="ai-spec-row"><dt>GPU memory</dt><dd>24 GB GDDR6 at 19 Gbps over a 192-bit interface: 456 GB/s. The engine reports 23.9 GiB usable and 21.0 GiB occupied during the run.</dd></div>
+        <div class="ai-spec-row"><dt>GPU memory</dt><dd>24 GB GDDR6 at 19 Gbps over a 192-bit interface: 456 GB/s. The engine reports 23.9 GiB usable and 20.8 GiB occupied during the run (58&ndash;69 &deg;C, 35&ndash;96 W).</dd></div>
         <div class="ai-spec-row"><dt>Link</dt><dd>PCIe Gen4 x8 active (the chip's maximum is Gen5 x8). This is the bottleneck when experts do not fit.</dd></div>
         <div class="ai-spec-row"><dt>CPU</dt><dd>12th Gen Intel Core i5-12400F: 6 cores / 12 threads. Relevant instructions: AVX2 and VNNI; no AVX-512 on this machine.</dd></div>
-        <div class="ai-spec-row"><dt>RAM</dt><dd>32 GB physical, 31.2 GiB visible; 26.3 GiB occupied in the measurement window (model + server + other sessions).</dd></div>
+        <div class="ai-spec-row"><dt>RAM</dt><dd>32 GB physical, 31.2 GiB visible; 23.9&ndash;24.7 GiB occupied during the run (model + server + other sessions).</dd></div>
         <div class="ai-spec-row"><dt>Storage</dt><dd>NVMe SSD holding weights, pack, MTP and logs.</dd></div>
         <div class="ai-spec-row"><dt>System</dt><dd>Ubuntu 24.04.5 LTS. XeStrata installed from source at <code>/mnt/local-ai-nvme/LocalAI/XeStrata</code>, no deb package.</dd></div>
       </dl>
@@ -159,7 +159,7 @@ engine/strata-vision-vulkan --mmproj mmproj-Qwen3.8-Flash-Next-BF16.gguf \
         <li>The build is local: <code>contrib</code> license with Intel's own LLVM, not a package download.</li>
         <li><code>~/.config/xestrata/settings.json</code> holds card data and keys; they are not published.</li>
         <li>The first start is slow: the engine builds the pack and fills the expert cache before answering.</li>
-        <li>The same server was serving other sessions during the run, and that contaminates part of the timings.</li>
+        <li>The run was launched with the server nearly free: 24 of 28 graded requests have a queue below 60 ms and the other 4 ended up behind another generation.</li>
       </ul>
     </section>
 
@@ -175,7 +175,7 @@ engine/strata-vision-vulkan --mmproj mmproj-Qwen3.8-Flash-Next-BF16.gguf \
               <td><strong>gyro-bench</strong> (mine)</td>
               <td>Does it behave well: thinking, tools, schema, needle, loops?</td>
               <td>HTTP against a live server: per-request <code>timings</code> + <code>/metrics</code> + <code>/health</code>.</td>
-              <td class="ai-num">~2 min <code>--quick</code>, ~5&ndash;10 min full</td>
+              <td class="ai-num">~2 min <code>--quick</code>, ~4 min full</td>
             </tr>
             <tr>
               <td><code>xestrata --bench</code></td>
@@ -186,7 +186,7 @@ engine/strata-vision-vulkan --mmproj mmproj-Qwen3.8-Flash-Next-BF16.gguf \
             <tr>
               <td><code>/metrics</code> and <code>/health</code></td>
               <td>What is the engine doing right now (cache, experts, hardware)?</td>
-              <td>Global counters since start plus a rolling window of requests.</td>
+              <td>Global counters since start plus the buffer of the last 500 requests (<code>requests=all</code>).</td>
               <td class="ai-num">instant read</td>
             </tr>
           </tbody>
@@ -195,15 +195,15 @@ engine/strata-vision-vulkan --mmproj mmproj-Qwen3.8-Flash-Next-BF16.gguf \
     </section>
 
     <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="findings-title">
-      <div class="case-study-section-header"><p class="section-kicker">What the run shows</p><h2 id="findings-title">Four things useful for anyone building a similar machine</h2></div>
+      <div class="case-study-section-header"><p class="section-kicker">What the run shows</p><h2 id="findings-title">Six things useful for anyone building a similar machine</h2></div>
       <div class="case-study-story">
-        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">01</span><div><h3>The conversation cache is the biggest saving</h3><p>The same 6,439 token prefix went from 0% KV reuse to 99.9% (6,432 of 6,439). The first pass TTFT was 6,512 ms and the following ones 153&ndash;205 ms.</p></div></article>
-        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">02</span><div><h3>Prefill depends on cache, not on the card</h3><p>Without cache the median is 71.1 tok/s; with the prefix reused it rises to 1,047 tok/s in the 15,324 token case. Calling both figures "speed" would be misleading.</p></div></article>
-        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">03</span><div><h3>Thinking has a measurable price</h3><p>Across four trap problems: <code>none</code> reasoned 0 tokens and got 2 of 4 right; <code>low</code>, <code>medium</code> and <code>high</code> got 4 of 4 right with 289, 321 and 395 reasoning tokens.</p></div></article>
+        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">01</span><div><h3>The conversation cache is the biggest saving</h3><p>The same 6,439 token prefix went from 0% KV reuse to 99.9% (6,432 of 6,439). The first pass TTFT was 11,314 ms and the following ones 137&ndash;144 ms.</p></div></article>
+        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">02</span><div><h3>Prefill and cache are different figures</h3><p>The cold prefill of the needle's 15,322 tokens runs at 748&ndash;762 tok/s; the passes with the prefix reused drop to 65&ndash;68 tok/s because almost no compute is left. The figure that matters there is TTFT, not tok/s.</p></div></article>
+        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">03</span><div><h3>Thinking has a measurable price</h3><p>Across four problems, each one 3 times: <code>none</code> reasoned 0 tokens and got the 2 gradable tasks right (the bat-and-ball and trains traps stay expected-fail); <code>low</code>, <code>medium</code> and <code>high</code> got 4 of 4 right with 978, 942 and 1,000 reasoning tokens.</p></div></article>
       </div>
       <div class="case-study-story">
-        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">04</span><div><h3>Concurrency barely scales</h3><p><code>batch_slots: 0</code>: the engine serves one request at a time. With 2 requests the scaling was 1.25&times; and with 4, 1.08&times;. That is an engine property, not a model one.</p></div></article>
-        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">05</span><div><h3>Speculative decoding multiplies decode</h3><p>1,437 drafts accepted out of 2,274 offered (63%). The engine decode median was 38.6 tok/s (19.9&ndash;53.5), and the real wall clock rate is much lower because it includes prefill and TTFT.</p></div></article>
+        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">04</span><div><h3>Concurrency barely scales</h3><p><code>batch_slots: 0</code>: the engine serves one request at a time. With 2 requests the scaling was 1.22&times; and with 4, 1.06&times;. That is an engine property, not a model one.</p></div></article>
+        <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">05</span><div><h3>Speculative decoding multiplies decode</h3><p>1,639 drafts accepted out of 2,386 offered (68.7%). The engine decode median was 37.3 tok/s (16.6&ndash;63.2), and the real wall clock rate is much lower because it includes prefill and TTFT.</p></div></article>
         <article class="case-study-story-step"><span class="case-study-story-index" aria-hidden="true">06</span><div><h3>The loop guard intervenes</h3><p>On a repetition-prone prompt: 35 words with 3 unique ones; <code>detected 2</code>, <code>penalised 1</code>, <code>stopped 1</code>. Without that guard the output repeats until the limit.</p></div></article>
       </div>
     </section>
@@ -214,10 +214,10 @@ engine/strata-vision-vulkan --mmproj mmproj-Qwen3.8-Flash-Next-BF16.gguf \
         <div>
           <h3>Real limits of these numbers</h3>
           <ul>
-            <li>The suite ran while the same server was serving a coding agent: six requests waited 2,807&ndash;116,147 ms in queue, so those TTFTs measure waiting, not model latency.</li>
-            <li>Pairing with <code>/metrics</code> uses <code>(prompt_total, output_tokens)</code>; duplicate signatures can attribute the wrong record.</li>
-            <li><code>/metrics</code> keeps a rolling window, not the complete history of the run.</li>
-            <li>Thinking cases are not deterministic: <code>none</code> failed the bat-and-ball and the trains problem in this run and may get them right in another.</li>
+            <li>The run was launched with the agent quiet, and still 4 requests waited 2,460&ndash;8,198 ms in queue: their TTFT stays marked as contaminated (<code>ttft_clean: false</code>).</li>
+            <li>Pairing with <code>/metrics</code> uses the <code>started..finished</code> window and counters, because the server does not expose request ids.</li>
+            <li><code>/metrics</code> shows the last 12 records and its buffer keeps 500: the harness asks for <code>requests=all</code>.</li>
+            <li>With <code>seed 7</code> the 16 thinking tasks repeated the same answer; across runs without a seed, thinking changes.</li>
           </ul>
         </div>
         <div>
@@ -232,7 +232,7 @@ engine/strata-vision-vulkan --mmproj mmproj-Qwen3.8-Flash-Next-BF16.gguf \
       </div>
       <div class="ai-limits">
         <h3>Reproducibility</h3>
-        <p>The data is in <a class="text-link" href="/en/projects/local-ai/data/run-2026-11-14.json"><code>run-2026-11-14.json</code></a> (46 cases with their metrics and caveats). The run will be re-executed with the server idle to clear the contaminated TTFTs; then the tables and the JSON get updated.</p>
+        <p>The data is in <a class="text-link" href="/en/projects/local-ai/data/run-2026-11-14.json"><code>run-2026-11-14.json</code></a> (49 cases with their metrics, the <code>/health</code> and <code>/metrics</code> snapshots, and the caveats). The run uses <code>--seed 7 --repeat 3</code>, so another run with the same options is comparable; the full raw output lives in the harness repository.</p>
       </div>
     </section>
 
