@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="gyro-bench: ocho suites de comportamiento contra un servidor local de IA (XeStrata en Intel Arc Pro B60). Cómo se obtienen los números, cómo leerlos y qué arreglos faltan." />
+  <meta name="description" content="gyro-bench: ocho suites de comportamiento contra un servidor local de IA (XeStrata en Intel Arc Pro B60). Cómo se obtienen los números, cómo leerlos y los arreglos ya aplicados." />
   <link rel="canonical" href="https://marcorios99.github.io/projects/local-ai/testing/" />
   <link rel="alternate" hreflang="es" href="https://marcorios99.github.io/projects/local-ai/testing/" />
   <link rel="alternate" hreflang="en" href="https://marcorios99.github.io/en/projects/local-ai/testing/" />
@@ -57,15 +57,15 @@
         <div class="case-study-hero-copy">
           <p class="section-kicker">Caso de estudio · Harness de pruebas</p>
           <h1 id="case-study-title">gyro-bench</h1>
-          <p class="case-study-summary">Ocho suites de comportamiento contra un servidor de IA local: 46 casos, 42 OK, 2 fallos y 2 informativos.</p>
-          <p class="case-study-note">Python sin dependencias, hablando la API OpenAI contra un servidor vivo. Prueba comportamiento, no velocidad: para velocidad existe <code>xestrata --bench</code>. Los casos de thinking no son deterministas y el informe registra lo que salió, no una salida &ldquo;estabilizada&rdquo;.</p>
+          <p class="case-study-summary">Ocho suites de comportamiento contra un servidor de IA local: 49 casos, 44 OK, 0 fallos y 5 informativos.</p>
+          <p class="case-study-note">Python sin dependencias, hablando la API OpenAI contra un servidor vivo. Prueba comportamiento, no velocidad: para velocidad existe <code>xestrata --bench</code>. Con <code>--seed 7 --repeat 3</code> las 16 tareas de thinking repitieron la misma respuesta, así que pass@3 mide acierto del modelo y no ruido de muestreo. El informe registra lo que salió, no una salida &ldquo;estabilizada&rdquo;.</p>
           <div class="flex flex-wrap gap-2 mt-5" aria-label="Tecnologías y estado del proyecto">
             <span class="badge">Python 3</span><span class="badge">OpenAI API</span><span class="badge">/metrics</span><span class="badge">/health</span>
           </div>
           <dl class="case-study-meta">
             <div class="case-study-meta-item"><dt>Rol</dt><dd>Harness propio: casos, emparejamiento de métricas e informe.</dd></div>
             <div class="case-study-meta-item"><dt>Entrada</dt><dd>Servidor local vivo en <code>http://127.0.0.1:8095</code>.</dd></div>
-            <div class="case-study-meta-item"><dt>Salida</dt><dd><code>results.json</code> y <code>report.md</code>; exit code 0 solo si todo pasa.</dd></div>
+            <div class="case-study-meta-item"><dt>Salida</dt><dd><code>results.json</code> (schema <code>gyro-bench/2</code>) y <code>report.md</code>; exit code 0 solo si todo lo graduado pasa.</dd></div>
           </dl>
           <nav class="case-study-hero-links" aria-label="Enlaces de gyro-bench">
             <a href="/projects/local-ai/" class="project-cta"><i data-lucide="cpu" class="h-4 w-4" aria-hidden="true"></i><span>La máquina y el modelo</span></a>
@@ -77,38 +77,38 @@
           <div class="ai-figure-frame">
             <svg viewBox="0 0 660 260" role="img" aria-labelledby="ai-figure-title ai-figure-desc">
               <title id="ai-figure-title">Cómo el harness convierte una petición en métricas</title>
-              <desc id="ai-figure-desc">Flujo de cuatro pasos: una petición POST a /v1/chat/completions devuelve timings por petición; el harness calcula queue_ms restando el tiempo del motor del wall clock; luego lee /metrics, que guarda una ventana rolling de peticiones con hit_rate de experts y hardware; finalmente empareja cada caso con su registro por prompt_total y output_tokens y escribe results.json.</desc>
+              <desc id="ai-figure-desc">Flujo de cuatro pasos: una petición POST a /v1/chat/completions devuelve timings por petición; el harness calcula queue_ms restando el tiempo del motor del wall clock y marca el TTFT como limpio o contaminado según la cola; luego pide /metrics?requests=all, cuyo buffer trae las últimas 500 peticiones con hit_rate de experts y hardware; finalmente empareja cada caso con el registro cuyo time cae en la ventana started..finished y cuyos contadores cuadran, y escribe results.json con snapshots de /health y /metrics.</desc>
               <rect class="ai-band" x="20" y="16" width="620" height="52" rx="10" />
               <text class="ai-figure-strong" x="34" y="38" font-size="12">POST /v1/chat/completions</text>
-              <text x="34" y="57" font-size="11">usage · timings: cache_n, prompt_per_second, predicted_per_second, draft_n</text>
+              <text x="34" y="57" font-size="11">usage &middot; timings: cache_n, prompt_per_second, predicted_per_second, draft_n</text>
 
               <rect class="ai-band" x="20" y="80" width="620" height="52" rx="10" />
               <text class="ai-figure-strong" x="34" y="102" font-size="12">queue_ms = wall &minus; (prompt_ms + predicted_ms)</text>
-              <text x="34" y="121" font-size="11">si es grande, el TTFT de ese caso medía espera de cola</text>
+              <text x="34" y="121" font-size="11">cola &gt; 60 ms &rarr; ttft_clean false y el TTFT se marca contaminado</text>
 
               <rect class="ai-band" x="20" y="144" width="620" height="52" rx="10" />
-              <text class="ai-figure-strong" x="34" y="166" font-size="12">GET /metrics &middot; ventana rolling</text>
-              <text x="34" y="185" font-size="11">hit_rate de experts · ram_blobs · loop_guard · VRAM, temperatura, potencia</text>
+              <text class="ai-figure-strong" x="34" y="166" font-size="12">GET /metrics?requests=all &middot; 500 registros</text>
+              <text x="34" y="185" font-size="11">hit_rate de experts &middot; ram_blobs &middot; loop_guard &middot; VRAM, temperatura, potencia</text>
 
               <rect class="ai-band" x="20" y="208" width="620" height="52" rx="10" />
-              <text class="ai-figure-strong" x="34" y="230" font-size="12">emparejar por (prompt_total, output_tokens)</text>
-              <text x="34" y="249" font-size="11">results.json + report.md &middot; las firmas duplicadas pueden atribuir mal</text>
+              <text class="ai-figure-strong" x="34" y="230" font-size="12">emparejar por ventana started..finished + contadores</text>
+              <text x="34" y="249" font-size="11">results.json schema gyro-bench/2 &middot; snapshots de /health y /metrics</text>
             </svg>
           </div>
-          <figcaption>Cada caso junta dos fuentes: lo que el servidor responde por petición y lo que el motor acumula en <code>/metrics</code>. El emparejamiento es el punto más frágil del harness.</figcaption>
+          <figcaption>Cada caso junta dos fuentes: lo que el servidor responde por petición y lo que el motor acumula en <code>/metrics</code>. El emparejamiento es el punto más frágil del harness, porque el servidor no expone ids de petición.</figcaption>
         </figure>
       </div>
     </section>
 
     <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="suites-title">
-      <div class="case-study-section-header"><p class="section-kicker">Las ocho suites</p><h2 id="suites-title">Cada suite pregunta una cosa distinta</h2><p>La corrida completa lanza 46 casos. En <code>--quick</code> se reduce el número de casos y de tokens.</p></div>
+      <div class="case-study-section-header"><p class="section-kicker">Las ocho suites</p><h2 id="suites-title">Cada suite pregunta una cosa distinta</h2><p>La corrida completa lanza 48 casos de prueba más una petición de calentamiento: 49 en total, con <code>--seed 7 --repeat 3</code>. En <code>--quick</code> se reduce el número de casos y de tokens.</p></div>
       <div class="ai-suite-list">
         <div class="ai-suite"><div class="ai-suite-name">latency</div><div class="ai-suite-body"><p>TTFT, prefill tok/s y decode tok/s según el tamaño del prompt: 29, 209 y 976 tokens.</p><p>3 casos · 3 OK</p></div></div>
         <div class="ai-suite"><div class="ai-suite-name">kv_reuse</div><div class="ai-suite-body"><p>Cuánto aprovecha el conversation cache el mismo prefijo repetido: cuatro pases de 6.439 tokens.</p><p>4 casos · 4 OK</p></div></div>
-        <div class="ai-suite"><div class="ai-suite-name">thinking</div><div class="ai-suite-body"><p>Coste en tokens y acierto de <code>reasoning_effort</code> <code>none</code>, <code>low</code>, <code>medium</code>, <code>high</code> sobre cuatro problemas; dos llevan trampa (bate y bola, trenes).</p><p>16 casos · 14 OK · 2 fallos</p></div></div>
+        <div class="ai-suite"><div class="ai-suite-name">thinking</div><div class="ai-suite-body"><p>Coste en tokens y acierto de <code>reasoning_effort</code> <code>none</code>, <code>low</code>, <code>medium</code>, <code>high</code> sobre cuatro problemas, cada uno 3 veces: pass@3 y determinismo. Las trampas clásicas (bate y bola, trenes) en nivel <code>none</code> quedan como expected-fail.</p><p>16 casos · 14 OK · 2 informativos</p></div></div>
         <div class="ai-suite"><div class="ai-suite-name">tools</div><div class="ai-suite-body"><p>Herramienta correcta, JSON válido, argumentos tipados, dos llamadas paralelas y no llamar cuando no toca.</p><p>5 casos · 5 OK</p></div></div>
         <div class="ai-suite"><div class="ai-suite-name">structured</div><div class="ai-suite-body"><p><code>response_format</code> con <code>json_schema</code> strict, con y sin thinking. Con presupuesto pequeño y thinking activo el servidor falla con <code>structured_output_failed</code>, así que el presupuesto es 400.</p><p>2 casos · 2 OK</p></div></div>
-        <div class="ai-suite"><div class="ai-suite-name">long_context</div><div class="ai-suite-body"><p>Aguja en ~12.000 tokens más memoria GPU, lecturas del GGUF, temperatura y potencia durante el prefill. La aguja está al principio del prompt; ponerla también en la mitad y el final es un arreglo previsto.</p><p>1 caso · 1 OK</p></div></div>
+        <div class="ai-suite"><div class="ai-suite-name">long_context</div><div class="ai-suite-body"><p>Aguja (<code>ZEBRA-42</code>) al inicio, en la mitad y al final de ~12.000 tokens, más memoria GPU, lecturas del GGUF, temperatura y potencia durante el prefill.</p><p>3 casos · 3 OK</p></div></div>
         <div class="ai-suite"><div class="ai-suite-name">concurrency</div><div class="ai-suite-body"><p>Throughput secuencial frente a concurrente con 2 y 4 peticiones. <code>batch_slots: 0</code> hace una petición a la vez, así que los casos <code>scale</code> quedan informativos.</p><p>14 casos · 12 OK · 2 informativos</p></div></div>
         <div class="ai-suite"><div class="ai-suite-name">stability</div><div class="ai-suite-body"><p>Prompt proclive a repetir y si el loop guard del motor interviene.</p><p>1 caso · 1 OK</p></div></div>
       </div>
@@ -123,12 +123,14 @@
                                    draft_n, draft_n_accepted
 GET  /health                niveles de thinking soportados (default high)
 GET  /metrics               hit_rate de experts, ram_blobs, file_mb, reused,
-                            contadores del loop_guard y estado de hardware</code></pre>
+                            contadores del loop_guard y estado de hardware
+                            (?requests=all lee el buffer de 500 registros)</code></pre>
       <ul class="case-study-validation-list">
-        <li><code>queue_ms</code> es <code>wall_ms</code> menos el tiempo del motor (<code>prompt_ms + predicted_ms</code>): cuánto esperó la petición detrás de otras generaciones.</li>
-        <li>El emparejamiento busca en la ventana rolling el registro con los mismos <code>prompt_total</code> y <code>output_tokens</code> del caso.</li>
+        <li><code>queue_ms</code> es <code>wall_ms</code> menos el tiempo del motor (<code>prompt_ms + predicted_ms</code>): cuánto esperó la petición detrás de otras generaciones. Si la cola está por debajo de <code>--queue-tolerance</code> (60 ms por defecto) el TTFT queda marcado como limpio con <code>ttft_clean: true</code>.</li>
+        <li>El emparejamiento pide <code>/metrics?requests=all</code> (la vista normal muestra los últimos 12 registros y el buffer guarda 500) y busca el registro cuyo <code>time</code> cae en la ventana <code>started..finished</code> del caso con los mismos <code>prompt_total</code> y <code>output_tokens</code>. Gana el más cercano al inicio; el resultado queda guardado como <code>engine_matched</code>.</li>
         <li>Las herramientas van en formato OpenAI anidado (<code>{type: "function", function: {...}}</code>). Un 400 con cuerpo explícito es payload mal formado del harness, no un fallo del motor, y no se reintenta.</li>
-        <li><code>--from-results</code> re escribe el informe desde un <code>results.json</code>, pero consulta el servidor vivo y muestra sus contadores actuales, no los de la corrida guardada.</li>
+        <li><code>--from-results</code> re escribe el informe solo desde el <code>results.json</code> guardado: <code>snapshot_start</code> y <code>snapshot_end</code> contienen <code>/health</code> y <code>/metrics</code> de la corrida, así que no toca el servidor.</li>
+        <li>Una petición de calentamiento se lanza primero y queda fuera de las medianas: su TTFT incluye la carga en frío de los experts.</li>
       </ul>
     </section>
 
@@ -136,14 +138,14 @@ GET  /metrics               hit_rate de experts, ram_blobs, file_mb, reused,
       <div class="case-study-section-header"><p class="section-kicker">Tablas de la corrida</p><h2 id="tables-title">Lo que se puede leer sin el informe crudo</h2></div>
       <div class="ai-table-wrap">
         <table class="ai-table">
-          <caption class="sr-only">Latencia de tres prompts y cuánto de esa latencia fue espera de cola</caption>
+          <caption class="sr-only">Latencia de tres prompts y cuánta de esa latencia fue espera de cola</caption>
           <thead>
             <tr><th scope="col">Caso</th><th scope="col" class="ai-num">Prompt tok</th><th scope="col" class="ai-num">TTFT ms</th><th scope="col" class="ai-num">Cola ms</th><th scope="col" class="ai-num">Decode tok/s</th><th scope="col" class="ai-num">Prefill tok/s</th><th scope="col">Lectura</th></tr>
           </thead>
           <tbody>
-            <tr><td>short</td><td class="ai-num">29</td><td class="ai-num">12.764</td><td class="ai-num">12.236</td><td class="ai-num">28,7</td><td class="ai-num">58,8</td><td>TTFT descartado: el 96% fue espera</td></tr>
-            <tr><td>medium</td><td class="ai-num">209</td><td class="ai-num">117.337</td><td class="ai-num">116.147</td><td class="ai-num">40,3</td><td class="ai-num">180,5</td><td>TTFT descartado: el 99% fue espera</td></tr>
-            <tr><td>large</td><td class="ai-num">976</td><td class="ai-num">1.945</td><td class="ai-num">49</td><td class="ai-num">37,9</td><td class="ai-num">524,0</td><td>TTFT usable</td></tr>
+            <tr><td>short</td><td class="ai-num">29</td><td class="ai-num">669</td><td class="ai-num">31</td><td class="ai-num">25,4</td><td class="ai-num">45,7</td><td>TTFT limpio: 31 ms de cola</td></tr>
+            <tr><td>medium</td><td class="ai-num">209</td><td class="ai-num">1.672</td><td class="ai-num">14</td><td class="ai-num">37,8</td><td class="ai-num">127,4</td><td>TTFT limpio: 14 ms de cola</td></tr>
+            <tr><td>large</td><td class="ai-num">976</td><td class="ai-num">2.812</td><td class="ai-num">23</td><td class="ai-num">36,8</td><td class="ai-num">351,2</td><td>TTFT limpio: 23 ms de cola</td></tr>
           </tbody>
         </table>
       </div>
@@ -154,27 +156,28 @@ GET  /metrics               hit_rate de experts, ram_blobs, file_mb, reused,
             <tr><th scope="col">Pase</th><th scope="col" class="ai-num">KV reutilizado</th><th scope="col" class="ai-num">% reuse</th><th scope="col" class="ai-num">TTFT ms</th><th scope="col" class="ai-num">Prefill tok/s</th><th scope="col">Lectura</th></tr>
           </thead>
           <tbody>
-            <tr><td>1</td><td class="ai-num">0 / 6.439</td><td class="ai-num">0%</td><td class="ai-num">6.512</td><td class="ai-num">1.000,6</td><td>Cómputo completo del prefijo</td></tr>
-            <tr><td>2</td><td class="ai-num">6.432 / 6.439</td><td class="ai-num">99,9%</td><td class="ai-num">205</td><td class="ai-num">65,6</td><td>El tok/s cae porque casi no hay cómputo</td></tr>
-            <tr><td>3</td><td class="ai-num">6.432 / 6.439</td><td class="ai-num">99,9%</td><td class="ai-num">153</td><td class="ai-num">64,4</td><td>Mismo prefijo, mismo resultado</td></tr>
-            <tr><td>4</td><td class="ai-num">6.432 / 6.439</td><td class="ai-num">99,9%</td><td class="ai-num">162</td><td class="ai-num">73,5</td><td>Mismo prefijo, mismo resultado</td></tr>
+            <tr><td>1</td><td class="ai-num">0 / 6.439</td><td class="ai-num">0%</td><td class="ai-num">11.314</td><td class="ai-num">570,9</td><td>Cómputo completo del prefijo</td></tr>
+            <tr><td>2</td><td class="ai-num">6.432 / 6.439</td><td class="ai-num">99,9%</td><td class="ai-num">143</td><td class="ai-num">65,6</td><td>El tok/s cae porque casi no hay cómputo</td></tr>
+            <tr><td>3</td><td class="ai-num">6.432 / 6.439</td><td class="ai-num">99,9%</td><td class="ai-num">137</td><td class="ai-num">68,2</td><td>Mismo prefijo, misma respuesta</td></tr>
+            <tr><td>4</td><td class="ai-num">6.432 / 6.439</td><td class="ai-num">99,9%</td><td class="ai-num">144</td><td class="ai-num">68,4</td><td>Mismo prefijo, misma respuesta</td></tr>
           </tbody>
         </table>
       </div>
       <div class="ai-table-wrap">
         <table class="ai-table">
-          <caption class="sr-only">Coste de cada nivel de thinking sobre cuatro problemas</caption>
+          <caption class="sr-only">Coste de cada nivel de thinking sobre cuatro problemas, con tres repeticiones por tarea y seed 7</caption>
           <thead>
-            <tr><th scope="col">Nivel</th><th scope="col" class="ai-num">Aciertos</th><th scope="col" class="ai-num">Razonamiento tok</th><th scope="col" class="ai-num">Salida tok</th><th scope="col" class="ai-num">Decode tok/s mediano</th><th scope="col">Fallos</th></tr>
+            <tr><th scope="col">Nivel</th><th scope="col" class="ai-num">pass@3</th><th scope="col" class="ai-num">Razonamiento tok</th><th scope="col" class="ai-num">Salida tok</th><th scope="col" class="ai-num">Decode tok/s mediano</th><th scope="col">Notas</th></tr>
           </thead>
           <tbody>
-            <tr><td><code>none</code></td><td class="ai-num">2 / 4</td><td class="ai-num">0</td><td class="ai-num">15</td><td class="ai-num">28,4</td><td>bate y bola (0.05 &rarr; 0.10), trenes (20 &rarr; 33)</td></tr>
-            <tr><td><code>low</code></td><td class="ai-num">4 / 4</td><td class="ai-num">289</td><td class="ai-num">308</td><td class="ai-num">45,8</td><td>ninguno</td></tr>
-            <tr><td><code>medium</code></td><td class="ai-num">4 / 4</td><td class="ai-num">321</td><td class="ai-num">340</td><td class="ai-num">46,4</td><td>ninguno</td></tr>
-            <tr><td><code>high</code></td><td class="ai-num">4 / 4</td><td class="ai-num">395</td><td class="ai-num">414</td><td class="ai-num">43,5</td><td>ninguno</td></tr>
+            <tr><td><code>none</code></td><td class="ai-num">2 / 2</td><td class="ai-num">0</td><td class="ai-num">42</td><td class="ai-num">29,1</td><td>Trampas esperadas: bate y bola falla las 3 (0,10); trenes acierta las 3 (20)</td></tr>
+            <tr><td><code>low</code></td><td class="ai-num">4 / 4</td><td class="ai-num">978</td><td class="ai-num">1.035</td><td class="ai-num">53,5</td><td>Las 4 tareas aciertan las 3 repeticiones</td></tr>
+            <tr><td><code>medium</code></td><td class="ai-num">4 / 4</td><td class="ai-num">942</td><td class="ai-num">999</td><td class="ai-num">51,4</td><td>Las 4 tareas aciertan las 3 repeticiones</td></tr>
+            <tr><td><code>high</code></td><td class="ai-num">4 / 4</td><td class="ai-num">1.000</td><td class="ai-num">1.057</td><td class="ai-num">50,2</td><td>Las 4 tareas aciertan las 3 repeticiones</td></tr>
           </tbody>
         </table>
       </div>
+      <p class="case-study-note">Los conteos de thinking suman las 3 repeticiones de cada tarea con <code>seed 7</code>: las 16 tareas repitieron exactamente la misma respuesta (<code>deterministic: true</code> en las 16).</p>
       <div class="ai-table-wrap">
         <table class="ai-table">
           <caption class="sr-only">Throughput secuencial y concurrente para dos y cuatro peticiones</caption>
@@ -182,10 +185,10 @@ GET  /metrics               hit_rate de experts, ram_blobs, file_mb, reused,
             <tr><th scope="col">Peticiones</th><th scope="col">Modo</th><th scope="col" class="ai-num">Salida tok</th><th scope="col" class="ai-num">Wall ms</th><th scope="col" class="ai-num">Throughput tok/s</th><th scope="col" class="ai-num">Escalado</th></tr>
           </thead>
           <tbody>
-            <tr><td class="ai-num">2</td><td>secuencial</td><td class="ai-num">159</td><td class="ai-num">6.661</td><td class="ai-num">23,9</td><td class="ai-num">&mdash;</td></tr>
-            <tr><td class="ai-num">2</td><td>concurrente</td><td class="ai-num">157</td><td class="ai-num">5.251</td><td class="ai-num">29,9</td><td class="ai-num">1,25&times;</td></tr>
-            <tr><td class="ai-num">4</td><td>secuencial</td><td class="ai-num">335</td><td class="ai-num">12.084</td><td class="ai-num">27,7</td><td class="ai-num">&mdash;</td></tr>
-            <tr><td class="ai-num">4</td><td>concurrente</td><td class="ai-num">302</td><td class="ai-num">10.058</td><td class="ai-num">30,0</td><td class="ai-num">1,08&times;</td></tr>
+            <tr><td class="ai-num">2</td><td>secuencial</td><td class="ai-num">176</td><td class="ai-num">7.122</td><td class="ai-num">24,7</td><td class="ai-num">&mdash;</td></tr>
+            <tr><td class="ai-num">2</td><td>concurrente</td><td class="ai-num">164</td><td class="ai-num">5.428</td><td class="ai-num">30,2</td><td class="ai-num">1,22&times;</td></tr>
+            <tr><td class="ai-num">4</td><td>secuencial</td><td class="ai-num">348</td><td class="ai-num">11.907</td><td class="ai-num">29,2</td><td class="ai-num">&mdash;</td></tr>
+            <tr><td class="ai-num">4</td><td>concurrente</td><td class="ai-num">340</td><td class="ai-num">10.978</td><td class="ai-num">31,0</td><td class="ai-num">1,06&times;</td></tr>
           </tbody>
         </table>
       </div>
@@ -196,10 +199,13 @@ GET  /metrics               hit_rate de experts, ram_blobs, file_mb, reused,
             <tr><th scope="col">Suite</th><th scope="col">Caso</th><th scope="col">Número clave</th><th scope="col">Estado</th></tr>
           </thead>
           <tbody>
+            <tr><td>warmup</td><td><code>calentamiento</code></td><td>532 ms de wall en frío: carga los experts, excluida de las medianas</td><td>Informativo</td></tr>
             <tr><td>tools</td><td><code>no-call</code></td><td>0 llamadas válidas: no llama cuando no toca</td><td>OK</td></tr>
-            <tr><td>tools</td><td><code>parallel</code></td><td>2 llamadas válidas en una respuesta</td><td>OK</td></tr>
-            <tr><td>structured</td><td><code>thinking-high</code></td><td>122 tokens de salida, 71 de razonamiento, schema cumplido</td><td>OK</td></tr>
-            <tr><td>long_context</td><td><code>needle-12000</code></td><td>15.324 tokens de prompt, aguja <code>ZEBRA-42</code>, 21.321 de 24.480 MiB de VRAM, 70 &deg;C, 125,7 W, 0,0 MB leídos del GGUF</td><td>OK</td></tr>
+            <tr><td>tools</td><td><code>parallel</code></td><td>2 llamadas válidas en una respuesta; 765 MB leídos del GGUF</td><td>OK</td></tr>
+            <tr><td>structured</td><td><code>thinking-high</code></td><td>131 tokens de salida, 106 de razonamiento, schema cumplido</td><td>OK</td></tr>
+            <tr><td>long_context</td><td><code>needle-start-12000</code></td><td>15.322 tokens de prompt, prefill 748,6 tok/s, 259,3 MB leídos del GGUF, 21.298 de 24.480 MiB de VRAM, 61 &deg;C, 51,4 W</td><td>OK</td></tr>
+            <tr><td>long_context</td><td><code>needle-middle-12000</code></td><td>La aguja sobrevive en la mitad del prompt: 761,1 tok/s de prefill y 0,0 MB nuevos leídos</td><td>OK</td></tr>
+            <tr><td>long_context</td><td><code>needle-end-12000</code></td><td>La aguja al final: 762,6 tok/s de prefill y 4,1 MB leídos</td><td>OK</td></tr>
             <tr><td>stability</td><td><code>repeat-loop</code></td><td>35 palabras con 3 únicas; loop guard detected 2, penalised 1, stopped 1</td><td>OK</td></tr>
           </tbody>
         </table>
@@ -207,19 +213,21 @@ GET  /metrics               hit_rate de experts, ram_blobs, file_mb, reused,
     </section>
 
     <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="reading-title">
-      <div class="case-study-section-header"><p class="section-kicker">Cómo leer los números</p><h2 id="reading-title">Cuatro trampas habituales de estas métricas</h2></div>
+      <div class="case-study-section-header"><p class="section-kicker">Cómo leer los números</p><h2 id="reading-title">Cinco trampas habituales de estas métricas</h2></div>
       <ol class="case-study-flow">
         <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">01</span><div><h3>decode del motor no es wall clock</h3><p><code>decode_tok_s</code> es la tasa del motor tras los drafts aceptados. <code>decode_tok_s_wall</code> usa el reloj real de la petición y es mucho menor porque incluye prefill y TTFT.</p></div></li>
-        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">02</span><div><h3>La cola contamina el TTFT</h3><p>Con <code>queue_ms</code> alto, ese TTFT mide espera detrás de otras generaciones. Los tok/s del motor siguen siendo válidos; el TTFT no.</p></div></li>
+        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">02</span><div><h3>La cola contamina el TTFT</h3><p>Con <code>queue_ms</code> alto ese TTFT mide espera detrás de otras generaciones, no latencia del modelo. En esta corrida 24 de 28 peticiones graduadas tienen una cola menor de 60 ms y su TTFT es fiable; las 4 restantes (las concurrentes de <code>n=4</code>) esperaron 2.460&ndash;8.198 ms y quedan marcadas con <code>ttft_clean: false</code>. Los tok/s del motor no se contaminan.</p></div></li>
         <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">03</span><div><h3>Prefill y cache se contradicen</h3><p>Prefill alto con <code>cache_reused</code> alto es señal de cache acertando, no de cómputo rápido. La cifra que importa ahí es el TTFT.</p></div></li>
-        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">04</span><div><h3>Informativo no es aprobado</h3><p>Los casos <code>scale n=2</code> y <code>scale n=4</code> dejan <code>passed</code> en <code>None</code>: el escalado concurrente es una propiedad del motor (<code>batch_slots: 0</code>), no un examen del modelo.</p></div></li>
+        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">04</span><div><h3>Informativo no es aprobado</h3><p>Los casos <code>scale n=2</code> y <code>scale n=4</code> dejan <code>passed</code> en <code>None</code>: el escalado concurrente es una propiedad del motor (<code>batch_slots: 0</code>), no un examen del modelo. Igual que la petición de calentamiento y las dos trampas del nivel <code>none</code>, que llevan <code>expected_fail: true</code>.</p></div></li>
+        <li class="case-study-flow-step"><span class="case-study-flow-index" aria-hidden="true">05</span><div><h3>pass@k con seed, no una media</h3><p>Con <code>--seed</code> las repeticiones de una tarea son idénticas, así que pass@3 mide acierto del modelo y no ruido de muestreo. Sin seed, un nivel <code>medium</code> que acierta hoy puede fallar en la siguiente corrida.</p></div></li>
       </ol>
       <pre class="case-study-code-block"><code>python3 bench.py --quick                        # suite compacta, ~2 min
-python3 bench.py                                # suite completa
+python3 bench.py --seed 7 --repeat 3            # corrida comparable: pass@3 y determinismo
 python3 bench.py --suite tools,thinking,structured
 python3 bench.py --long-tokens 24000            # contexto largo más agresivo
-python3 bench.py --json-out runs/1.json --report runs/1.md</code></pre>
-      <p class="case-study-note">Lánzala con el servidor libre. Si otra sesión pesada está usando el mismo servidor, los números de concurrencia, hit rate de experts y TTFT se resienten.</p>
+python3 bench.py --json-out runs/1.json --report runs/1.md
+python3 bench.py --from-results runs/1.json --report runs/1.md   # re escribir sin tocar el servidor</code></pre>
+      <p class="case-study-note">Lánzala con el servidor libre. Si otra sesión pesada está usando el mismo servidor, los números de concurrencia, hit rate de experts y TTFT se resienten: esta corrida se lanzó con el agente quieto y aun así quedaron 4 peticiones con cola.</p>
     </section>
 
     <section class="case-study-section case-study-outlook mx-auto container-xx px-4" aria-labelledby="portable-title">
@@ -246,19 +254,20 @@ python3 bench.py --json-out runs/1.json --report runs/1.md</code></pre>
     </section>
 
     <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="roadmap-title">
-      <div class="case-study-section-header"><p class="section-kicker">Arreglos previstos</p><h2 id="roadmap-title">Diez cambios que hacen los números más defensibles</h2><p>Ninguno cambia los casos: cambia cómo se atribuyen y cómo se guardan.</p></div>
+      <div class="case-study-section-header"><p class="section-kicker">Arreglos del harness</p><h2 id="roadmap-title">Diez arreglos ya aplicados en esta versión</h2><p>Ninguno cambia los casos: cambia cómo se atribuyen y cómo se guardan. Todos están en la versión usada para esta corrida.</p></div>
       <ul class="case-study-validation-list">
-        <li>Emparejar por id de petición en lugar de <code>(prompt_total, output_tokens)</code>, para que dos casos con la misma firma no reciban el registro equivocado.</li>
-        <li>Guardar en <code>results.json</code> una copia de <code>/health</code> y <code>/metrics</code> tomada al inicio y al final de la corrida, para que el informe no dependa de un servidor vivo.</li>
-        <li>Marcar los TTFT limpios con un flag y excluir de las medianas los contaminados por cola.</li>
-        <li>Convertir las trampas del nivel <code>none</code> en expected-fail: son un dato del modelo, no un fallo del harness.</li>
-        <li>Colocar la aguja también en la mitad y el final del contexto largo, no solo al principio.</li>
-        <li>Hacer que <code>structured</code> pase por <code>run_case</code> y así tenga <code>prompt_tokens</code>, TTFT y wall.</li>
-        <li>Fijar <code>seed</code> y medir pass@3 para poder comparar corridas.</li>
-        <li>Recoger <code>pcie_share</code>, <code>prompt_read</code>, <code>projection</code>, <code>decode_ms</code>, <code>duration_s</code> y <code>reasoning_recoveries</code>, que <code>/metrics</code> ya da y hoy se descartan.</li>
-        <li>Calentar el servidor con una petición antes de medir y comprobar en <code>live.state</code> que está idle.</li>
-        <li>Corregir el docstring: los nombres de suite son los reales (<code>thinking</code>, no <code>think</code>).</li>
+        <li>Emparejamiento por la ventana <code>started..finished</code> sobre el buffer completo (<code>/metrics?requests=all</code>) exigiendo que <code>prompt_total</code> y <code>output_tokens</code> cuadren: las 47 peticiones quedaron unidas (<code>engine_matched</code>).</li>
+        <li><code>results.json</code> guarda <code>snapshot_start</code> y <code>snapshot_end</code> de <code>/health</code> y <code>/metrics</code>, así que <code>--from-results</code> re escribe el informe sin tocar el servidor vivo.</li>
+        <li>El TTFT se marca limpio o contaminado según <code>--queue-tolerance</code>, y las medianas usan solo los limpios.</li>
+        <li>Las trampas del nivel <code>none</code> son expected-fail (<code>passed: null</code>, <code>expected_fail: true</code>): un dato del modelo, no un fallo del harness.</li>
+        <li>La aguja se coloca al inicio, en la mitad y al final del contexto largo: tres casos, con VRAM, temperatura, potencia y lecturas del GGUF por caso.</li>
+        <li><code>structured</code> pasa por <code>run_case</code>, así que tiene <code>prompt_tokens</code>, wall y registro del motor.</li>
+        <li><code>--seed</code> y <code>--repeat</code> dan pass@k y determinismo entre repeticiones.</li>
+        <li>Se recogen <code>pcie_share</code>, <code>prompt_read</code>, <code>projection</code>, <code>duration_s</code>, <code>decode_ms</code>, <code>reasoning_recoveries</code> y <code>file_blobs</code>, que <code>/metrics</code> ya daba y se descartaban.</li>
+        <li>Petición de calentamiento primero, informativa y fuera de las medianas.</li>
+        <li>El docstring nombra las suites reales (<code>thinking</code>, no <code>think</code>) y documenta los flags nuevos.</li>
       </ul>
+      <p class="case-study-note">Lo que sigue es del motor, no del harness: un id de petición en cada registro de <code>/metrics</code> haría el emparejamiento exacto sin depender de contadores y timestamps.</p>
     </section>
 
     <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="limits-title">
@@ -266,10 +275,11 @@ python3 bench.py --json-out runs/1.json --report runs/1.md</code></pre>
       <div class="ai-limits">
         <h3>Advertencias de la corrida del 14/11/2026</h3>
         <ul>
-          <li>Se lanzó mientras el mismo servidor atendía un agente de coding: seis peticiones esperaron 2.807&ndash;116.147 ms en cola, así que sus TTFT y wall quedan contaminados.</li>
-          <li>El emparejamiento con <code>/metrics</code> se hace por <code>(prompt_total, output_tokens)</code>; las firmas duplicadas pueden atribuir el registro equivocado.</li>
-          <li><code>/metrics</code> conserva una ventana rolling de peticiones, no el histórico completo de la corrida.</li>
-          <li>Los casos de thinking no son deterministas: <code>none</code> falló el bate y la bola y los trenes en esta corrida y puede acertarlos en otra.</li>
+          <li>Se lanzó con el agente quieto: 24 de 28 peticiones graduadas tienen una cola menor de 60 ms y su TTFT es fiable. Las 4 restantes esperaron 2.460&ndash;8.198 ms detrás de otras generaciones y quedan marcadas; los tok/s del motor no se contaminan.</li>
+          <li><code>seed 7</code> y 3 repeticiones por tarea de thinking: las 16 repitieron la misma respuesta. Entre corridas sin seed el thinking cambia.</li>
+          <li>El emparejamiento usa ventana temporal y contadores porque el servidor no expone ids de petición; en esta corrida las 47 peticiones quedaron unidas.</li>
+          <li><code>/metrics</code> muestra los últimos 12 registros y su buffer guarda 500: el harness pide <code>requests=all</code>.</li>
+          <li><code>batch_slots: 0</code> en el motor: la concurrencia solo gana 1,06&ndash;1,22&times;, y los casos <code>scale</code> son informativos.</li>
           <li>Solo se probó una cuantización (TQ1_0) y una tarjeta; nada de esto es un rendimiento sostenido ni multiusuario.</li>
         </ul>
       </div>
@@ -279,7 +289,7 @@ python3 bench.py --json-out runs/1.json --report runs/1.md</code></pre>
       <div class="case-study-section-header"><p class="section-kicker">Stack y recursos</p><h2 id="resources-title">Dónde están los datos y el motor</h2><p>Python 3 sin dependencias (solo librería estándar), API OpenAI, <code>/metrics</code> y <code>/health</code> de XeStrata.</p></div>
       <nav class="case-study-resource-links" aria-label="Recursos técnicos de gyro-bench">
         <a href="/projects/local-ai/" class="project-cta"><i data-lucide="cpu" class="h-4 w-4" aria-hidden="true"></i><span>Caso de estudio</span></a>
-        <a href="/projects/local-ai/data/run-2026-11-14.json" class="project-cta project-cta--secondary"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>46 casos en JSON</span></a>
+        <a href="/projects/local-ai/data/run-2026-11-14.json" class="project-cta project-cta--secondary"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>49 casos en JSON</span></a>
         <a href="https://github.com/MistVVK/XeStrata/blob/main/docs/BENCH.md" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="gauge" class="h-4 w-4" aria-hidden="true"></i><span>Bench de XeStrata</span></a>
         <a href="https://github.com/MistVVK/XeStrata/blob/main/docs/DEVTOOLS.md" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="book-open" class="h-4 w-4" aria-hidden="true"></i><span>Devtools del motor</span></a>
       </nav>
