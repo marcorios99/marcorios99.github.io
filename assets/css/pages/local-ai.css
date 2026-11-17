@@ -91,6 +91,38 @@
 .ai-suite-body p { margin: 0; color: var(--text-body); font-size: .88rem; line-height: 1.6; }
 .ai-suite-body p + p { margin-top: .45rem; color: var(--text-muted); font-size: .82rem; }
 
+/* Reading scale for the local-AI pages (.ai-page): body 1rem, intro 1.05rem, secondary .875rem, mono labels .7rem, code .85rem. The shared case-study scale stays smaller for the other pages. */
+.ai-page .case-study-summary { font-size: clamp(1.05rem, 1.7vw, 1.25rem); }
+.ai-page .case-study-note { font-size: .875rem; }
+.ai-page .case-study-back { font-size: .9rem; }
+.ai-page .case-study-meta dd { font-size: .875rem; line-height: 1.6; }
+.ai-page .case-study-meta dt,
+.ai-page .ai-spec-row dt,
+.ai-page .ai-table th,
+.ai-page .ai-suite-name,
+.ai-page .case-study-story-index,
+.ai-page .case-study-flow-index { font-size: .7rem; }
+.ai-page .case-study-section-header > p:not(.section-kicker) { font-size: 1.05rem; line-height: 1.7; }
+.ai-page .case-study-story p,
+.ai-page .case-study-flow p,
+.ai-page .case-study-validation-list li,
+.ai-page .case-study-outlook li { font-size: 1rem; line-height: 1.7; }
+.ai-page .case-study-code-block { font-size: .85rem; line-height: 1.7; }
+.ai-page .case-study-hero-media figcaption,
+.ai-page .case-study-evidence-item figcaption { font-size: .8rem; line-height: 1.6; }
+.ai-page .case-study-hero-links .project-cta,
+.ai-page .case-study-resource-links .project-cta { font-size: .8rem; }
+.ai-page .case-study-hero-links,
+.ai-page .case-study-resource-links { flex-wrap: wrap; }
+.ai-page .badge { font-size: .8125rem; }
+.ai-page .ai-table { font-size: 1rem; line-height: 1.6; }
+.ai-page .ai-spec-row dd { font-size: 1rem; line-height: 1.7; }
+.ai-page .ai-suite-body p { font-size: 1rem; line-height: 1.7; }
+.ai-page .ai-suite-body p + p { font-size: .875rem; }
+.ai-page .ai-entry-links .project-cta { font-size: .8125rem; }
+.ai-page .ai-figure-frame text { font-size: 13px; }
+.ai-page .ai-figure-frame .ai-figure-title { font-size: 14px; }
+
 @media (max-width: 767px) {
   /* The diagram is legible only at its own size, so it scrolls inside the frame instead of shrinking to ~5px text. */
   .ai-figure-frame svg { min-width: 560px; }
