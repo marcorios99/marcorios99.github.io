@@ -58,6 +58,8 @@
   padding-block: .85rem;
   border-bottom: 1px solid var(--border);
 }
+/* The closing line is left off: the next section already draws its own border-top, so a bottom border here reads as two stacked rules. */
+.ai-spec-row:last-child { border-bottom: 0; }
 .ai-spec-row dt {
   color: var(--text-muted);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -80,6 +82,8 @@
   padding-block: 1rem;
   border-bottom: 1px solid var(--border);
 }
+/* Same as .ai-spec-row: the list ends open so the section's border-top is the only rule that follows. */
+.ai-suite:last-child { border-bottom: 0; }
 .ai-suite-name {
   color: color-mix(in srgb, var(--accent) 72%, var(--text-muted));
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
