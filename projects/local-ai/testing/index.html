@@ -270,18 +270,25 @@ python3 bench.py --from-results runs/1.json --report runs/1.md   # re escribir s
       <p class="case-study-note">Lo que sigue es del motor, no del harness: un id de petición en cada registro de <code>/metrics</code> haría el emparejamiento exacto sin depender de contadores y timestamps.</p>
     </section>
 
-    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="limits-title">
+    <section class="case-study-section case-study-outlook mx-auto container-xx px-4" aria-labelledby="limits-title">
       <div class="case-study-section-header"><p class="section-kicker">Límites</p><h2 id="limits-title">Qué no prueba esta suite</h2></div>
-      <div class="ai-limits">
-        <h3>Advertencias de la corrida del 14/11/2026</h3>
-        <ul>
-          <li>Se lanzó con el agente quieto: 24 de 28 peticiones graduadas tienen una cola menor de 60 ms y su TTFT es fiable. Las 4 restantes esperaron 2.460&ndash;8.198 ms detrás de otras generaciones y quedan marcadas; los tok/s del motor no se contaminan.</li>
-          <li><code>seed 7</code> y 3 repeticiones por tarea de thinking: las 16 repitieron la misma respuesta. Entre corridas sin seed el thinking cambia.</li>
-          <li>El emparejamiento usa ventana temporal y contadores porque el servidor no expone ids de petición; en esta corrida las 47 peticiones quedaron unidas.</li>
-          <li><code>/metrics</code> muestra los últimos 12 registros y su buffer guarda 500: el harness pide <code>requests=all</code>.</li>
-          <li><code>batch_slots: 0</code> en el motor: la concurrencia solo gana 1,06&ndash;1,22&times;, y los casos <code>scale</code> son informativos.</li>
-          <li>Solo se probó una cuantización (TQ1_0) y una tarjeta; nada de esto es un rendimiento sostenido ni multiusuario.</li>
-        </ul>
+      <div class="case-study-outlook-grid">
+        <div>
+          <h3>Advertencias de la corrida del 14/11/2026</h3>
+          <ul>
+            <li>Se lanzó con el agente quieto: 24 de 28 peticiones graduadas tienen una cola menor de 60 ms y su TTFT es fiable. Las 4 restantes esperaron 2.460&ndash;8.198 ms detrás de otras generaciones y quedan marcadas; los tok/s del motor no se contaminan.</li>
+            <li><code>seed 7</code> y 3 repeticiones por tarea de thinking: las 16 repitieron la misma respuesta. Entre corridas sin seed el thinking cambia.</li>
+            <li>El emparejamiento usa ventana temporal y contadores porque el servidor no expone ids de petición; en esta corrida las 47 peticiones quedaron unidas.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Condiciones del motor</h3>
+          <ul>
+            <li><code>/metrics</code> muestra los últimos 12 registros y su buffer guarda 500: el harness pide <code>requests=all</code>.</li>
+            <li><code>batch_slots: 0</code>: la concurrencia solo gana 1,06&ndash;1,22&times;, y los casos <code>scale</code> son informativos.</li>
+            <li>Solo se probó una cuantización (TQ1_0) y una tarjeta; nada de esto es un rendimiento sostenido ni multiusuario.</li>
+          </ul>
+        </div>
       </div>
     </section>
 

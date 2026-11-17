@@ -270,18 +270,25 @@ python3 bench.py --from-results runs/1.json --report runs/1.md   # rewrite witho
       <p class="case-study-note">What remains belongs to the engine, not the harness: a request id in each <code>/metrics</code> record would make pairing exact without relying on counters and timestamps.</p>
     </section>
 
-    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="limits-title">
+    <section class="case-study-section case-study-outlook mx-auto container-xx px-4" aria-labelledby="limits-title">
       <div class="case-study-section-header"><p class="section-kicker">Limits</p><h2 id="limits-title">What this suite does not prove</h2></div>
-      <div class="ai-limits">
-        <h3>Caveats of the 14 Nov 2026 run</h3>
-        <ul>
-          <li>It was launched with the agent quiet: 24 of the 28 graded requests have a queue below 60 ms and their TTFT is reliable. The other 4 waited 2,460&ndash;8,198 ms behind other generations and stay marked; the engine's tok/s are not contaminated.</li>
-          <li><code>seed 7</code> and 3 repetitions per thinking task: the 16 repeated the same answer. Across runs without a seed, thinking changes.</li>
-          <li>Pairing uses a time window and counters because the server does not expose request ids; in this run all 47 requests were joined.</li>
-          <li><code>/metrics</code> shows the last 12 records and its buffer keeps 500: the harness asks for <code>requests=all</code>.</li>
-          <li><code>batch_slots: 0</code> in the engine: concurrency only gains 1.06&ndash;1.22&times;, and the <code>scale</code> cases are informational.</li>
-          <li>Only one quantization (TQ1_0) and one card were tested; none of this is sustained or multi-user throughput.</li>
-        </ul>
+      <div class="case-study-outlook-grid">
+        <div>
+          <h3>Caveats of the 14 Nov 2026 run</h3>
+          <ul>
+            <li>It was launched with the agent quiet: 24 of the 28 graded requests have a queue below 60 ms and their TTFT is reliable. The other 4 waited 2,460&ndash;8,198 ms behind other generations and stay marked; the engine's tok/s are not contaminated.</li>
+            <li><code>seed 7</code> and 3 repetitions per thinking task: the 16 repeated the same answer. Across runs without a seed, thinking changes.</li>
+            <li>Pairing uses a time window and counters because the server does not expose request ids; in this run all 47 requests were joined.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Engine conditions</h3>
+          <ul>
+            <li><code>/metrics</code> shows the last 12 records and its buffer keeps 500: the harness asks for <code>requests=all</code>.</li>
+            <li><code>batch_slots: 0</code>: concurrency only gains 1.06&ndash;1.22&times;, and the <code>scale</code> cases are informational.</li>
+            <li>Only one quantization (TQ1_0) and one card were tested; none of this is sustained or multi-user throughput.</li>
+          </ul>
+        </div>
       </div>
     </section>
 

@@ -1,4 +1,4 @@
-/* Local AI pages: tables, spec grid, metric figure, limitations panel. */
+/* Local AI pages: tables, spec grid, entry rows, metric figure. Scope lists use the shared case-study classes. */
 
 .ai-figure-frame {
   display: grid;
@@ -71,38 +71,6 @@
   color: var(--text);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
-
-.ai-limits {
-  max-width: 48rem;
-  margin-top: 2.25rem;
-  padding: 1.25rem 1.4rem;
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--accent-solid);
-  border-radius: .75rem;
-  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
-}
-.ai-limits h3 { margin: 0; color: var(--text); font-size: 1rem; font-weight: 700; }
-.ai-limits p { margin: .6rem 0 0; color: var(--text-body); font-size: .88rem; line-height: 1.65; }
-.ai-limits ul { margin: .8rem 0 0; padding: 0; list-style: none; display: grid; gap: .6rem; }
-.ai-limits li { position: relative; padding-left: 1rem; color: var(--text-body); font-size: .88rem; line-height: 1.6; }
-.ai-limits li::before {
-  content: "";
-  position: absolute;
-  top: .65em;
-  left: 0;
-  width: .32rem;
-  height: .32rem;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--accent) 72%, var(--text));
-}
-
-.ai-limits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  gap: 1.25rem;
-  margin-top: 2.25rem;
-}
-.ai-limits-grid .ai-limits { margin-top: 0; }
 
 .ai-suite-list { margin-top: 2.25rem; border-top: 1px solid var(--border); }
 .ai-suite {
