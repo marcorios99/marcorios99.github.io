@@ -76,34 +76,34 @@
         </div>
         <figure class="case-study-hero-media">
           <div class="ai-figure-frame">
-            <svg viewBox="0 0 660 400" role="img" aria-labelledby="ai-figure-title ai-figure-desc">
+            <svg class="ai-figure--tiers" viewBox="0 0 660 400" role="img" aria-labelledby="ai-figure-title ai-figure-desc">
               <title id="ai-figure-title">The three memory tiers where the model lives</title>
               <desc id="ai-figure-desc">Tier diagram: 24 GB of VRAM with an 11.1 GiB cache holding 11,383 of the MoE model's 24,576 experts; 31.2 GiB of RAM for experts that do not fit; NVMe holding the 54.5 GiB GGUF. Between VRAM and RAM the PCIe Gen4 x8 link with pcie_frac 0.38.</desc>
-              <text class="ai-figure-title" x="20" y="28" font-size="13">MoE: 48 layers &times; 512 experts = 24,576 (24.0 GiB)</text>
-              <text class="ai-figure-accent" x="20" y="46" font-size="11">46% of experts resident in VRAM</text>
+              <text class="ai-figure-title" x="20" y="28" font-size="21">MoE: 48 layers &times; 512 experts = 24,576 (24.0 GiB)</text>
+              <text class="ai-figure-accent" x="20" y="46" font-size="14">46% of experts resident in VRAM</text>
 
               <rect class="ai-band" x="20" y="62" width="620" height="92" rx="10" />
-              <text class="ai-figure-strong" x="34" y="86" font-size="12">VRAM · 24 GB GDDR6 · 456 GB/s</text>
-              <text x="34" y="105" font-size="11">expert cache 11.1 GiB · 11,383 slots</text>
-              <text x="34" y="123" font-size="11">int8 KV (ctx 131,072) &middot; conv cache 2.0 GiB</text>
-              <text x="386" y="105" font-size="11">arena 11.6 GiB</text>
-              <text x="386" y="123" font-size="11">free while measuring: 1.9 GiB</text>
+              <text class="ai-figure-strong" x="34" y="86" font-size="16">VRAM · 24 GB GDDR6 · 456 GB/s</text>
+              <text x="34" y="105" font-size="14">expert cache 11.1 GiB · 11,383 slots</text>
+              <text x="34" y="123" font-size="14">int8 KV (ctx 131,072) &middot; conv cache 2.0 GiB</text>
+              <text x="404" y="105" font-size="14">arena 11.6 GiB</text>
+              <text x="404" y="123" font-size="14">VRAM free: 1.9 GiB</text>
 
               <line class="ai-line" x1="330" y1="154" x2="330" y2="212" />
-              <text class="ai-figure-accent" x="348" y="186" font-size="11">PCIe Gen4 x8 · pcie_frac 0.38</text>
+              <text class="ai-figure-accent" x="348" y="186" font-size="14">PCIe Gen4 x8 · pcie_frac 0.38</text>
 
               <rect class="ai-band" x="20" y="212" width="620" height="62" rx="10" />
-              <text class="ai-figure-strong" x="34" y="236" font-size="12">RAM · 31.2 GiB</text>
-              <text x="34" y="255" font-size="11">experts that do not fit resolve here · 1,679 blobs in the worst case</text>
+              <text class="ai-figure-strong" x="34" y="236" font-size="16">RAM · 31.2 GiB</text>
+              <text x="34" y="255" font-size="14">experts that do not fit resolve here · 1,679 blobs in the worst case</text>
 
               <line class="ai-line" x1="330" y1="274" x2="330" y2="320" />
-              <text class="ai-figure-accent" x="348" y="300" font-size="11">NVMe · cold prefill: 259 MB</text>
+              <text class="ai-figure-accent" x="348" y="300" font-size="14">NVMe · cold prefill: 259 MB</text>
 
               <rect class="ai-band" x="20" y="320" width="620" height="58" rx="10" />
-              <text class="ai-figure-strong" x="34" y="344" font-size="12">NVMe · 54.5 GiB GGUF + pack + MTP</text>
-              <text x="34" y="363" font-size="11">full MoE and dense weights</text>
+              <text class="ai-figure-strong" x="34" y="344" font-size="16">NVMe · 54.5 GiB GGUF + pack + MTP</text>
+              <text x="34" y="363" font-size="14">full MoE and dense weights</text>
 
-              <text class="ai-figure-strong" x="20" y="392" font-size="11">Speculative MTP: 1,639 of 2,386 drafts accepted (68.7%)</text>
+              <text class="ai-figure-strong" x="20" y="392" font-size="16">Speculative MTP: 1,639 of 2,386 drafts accepted (68.7%)</text>
             </svg>
           </div>
           <figcaption>One token can touch three tiers: experts resident on the card, ones pulled over PCIe or RAM, and the GGUF on NVMe. The numbers are the engine's and the 14 Nov 2026 run's.</figcaption>

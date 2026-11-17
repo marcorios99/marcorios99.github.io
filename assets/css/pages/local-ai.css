@@ -125,7 +125,13 @@
 .ai-page .ai-suite-body p + p { font-size: .875rem; }
 .ai-page .ai-entry-links .project-cta { font-size: .8125rem; }
 .ai-page .ai-figure-frame text { font-size: 13px; }
-.ai-page .ai-figure-frame .ai-figure-title { font-size: 14px; }
+.ai-page .ai-figure-frame .ai-figure-title { font-size: 17px; }
+.ai-page .ai-figure-frame .ai-figure-strong { font-size: 14px; }
+.ai-page .ai-figure-frame .ai-figure-accent { font-size: 13px; }
+/* The tier diagram sits in the narrow hero column, where the SVG renders at ~0.74 of its viewBox, so its labels are sized in viewBox units to land near the page's reading scale. */
+.ai-page .ai-figure--tiers text { font-size: 14px; }
+.ai-page .ai-figure--tiers .ai-figure-title { font-size: 21px; }
+.ai-page .ai-figure--tiers .ai-figure-strong { font-size: 16px; }
 
 @media (max-width: 767px) {
   /* The diagram is legible only at its own size, so it scrolls inside the frame instead of shrinking to ~5px text. */
