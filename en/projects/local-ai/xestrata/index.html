@@ -76,7 +76,7 @@
         </div>
         <figure class="case-study-hero-media">
           <div class="ai-figure-frame">
-            <svg class="ai-figure--tiers" viewBox="0 0 660 400" role="img" aria-labelledby="ai-figure-title ai-figure-desc">
+            <svg class="ai-figure--tiers" viewBox="0 0 660 412" role="img" aria-labelledby="ai-figure-title ai-figure-desc">
               <title id="ai-figure-title">The three memory tiers where the model lives</title>
               <desc id="ai-figure-desc">Tier diagram: 24 GB of VRAM with an 11.1 GiB cache holding 11,383 of the MoE model's 24,576 experts; 31.2 GiB of RAM for experts that do not fit; NVMe holding the 54.5 GiB GGUF. Between VRAM and RAM the PCIe Gen4 x8 link with pcie_frac 0.38.</desc>
               <text class="ai-figure-title" x="20" y="28" font-size="21">MoE: 48 layers &times; 512 experts = 24,576 (24.0 GiB)</text>
@@ -103,7 +103,7 @@
               <text class="ai-figure-strong" x="34" y="344" font-size="16">NVMe · 54.5 GiB GGUF + pack + MTP</text>
               <text x="34" y="363" font-size="14">full MoE and dense weights</text>
 
-              <text class="ai-figure-strong" x="20" y="392" font-size="16">Speculative MTP: 1,639 of 2,386 drafts accepted (68.7%)</text>
+              <text class="ai-figure-strong" x="20" y="402" font-size="16">Speculative MTP: 1,639 of 2,386 drafts accepted (68.7%)</text>
             </svg>
           </div>
           <figcaption>One token can touch three tiers: experts resident on the card, ones pulled over PCIe or RAM, and the GGUF on NVMe. The numbers are the engine's and the 14 Nov 2026 run's.</figcaption>

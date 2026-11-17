@@ -76,7 +76,7 @@
         </div>
         <figure class="case-study-hero-media">
           <div class="ai-figure-frame">
-            <svg class="ai-figure--tiers" viewBox="0 0 660 400" role="img" aria-labelledby="ai-figure-title ai-figure-desc">
+            <svg class="ai-figure--tiers" viewBox="0 0 660 412" role="img" aria-labelledby="ai-figure-title ai-figure-desc">
               <title id="ai-figure-title">Los tres niveles de memoria donde vive el modelo</title>
               <desc id="ai-figure-desc">Diagrama de tiers: VRAM de 24 GB con un cache de 11.1 GiB que sostiene 11.383 de los 24.576 experts del MoE; RAM de 31.2 GiB para los experts que no caben; NVMe con el GGUF de 54.5 GiB. Entre VRAM y RAM figura el enlace PCIe Gen4 x8 con pcie_frac 0.38.</desc>
               <text class="ai-figure-title" x="20" y="28" font-size="21">MoE: 48 capas &times; 512 experts = 24.576 (24.0 GiB)</text>
@@ -103,7 +103,7 @@
               <text class="ai-figure-strong" x="34" y="344" font-size="16">NVMe · GGUF 54.5 GiB + pack + MTP</text>
               <text x="34" y="363" font-size="14">pesos completos del MoE y del modelo denso</text>
 
-              <text class="ai-figure-strong" x="20" y="392" font-size="16">Speculative MTP: 1.639 de 2.386 drafts aceptados (68,7%)</text>
+              <text class="ai-figure-strong" x="20" y="402" font-size="16">Speculative MTP: 1.639 de 2.386 drafts aceptados (68,7%)</text>
             </svg>
           </div>
           <figcaption>Cada token puede tocar tres niveles: los experts residentes en la tarjeta, los que se traen por PCIe o RAM, y el GGUF en el NVMe. Los números son los del motor y de la corrida del 14/11/2026.</figcaption>
