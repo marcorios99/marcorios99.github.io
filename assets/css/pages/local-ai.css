@@ -17,6 +17,12 @@
 .ai-figure-frame .ai-band { fill: color-mix(in srgb, var(--accent) 12%, var(--surface)); stroke: var(--border-soft); }
 .ai-figure-frame .ai-line { stroke: var(--border-soft); }
 
+/* Index pages: no hero media, so the copy takes the full width; entry rows carry their own CTAs. */
+.case-study-hero-grid--single { grid-template-columns: minmax(0, 1fr); }
+.ai-entry-links { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .75rem; }
+.ai-entry-links .project-cta { padding: .3rem .5rem; font-size: .75rem; }
+
+/* One scale across the local-AI pages, matching the case-study sizes: body .88rem, secondary .82rem, mono labels .67-.75rem, inline code inheriting the body size. */
 .ai-table-wrap {
   max-width: 52rem;
   margin-top: 2.25rem;
@@ -25,13 +31,14 @@
   border-radius: .75rem;
   background: color-mix(in srgb, var(--surface-soft) 55%, transparent);
 }
-.ai-table { width: 100%; border-collapse: collapse; font-size: .82rem; line-height: 1.5; }
+.ai-table { width: 100%; border-collapse: collapse; font-size: .88rem; line-height: 1.55; }
+
 .ai-table th,
 .ai-table td { padding: .7rem .9rem; text-align: left; vertical-align: top; }
 .ai-table th {
   color: color-mix(in srgb, var(--text-muted) 78%, var(--text));
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: .66rem;
+  font-size: .67rem;
   font-weight: 700;
   letter-spacing: .06em;
   text-transform: uppercase;
@@ -59,11 +66,10 @@
   letter-spacing: .06em;
   text-transform: uppercase;
 }
-.ai-spec-row dd { margin: 0; color: var(--text-body); font-size: .85rem; line-height: 1.6; }
+.ai-spec-row dd { margin: 0; color: var(--text-body); font-size: .88rem; line-height: 1.6; }
 .ai-spec-row dd code {
   color: var(--text);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: .78rem;
 }
 
 .ai-limits {
@@ -75,10 +81,10 @@
   border-radius: .75rem;
   background: color-mix(in srgb, var(--accent) 8%, var(--surface));
 }
-.ai-limits h3 { margin: 0; color: var(--text); font-size: .95rem; font-weight: 700; }
-.ai-limits p { margin: .6rem 0 0; color: var(--text-body); font-size: .85rem; line-height: 1.65; }
+.ai-limits h3 { margin: 0; color: var(--text); font-size: 1rem; font-weight: 700; }
+.ai-limits p { margin: .6rem 0 0; color: var(--text-body); font-size: .88rem; line-height: 1.65; }
 .ai-limits ul { margin: .8rem 0 0; padding: 0; list-style: none; display: grid; gap: .6rem; }
-.ai-limits li { position: relative; padding-left: 1rem; color: var(--text-body); font-size: .85rem; line-height: 1.6; }
+.ai-limits li { position: relative; padding-left: 1rem; color: var(--text-body); font-size: .88rem; line-height: 1.6; }
 .ai-limits li::before {
   content: "";
   position: absolute;
@@ -109,13 +115,13 @@
 .ai-suite-name {
   color: color-mix(in srgb, var(--accent) 72%, var(--text-muted));
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: .78rem;
+  font-size: .75rem;
   font-weight: 700;
   letter-spacing: .04em;
 }
 .ai-suite-body { min-width: 0; }
-.ai-suite-body p { margin: 0; color: var(--text-body); font-size: .86rem; line-height: 1.6; }
-.ai-suite-body p + p { margin-top: .45rem; color: var(--text-muted); font-size: .78rem; }
+.ai-suite-body p { margin: 0; color: var(--text-body); font-size: .88rem; line-height: 1.6; }
+.ai-suite-body p + p { margin-top: .45rem; color: var(--text-muted); font-size: .82rem; }
 
 @media (max-width: 767px) {
   /* The diagram is legible only at its own size, so it scrolls inside the frame instead of shrinking to ~5px text. */
