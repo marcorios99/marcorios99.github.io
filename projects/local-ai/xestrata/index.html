@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Pruebas de IA local con XeStrata y qwen3.8-flash-next-gyro-gyro-s sobre un Intel Arc Pro B60 de 24 GB: especificaciones reales de la máquina, las formas de medir y los resultados del harness gyro-bench." />
-  <link rel="canonical" href="https://marcorios99.github.io/projects/local-ai/" />
-  <link rel="alternate" hreflang="es" href="https://marcorios99.github.io/projects/local-ai/" />
-  <link rel="alternate" hreflang="en" href="https://marcorios99.github.io/en/projects/local-ai/" />
-  <link rel="alternate" hreflang="x-default" href="https://marcorios99.github.io/projects/local-ai/" />
-  <meta property="og:title" content="Pruebas de IA local – XeStrata y Gyro S en Intel Arc Pro B60 | Marco Rios" />
-  <meta property="og:description" content="IA local con XeStrata sobre Intel Arc Pro B60: la máquina, las formas de medir y los números reales de 49 pruebas de comportamiento." />
+  <meta name="description" content="XeStrata corriendo qwen3.8-flash-next-gyro-gyro-s en una Intel Arc Pro B60 de 24 GB: especificaciones reales de la máquina, el modelo MoE en GGUF, las formas de medir y los números de 49 pruebas." />
+  <link rel="canonical" href="https://marcorios99.github.io/projects/local-ai/xestrata/" />
+  <link rel="alternate" hreflang="es" href="https://marcorios99.github.io/projects/local-ai/xestrata/" />
+  <link rel="alternate" hreflang="en" href="https://marcorios99.github.io/en/projects/local-ai/xestrata/" />
+  <link rel="alternate" hreflang="x-default" href="https://marcorios99.github.io/projects/local-ai/xestrata/" />
+  <meta property="og:title" content="XeStrata en Intel Arc Pro B60 – IA local | Marco Rios" />
+  <meta property="og:description" content="La máquina medida, el MoE de 125B en GGUF y las formas de medir: los números reales de 49 pruebas de comportamiento con XeStrata." />
   <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover-portfolio-2026.png" />
-  <meta property="og:url" content="https://marcorios99.github.io/projects/local-ai/" />
+  <meta property="og:url" content="https://marcorios99.github.io/projects/local-ai/xestrata/" />
   <meta name="twitter:card" content="summary_large_image" />
-  <title>Pruebas de IA local | XeStrata y Gyro S en Intel Arc Pro B60 – Marco Rios</title>
+  <title>XeStrata en Intel Arc Pro B60 | despliegue de IA local – Marco Rios</title>
   <meta name="theme-color" content="#0b0f14" />
   <script>
   (function () {
@@ -43,20 +43,20 @@
         <a href="/projects/" class="navlink">Proyectos</a>
       </div>
       <div class="flex items-center gap-2">
-        <a href="/en/projects/local-ai/" class="btn-outline"><i data-lucide="languages" aria-hidden="true" class="h-4 w-4"></i> EN<span class="sr-only"> &middot; ver este proyecto en inglés</span></a>
+        <a href="/en/projects/local-ai/xestrata/" class="btn-outline"><i data-lucide="languages" aria-hidden="true" class="h-4 w-4"></i> EN<span class="sr-only"> &middot; ver este proyecto en inglés</span></a>
         <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"><span id="themeIcon" class="h-5 w-5 inline-flex"></span></button>
       </div>
     </nav>
   </header>
 
   <main class="case-study-page">
-    <div class="case-study-back-wrap mx-auto container-xx px-4"><a href="/projects/" class="case-study-back text-link">&larr; Volver a proyectos</a></div>
+    <div class="case-study-back-wrap mx-auto container-xx px-4"><a href="/projects/local-ai/" class="case-study-back text-link">&larr; Volver a IA local</a></div>
 
     <section class="case-study-hero mx-auto container-xx px-4" aria-labelledby="case-study-title">
       <div class="case-study-hero-grid">
         <div class="case-study-hero-copy">
           <p class="section-kicker">Caso de estudio · IA local</p>
-          <h1 id="case-study-title">Pruebas de IA local</h1>
+          <h1 id="case-study-title">XeStrata en una Arc Pro B60</h1>
           <p class="case-study-summary">XeStrata corriendo <code>qwen3.8-flash-next-gyro-gyro-s</code> en una Intel Arc Pro B60 de 24 GB: la máquina, las formas de medir y los números reales de 49 pruebas de comportamiento.</p>
           <p class="case-study-note">El motor, los pesos y el loop guard son de otros proyectos. Lo propio aquí es el despliegue, el harness <code>gyro-bench</code> y las mediciones. Los números salen de una corrida real del 14 de noviembre de 2026 con <code>--seed 7 --repeat 3</code> y sus limitaciones están documentadas en la misma página.</p>
           <div class="flex flex-wrap gap-2 mt-5" aria-label="Tecnologías y estado del proyecto">
@@ -67,7 +67,7 @@
             <div class="case-study-meta-item"><dt>Máquina</dt><dd>Intel Arc Pro B60 24 GB · i5-12400F · 31.2 GiB de RAM · Ubuntu 24.04.5 LTS.</dd></div>
             <div class="case-study-meta-item"><dt>Salida</dt><dd><code>results.json</code>, informe de suites y datos públicos resumidos en JSON.</dd></div>
           </dl>
-          <nav class="case-study-hero-links" aria-label="Enlaces de Pruebas de IA local">
+          <nav class="case-study-hero-links" aria-label="Enlaces del despliegue XeStrata">
             <a href="/projects/local-ai/testing/" class="project-cta"><i data-lucide="list-checks" class="h-4 w-4" aria-hidden="true"></i><span>Ver las 8 suites</span></a>
             <a href="/projects/local-ai/running/" class="project-cta project-cta--secondary"><i data-lucide="terminal" class="h-4 w-4" aria-hidden="true"></i><span>Correr IA local</span></a>
             <a href="/projects/local-ai/data/run-2026-11-14.json" class="project-cta project-cta--secondary"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>Datos en JSON</span></a>
@@ -240,7 +240,7 @@ engine/strata-vision-vulkan --mmproj mmproj-Qwen3.8-Flash-Next-BF16.gguf \
 
     <section class="case-study-section case-study-resources mx-auto container-xx px-4" aria-labelledby="resources-title">
       <div class="case-study-section-header"><p class="section-kicker">Stack y recursos</p><h2 id="resources-title">Lo que usa esta página</h2><p>XeStrata (fork de Strata, LGPL-3.0-or-later), GGUF TQ1_0 con pack de experts, MTP, visión Vulkan, Python sin dependencias para el harness.</p></div>
-      <nav class="case-study-resource-links" aria-label="Recursos técnicos de Pruebas de IA local">
+      <nav class="case-study-resource-links" aria-label="Recursos técnicos del despliegue XeStrata">
         <a href="/projects/local-ai/testing/" class="project-cta"><i data-lucide="list-checks" class="h-4 w-4" aria-hidden="true"></i><span>Suites y tablas</span></a>
         <a href="/projects/local-ai/running/" class="project-cta project-cta--secondary"><i data-lucide="terminal" class="h-4 w-4" aria-hidden="true"></i><span>Instalación y arranque</span></a>
         <a href="/projects/local-ai/data/run-2026-11-14.json" class="project-cta project-cta--secondary"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>Datos en JSON</span></a>
