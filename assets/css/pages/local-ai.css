@@ -128,6 +128,20 @@
 .ai-page .ai-figure-frame .ai-figure-title { font-size: 17px; }
 .ai-page .ai-figure-frame .ai-figure-strong { font-size: 14px; }
 .ai-page .ai-figure-frame .ai-figure-accent { font-size: 13px; }
+/* Badge text sits at .8125rem here, below the "large text" threshold, so it needs 4.5:1: --text-muted on the badge background is only 4.39:1 in the light theme. */
+.ai-page .badge { color: var(--text-body) !important; }
+/* The mono indices sit at 12px bold, so they need 4.5:1; color-mix(accent 72%, muted) lands at 4.49 in the light theme. */
+.ai-page .featured-project-index,
+.ai-page .ai-suite-name,
+.ai-page .case-study-story-index,
+.ai-page .case-study-flow-index { color: color-mix(in srgb, var(--accent-strong) 70%, var(--text-muted)); }
+/* The hub lists its entries with the shared project-card pattern (projects.css), sized to this page's reading scale. */
+.ai-page .featured-projects-list { grid-template-columns: 1fr; gap: 0; }
+.ai-page .featured-project-index { font-size: .75rem; }
+.ai-page .featured-project-body > p { font-size: 1rem; line-height: 1.7; }
+.ai-page .featured-project-note { font-size: .875rem !important; }
+.ai-page .featured-project-meta { font-size: .8rem; }
+.ai-page .featured-project-actions .project-cta { font-size: .8rem; }
 /* The tier diagram sits in the narrow hero column, where the SVG renders at ~0.74 of its viewBox, so its labels are sized in viewBox units to land near the page's reading scale. */
 .ai-page .ai-figure--tiers text { font-size: 14px; }
 .ai-page .ai-figure--tiers .ai-figure-title { font-size: 21px; }
