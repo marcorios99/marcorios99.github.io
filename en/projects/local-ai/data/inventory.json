@@ -1,0 +1,612 @@
+{
+ "schema": "local-ai-inventory/1",
+ "date": "2026-11-21",
+ "totals": {
+  "files": 49,
+  "bytes": 593987115496,
+  "formats": {
+   "gguf": {
+    "files": 24,
+    "bytes": 428364265664
+   },
+   "safetensors": {
+    "files": 23,
+    "bytes": 164067144450
+   },
+   "openvino_bin": {
+    "files": 2,
+    "bytes": 1555705382
+   }
+  }
+ },
+ "groups": [
+  {
+   "id": "moe",
+   "files": 13,
+   "bytes": 334082803584
+  },
+  {
+   "id": "dense",
+   "files": 6,
+   "bytes": 89502485216
+  },
+  {
+   "id": "vision",
+   "files": 2,
+   "bytes": 1556854240
+  },
+  {
+   "id": "draft",
+   "files": 3,
+   "bytes": 3222122624
+  },
+  {
+   "id": "difusion",
+   "files": 23,
+   "bytes": 164067144450
+  },
+  {
+   "id": "audio",
+   "files": 2,
+   "bytes": 1555705382
+  }
+ ],
+ "fit_rule": {
+  "useful_vram_gib": 23.91,
+  "full": "weights + f16 KV at 131k <= useful VRAM",
+  "reduced": "weights + q8_0 KV at 32k <= useful VRAM",
+  "split": "weights alone exceed useful VRAM",
+  "paired": "mmproj and drafts load alongside their base",
+  "ondemand": "ComfyUI safetensors load per run"
+ },
+ "verification": {
+  "method": "exact byte size against each repo's recursive tree in the Hugging Face API, plus GGUF metadata read with XeStrata's gguf_reader",
+  "notes": [
+   "unsloth/Qwen3.8-27B-GGUF matches an earlier revision: the repo's main was requantized later",
+   "ISTA shard pairs match pinned revisions 5348543e0147 (IQ1_M Coder) and ed59f92082b1 (IQ2_XS)",
+   "mtp-q2_0.gguf is a local quantization: strata.mtp.source = Qwen/Qwen3.8-Flash-Next BF16 mtp.* tensors, source sha256 4ef372235caf4a756be32c0c62856c251d24df3d785a0c7a9e8c7181e27a6e8c",
+   "Heretic weights excluded from the catalogue on purpose"
+  ]
+ },
+ "rows": [
+  {
+   "file": "Qwen3.8-Flash-Next-Gyro-S-TQ1_0.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 58487015808,
+   "repo": "agentionai/Qwen3.8-Flash-Next-Gyro-GGUF",
+   "license": "other",
+   "role": "MoE \u00b7 512 experts",
+   "fit": "split",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 39225954592,
+   "repo": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+   "license": "apache-2.0",
+   "role": "shard 1/2",
+   "fit": "split",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Qwen3.8-Flash-Next-GSQ-RCO-IQ1_M-00001-of-00002.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 29608446496,
+   "repo": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF",
+   "license": "apache-2.0",
+   "role": "shard 1/2",
+   "fit": "split",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Qwen3.8-Flash-Next-GSQ-RCO-IQ1_M-00002-of-00002.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 28800138432,
+   "repo": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF",
+   "license": "apache-2.0",
+   "role": "shard 2/2",
+   "fit": "split",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00002-of-00002.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 28800138432,
+   "repo": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+   "license": "apache-2.0",
+   "role": "shard 2/2",
+   "fit": "split",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 22134528992,
+   "repo": "unsloth/Qwen3.6-35B-A3B-GGUF",
+   "license": "apache-2.0",
+   "role": "MoE \u00b7 256 experts",
+   "fit": "reduced",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 21504034224,
+   "repo": "Lightricks/LTX-2.5",
+   "license": "other",
+   "role": "video transformer",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 20970379616,
+   "repo": "Comfy-Org/MiniMax-H3",
+   "license": "other",
+   "role": "video transformer",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "minimax_h3_fl2va_pruned_fp8_scaled.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 20958205608,
+   "repo": "Comfy-Org/MiniMax-H3",
+   "license": "other",
+   "role": "video transformer",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Qwen3.6-35B-A3B-UD-Q4_K_S.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 20893015008,
+   "repo": "unsloth/Qwen3.6-35B-A3B-GGUF",
+   "license": "apache-2.0",
+   "role": "MoE \u00b7 256 experts",
+   "fit": "reduced",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Laguna-XS-2.1-Q4_K_M.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 20274300032,
+   "repo": "poolside/Laguna-XS-2.1-GGUF",
+   "license": "openmdw-1.1",
+   "role": "MoE \u00b7 256 experts",
+   "fit": "reduced",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Clover-35B-A3B-Preview-Q4_0.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 19586909600,
+   "repo": "Diffuspace/Clover-35B-A3B-Preview-GGUF",
+   "license": "mit",
+   "role": "MoE \u00b7 256 experts",
+   "fit": "reduced",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "North-Mini-Code-1.0-UD-Q4_K_M.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 19203186784,
+   "repo": "unsloth/North-Mini-Code-1.0-GGUF",
+   "license": "apache-2.0",
+   "role": "MoE \u00b7 128 experts",
+   "fit": "reduced",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Qwen3.6-35B-A3B-UD-IQ4_NL.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 18040888288,
+   "repo": "unsloth/Qwen3.6-35B-A3B-GGUF",
+   "license": "apache-2.0",
+   "role": "MoE \u00b7 256 experts",
+   "fit": "reduced",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Swift-Qwen3.8-27B-Q4_K_M.gguf",
+   "kind": "gguf",
+   "group": "dense",
+   "bytes": 18024380576,
+   "repo": "ukisai/Swift-Qwen3.8-27B-GGUF",
+   "license": "swift-open-license-1.0",
+   "role": "dense 27B",
+   "fit": "reduced",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "ThinkingCap-Qwen3.8-27B-Q4_K_M.gguf",
+   "kind": "gguf",
+   "group": "dense",
+   "bytes": 17442400352,
+   "repo": "bottlecapai/ThinkingCap-Qwen3.8-27B-GGUF",
+   "license": "other",
+   "role": "dense 27B",
+   "fit": "reduced",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Ornith-1.5-35B-A3B-IQ3_M.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 17370662560,
+   "repo": "bartowski/Ornith-1.5-35B-A3B-GGUF",
+   "license": "mit",
+   "role": "MoE \u00b7 256 experts",
+   "fit": "reduced",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Qwen3.8-27B-UD-Q4_K_M.gguf",
+   "kind": "gguf",
+   "group": "dense",
+   "bytes": 16464440224,
+   "repo": "unsloth/Qwen3.8-27B-GGUF",
+   "license": "apache-2.0",
+   "role": "dense 27B",
+   "fit": "reduced",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Qwen3.8-27B-Ridge-Intel-Arc-Tuned-Q4_K.gguf",
+   "kind": "gguf",
+   "group": "dense",
+   "bytes": 16431732288,
+   "repo": "Greatjedi/Qwen3.8-27B-Intel-Arc-Tuned-GGUF",
+   "license": "apache-2.0",
+   "role": "dense 27B",
+   "fit": "reduced",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 15687142551,
+   "repo": "Comfy-Org/MiniMax-H3",
+   "license": "other",
+   "role": "text encoder",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 15372969374,
+   "repo": "Lightricks/LTX-2.5",
+   "license": "other",
+   "role": "text encoder",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Qwen3.8-27B-GSQ-RCO-IQ3_S-Intel-Arc-Tuned-MTP-Q4_K.gguf",
+   "kind": "gguf",
+   "group": "dense",
+   "bytes": 15359440960,
+   "repo": "Greatjedi/Qwen3.8-27B-Intel-Arc-Tuned-GGUF",
+   "license": "apache-2.0",
+   "role": "dense 27B \u00b7 MTP",
+   "fit": "reduced",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Groot-19B-A3B-261023-Q4_K_M.gguf",
+   "kind": "gguf",
+   "group": "moe",
+   "bytes": 11657618560,
+   "repo": "GrootTeam/Groot-19B-A3B-261023-GGUF",
+   "license": "apache-2.0",
+   "role": "MoE \u00b7 128 experts",
+   "fit": "full",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "qwen3.5_9b_int8_convrot.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 9748121532,
+   "repo": "Comfy-Org/MOSS-Image",
+   "license": "apache-2.0",
+   "role": "text encoder",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "qwen3vl_8b_int8_convrot.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 9350798360,
+   "repo": "Comfy-Org/Qwen-Image-2.1",
+   "license": "other",
+   "role": "text encoder",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "qwen_image_2.1_turbo_int8_convrot.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 7256787829,
+   "repo": "Comfy-Org/Qwen-Image-2.1",
+   "license": "other",
+   "role": "turbo image transformer",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "NoctQ_V3_base_int8_convrot.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 7256784376,
+   "repo": "Noctaluna/Noct-Q-Uncensored-Qwen-Image-2.1",
+   "license": "other",
+   "role": "image transformer",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "NoctQ_V4_int8_convrot.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 7256784368,
+   "repo": "Noctaluna/Noct-Q-Uncensored-Qwen-Image-2.1",
+   "license": "other",
+   "role": "image transformer",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "qwen_image_2.1_int8_convrot.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 7256783064,
+   "repo": "Comfy-Org/Qwen-Image-2.1",
+   "license": "other",
+   "role": "image transformer",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Ornith-1.5-9B-Q4_K_M.gguf",
+   "kind": "gguf",
+   "group": "dense",
+   "bytes": 5780090816,
+   "repo": "ornith-ai/Ornith-1.5-9B-GGUF",
+   "license": "mit",
+   "role": "dense 9B",
+   "fit": "full",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "moss_image_sft_int8_convrot.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 5413698958,
+   "repo": "Comfy-Org/MOSS-Image",
+   "license": "apache-2.0",
+   "role": "image transformer",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "minimax_h3_video_vae_fp16.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 5207808496,
+   "repo": "Comfy-Org/MiniMax-H3",
+   "license": "other",
+   "role": "video VAE",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "LTX-2.5-Licon-MSR-V2.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 2215094328,
+   "repo": "LiconStudio/LTX-2.5-Multiple-Subject-Reference",
+   "license": "apache-2.0",
+   "role": "multi-reference LoRA",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 1956193000,
+   "repo": "Comfy-Org/MiniMax-H3",
+   "license": "other",
+   "role": "turbo LoRA",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 1956193000,
+   "repo": "Comfy-Org/MiniMax-H3",
+   "license": "other",
+   "role": "turbo LoRA",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "ltx-2.5-video-vae-bf16.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 1472223346,
+   "repo": "Lightricks/LTX-2.5",
+   "license": "other",
+   "role": "video VAE",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Qwen3.6-35B-A3B-MTP-q4_0.gguf",
+   "kind": "gguf",
+   "group": "draft",
+   "bytes": 1190098592,
+   "repo": "lym00/Qwen3.6-35B-A3B-MTP-ONLY-GGUF",
+   "license": "apache-2.0",
+   "role": "MTP draft",
+   "fit": "paired",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "Qwen3.8-27B-DFlash2-Q4_K_M.gguf",
+   "kind": "gguf",
+   "group": "draft",
+   "bytes": 1143006816,
+   "repo": "z-lab/Qwen3.8-27B-DFlash2-GGUF",
+   "license": "apache-2.0",
+   "role": "DFlash2 draft",
+   "fit": "paired",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 995778752,
+   "repo": "Lightricks/LTX-2.5",
+   "license": "other",
+   "role": "latent upscaler",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "mmproj-Swift-Qwen3.8-27B-F16.gguf",
+   "kind": "gguf",
+   "group": "vision",
+   "bytes": 927607232,
+   "repo": "ukisai/Swift-Qwen3.8-27B-GGUF",
+   "license": "swift-open-license-1.0",
+   "role": "vision projector",
+   "fit": "paired",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "openvino_decoder_model.bin",
+   "kind": "bin",
+   "group": "audio",
+   "bytes": 910372790,
+   "repo": "OpenVINO/whisper-large-v3-int8-ov",
+   "license": "apache-2.0",
+   "role": "ASR decoder",
+   "fit": "full",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "mtp-q2_0.gguf",
+   "kind": "gguf",
+   "group": "draft",
+   "bytes": 889017216,
+   "repo": "local: cuantizado con XeStrata",
+   "license": "apache-2.0 (base Qwen/Qwen3.8-Flash-Next)",
+   "role": "MTP draft \u00b7 experts q2_0",
+   "fit": "splitbase",
+   "verified": "local-quantization"
+  },
+  {
+   "file": "qwen_image_2.1_vae_bf16.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 675509688,
+   "repo": "Comfy-Org/Qwen-Image-2.1",
+   "license": "other",
+   "role": "image VAE",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "openvino_encoder_model.bin",
+   "kind": "bin",
+   "group": "audio",
+   "bytes": 645332592,
+   "repo": "OpenVINO/whisper-large-v3-int8-ov",
+   "license": "apache-2.0",
+   "role": "ASR encoder",
+   "fit": "full",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "mmproj-Qwen3.8-27B-Q8_0.gguf",
+   "kind": "gguf",
+   "group": "vision",
+   "bytes": 629247008,
+   "repo": "ggml-org/Qwen3.8-27B-GGUF",
+   "license": "apache-2.0",
+   "role": "vision projector",
+   "fit": "paired",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "minimax_h3_audio_vae_fp32.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 605254808,
+   "repo": "Comfy-Org/MiniMax-H3",
+   "license": "other",
+   "role": "audio VAE",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "ltx-2.5-audio-vae-bf16.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 364866540,
+   "repo": "Lightricks/LTX-2.5",
+   "license": "other",
+   "role": "audio VAE",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "flux2-vae.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 336211292,
+   "repo": "Comfy-Org/MOSS-Image",
+   "license": "apache-2.0",
+   "role": "image VAE",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  },
+  {
+   "file": "flux2-vae_small.safetensors",
+   "kind": "safetensors",
+   "group": "difusion",
+   "bytes": 249521340,
+   "repo": "Comfy-Org/MOSS-Image",
+   "license": "apache-2.0",
+   "role": "small image VAE",
+   "fit": "ondemand",
+   "verified": "exact-bytes"
+  }
+ ]
+}

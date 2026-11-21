@@ -58,15 +58,16 @@
         <div class="case-study-hero-copy">
           <p class="section-kicker">Carpeta &middot; IA local</p>
           <h1 id="case-study-title">IA local</h1>
-          <p class="case-study-summary">Modelos corriendo en hardware propio, con sus despliegues, sus pruebas y sus guías. Cada entrada es una página independiente que se puede leer sola: la inferencia de un MoE grande en una GPU de 24 GB, el bench de un servidor vivo y cómo arrancar el motor.</p>
-          <p class="case-study-note">Lo propio aquí es el despliegue, el harness y las mediciones. El motor es un fork de Strata mantenido por MistVVK, los pesos son de Qwen comprimidos por ISTA-DASLab y agentionai, y el loop guard viene de Project Maya. Esta carpeta irá acumulando más entradas; las siguientes previstas son el catálogo de pesos locales y la generación de imagen y vídeo con ComfyUI, todavía sin publicar.</p>
+          <p class="case-study-summary">Modelos corriendo en hardware propio, con sus despliegues, sus pruebas y sus guías. Cada entrada es una página independiente que se puede leer sola: la inferencia de un MoE grande en una GPU de 24 GB, el bench de un servidor vivo, cómo arrancar el motor y el catálogo de los pesos que hay en el disco.</p>
+          <p class="case-study-note">Lo propio aquí es el despliegue, el harness y las mediciones. El motor es un fork de Strata mantenido por MistVVK, los pesos son de Qwen comprimidos por ISTA-DASLab y agentionai, y el loop guard viene de Project Maya. Las entradas publicadas son la inferencia, el bench, la guía de arranque y el catálogo de pesos. La siguiente, todavía sin publicar, es la generación de imagen y vídeo con ComfyUI con sus tiempos por corrida.</p>
           <div class="flex flex-wrap gap-2 mt-5" aria-label="Capacidades de esta carpeta">
-            <span class="badge">Inferencia MoE</span><span class="badge">Bench de servidor vivo</span><span class="badge">Cuantizaci&oacute;n GGUF</span><span class="badge">Python</span><span class="badge">Intel Arc Pro B60</span>
+            <span class="badge">Inferencia MoE</span><span class="badge">Bench de servidor vivo</span><span class="badge">Cuantizaci&oacute;n GGUF</span><span class="badge">Cat&aacute;logo de pesos</span><span class="badge">Python</span><span class="badge">Intel Arc Pro B60</span>
           </div>
           <nav class="ai-entry-links" aria-label="Enlaces de IA local">
             <a href="/projects/local-ai/xestrata/" class="project-cta"><i data-lucide="cpu" class="h-4 w-4" aria-hidden="true"></i><span>Inferencia MoE en Intel Arc</span></a>
             <a href="/projects/local-ai/testing/" class="project-cta project-cta--secondary"><i data-lucide="list-checks" class="h-4 w-4" aria-hidden="true"></i><span>Bench de servidores vivos</span></a>
             <a href="/projects/local-ai/running/" class="project-cta project-cta--secondary"><i data-lucide="terminal" class="h-4 w-4" aria-hidden="true"></i><span>Arranque y cuantizaciones</span></a>
+            <a href="/projects/local-ai/models/" class="project-cta project-cta--secondary"><i data-lucide="folder-open" class="h-4 w-4" aria-hidden="true"></i><span>Cat&aacute;logo de pesos</span></a>
           </nav>
         </div>
       </div>
@@ -135,15 +136,34 @@
             </div>
           </div>
         </article>
+
+        <article id="models" class="featured-project">
+          <div class="featured-project-index" aria-hidden="true">04</div>
+          <div class="featured-project-body">
+            <h3>Catálogo de pesos</h3>
+            <p class="featured-project-note">/projects/local-ai/models/ &middot; catálogo</p>
+            <p>Los 49 archivos que hay en el NVMe, agrupados por rol: 24 GGUF para inferencia, 23 safetensors para ComfyUI y 2 de OpenVINO para whisper. Cada fila lleva su tamaño, el repo de donde viene, su licencia y dónde entra en la VRAM de 24 GB.</p>
+            <p class="featured-project-note">El origen se verificó por tamaño exacto de bytes contra el árbol de cada repo, y el encaje se calcula con el presupuesto de KV leído del GGUF: 5 pesos salen a RAM y NVMe, 12 solo entran con el cache reducido.</p>
+            <div class="featured-project-stack">
+              <span class="badge">GGUF</span><span class="badge">safetensors</span><span class="badge">OpenVINO</span><span class="badge">Licencias</span>
+            </div>
+            <div class="featured-project-actions">
+              <a href="/projects/local-ai/models/" class="project-cta">Ver el catálogo &rarr;</a>
+              <a href="/projects/local-ai/data/inventory.json" class="project-cta project-cta--secondary">Inventario en JSON &rarr;</a>
+              <span class="featured-project-meta">49 archivos &middot; 553,19 GiB.</span>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
     <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="data-title">
-      <div class="case-study-section-header"><p class="section-kicker">Datos</p><h2 id="data-title">Lo publicado, y cómo leerlo</h2><p>Los números que aparecen en las tres páginas salen de una sola corrida. El archivo publicado es resumido; el crudo completo irá al repo del harness.</p></div>
+      <div class="case-study-section-header"><p class="section-kicker">Datos</p><h2 id="data-title">Lo publicado, y cómo leerlo</h2><p>Los números de las mediciones salen de una sola corrida. El catálogo y la máquina están publicados como JSON con su schema, y las tablas del catálogo son un snapshot fechado.</p></div>
       <dl class="ai-spec">
-        <div class="ai-spec-row"><dt>Publicado hoy</dt><dd>1 corrida &middot; 49 casos &middot; 47 peticiones emparejadas &middot; 3 páginas &middot; 1 harness.</dd></div>
-        <div class="ai-spec-row"><dt>Archivo</dt><dd><a class="text-link" href="/projects/local-ai/data/run-2026-11-14.json"><code>run-2026-11-14.json</code></a>, schema <code>gyro-bench-run/2</code>: 49 casos con sus métricas, los niveles de thinking, la concurrencia y la estabilidad.</dd></div>
-        <div class="ai-spec-row"><dt>También incluye</dt><dd>Las opciones de la corrida (<code>--seed 7 --repeat 3</code>), los contadores de peticiones emparejadas y los snapshots de <code>/health</code> y <code>/metrics</code>.</dd></div>
+        <div class="ai-spec-row"><dt>Publicado hoy</dt><dd>1 corrida &middot; 49 casos &middot; 47 peticiones emparejadas &middot; 4 páginas &middot; 1 harness &middot; 49 pesos inventariados.</dd></div>
+        <div class="ai-spec-row"><dt>Corrida</dt><dd><a class="text-link" href="/projects/local-ai/data/run-2026-11-14.json"><code>run-2026-11-14.json</code></a>, schema <code>gyro-bench-run/2</code>: 49 casos con sus métricas, los niveles de thinking, la concurrencia y la estabilidad.</dd></div>
+        <div class="ai-spec-row"><dt>Inventario</dt><dd><a class="text-link" href="/projects/local-ai/data/inventory.json"><code>inventory.json</code></a>, schema <code>local-ai-inventory/1</code>: los 49 archivos con tamaño, repo, licencia, rol y encaje, y la regla con la que se calcula este último.</dd></div>
+        <div class="ai-spec-row"><dt>Máquina</dt><dd><a class="text-link" href="/projects/local-ai/data/machine.json"><code>machine.json</code></a>, schema <code>local-ai-machine/1</code>: GPU, CPU, RAM, sistema y el snapshot del <code>/health</code> del motor.</dd></div>
         <div class="ai-spec-row"><dt>Comparar corridas</dt><dd>Otra corrida con las mismas opciones es comparable; sin seed el reasoning cambia entre corridas.</dd></div>
       </dl>
     </section>
@@ -164,7 +184,8 @@
           <ul>
             <li>Rendimiento sostenido o multiusuario: el motor sirve una petición a la vez.</li>
             <li>Las demás cuantizaciones, GPUs de AMD o NVIDIA, y los paquetes deb/rpm.</li>
-            <li>El catálogo de pesos locales y la generación de imagen y vídeo con ComfyUI: entradas previstas de esta carpeta.</li>
+            <li>El catálogo lista los pesos de todos los modelos, pero solo Gyro-S se corrió y se midió en este PC.</li>
+            <li>La generación de imagen y vídeo con ComfyUI: entrada prevista de esta carpeta, con sus tiempos por corrida.</li>
           </ul>
         </div>
       </div>
@@ -178,6 +199,8 @@
         <a href="https://github.com/MistVVK/XeStrata/blob/main/docs/DETAILS.md" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="book-open" class="h-4 w-4" aria-hidden="true"></i><span>Detalles</span></a>
         <a href="https://huggingface.co/agentionai/Qwen3.8-Flash-Next-Gyro-GGUF" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="download" class="h-4 w-4" aria-hidden="true"></i><span>Pesos Gyro</span></a>
         <a href="/projects/local-ai/data/run-2026-11-14.json" class="project-cta project-cta--secondary"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>Datos en JSON</span></a>
+        <a href="/projects/local-ai/data/inventory.json" class="project-cta project-cta--secondary"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>Inventario en JSON</span></a>
+        <a href="/projects/local-ai/models/" class="project-cta project-cta--secondary"><i data-lucide="folder-open" class="h-4 w-4" aria-hidden="true"></i><span>Cat&aacute;logo de pesos</span></a>
       </nav>
     </section>
     <div class="case-study-back-wrap case-study-back-wrap--footer mx-auto container-xx px-4"><a href="/projects/" class="case-study-back text-link">&larr; Volver a proyectos</a></div>

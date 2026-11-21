@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Catálogo de los pesos locales de IA: 49 archivos con su tamaño, origen, licencia y encaje en la VRAM medida del motor. GGUF, safetensors de ComfyUI y OpenVINO, con el presupuesto de KV calculado por tipo de cache." />
+  <link rel="canonical" href="https://marcorios99.github.io/projects/local-ai/models/" />
+  <link rel="alternate" hreflang="es" href="https://marcorios99.github.io/projects/local-ai/models/" />
+  <link rel="alternate" hreflang="en" href="https://marcorios99.github.io/en/projects/local-ai/models/" />
+  <link rel="alternate" hreflang="x-default" href="https://marcorios99.github.io/projects/local-ai/models/" />
+  <meta property="og:title" content="Catálogo de pesos locales | IA local | Marco Rios" />
+  <meta property="og:description" content="49 archivos y 553,19 GiB en disco: GGUF para inferencia, safetensors para ComfyUI y OpenVINO para whisper. El origen y la licencia de cada archivo están verificados por bytes exactos, y el encaje de cada peso en la VRAM de una Intel Arc Pro B60 de 24 GB." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover-portfolio-2026.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/projects/local-ai/models/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Catálogo de pesos locales | IA local en hardware propio – Marco Rios</title>
+  <meta name="theme-color" content="#0b0f14" />
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
+  })();
+  </script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages/project-detail.css" />
+  <link rel="stylesheet" href="/assets/css/pages/projects.css" />
+  <link rel="stylesheet" href="/assets/css/pages/local-ai.css" />
+</head>
+<body class="min-h-screen">
+  <header class="sticky top-0 z-50 border-b backdrop-blur">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3" aria-label="Navegación principal">
+      <a href="/" class="site-wordmark">Marco Rios</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/" class="navlink">Inicio</a>
+        <a href="/projects/" class="navlink">Proyectos</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="/projects/local-ai/models/" class="btn-outline"><i data-lucide="languages" aria-hidden="true" class="h-4 w-4"></i> EN<span class="sr-only"> · ver esta página en inglés</span></a>
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"><span id="themeIcon" class="h-5 w-5 inline-flex"></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="case-study-page ai-page">
+    <div class="case-study-back-wrap mx-auto container-xx px-4"><a href="/projects/local-ai/" class="case-study-back text-link">&larr; Volver a IA local</a></div>
+
+    <section class="case-study-hero mx-auto container-xx px-4" aria-labelledby="case-study-title">
+      <div class="case-study-hero-grid case-study-hero-grid--single">
+        <div class="case-study-hero-copy">
+          <p class="section-kicker">Audio / ASR</p>
+          <h1 id="case-study-title">Catálogo de pesos</h1>
+          <p class="case-study-summary">La carpeta de pesos como catálogo: qué es cada archivo, de qué repo viene, bajo qué licencia cae y dónde entra en una tarjeta de 24 GB. Las tablas se agrupan por rol y el encaje de cada GGUF se calcula contra la VRAM útil medida por el motor.</p>
+          <p class="case-study-note">El origen se verificó por tamaño exacto de bytes contra el árbol de cada repo en la API de Hugging Face y por la metadata del GGUF. De los 49 archivos, 48 caen en un repo público confirmado; el borrador MTP <code>q2_0</code> se cuantizó aquí con XeStrata sobre los tensores <code>mtp.*</code> del checkpoint BF16. El encaje es un presupuesto aritmético contra 23,91 GiB de VRAM útil, no una medida por modelo: el único modelo probado en esta máquina es Gyro-S.</p>
+          <div class="flex flex-wrap gap-2 mt-5" aria-label="Capacidades">
+            <span class="badge">GGUF</span><span class="badge">safetensors</span><span class="badge">OpenVINO</span><span class="badge">ComfyUI</span><span class="badge">Intel Arc Pro B60</span>
+          </div>
+          <nav class="ai-entry-links" aria-label="Enlaces de IA local">
+            <a href="/projects/local-ai/" class="project-cta"><i data-lucide="folder" class="h-4 w-4" aria-hidden="true"></i><span>Carpeta de IA local</span></a>
+            <a href="/projects/local-ai/xestrata/" class="project-cta project-cta--secondary"><i data-lucide="cpu" class="h-4 w-4" aria-hidden="true"></i><span>Inferencia MoE en Intel Arc</span></a>
+            <a href="/projects/local-ai/running/" class="project-cta project-cta--secondary"><i data-lucide="terminal" class="h-4 w-4" aria-hidden="true"></i><span>Arranque y cuantizaciones</span></a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="totals-title">
+      <div class="case-study-section-header"><p class="section-kicker">Inventario</p><h2 id="totals-title">Lo que hay en el disco</h2><p>Los pesos viven en un NVMe aparte del sistema, en dos carpetas: la de inferencia (<code>models</code> y los pares de shards) y la de ComfyUI (<code>Comfyui-AI-Models</code>). Las dos fueron inventariadas el 21 de noviembre de 2026.</p></div>
+      <dl class="ai-spec">
+        <div class="ai-spec-row"><dt>Total</dt><dd>49 archivos · 553,19 GiB · origen confirmado en 49 de 49.</dd></div>
+        <div class="ai-spec-row"><dt>Por formato</dt><dd>GGUF 24 · 398,95 GiB · safetensors (ComfyUI) 23 · 152,80 GiB · OpenVINO (whisper) 2 · 1,45 GiB.</dd></div>
+        <div class="ai-spec-row"><dt>Verificación</dt><dd>Tamaño exacto de bytes contra el árbol de cada repo y metadata del GGUF. Un peso se cuantizó localmente con XeStrata; el resto viene de repos públicos.</dd></div>
+        <div class="ai-spec-row"><dt>Datos</dt><dd><a class="text-link" href="/projects/local-ai/data/inventory.json"><code>inventory.json</code></a> (49 filas) y <a class="text-link" href="/projects/local-ai/data/machine.json"><code>machine.json</code></a>, schemas <code>local-ai-inventory/1</code> y <code>local-ai-machine/1</code>.</dd></div>
+      </dl>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="rule-title">
+      <div class="case-study-section-header"><p class="section-kicker">Encaje</p><h2 id="rule-title">Cómo entra cada peso en 24 GB</h2><p>El encaje se calcula con la regla de abajo, no con pruebas de carga. La VRAM útil salió del <code>/health</code> del motor, que reporta 25.669.140.480 bytes (23,91 GiB). Los pesos GGUF se cuentan cargados por completo en la GPU.</p></div>
+      <dl class="ai-spec">
+        <div class="ai-spec-row"><dt>En VRAM</dt><dd>pesos + cache KV f16 a 131k ≤ 23,91 GiB. El modelo entra con el contexto entero y el cache por defecto.</dd></div>
+        <div class="ai-spec-row"><dt>KV reducido</dt><dd>solo entra bajando el cache a q8_0 o q4_0 con contexto corto (≤32k); exige <code>--cache-type-k</code> y <code>--cache-type-v</code> en el arranque.</dd></div>
+        <div class="ai-spec-row"><dt>Repartido</dt><dd>los pesos solos ya superan la VRAM y el motor los reparte entre VRAM, RAM y NVMe, como se estudia en la entrada de XeStrata.</dd></div>
+        <div class="ai-spec-row"><dt>Con el base</dt><dd>mmproj y borradores: se suman al modelo que los sirve; el mmproj añade unos 0,6–0,9 GiB cuando entra una imagen.</dd></div>
+        <div class="ai-spec-row"><dt>Bajo demanda</dt><dd>safetensors de ComfyUI: se cargan por corrida con <code>--reserve-vram 5</code>, no quedan residentados.</dd></div>
+      </dl>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="kv-title">
+      <div class="case-study-section-header"><p class="section-kicker">KV</p><h2 id="kv-title">El cache KV pesa más que los pesos</h2><p>El costo por token sale de las capas, las cabezas KV y el dimensión de cabeza leídos del GGUF. Un denso de 27B con 4 cabezas KV cuesta casi tres veces lo que un MoE de 35B con 2: por eso los denso solo entran con el cache reducido.</p></div>
+      <div class="ai-figure-frame" role="img" aria-label="Presupuesto de KV · VRAM útil 23,91 GiB">
+<svg viewBox="0 0 720 236" xmlns="http://www.w3.org/2000/svg">
+<text class="ai-figure-title" x="16" y="26">Presupuesto de KV · VRAM útil 23,91 GiB</text>
+<text class="ai-figure-strong" x="176" y="56">MoE 35B · por token</text>
+<text class="ai-figure-strong" x="326" y="56">· 131k</text>
+<text class="ai-figure-strong" x="466" y="56">Denso 27B · por token</text>
+<text class="ai-figure-strong" x="616" y="56">· 131k</text>
+<line class="ai-line" x1="16" y1="64" x2="704" y2="64"/>
+<text class="ai-figure-strong" x="16" y="80">f16</text><text x="176" y="80">80 KiB</text><text x="326" y="80">10,00 GiB</text><text x="466" y="80">260 KiB</text><text x="616" y="80">32,50 GiB</text><text class="" x="16" y="104">q8_0</text><text x="176" y="104">45 KiB</text><text x="326" y="104">5,62 GiB</text><text x="466" y="104">146 KiB</text><text x="616" y="104">18,28 GiB</text><text class="" x="16" y="128">q4_0</text><text x="176" y="128">22 KiB</text><text x="326" y="128">2,81 GiB</text><text x="466" y="128">73 KiB</text><text x="616" y="128">9,14 GiB</text><line class="ai-line" x1="16" y1="152" x2="704" y2="152"/>
+<text class="ai-figure-accent" x="16" y="176">Gyro-S · medido en el motor (21-11-2026)</text>
+<text x="16" y="198">cache int8 · contexto 131.072 · arena 13.948 MiB · VRAM libre 2.031 MiB</text>
+<text x="16" y="220">los pesos TQ1_0 (54,47 GiB) salen de la VRAM: por eso el encaje es repartido</text>
+</svg>
+</div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="groups-title">
+      <div class="case-study-section-header"><p class="section-kicker">Grupos</p><h2 id="groups-title">Las tablas del catálogo</h2><p>Ordenado por tamaño dentro de cada grupo. El enlace de origen lleva al repo donde el archivo fue verificado.</p></div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="group-moe">
+      <div class="case-study-section-header"><p class="section-kicker">Texto · MoE</p><h2 id="group-moe">MoE de texto</h2><p>Nueve MoE base y los dos pares de shards GSQ-RCO del Flash-Next, que se leen como un solo modelo repartido entre niveles. Los más grandes no entran en la VRAM y salen a RAM y NVMe.</p></div>
+      <div class="ai-table-wrap ai-table-wrap--catalog">
+<table class="ai-table ai-catalog">
+<thead><tr><th>Archivo</th><th>Rol</th><th class="ai-num">Tamaño</th><th>Origen</th><th>Licencia</th><th>Encaje</th></tr></thead>
+<tbody><tr><td data-label="Archivo"><code>Qwen3.8-Flash-Next-Gyro-S-TQ1_0.gguf</code></td><td data-label="Rol">MoE · 512 expertos</td><td class="ai-num" data-label="Tamaño">54,47 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/agentionai/Qwen3.8-Flash-Next-Gyro-GGUF" target="_blank" rel="noreferrer">agentionai/Qwen3.8-Flash-Next-Gyro-GGUF</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Repartido</span></td></tr><tr><td data-label="Archivo"><code>Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf</code></td><td data-label="Rol">shard 1/2</td><td class="ai-num" data-label="Tamaño">36,53 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF" target="_blank" rel="noreferrer">ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">Repartido</span></td></tr><tr><td data-label="Archivo"><code>Qwen3.8-Flash-Next-GSQ-RCO-IQ1_M-00001-of-00002.gguf</code></td><td data-label="Rol">shard 1/2</td><td class="ai-num" data-label="Tamaño">27,58 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF" target="_blank" rel="noreferrer">ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">Repartido</span></td></tr><tr><td data-label="Archivo"><code>Qwen3.8-Flash-Next-GSQ-RCO-IQ1_M-00002-of-00002.gguf</code></td><td data-label="Rol">shard 2/2</td><td class="ai-num" data-label="Tamaño">26,82 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF" target="_blank" rel="noreferrer">ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">Repartido</span></td></tr><tr><td data-label="Archivo"><code>Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00002-of-00002.gguf</code></td><td data-label="Rol">shard 2/2</td><td class="ai-num" data-label="Tamaño">26,82 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF" target="_blank" rel="noreferrer">ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">Repartido</span></td></tr><tr><td data-label="Archivo"><code>Qwen3.6-35B-A3B-UD-Q4_K_M.gguf</code></td><td data-label="Rol">MoE · 256 expertos</td><td class="ai-num" data-label="Tamaño">20,61 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF" target="_blank" rel="noreferrer">unsloth/Qwen3.6-35B-A3B-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">KV reducido</span></td></tr><tr><td data-label="Archivo"><code>Qwen3.6-35B-A3B-UD-Q4_K_S.gguf</code></td><td data-label="Rol">MoE · 256 expertos</td><td class="ai-num" data-label="Tamaño">19,46 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF" target="_blank" rel="noreferrer">unsloth/Qwen3.6-35B-A3B-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">KV reducido</span></td></tr><tr><td data-label="Archivo"><code>Laguna-XS-2.1-Q4_K_M.gguf</code></td><td data-label="Rol">MoE · 256 expertos</td><td class="ai-num" data-label="Tamaño">18,88 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/poolside/Laguna-XS-2.1-GGUF" target="_blank" rel="noreferrer">poolside/Laguna-XS-2.1-GGUF</a></td><td data-label="Licencia"><code>openmdw-1.1</code></td><td data-label="Encaje"><span class="ai-pill">KV reducido</span></td></tr><tr><td data-label="Archivo"><code>Clover-35B-A3B-Preview-Q4_0.gguf</code></td><td data-label="Rol">MoE · 256 expertos</td><td class="ai-num" data-label="Tamaño">18,24 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Diffuspace/Clover-35B-A3B-Preview-GGUF" target="_blank" rel="noreferrer">Diffuspace/Clover-35B-A3B-Preview-GGUF</a></td><td data-label="Licencia"><code>MIT</code></td><td data-label="Encaje"><span class="ai-pill">KV reducido</span></td></tr><tr><td data-label="Archivo"><code>North-Mini-Code-1.0-UD-Q4_K_M.gguf</code></td><td data-label="Rol">MoE · 128 expertos</td><td class="ai-num" data-label="Tamaño">17,88 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/unsloth/North-Mini-Code-1.0-GGUF" target="_blank" rel="noreferrer">unsloth/North-Mini-Code-1.0-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">KV reducido</span></td></tr><tr><td data-label="Archivo"><code>Qwen3.6-35B-A3B-UD-IQ4_NL.gguf</code></td><td data-label="Rol">MoE · 256 expertos</td><td class="ai-num" data-label="Tamaño">16,80 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF" target="_blank" rel="noreferrer">unsloth/Qwen3.6-35B-A3B-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">KV reducido</span></td></tr><tr><td data-label="Archivo"><code>Ornith-1.5-35B-A3B-IQ3_M.gguf</code></td><td data-label="Rol">MoE · 256 expertos</td><td class="ai-num" data-label="Tamaño">16,18 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/bartowski/Ornith-1.5-35B-A3B-GGUF" target="_blank" rel="noreferrer">bartowski/Ornith-1.5-35B-A3B-GGUF</a></td><td data-label="Licencia"><code>MIT</code></td><td data-label="Encaje"><span class="ai-pill">KV reducido</span></td></tr><tr><td data-label="Archivo"><code>Groot-19B-A3B-261023-Q4_K_M.gguf</code></td><td data-label="Rol">MoE · 128 expertos</td><td class="ai-num" data-label="Tamaño">10,86 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/GrootTeam/Groot-19B-A3B-261023-GGUF" target="_blank" rel="noreferrer">GrootTeam/Groot-19B-A3B-261023-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">En VRAM</span></td></tr></tbody>
+</table>
+</div>
+      <p class="case-study-note mt-4">13 archivos · 311,14 GiB</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="group-dense">
+      <div class="case-study-section-header"><p class="section-kicker">Texto · denso</p><h2 id="group-dense">MoE denso de texto</h2><p>Cinco variantes densas del Qwen3.8-27B con atención completa y un 9B. La atención densa lleva 4 cabezas KV, así que el cache cuesta casi el triple que el de un MoE y ninguno entra con el contexto entero.</p></div>
+      <div class="ai-table-wrap ai-table-wrap--catalog">
+<table class="ai-table ai-catalog">
+<thead><tr><th>Archivo</th><th>Rol</th><th class="ai-num">Tamaño</th><th>Origen</th><th>Licencia</th><th>Encaje</th></tr></thead>
+<tbody><tr><td data-label="Archivo"><code>Swift-Qwen3.8-27B-Q4_K_M.gguf</code></td><td data-label="Rol">denso 27B</td><td class="ai-num" data-label="Tamaño">16,79 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/ukisai/Swift-Qwen3.8-27B-GGUF" target="_blank" rel="noreferrer">ukisai/Swift-Qwen3.8-27B-GGUF</a></td><td data-label="Licencia"><code>swift-open-1.0</code></td><td data-label="Encaje"><span class="ai-pill">KV reducido</span></td></tr><tr><td data-label="Archivo"><code>ThinkingCap-Qwen3.8-27B-Q4_K_M.gguf</code></td><td data-label="Rol">denso 27B</td><td class="ai-num" data-label="Tamaño">16,24 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/bottlecapai/ThinkingCap-Qwen3.8-27B-GGUF" target="_blank" rel="noreferrer">bottlecapai/ThinkingCap-Qwen3.8-27B-GGUF</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">KV reducido</span></td></tr><tr><td data-label="Archivo"><code>Qwen3.8-27B-UD-Q4_K_M.gguf</code></td><td data-label="Rol">denso 27B</td><td class="ai-num" data-label="Tamaño">15,33 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF" target="_blank" rel="noreferrer">unsloth/Qwen3.8-27B-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">KV reducido</span></td></tr><tr><td data-label="Archivo"><code>Qwen3.8-27B-Ridge-Intel-Arc-Tuned-Q4_K.gguf</code></td><td data-label="Rol">denso 27B</td><td class="ai-num" data-label="Tamaño">15,30 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Greatjedi/Qwen3.8-27B-Intel-Arc-Tuned-GGUF" target="_blank" rel="noreferrer">Greatjedi/Qwen3.8-27B-Intel-Arc-Tuned-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">KV reducido</span></td></tr><tr><td data-label="Archivo"><code>Qwen3.8-27B-GSQ-RCO-IQ3_S-Intel-Arc-Tuned-MTP-Q4_K.gguf</code></td><td data-label="Rol">denso 27B · MTP</td><td class="ai-num" data-label="Tamaño">14,30 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Greatjedi/Qwen3.8-27B-Intel-Arc-Tuned-GGUF" target="_blank" rel="noreferrer">Greatjedi/Qwen3.8-27B-Intel-Arc-Tuned-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">KV reducido</span></td></tr><tr><td data-label="Archivo"><code>Ornith-1.5-9B-Q4_K_M.gguf</code></td><td data-label="Rol">denso 9B</td><td class="ai-num" data-label="Tamaño">5,38 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/ornith-ai/Ornith-1.5-9B-GGUF" target="_blank" rel="noreferrer">ornith-ai/Ornith-1.5-9B-GGUF</a></td><td data-label="Licencia"><code>MIT</code></td><td data-label="Encaje"><span class="ai-pill">En VRAM</span></td></tr></tbody>
+</table>
+</div>
+      <p class="case-study-note mt-4">6 archivos · 83,36 GiB</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="group-vision">
+      <div class="case-study-section-header"><p class="section-kicker">Visión</p><h2 id="group-vision">Proyectores mmproj</h2><p>Dos proyectores de visión: no se cargan solos, acompañan al modelo base cuando entra una imagen.</p></div>
+      <div class="ai-table-wrap ai-table-wrap--catalog">
+<table class="ai-table ai-catalog">
+<thead><tr><th>Archivo</th><th>Rol</th><th class="ai-num">Tamaño</th><th>Origen</th><th>Licencia</th><th>Encaje</th></tr></thead>
+<tbody><tr><td data-label="Archivo"><code>mmproj-Swift-Qwen3.8-27B-F16.gguf</code></td><td data-label="Rol">proyector de visión</td><td class="ai-num" data-label="Tamaño">0,86 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/ukisai/Swift-Qwen3.8-27B-GGUF" target="_blank" rel="noreferrer">ukisai/Swift-Qwen3.8-27B-GGUF</a></td><td data-label="Licencia"><code>swift-open-1.0</code></td><td data-label="Encaje"><span class="ai-pill">Con el base</span></td></tr><tr><td data-label="Archivo"><code>mmproj-Qwen3.8-27B-Q8_0.gguf</code></td><td data-label="Rol">proyector de visión</td><td class="ai-num" data-label="Tamaño">0,59 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/ggml-org/Qwen3.8-27B-GGUF" target="_blank" rel="noreferrer">ggml-org/Qwen3.8-27B-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">Con el base</span></td></tr></tbody>
+</table>
+</div>
+      <p class="case-study-note mt-4">2 archivos · 1,45 GiB</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="group-draft">
+      <div class="case-study-section-header"><p class="section-kicker">Borradores</p><h2 id="group-draft">Decoding especulativo</h2><p>Borradores MTP y DFlash2 para decoding especulativo: su cache es pequeño y se cargan junto al modelo que sirven.</p></div>
+      <div class="ai-table-wrap ai-table-wrap--catalog">
+<table class="ai-table ai-catalog">
+<thead><tr><th>Archivo</th><th>Rol</th><th class="ai-num">Tamaño</th><th>Origen</th><th>Licencia</th><th>Encaje</th></tr></thead>
+<tbody><tr><td data-label="Archivo"><code>Qwen3.6-35B-A3B-MTP-q4_0.gguf</code></td><td data-label="Rol">borrador MTP</td><td class="ai-num" data-label="Tamaño">1,11 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/lym00/Qwen3.6-35B-A3B-MTP-ONLY-GGUF" target="_blank" rel="noreferrer">lym00/Qwen3.6-35B-A3B-MTP-ONLY-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">Con el base</span></td></tr><tr><td data-label="Archivo"><code>Qwen3.8-27B-DFlash2-Q4_K_M.gguf</code></td><td data-label="Rol">borrador DFlash2</td><td class="ai-num" data-label="Tamaño">1,06 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/z-lab/Qwen3.8-27B-DFlash2-GGUF" target="_blank" rel="noreferrer">z-lab/Qwen3.8-27B-DFlash2-GGUF</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">Con el base</span></td></tr><tr><td data-label="Archivo"><code>mtp-q2_0.gguf</code></td><td data-label="Rol">borrador MTP · expertos q2_0</td><td class="ai-num" data-label="Tamaño">0,83 GiB</td><td data-label="Origen">local · cuantizado con XeStrata</td><td data-label="Licencia"><code>Apache-2.0 (base Qwen)</code></td><td data-label="Encaje"><span class="ai-pill">Con base repartida</span></td></tr></tbody>
+</table>
+</div>
+      <p class="case-study-note mt-4">3 archivos · 3,00 GiB</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="group-difusion">
+      <div class="case-study-section-header"><p class="section-kicker">Difusión y vídeo</p><h2 id="group-difusion">Familias de ComfyUI</h2><p>Lo que usa ComfyUI: transformers de imagen y vídeo, codificadores de texto, VAEs y LoRA turbo. ComfyUI los carga por corrida, no los deja residentados.</p></div>
+      <div class="ai-table-wrap ai-table-wrap--catalog">
+<table class="ai-table ai-catalog">
+<thead><tr><th>Archivo</th><th>Rol</th><th class="ai-num">Tamaño</th><th>Origen</th><th>Licencia</th><th>Encaje</th></tr></thead>
+<tbody><tr><td data-label="Archivo"><code>ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors</code></td><td data-label="Rol">transformer de vídeo</td><td class="ai-num" data-label="Tamaño">20,03 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noreferrer">Lightricks/LTX-2.5</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>minimax_h3_ref2va_pruned_int8_convrot.safetensors</code></td><td data-label="Rol">transformer de vídeo</td><td class="ai-num" data-label="Tamaño">19,53 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>minimax_h3_fl2va_pruned_fp8_scaled.safetensors</code></td><td data-label="Rol">transformer de vídeo</td><td class="ai-num" data-label="Tamaño">19,52 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors</code></td><td data-label="Rol">codificador de texto</td><td class="ai-num" data-label="Tamaño">14,61 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors</code></td><td data-label="Rol">codificador de texto</td><td class="ai-num" data-label="Tamaño">14,32 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noreferrer">Lightricks/LTX-2.5</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>qwen3.5_9b_int8_convrot.safetensors</code></td><td data-label="Rol">codificador de texto</td><td class="ai-num" data-label="Tamaño">9,08 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/MOSS-Image" target="_blank" rel="noreferrer">Comfy-Org/MOSS-Image</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>qwen3vl_8b_int8_convrot.safetensors</code></td><td data-label="Rol">codificador de texto</td><td class="ai-num" data-label="Tamaño">8,71 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/Qwen-Image-2.1" target="_blank" rel="noreferrer">Comfy-Org/Qwen-Image-2.1</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>qwen_image_2.1_turbo_int8_convrot.safetensors</code></td><td data-label="Rol">transformer de imagen turbo</td><td class="ai-num" data-label="Tamaño">6,76 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/Qwen-Image-2.1" target="_blank" rel="noreferrer">Comfy-Org/Qwen-Image-2.1</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>NoctQ_V3_base_int8_convrot.safetensors</code></td><td data-label="Rol">transformer de imagen</td><td class="ai-num" data-label="Tamaño">6,76 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Noctaluna/Noct-Q-Uncensored-Qwen-Image-2.1" target="_blank" rel="noreferrer">Noctaluna/Noct-Q-Uncensored-Qwen-Image-2.1</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>NoctQ_V4_int8_convrot.safetensors</code></td><td data-label="Rol">transformer de imagen</td><td class="ai-num" data-label="Tamaño">6,76 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Noctaluna/Noct-Q-Uncensored-Qwen-Image-2.1" target="_blank" rel="noreferrer">Noctaluna/Noct-Q-Uncensored-Qwen-Image-2.1</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>qwen_image_2.1_int8_convrot.safetensors</code></td><td data-label="Rol">transformer de imagen</td><td class="ai-num" data-label="Tamaño">6,76 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/Qwen-Image-2.1" target="_blank" rel="noreferrer">Comfy-Org/Qwen-Image-2.1</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>moss_image_sft_int8_convrot.safetensors</code></td><td data-label="Rol">transformer de imagen</td><td class="ai-num" data-label="Tamaño">5,04 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/MOSS-Image" target="_blank" rel="noreferrer">Comfy-Org/MOSS-Image</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>minimax_h3_video_vae_fp16.safetensors</code></td><td data-label="Rol">VAE de vídeo</td><td class="ai-num" data-label="Tamaño">4,85 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>LTX-2.5-Licon-MSR-V2.safetensors</code></td><td data-label="Rol">LoRA multireferencia</td><td class="ai-num" data-label="Tamaño">2,06 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/LiconStudio/LTX-2.5-Multiple-Subject-Reference" target="_blank" rel="noreferrer">LiconStudio/LTX-2.5-Multiple-Subject-Reference</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors</code></td><td data-label="Rol">LoRA turbo</td><td class="ai-num" data-label="Tamaño">1,82 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors</code></td><td data-label="Rol">LoRA turbo</td><td class="ai-num" data-label="Tamaño">1,82 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>ltx-2.5-video-vae-bf16.safetensors</code></td><td data-label="Rol">VAE de vídeo</td><td class="ai-num" data-label="Tamaño">1,37 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noreferrer">Lightricks/LTX-2.5</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors</code></td><td data-label="Rol">escalador latent</td><td class="ai-num" data-label="Tamaño">0,93 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noreferrer">Lightricks/LTX-2.5</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>qwen_image_2.1_vae_bf16.safetensors</code></td><td data-label="Rol">VAE de imagen</td><td class="ai-num" data-label="Tamaño">0,63 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/Qwen-Image-2.1" target="_blank" rel="noreferrer">Comfy-Org/Qwen-Image-2.1</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>minimax_h3_audio_vae_fp32.safetensors</code></td><td data-label="Rol">VAE de audio</td><td class="ai-num" data-label="Tamaño">0,56 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>ltx-2.5-audio-vae-bf16.safetensors</code></td><td data-label="Rol">VAE de audio</td><td class="ai-num" data-label="Tamaño">0,34 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noreferrer">Lightricks/LTX-2.5</a></td><td data-label="Licencia"><code>other</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>flux2-vae.safetensors</code></td><td data-label="Rol">VAE de imagen</td><td class="ai-num" data-label="Tamaño">0,31 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/MOSS-Image" target="_blank" rel="noreferrer">Comfy-Org/MOSS-Image</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr><tr><td data-label="Archivo"><code>flux2-vae_small.safetensors</code></td><td data-label="Rol">VAE de imagen pequeño</td><td class="ai-num" data-label="Tamaño">0,23 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/Comfy-Org/MOSS-Image" target="_blank" rel="noreferrer">Comfy-Org/MOSS-Image</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">Bajo demanda</span></td></tr></tbody>
+</table>
+</div>
+      <p class="case-study-note mt-4">23 archivos · 152,80 GiB</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="group-audio">
+      <div class="case-study-section-header"><p class="section-kicker">Audio / ASR</p><h2 id="group-audio">whisper en OpenVINO</h2><p>whisper large v3 cuantizado a int8 para OpenVINO: codificador y descodificador como dos archivos.</p></div>
+      <div class="ai-table-wrap ai-table-wrap--catalog">
+<table class="ai-table ai-catalog">
+<thead><tr><th>Archivo</th><th>Rol</th><th class="ai-num">Tamaño</th><th>Origen</th><th>Licencia</th><th>Encaje</th></tr></thead>
+<tbody><tr><td data-label="Archivo"><code>openvino_decoder_model.bin</code></td><td data-label="Rol">descodificador ASR</td><td class="ai-num" data-label="Tamaño">0,85 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/OpenVINO/whisper-large-v3-int8-ov" target="_blank" rel="noreferrer">OpenVINO/whisper-large-v3-int8-ov</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">En VRAM</span></td></tr><tr><td data-label="Archivo"><code>openvino_encoder_model.bin</code></td><td data-label="Rol">codificador ASR</td><td class="ai-num" data-label="Tamaño">0,60 GiB</td><td data-label="Origen"><a class="text-link" href="https://huggingface.co/OpenVINO/whisper-large-v3-int8-ov" target="_blank" rel="noreferrer">OpenVINO/whisper-large-v3-int8-ov</a></td><td data-label="Licencia"><code>Apache-2.0</code></td><td data-label="Encaje"><span class="ai-pill">En VRAM</span></td></tr></tbody>
+</table>
+</div>
+      <p class="case-study-note mt-4">2 archivos · 1,45 GiB</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="licences-title">
+      <div class="case-study-section-header"><p class="section-kicker">Licencias</p><h2 id="licences-title">Bajo qué cae cada peso</h2><p>Contado sobre los 49 archivos del catálogo.</p></div>
+      <dl class="ai-spec"><div class="ai-spec-row"><dt>Apache-2.0</dt><dd>22 archivos</dd></div><div class="ai-spec-row"><dt>other</dt><dd>20 archivos</dd></div><div class="ai-spec-row"><dt>MIT</dt><dd>3 archivos</dd></div><div class="ai-spec-row"><dt>swift-open-1.0</dt><dd>2 archivos</dd></div><div class="ai-spec-row"><dt>openmdw-1.1</dt><dd>1 archivos</dd></div><div class="ai-spec-row"><dt>Apache-2.0 (base Qwen)</dt><dd>1 archivos</dd></div></dl>
+      <p class="case-study-note mt-4">El valor <code>other</code> agrupa repos con términos propios: cada uno los define en su página, y el enlace de la fila lleva ahí.</p>
+    </section>
+
+    <section class="case-study-section case-study-outlook mx-auto container-xx px-4" aria-labelledby="scope-title">
+      <div class="case-study-section-header"><p class="section-kicker">Alcance</p><h2 id="scope-title">Lo verificado y lo que no</h2></div>
+      <div class="case-study-outlook-grid">
+        <div>
+          <h3>Verificado</h3>
+          <ul><li>Tamaño exacto en bytes contra el árbol recursivo de cada repo, y metadata del GGUF con el lector de XeStrata.</li><li>Revisiones de descarga (<code>.metadata</code> del caché de Hugging Face) para los casos en que el <code>main</code> del repo se re-cuantizó después.</li><li>VRAM útil, arena KV y VRAM libre del <code>/health</code> del motor vivo.</li><li>Dos pares de shards y el borrador MTP local confirmados por hash y nombre de metadata.</li></ul>
+        </div>
+        <div>
+          <h3>Fuera</h3>
+          <ul><li>Rendimiento por modelo: solo Gyro-S corre y se midió en esta máquina; las demás filas son presupuesto, no corrida.</li><li>Repos gated de Hugging Face sin sesión: no se comprobaron, y ninguno de los pesos locales depende de ellos.</li><li>El catálogo de archivos de ComfyUI se verificó por tamaño; la generación de imagen y vídeo con sus tiempos es la entrada prevista que sigue.</li><li>Los 2 pesos Heretic quedan fuera del catálogo a propósito.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-study-section case-study-resources mx-auto container-xx px-4" aria-labelledby="resources-title">
+      <div class="case-study-section-header"><p class="section-kicker">Recursos</p><h2 id="resources-title">Dónde está cada pieza</h2><p>El inventario y la máquina están publicados en JSON. Los repos enlazados son las fuentes de los pesos; el único peso local es el borrador MTP cuantizado con XeStrata.</p></div>
+      <nav class="case-study-resource-links" aria-label="Recursos del catálogo">
+        <a href="/projects/local-ai/data/inventory.json" class="project-cta"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>Inventario en JSON</span></a>
+        <a href="/projects/local-ai/data/machine.json" class="project-cta project-cta--secondary"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>Máquina en JSON</span></a>
+        <a href="https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="download" class="h-4 w-4" aria-hidden="true"></i><span>GSQ-RCO</span></a>
+        <a href="https://github.com/MistVVK/XeStrata" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="github" class="h-4 w-4" aria-hidden="true"></i><span>XeStrata</span></a>
+        <a href="/projects/local-ai/" class="project-cta project-cta--secondary"><i data-lucide="folder" class="h-4 w-4" aria-hidden="true"></i><span>Carpeta de IA local</span></a>
+      </nav>
+    </section>
+    <div class="case-study-back-wrap case-study-back-wrap--footer mx-auto container-xx px-4"><a href="/projects/local-ai/" class="case-study-back text-link">&larr; Volver a IA local</a></div>
+  </main>
+  <footer class="case-study-footer">&copy; <span id="yr"></span> Marco Rios · Desplegado en GitHub Pages</footer>
+</body>
+</html>

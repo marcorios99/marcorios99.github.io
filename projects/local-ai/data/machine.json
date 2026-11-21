@@ -1,0 +1,44 @@
+{
+ "schema": "local-ai-machine/1",
+ "measured": "2026-11-21",
+ "gpu": {
+  "name": "Intel Arc Pro B60",
+  "pci": "0000:03:00.0",
+  "vram_total_bytes": 25669140480,
+  "vram_useful_gib": 23.91,
+  "vram_free_mib_snapshot": 2031
+ },
+ "cpu": {
+  "name": "12th Gen Intel Core i5-12400F",
+  "cores": 6,
+  "threads": 12
+ },
+ "ram_bytes": 33475006464,
+ "disk": {
+  "weights_nvme": "WD Blue SN570",
+  "system": "separate from the weights disk"
+ },
+ "os": {
+  "name": "Ubuntu 24.04.5 LTS",
+  "kernel": "7.0.0-43-generic"
+ },
+ "engine": {
+  "name": "XeStrata",
+  "version": "xe0.2.8-1",
+  "model": "qwen3.8-flash-next-gyro-gyro-s",
+  "quant": "TQ1_0",
+  "kv_cache": "int8",
+  "max_context": 131072,
+  "kv_arena_mib": 13948,
+  "expert_cache_mib": 12138,
+  "conversation_cache_mib": 2048,
+  "snapshot_endpoint": "http://127.0.0.1:8095/health"
+ },
+ "sources": [
+  "lspci",
+  "/proc/cpuinfo",
+  "dpkg",
+  "engine /health"
+ ],
+ "note": "Specs read from the hardware and the live engine, not from sales sheets. vram_free_mib_snapshot is one idle snapshot on 2026-11-21."
+}

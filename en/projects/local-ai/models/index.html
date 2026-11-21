@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Catalogue of local AI weights: 49 files with size, origin, license and fit in the engine's measured VRAM. GGUF, ComfyUI safetensors and OpenVINO, with the KV budget computed per cache type." />
+  <link rel="canonical" href="https://marcorios99.github.io/projects/local-ai/models/" />
+  <link rel="alternate" hreflang="es" href="https://marcorios99.github.io/projects/local-ai/models/" />
+  <link rel="alternate" hreflang="en" href="https://marcorios99.github.io/en/projects/local-ai/models/" />
+  <link rel="alternate" hreflang="x-default" href="https://marcorios99.github.io/projects/local-ai/models/" />
+  <meta property="og:title" content="Local weights catalogue | Local AI | Marco Rios" />
+  <meta property="og:description" content="49 files and 553.19 GiB on disk: GGUF for inference, safetensors for ComfyUI and OpenVINO for whisper. Every file's origin and license are verified by exact bytes, and each weight's fit in the VRAM of a 24 GB Intel Arc Pro B60." />
+  <meta property="og:image" content="https://marcorios99.github.io/assets/img/og-cover-portfolio-2026.png" />
+  <meta property="og:url" content="https://marcorios99.github.io/en/projects/local-ai/models/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Local weights catalogue | Local AI on own hardware – Marco Rios</title>
+  <meta name="theme-color" content="#0b0f14" />
+  <script>
+  (function () {
+    const theme = localStorage.getItem('theme') || 'dark';
+    const html = document.documentElement;
+    html.classList.toggle('dark', theme === 'dark');
+    html.classList.toggle('light', theme !== 'dark');
+    html.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f14' : '#f8fafc');
+  })();
+  </script>
+  <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/pages/project-detail.css" />
+  <link rel="stylesheet" href="/assets/css/pages/projects.css" />
+  <link rel="stylesheet" href="/assets/css/pages/local-ai.css" />
+</head>
+<body class="min-h-screen">
+  <header class="sticky top-0 z-50 border-b backdrop-blur">
+    <nav class="mx-auto container-xx px-4 flex items-center justify-between py-3" aria-label="Main navigation">
+      <a href="/" class="site-wordmark">Marco Rios</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="/" class="navlink">Home</a>
+        <a href="/projects/" class="navlink">Projects</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="/en/projects/local-ai/models/" class="btn-outline"><i data-lucide="languages" aria-hidden="true" class="h-4 w-4"></i> ES<span class="sr-only"> · view this page in Spanish</span></a>
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"><span id="themeIcon" class="h-5 w-5 inline-flex"></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="case-study-page ai-page">
+    <div class="case-study-back-wrap mx-auto container-xx px-4"><a href="/en/projects/local-ai/" class="case-study-back text-link">&larr; Back to Local AI</a></div>
+
+    <section class="case-study-hero mx-auto container-xx px-4" aria-labelledby="case-study-title">
+      <div class="case-study-hero-grid case-study-hero-grid--single">
+        <div class="case-study-hero-copy">
+          <p class="section-kicker">Audio / ASR</p>
+          <h1 id="case-study-title">Weights catalogue</h1>
+          <p class="case-study-summary">The weights folder as a catalogue: what each file is, which repo it comes from, which license it falls under and where it fits in a 24 GB card. The tables group by role, and each GGUF's fit is computed against the VRAM the engine measured.</p>
+          <p class="case-study-note">Origins were verified by exact byte size against each repo's tree in the Hugging Face API and by GGUF metadata. Of the 49 files, 48 land in a confirmed public repo; the <code>q2_0</code> MTP draft was quantized here with XeStrata over the BF16 checkpoint's <code>mtp.*</code> tensors. The fit is an arithmetic budget against 23.91 GiB of useful VRAM, not a per-model measurement: the only model tried on this machine is Gyro-S.</p>
+          <div class="flex flex-wrap gap-2 mt-5" aria-label="Capabilities">
+            <span class="badge">GGUF</span><span class="badge">safetensors</span><span class="badge">OpenVINO</span><span class="badge">ComfyUI</span><span class="badge">Intel Arc Pro B60</span>
+          </div>
+          <nav class="ai-entry-links" aria-label="Local AI links">
+            <a href="/en/projects/local-ai/" class="project-cta"><i data-lucide="folder" class="h-4 w-4" aria-hidden="true"></i><span>Local AI folder</span></a>
+            <a href="/en/projects/local-ai/xestrata/" class="project-cta project-cta--secondary"><i data-lucide="cpu" class="h-4 w-4" aria-hidden="true"></i><span>MoE inference on Intel Arc</span></a>
+            <a href="/en/projects/local-ai/running/" class="project-cta project-cta--secondary"><i data-lucide="terminal" class="h-4 w-4" aria-hidden="true"></i><span>Startup and quantizations</span></a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="totals-title">
+      <div class="case-study-section-header"><p class="section-kicker">Inventory</p><h2 id="totals-title">What sits on disk</h2><p>The weights live on a NVMe separate from the system, in two folders: the inference one (<code>models</code> and the shard pairs) and the ComfyUI one (<code>Comfyui-AI-Models</code>). Both were inventoried on November 21, 2026.</p></div>
+      <dl class="ai-spec">
+        <div class="ai-spec-row"><dt>Total</dt><dd>49 files · 553.19 GiB · origen confirmado en 49 de 49.</dd></div>
+        <div class="ai-spec-row"><dt>By format</dt><dd>GGUF 24 · 398.95 GiB · safetensors (ComfyUI) 23 · 152.80 GiB · OpenVINO (whisper) 2 · 1.45 GiB.</dd></div>
+        <div class="ai-spec-row"><dt>Verification</dt><dd>Exact byte size against each repo's tree and GGUF metadata. One weight was quantized locally with XeStrata; the rest come from public repos.</dd></div>
+        <div class="ai-spec-row"><dt>Data</dt><dd><a class="text-link" href="/en/projects/local-ai/data/inventory.json"><code>inventory.json</code></a> (49 filas) y <a class="text-link" href="/en/projects/local-ai/data/machine.json"><code>machine.json</code></a>, schemas <code>local-ai-inventory/1</code> y <code>local-ai-machine/1</code>.</dd></div>
+      </dl>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="rule-title">
+      <div class="case-study-section-header"><p class="section-kicker">Fit</p><h2 id="rule-title">How each weight enters 24 GB</h2><p>The fit is computed with the rule below, not with load tests. The useful VRAM came from the engine's <code>/health</code>, which reports 25,669,140,480 bytes (23.91 GiB). GGUF weights are counted fully loaded into the GPU.</p></div>
+      <dl class="ai-spec">
+        <div class="ai-spec-row"><dt>In VRAM</dt><dd>weights + f16 KV cache at 131k ≤ 23.91 GiB. The model fits with the full context and the default cache.</dd></div>
+        <div class="ai-spec-row"><dt>Reduced KV</dt><dd>fits only by dropping the cache to q8_0 or q4_0 with short context (≤32k); needs <code>--cache-type-k</code> and <code>--cache-type-v</code> at startup.</dd></div>
+        <div class="ai-spec-row"><dt>Split</dt><dd>the weights alone exceed VRAM and the engine splits them across VRAM, RAM and NVMe, as studied in the XeStrata entry.</dd></div>
+        <div class="ai-spec-row"><dt>With base</dt><dd>mmproj and drafts: they add to the model serving them; the mmproj adds about 0.6–0.9 GiB when an image comes in.</dd></div>
+        <div class="ai-spec-row"><dt>On demand</dt><dd>ComfyUI safetensors: loaded per run with <code>--reserve-vram 5</code>, never resident.</dd></div>
+      </dl>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="kv-title">
+      <div class="case-study-section-header"><p class="section-kicker">KV</p><h2 id="kv-title">The KV cache weighs more than the weights</h2><p>The per-token cost comes from the layers, KV heads and head dimension read out of the GGUF. A dense 27B with 4 KV heads costs nearly three times what a MoE 35B with 2 does: that is why the dense ones only fit with a reduced cache.</p></div>
+      <div class="ai-figure-frame" role="img" aria-label="KV budget · useful VRAM 23.91 GiB">
+<svg viewBox="0 0 720 236" xmlns="http://www.w3.org/2000/svg">
+<text class="ai-figure-title" x="16" y="26">KV budget · useful VRAM 23.91 GiB</text>
+<text class="ai-figure-strong" x="176" y="56">MoE 35B · per token</text>
+<text class="ai-figure-strong" x="326" y="56">· 131k</text>
+<text class="ai-figure-strong" x="466" y="56">Dense 27B · per token</text>
+<text class="ai-figure-strong" x="616" y="56">· 131k</text>
+<line class="ai-line" x1="16" y1="64" x2="704" y2="64"/>
+<text class="ai-figure-strong" x="16" y="80">f16</text><text x="176" y="80">80 KiB</text><text x="326" y="80">10.00 GiB</text><text x="466" y="80">260 KiB</text><text x="616" y="80">32.50 GiB</text><text class="" x="16" y="104">q8_0</text><text x="176" y="104">45 KiB</text><text x="326" y="104">5.62 GiB</text><text x="466" y="104">146 KiB</text><text x="616" y="104">18.28 GiB</text><text class="" x="16" y="128">q4_0</text><text x="176" y="128">22 KiB</text><text x="326" y="128">2.81 GiB</text><text x="466" y="128">73 KiB</text><text x="616" y="128">9.14 GiB</text><line class="ai-line" x1="16" y1="152" x2="704" y2="152"/>
+<text class="ai-figure-accent" x="16" y="176">Gyro-S · measured from the engine (2026-11-21)</text>
+<text x="16" y="198">int8 cache · 131,072 context · 13,948 MiB arena · 2,031 MiB VRAM free</text>
+<text x="16" y="220">the TQ1_0 weights (54.47 GiB) leave VRAM: that is why the fit is split</text>
+</svg>
+</div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="groups-title">
+      <div class="case-study-section-header"><p class="section-kicker">Groups</p><h2 id="groups-title">The catalogue tables</h2><p>Sorted by size within each group. The origin link goes to the repo where the file was verified.</p></div>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="group-moe">
+      <div class="case-study-section-header"><p class="section-kicker">Text · MoE</p><h2 id="group-moe">Text MoE</h2><p>Nine base MoE models and the two GSQ-RCO shard pairs of the Flash-Next, read as one model split across tiers. The largest ones leave VRAM for RAM and NVMe.</p></div>
+      <div class="ai-table-wrap ai-table-wrap--catalog">
+<table class="ai-table ai-catalog">
+<thead><tr><th>File</th><th>Role</th><th class="ai-num">Size</th><th>Origin</th><th>License</th><th>Fit</th></tr></thead>
+<tbody><tr><td data-label="File"><code>Qwen3.8-Flash-Next-Gyro-S-TQ1_0.gguf</code></td><td data-label="Role">MoE · 512 experts</td><td class="ai-num" data-label="Size">54.47 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/agentionai/Qwen3.8-Flash-Next-Gyro-GGUF" target="_blank" rel="noreferrer">agentionai/Qwen3.8-Flash-Next-Gyro-GGUF</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">Split</span></td></tr><tr><td data-label="File"><code>Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf</code></td><td data-label="Role">shard 1/2</td><td class="ai-num" data-label="Size">36.53 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF" target="_blank" rel="noreferrer">ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">Split</span></td></tr><tr><td data-label="File"><code>Qwen3.8-Flash-Next-GSQ-RCO-IQ1_M-00001-of-00002.gguf</code></td><td data-label="Role">shard 1/2</td><td class="ai-num" data-label="Size">27.58 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF" target="_blank" rel="noreferrer">ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">Split</span></td></tr><tr><td data-label="File"><code>Qwen3.8-Flash-Next-GSQ-RCO-IQ1_M-00002-of-00002.gguf</code></td><td data-label="Role">shard 2/2</td><td class="ai-num" data-label="Size">26.82 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF" target="_blank" rel="noreferrer">ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">Split</span></td></tr><tr><td data-label="File"><code>Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00002-of-00002.gguf</code></td><td data-label="Role">shard 2/2</td><td class="ai-num" data-label="Size">26.82 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF" target="_blank" rel="noreferrer">ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">Split</span></td></tr><tr><td data-label="File"><code>Qwen3.6-35B-A3B-UD-Q4_K_M.gguf</code></td><td data-label="Role">MoE · 256 experts</td><td class="ai-num" data-label="Size">20.61 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF" target="_blank" rel="noreferrer">unsloth/Qwen3.6-35B-A3B-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">Reduced KV</span></td></tr><tr><td data-label="File"><code>Qwen3.6-35B-A3B-UD-Q4_K_S.gguf</code></td><td data-label="Role">MoE · 256 experts</td><td class="ai-num" data-label="Size">19.46 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF" target="_blank" rel="noreferrer">unsloth/Qwen3.6-35B-A3B-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">Reduced KV</span></td></tr><tr><td data-label="File"><code>Laguna-XS-2.1-Q4_K_M.gguf</code></td><td data-label="Role">MoE · 256 experts</td><td class="ai-num" data-label="Size">18.88 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/poolside/Laguna-XS-2.1-GGUF" target="_blank" rel="noreferrer">poolside/Laguna-XS-2.1-GGUF</a></td><td data-label="License"><code>openmdw-1.1</code></td><td data-label="Fit"><span class="ai-pill">Reduced KV</span></td></tr><tr><td data-label="File"><code>Clover-35B-A3B-Preview-Q4_0.gguf</code></td><td data-label="Role">MoE · 256 experts</td><td class="ai-num" data-label="Size">18.24 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Diffuspace/Clover-35B-A3B-Preview-GGUF" target="_blank" rel="noreferrer">Diffuspace/Clover-35B-A3B-Preview-GGUF</a></td><td data-label="License"><code>MIT</code></td><td data-label="Fit"><span class="ai-pill">Reduced KV</span></td></tr><tr><td data-label="File"><code>North-Mini-Code-1.0-UD-Q4_K_M.gguf</code></td><td data-label="Role">MoE · 128 experts</td><td class="ai-num" data-label="Size">17.88 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/unsloth/North-Mini-Code-1.0-GGUF" target="_blank" rel="noreferrer">unsloth/North-Mini-Code-1.0-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">Reduced KV</span></td></tr><tr><td data-label="File"><code>Qwen3.6-35B-A3B-UD-IQ4_NL.gguf</code></td><td data-label="Role">MoE · 256 experts</td><td class="ai-num" data-label="Size">16.80 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF" target="_blank" rel="noreferrer">unsloth/Qwen3.6-35B-A3B-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">Reduced KV</span></td></tr><tr><td data-label="File"><code>Ornith-1.5-35B-A3B-IQ3_M.gguf</code></td><td data-label="Role">MoE · 256 experts</td><td class="ai-num" data-label="Size">16.18 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/bartowski/Ornith-1.5-35B-A3B-GGUF" target="_blank" rel="noreferrer">bartowski/Ornith-1.5-35B-A3B-GGUF</a></td><td data-label="License"><code>MIT</code></td><td data-label="Fit"><span class="ai-pill">Reduced KV</span></td></tr><tr><td data-label="File"><code>Groot-19B-A3B-261023-Q4_K_M.gguf</code></td><td data-label="Role">MoE · 128 experts</td><td class="ai-num" data-label="Size">10.86 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/GrootTeam/Groot-19B-A3B-261023-GGUF" target="_blank" rel="noreferrer">GrootTeam/Groot-19B-A3B-261023-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">In VRAM</span></td></tr></tbody>
+</table>
+</div>
+      <p class="case-study-note mt-4">13 files · 311.14 GiB</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="group-dense">
+      <div class="case-study-section-header"><p class="section-kicker">Text · dense</p><h2 id="group-dense">Dense text MoE</h2><p>Five dense Qwen3.8-27B variants with full attention and one 9B. Dense attention carries 4 KV heads, so the cache costs nearly three times a MoE's and none fit with the full context.</p></div>
+      <div class="ai-table-wrap ai-table-wrap--catalog">
+<table class="ai-table ai-catalog">
+<thead><tr><th>File</th><th>Role</th><th class="ai-num">Size</th><th>Origin</th><th>License</th><th>Fit</th></tr></thead>
+<tbody><tr><td data-label="File"><code>Swift-Qwen3.8-27B-Q4_K_M.gguf</code></td><td data-label="Role">dense 27B</td><td class="ai-num" data-label="Size">16.79 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/ukisai/Swift-Qwen3.8-27B-GGUF" target="_blank" rel="noreferrer">ukisai/Swift-Qwen3.8-27B-GGUF</a></td><td data-label="License"><code>swift-open-1.0</code></td><td data-label="Fit"><span class="ai-pill">Reduced KV</span></td></tr><tr><td data-label="File"><code>ThinkingCap-Qwen3.8-27B-Q4_K_M.gguf</code></td><td data-label="Role">dense 27B</td><td class="ai-num" data-label="Size">16.24 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/bottlecapai/ThinkingCap-Qwen3.8-27B-GGUF" target="_blank" rel="noreferrer">bottlecapai/ThinkingCap-Qwen3.8-27B-GGUF</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">Reduced KV</span></td></tr><tr><td data-label="File"><code>Qwen3.8-27B-UD-Q4_K_M.gguf</code></td><td data-label="Role">dense 27B</td><td class="ai-num" data-label="Size">15.33 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF" target="_blank" rel="noreferrer">unsloth/Qwen3.8-27B-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">Reduced KV</span></td></tr><tr><td data-label="File"><code>Qwen3.8-27B-Ridge-Intel-Arc-Tuned-Q4_K.gguf</code></td><td data-label="Role">dense 27B</td><td class="ai-num" data-label="Size">15.30 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Greatjedi/Qwen3.8-27B-Intel-Arc-Tuned-GGUF" target="_blank" rel="noreferrer">Greatjedi/Qwen3.8-27B-Intel-Arc-Tuned-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">Reduced KV</span></td></tr><tr><td data-label="File"><code>Qwen3.8-27B-GSQ-RCO-IQ3_S-Intel-Arc-Tuned-MTP-Q4_K.gguf</code></td><td data-label="Role">dense 27B · MTP</td><td class="ai-num" data-label="Size">14.30 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Greatjedi/Qwen3.8-27B-Intel-Arc-Tuned-GGUF" target="_blank" rel="noreferrer">Greatjedi/Qwen3.8-27B-Intel-Arc-Tuned-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">Reduced KV</span></td></tr><tr><td data-label="File"><code>Ornith-1.5-9B-Q4_K_M.gguf</code></td><td data-label="Role">dense 9B</td><td class="ai-num" data-label="Size">5.38 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/ornith-ai/Ornith-1.5-9B-GGUF" target="_blank" rel="noreferrer">ornith-ai/Ornith-1.5-9B-GGUF</a></td><td data-label="License"><code>MIT</code></td><td data-label="Fit"><span class="ai-pill">In VRAM</span></td></tr></tbody>
+</table>
+</div>
+      <p class="case-study-note mt-4">6 files · 83.36 GiB</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="group-vision">
+      <div class="case-study-section-header"><p class="section-kicker">Vision</p><h2 id="group-vision">mmproj projectors</h2><p>Two vision projectors: they never load alone, they accompany the base model when an image comes in.</p></div>
+      <div class="ai-table-wrap ai-table-wrap--catalog">
+<table class="ai-table ai-catalog">
+<thead><tr><th>File</th><th>Role</th><th class="ai-num">Size</th><th>Origin</th><th>License</th><th>Fit</th></tr></thead>
+<tbody><tr><td data-label="File"><code>mmproj-Swift-Qwen3.8-27B-F16.gguf</code></td><td data-label="Role">vision projector</td><td class="ai-num" data-label="Size">0.86 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/ukisai/Swift-Qwen3.8-27B-GGUF" target="_blank" rel="noreferrer">ukisai/Swift-Qwen3.8-27B-GGUF</a></td><td data-label="License"><code>swift-open-1.0</code></td><td data-label="Fit"><span class="ai-pill">With base</span></td></tr><tr><td data-label="File"><code>mmproj-Qwen3.8-27B-Q8_0.gguf</code></td><td data-label="Role">vision projector</td><td class="ai-num" data-label="Size">0.59 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/ggml-org/Qwen3.8-27B-GGUF" target="_blank" rel="noreferrer">ggml-org/Qwen3.8-27B-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">With base</span></td></tr></tbody>
+</table>
+</div>
+      <p class="case-study-note mt-4">2 files · 1.45 GiB</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="group-draft">
+      <div class="case-study-section-header"><p class="section-kicker">Drafts</p><h2 id="group-draft">Speculative decoding</h2><p>MTP and DFlash2 drafts for speculative decoding: their cache is small and they load alongside the model they serve.</p></div>
+      <div class="ai-table-wrap ai-table-wrap--catalog">
+<table class="ai-table ai-catalog">
+<thead><tr><th>File</th><th>Role</th><th class="ai-num">Size</th><th>Origin</th><th>License</th><th>Fit</th></tr></thead>
+<tbody><tr><td data-label="File"><code>Qwen3.6-35B-A3B-MTP-q4_0.gguf</code></td><td data-label="Role">MTP draft</td><td class="ai-num" data-label="Size">1.11 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/lym00/Qwen3.6-35B-A3B-MTP-ONLY-GGUF" target="_blank" rel="noreferrer">lym00/Qwen3.6-35B-A3B-MTP-ONLY-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">With base</span></td></tr><tr><td data-label="File"><code>Qwen3.8-27B-DFlash2-Q4_K_M.gguf</code></td><td data-label="Role">DFlash2 draft</td><td class="ai-num" data-label="Size">1.06 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/z-lab/Qwen3.8-27B-DFlash2-GGUF" target="_blank" rel="noreferrer">z-lab/Qwen3.8-27B-DFlash2-GGUF</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">With base</span></td></tr><tr><td data-label="File"><code>mtp-q2_0.gguf</code></td><td data-label="Role">MTP draft · experts q2_0</td><td class="ai-num" data-label="Size">0.83 GiB</td><td data-label="Origin">local · quantized with XeStrata</td><td data-label="License"><code>Apache-2.0 (Qwen base)</code></td><td data-label="Fit"><span class="ai-pill">With split base</span></td></tr></tbody>
+</table>
+</div>
+      <p class="case-study-note mt-4">3 files · 3.00 GiB</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="group-difusion">
+      <div class="case-study-section-header"><p class="section-kicker">Diffusion and video</p><h2 id="group-difusion">ComfyUI families</h2><p>What ComfyUI uses: image and video transformers, text encoders, VAEs and turbo LoRA. ComfyUI loads them per run, not resident.</p></div>
+      <div class="ai-table-wrap ai-table-wrap--catalog">
+<table class="ai-table ai-catalog">
+<thead><tr><th>File</th><th>Role</th><th class="ai-num">Size</th><th>Origin</th><th>License</th><th>Fit</th></tr></thead>
+<tbody><tr><td data-label="File"><code>ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors</code></td><td data-label="Role">video transformer</td><td class="ai-num" data-label="Size">20.03 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noreferrer">Lightricks/LTX-2.5</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>minimax_h3_ref2va_pruned_int8_convrot.safetensors</code></td><td data-label="Role">video transformer</td><td class="ai-num" data-label="Size">19.53 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>minimax_h3_fl2va_pruned_fp8_scaled.safetensors</code></td><td data-label="Role">video transformer</td><td class="ai-num" data-label="Size">19.52 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors</code></td><td data-label="Role">text encoder</td><td class="ai-num" data-label="Size">14.61 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors</code></td><td data-label="Role">text encoder</td><td class="ai-num" data-label="Size">14.32 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noreferrer">Lightricks/LTX-2.5</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>qwen3.5_9b_int8_convrot.safetensors</code></td><td data-label="Role">text encoder</td><td class="ai-num" data-label="Size">9.08 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/MOSS-Image" target="_blank" rel="noreferrer">Comfy-Org/MOSS-Image</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>qwen3vl_8b_int8_convrot.safetensors</code></td><td data-label="Role">text encoder</td><td class="ai-num" data-label="Size">8.71 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/Qwen-Image-2.1" target="_blank" rel="noreferrer">Comfy-Org/Qwen-Image-2.1</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>qwen_image_2.1_turbo_int8_convrot.safetensors</code></td><td data-label="Role">turbo image transformer</td><td class="ai-num" data-label="Size">6.76 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/Qwen-Image-2.1" target="_blank" rel="noreferrer">Comfy-Org/Qwen-Image-2.1</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>NoctQ_V3_base_int8_convrot.safetensors</code></td><td data-label="Role">image transformer</td><td class="ai-num" data-label="Size">6.76 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Noctaluna/Noct-Q-Uncensored-Qwen-Image-2.1" target="_blank" rel="noreferrer">Noctaluna/Noct-Q-Uncensored-Qwen-Image-2.1</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>NoctQ_V4_int8_convrot.safetensors</code></td><td data-label="Role">image transformer</td><td class="ai-num" data-label="Size">6.76 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Noctaluna/Noct-Q-Uncensored-Qwen-Image-2.1" target="_blank" rel="noreferrer">Noctaluna/Noct-Q-Uncensored-Qwen-Image-2.1</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>qwen_image_2.1_int8_convrot.safetensors</code></td><td data-label="Role">image transformer</td><td class="ai-num" data-label="Size">6.76 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/Qwen-Image-2.1" target="_blank" rel="noreferrer">Comfy-Org/Qwen-Image-2.1</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>moss_image_sft_int8_convrot.safetensors</code></td><td data-label="Role">image transformer</td><td class="ai-num" data-label="Size">5.04 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/MOSS-Image" target="_blank" rel="noreferrer">Comfy-Org/MOSS-Image</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>minimax_h3_video_vae_fp16.safetensors</code></td><td data-label="Role">video VAE</td><td class="ai-num" data-label="Size">4.85 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>LTX-2.5-Licon-MSR-V2.safetensors</code></td><td data-label="Role">multi-reference LoRA</td><td class="ai-num" data-label="Size">2.06 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/LiconStudio/LTX-2.5-Multiple-Subject-Reference" target="_blank" rel="noreferrer">LiconStudio/LTX-2.5-Multiple-Subject-Reference</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors</code></td><td data-label="Role">turbo LoRA</td><td class="ai-num" data-label="Size">1.82 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors</code></td><td data-label="Role">turbo LoRA</td><td class="ai-num" data-label="Size">1.82 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>ltx-2.5-video-vae-bf16.safetensors</code></td><td data-label="Role">video VAE</td><td class="ai-num" data-label="Size">1.37 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noreferrer">Lightricks/LTX-2.5</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors</code></td><td data-label="Role">latent upscaler</td><td class="ai-num" data-label="Size">0.93 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noreferrer">Lightricks/LTX-2.5</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>qwen_image_2.1_vae_bf16.safetensors</code></td><td data-label="Role">image VAE</td><td class="ai-num" data-label="Size">0.63 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/Qwen-Image-2.1" target="_blank" rel="noreferrer">Comfy-Org/Qwen-Image-2.1</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>minimax_h3_audio_vae_fp32.safetensors</code></td><td data-label="Role">audio VAE</td><td class="ai-num" data-label="Size">0.56 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noreferrer">Comfy-Org/MiniMax-H3</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>ltx-2.5-audio-vae-bf16.safetensors</code></td><td data-label="Role">audio VAE</td><td class="ai-num" data-label="Size">0.34 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noreferrer">Lightricks/LTX-2.5</a></td><td data-label="License"><code>other</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>flux2-vae.safetensors</code></td><td data-label="Role">image VAE</td><td class="ai-num" data-label="Size">0.31 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/MOSS-Image" target="_blank" rel="noreferrer">Comfy-Org/MOSS-Image</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr><tr><td data-label="File"><code>flux2-vae_small.safetensors</code></td><td data-label="Role">small image VAE</td><td class="ai-num" data-label="Size">0.23 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/Comfy-Org/MOSS-Image" target="_blank" rel="noreferrer">Comfy-Org/MOSS-Image</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">On demand</span></td></tr></tbody>
+</table>
+</div>
+      <p class="case-study-note mt-4">23 files · 152.80 GiB</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="group-audio">
+      <div class="case-study-section-header"><p class="section-kicker">Audio / ASR</p><h2 id="group-audio">whisper in OpenVINO</h2><p>whisper large v3 quantized to int8 for OpenVINO: encoder and decoder as two files.</p></div>
+      <div class="ai-table-wrap ai-table-wrap--catalog">
+<table class="ai-table ai-catalog">
+<thead><tr><th>File</th><th>Role</th><th class="ai-num">Size</th><th>Origin</th><th>License</th><th>Fit</th></tr></thead>
+<tbody><tr><td data-label="File"><code>openvino_decoder_model.bin</code></td><td data-label="Role">ASR decoder</td><td class="ai-num" data-label="Size">0.85 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/OpenVINO/whisper-large-v3-int8-ov" target="_blank" rel="noreferrer">OpenVINO/whisper-large-v3-int8-ov</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">In VRAM</span></td></tr><tr><td data-label="File"><code>openvino_encoder_model.bin</code></td><td data-label="Role">ASR encoder</td><td class="ai-num" data-label="Size">0.60 GiB</td><td data-label="Origin"><a class="text-link" href="https://huggingface.co/OpenVINO/whisper-large-v3-int8-ov" target="_blank" rel="noreferrer">OpenVINO/whisper-large-v3-int8-ov</a></td><td data-label="License"><code>Apache-2.0</code></td><td data-label="Fit"><span class="ai-pill">In VRAM</span></td></tr></tbody>
+</table>
+</div>
+      <p class="case-study-note mt-4">2 files · 1.45 GiB</p>
+    </section>
+
+    <section class="case-study-section mx-auto container-xx px-4" aria-labelledby="licences-title">
+      <div class="case-study-section-header"><p class="section-kicker">Licenses</p><h2 id="licences-title">Which license each weight falls under</h2><p>Counted over the 49 files in the catalogue.</p></div>
+      <dl class="ai-spec"><div class="ai-spec-row"><dt>Apache-2.0</dt><dd>22 files</dd></div><div class="ai-spec-row"><dt>other</dt><dd>20 files</dd></div><div class="ai-spec-row"><dt>MIT</dt><dd>3 files</dd></div><div class="ai-spec-row"><dt>swift-open-1.0</dt><dd>2 files</dd></div><div class="ai-spec-row"><dt>openmdw-1.1</dt><dd>1 files</dd></div><div class="ai-spec-row"><dt>Apache-2.0 (Qwen base)</dt><dd>1 files</dd></div></dl>
+      <p class="case-study-note mt-4">The <code>other</code> value groups repos with their own terms: each defines them on its page, and the row link goes there.</p>
+    </section>
+
+    <section class="case-study-section case-study-outlook mx-auto container-xx px-4" aria-labelledby="scope-title">
+      <div class="case-study-section-header"><p class="section-kicker">Scope</p><h2 id="scope-title">What is verified and what is not</h2></div>
+      <div class="case-study-outlook-grid">
+        <div>
+          <h3>Verified</h3>
+          <ul><li>Exact byte size against each repo's recursive tree, and GGUF metadata read with XeStrata's reader.</li><li>Download revisions (the Hugging Face cache's <code>.metadata</code>) for the cases where the repo's <code>main</code> was requantized later.</li><li>Useful VRAM, KV arena and free VRAM from the live engine's <code>/health</code>.</li><li>Two shard pairs and the local MTP draft confirmed by hash and metadata name.</li></ul>
+        </div>
+        <div>
+          <h3>Out</h3>
+          <ul><li>Per-model performance: only Gyro-S runs and was measured on this machine; the other rows are budget, not a run.</li><li>Gated Hugging Face repos without a session: not checked, and none of the local weights depend on them.</li><li>The ComfyUI file catalogue is verified by size; image and video generation with its timings is the next planned entry.</li><li>The 2 Heretic weights are deliberately kept out of the catalogue.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-study-section case-study-resources mx-auto container-xx px-4" aria-labelledby="resources-title">
+      <div class="case-study-section-header"><p class="section-kicker">Resources</p><h2 id="resources-title">Where each piece lives</h2><p>The inventory and the machine are published as JSON. The linked repos are the weight sources; the only local weight is the MTP draft quantized with XeStrata.</p></div>
+      <nav class="case-study-resource-links" aria-label="Catalogue resources">
+        <a href="/en/projects/local-ai/data/inventory.json" class="project-cta"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>Inventory in JSON</span></a>
+        <a href="/en/projects/local-ai/data/machine.json" class="project-cta project-cta--secondary"><i data-lucide="file-json" class="h-4 w-4" aria-hidden="true"></i><span>Machine in JSON</span></a>
+        <a href="https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="download" class="h-4 w-4" aria-hidden="true"></i><span>GSQ-RCO</span></a>
+        <a href="https://github.com/MistVVK/XeStrata" class="project-cta project-cta--secondary" target="_blank" rel="noreferrer"><i data-lucide="github" class="h-4 w-4" aria-hidden="true"></i><span>XeStrata</span></a>
+        <a href="/en/projects/local-ai/" class="project-cta project-cta--secondary"><i data-lucide="folder" class="h-4 w-4" aria-hidden="true"></i><span>Local AI folder</span></a>
+      </nav>
+    </section>
+    <div class="case-study-back-wrap case-study-back-wrap--footer mx-auto container-xx px-4"><a href="/en/projects/local-ai/" class="case-study-back text-link">&larr; Back to Local AI</a></div>
+  </main>
+  <footer class="case-study-footer">&copy; <span id="yr"></span> Marco Rios · Deployed on GitHub Pages</footer>
+</body>
+</html>

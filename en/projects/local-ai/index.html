@@ -58,15 +58,16 @@
         <div class="case-study-hero-copy">
           <p class="section-kicker">Folder &middot; local AI</p>
           <h1 id="case-study-title">Local AI</h1>
-          <p class="case-study-summary">Models running on owned hardware, with their deployments, their tests and their guides. Each entry is a standalone page that can be read on its own: MoE inference on a 24 GB GPU, a benchmark against a live server, and how to start the engine.</p>
-          <p class="case-study-note">What is mine here is the deployment, the harness and the measurements. The engine is a fork of Strata maintained by MistVVK, the weights are Qwen's compressed by ISTA-DASLab and agentionai, and the loop guard comes from Project Maya. This folder will keep adding entries; the next ones planned are a catalog of local weights and image and video generation with ComfyUI, not published yet.</p>
+          <p class="case-study-summary">Models running on owned hardware, with their deployments, their tests and their guides. Each entry is a standalone page that can be read on its own: MoE inference on a 24 GB GPU, a benchmark against a live server, how to start the engine, and the catalog of the weights on disk.</p>
+          <p class="case-study-note">What is mine here is the deployment, the harness and the measurements. The engine is a fork of Strata maintained by MistVVK, the weights are Qwen's compressed by ISTA-DASLab and agentionai, and the loop guard comes from Project Maya. The published entries are inference, the bench, the start-up guide and the weights catalog. The next one, not published yet, is image and video generation with ComfyUI and its per-run timings.</p>
           <div class="flex flex-wrap gap-2 mt-5" aria-label="Capabilities in this folder">
-            <span class="badge">MoE inference</span><span class="badge">Live-server benchmark</span><span class="badge">GGUF quantization</span><span class="badge">Python</span><span class="badge">Intel Arc Pro B60</span>
+            <span class="badge">MoE inference</span><span class="badge">Live-server benchmark</span><span class="badge">GGUF quantization</span><span class="badge">Weights catalog</span><span class="badge">Python</span><span class="badge">Intel Arc Pro B60</span>
           </div>
           <nav class="ai-entry-links" aria-label="Local AI links">
             <a href="/en/projects/local-ai/xestrata/" class="project-cta"><i data-lucide="cpu" class="h-4 w-4" aria-hidden="true"></i><span>MoE inference on Intel Arc</span></a>
             <a href="/en/projects/local-ai/testing/" class="project-cta project-cta--secondary"><i data-lucide="list-checks" class="h-4 w-4" aria-hidden="true"></i><span>Live-server benchmark</span></a>
             <a href="/en/projects/local-ai/running/" class="project-cta project-cta--secondary"><i data-lucide="terminal" class="h-4 w-4" aria-hidden="true"></i><span>Start-up and quantizations</span></a>
+            <a href="/en/projects/local-ai/models/" class="project-cta project-cta--secondary"><i data-lucide="folder-open" class="h-4 w-4" aria-hidden="true"></i><span>Weights catalog</span></a>
           </nav>
         </div>
       </div>
@@ -132,6 +133,24 @@
             <div class="featured-project-actions">
               <a href="/en/projects/local-ai/running/" class="project-cta">Read the guide &rarr;</a>
               <span class="featured-project-meta">All of it with the engine already installed.</span>
+            </div>
+          </div>
+        </article>
+
+        <article id="models" class="featured-project">
+          <div class="featured-project-index" aria-hidden="true">04</div>
+          <div class="featured-project-body">
+            <h3>Weights catalog</h3>
+            <p class="featured-project-note">/en/projects/local-ai/models/ &middot; catalog</p>
+            <p>The 49 files on the NVMe, grouped by role: 24 GGUF for inference, 23 safetensors for ComfyUI and 2 OpenVINO ones for whisper. Each row carries its size, the repo it comes from, its license and where it fits in the 24 GB of VRAM.</p>
+            <p class="featured-project-note">Origins were verified by exact byte size against each repo's tree, and the fit is computed with the KV budget read out of the GGUF: 5 weights leave for RAM and NVMe, 12 only fit with a reduced cache.</p>
+            <div class="featured-project-stack">
+              <span class="badge">GGUF</span><span class="badge">safetensors</span><span class="badge">OpenVINO</span><span class="badge">Licenses</span>
+            </div>
+            <div class="featured-project-actions">
+              <a href="/en/projects/local-ai/models/" class="project-cta">See the catalog &rarr;</a>
+              <a href="/en/projects/local-ai/data/inventory.json" class="project-cta project-cta--secondary">Inventory as JSON &rarr;</a>
+              <span class="featured-project-meta">49 files &middot; 553.19 GiB.</span>
             </div>
           </div>
         </article>
